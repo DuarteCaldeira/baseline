@@ -1,0 +1,28 @@
+@use '@/styles/tokens/spacing' as *;
+
+.stack {
+	display: flex;
+	flex-direction: var(--stack-direction, column);
+	align-items: var(--stack-align, stretch);
+	justify-content: var(--stack-justify, flex-start);
+	flex-wrap: var(--stack-wrap, nowrap);
+}
+
+.stack--gap-1 {
+	gap: $spacing-1;
+}
+.stack--gap-2 {
+	gap: $spacing-2;
+}
+.stack--gap-3 {
+	gap: $spacing-3;
+}
+.stack--gap-4 {
+	gap: $spacing-4;
+}
+.stack--gap-6 {
+	gap: $spacing-6;
+}
+.stack--gap-8 {
+	gap: $spacing-8;
+}

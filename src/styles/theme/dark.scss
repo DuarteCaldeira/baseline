@@ -1,0 +1,26 @@
+@use '../tokens/colors' as *;
+
+[data-theme='dark'] {
+	--color-bg: #{$color-neutral-900};
+	--color-bg-subtle: #{$color-neutral-800};
+	--color-bg-muted: #{$color-neutral-700};
+	--color-surface: #{$color-neutral-800};
+	--color-surface-raised: #{$color-neutral-700};
+	--color-border: #{$color-neutral-700};
+	--color-border-strong: #{$color-neutral-600};
+
+	--color-text: #{$color-neutral-50};
+	--color-text-muted: #{$color-neutral-400};
+	--color-text-subtle: #{$color-neutral-500};
+	--color-text-inverse: #{$color-neutral-900};
+
+	--color-primary: #{$color-primary-400};
+	--color-primary-hover: #{$color-primary-300};
+	--color-primary-active: #{$color-primary-200};
+	--color-primary-subtle: #{$color-primary-900};
+
+	--color-success: #{$color-success};
+	--color-warning: #{$color-warning};
+	--color-error: #{$color-error};
+	--color-info: #{$color-info};
+}

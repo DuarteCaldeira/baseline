@@ -1,0 +1,27 @@
+@use '../tokens/colors' as *;
+
+:root,
+[data-theme='light'] {
+	--color-bg: #{$color-white};
+	--color-bg-subtle: #{$color-neutral-50};
+	--color-bg-muted: #{$color-neutral-100};
+	--color-surface: #{$color-white};
+	--color-surface-raised: #{$color-neutral-50};
+	--color-border: #{$color-neutral-200};
+	--color-border-strong: #{$color-neutral-300};
+
+	--color-text: #{$color-neutral-900};
+	--color-text-muted: #{$color-neutral-600};
+	--color-text-subtle: #{$color-neutral-400};
+	--color-text-inverse: #{$color-white};
+
+	--color-primary: #{$color-primary-600};
+	--color-primary-hover: #{$color-primary-700};
+	--color-primary-active: #{$color-primary-800};
+	--color-primary-subtle: #{$color-primary-50};
+
+	--color-success: #{$color-success};
+	--color-warning: #{$color-warning};
+	--color-error: #{$color-error};
+	--color-info: #{$color-info};
+}
