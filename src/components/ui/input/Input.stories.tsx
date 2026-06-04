@@ -9,6 +9,7 @@ const meta: Meta<typeof Input> = {
 	argTypes: {
 		label: { control: 'text' },
 		placeholder: { control: 'text' },
+		helperText: { control: 'text' },
 		error: { control: 'text' },
 		disabled: { control: 'boolean' },
 		type: {
@@ -34,8 +35,22 @@ export const WithoutLabel: Story = {
 	args: { label: undefined },
 };
 
+export const WithHelperText: Story = {
+	args: {
+		helperText: 'We will never share your email with anyone.',
+	},
+};
+
 export const WithError: Story = {
 	args: {
+		error: 'This field is required.',
+		value: '',
+	},
+};
+
+export const WithHelperTextAndError: Story = {
+	args: {
+		helperText: 'We will never share your email with anyone.',
 		error: 'This field is required.',
 		value: '',
 	},
@@ -60,9 +75,10 @@ export const AllStates: Story = {
 	render: () => (
 		<div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '400px' }}>
 			<Input id="s1" label="Default" placeholder="Placeholder..." />
-			<Input id="s2" label="Filled" value="Some value" onChange={() => {}} />
-			<Input id="s3" label="Error" error="This field is required." value="" onChange={() => {}} />
-			<Input id="s4" label="Disabled" disabled value="Disabled value" />
+			<Input id="s2" label="With helper text" placeholder="Placeholder..." helperText="This is some helpful context." />
+			<Input id="s3" label="Filled" value="Some value" onChange={() => {}} />
+			<Input id="s4" label="Error" error="This field is required." value="" onChange={() => {}} />
+			<Input id="s5" label="Disabled" disabled value="Disabled value" />
 		</div>
 	),
 };

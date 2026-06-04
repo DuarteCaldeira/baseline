@@ -2,10 +2,13 @@
 @use '@/styles/tokens/typography' as *;
 @use '@/styles/tokens/radius' as *;
 
-.input {
+.textarea {
 	width: 100%;
+	min-height: 6rem;
 	padding: $spacing-2 $spacing-3;
+	font-family: inherit;
 	font-size: $font-size-base;
+	line-height: $line-height-normal;
 	border: 1px solid var(--color-border);
 	border-radius: $radius-md;
 	background-color: var(--color-surface);
@@ -31,6 +34,11 @@
 			box-shadow: 0 0 0 3px rgb(220 38 38 / 0.15);
 		}
 	}
+
+	&--resize-none { resize: none; }
+	&--resize-vertical { resize: vertical; }
+	&--resize-horizontal { resize: horizontal; }
+	&--resize-both { resize: both; }
 
 	&__wrapper {
 		display: flex;

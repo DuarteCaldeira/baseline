@@ -1,40 +1,43 @@
-import type { InputHTMLAttributes } from 'react';
+import type { TextareaHTMLAttributes } from 'react';
 
 import { cn } from '@/utils/cn';
 
-import styles from './Input.module.scss';
+import styles from './Textarea.module.scss';
 
-export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
+export type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
 	label?: string;
 	helperText?: string;
 	error?: string;
+	resize?: 'none' | 'vertical' | 'horizontal' | 'both';
 };
 
-export const Input = ({
+export const Textarea = ({
 	label,
 	helperText,
 	error,
+	resize = 'vertical',
 	className,
 	id,
 	...rest
-}: InputProps) => {
+}: TextareaProps) => {
 	const helperId = helperText && id ? `${id}-helper` : undefined;
 	const errorId = error && id ? `${id}-error` : undefined;
 	const describedBy =
 		[helperId, errorId].filter(Boolean).join(' ') || undefined;
 
 	return (
-		<div className={styles['input__wrapper']}>
+		<div className={styles['textarea__wrapper']}>
 			{label && (
-				<label className={styles['input__label']} htmlFor={id}>
+				<label className={styles['textarea__label']} htmlFor={id}>
 					{label}
 				</label>
 			)}
-			<input
+			<textarea
 				id={id}
 				className={cn(
-					styles.input,
-					error && styles['input--error'],
+					styles.textarea,
+					styles[`textarea--resize-${resize}`],
+					error && styles['textarea--error'],
 					className
 				)}
 				aria-invalid={error ? true : undefined}
@@ -42,12 +45,12 @@ export const Input = ({
 				{...rest}
 			/>
 			{helperText && (
-				<span id={helperId} className={styles['input__helper']}>
+				<span id={helperId} className={styles['textarea__helper']}>
 					{helperText}
 				</span>
 			)}
 			{error && (
-				<span id={errorId} className={styles['input__error']} role="alert">
+				<span id={errorId} className={styles['textarea__error']} role="alert">
 					{error}
 				</span>
 			)}

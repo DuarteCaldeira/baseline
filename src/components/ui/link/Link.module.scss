@@ -1,0 +1,43 @@
+@use '@/styles/tokens/radius' as *;
+
+.link {
+	text-decoration: underline;
+	text-underline-offset: 0.2em;
+	transition:
+		color 150ms ease,
+		opacity 150ms ease;
+
+	&:focus-visible {
+		outline: 2px solid var(--color-primary);
+		outline-offset: 2px;
+		border-radius: $radius-sm;
+	}
+
+	&--default {
+		color: var(--color-primary);
+
+		&:hover {
+			color: var(--color-primary-hover);
+		}
+
+		&:active {
+			color: var(--color-primary-active);
+		}
+	}
+
+	&--subtle {
+		color: var(--color-text-muted);
+
+		&:hover {
+			color: var(--color-text);
+		}
+	}
+
+	&--inherit {
+		color: inherit;
+
+		&:hover {
+			opacity: 0.75;
+		}
+	}
+}

@@ -1,0 +1,85 @@
+@use '@/styles/tokens/spacing' as *;
+@use '@/styles/tokens/typography' as *;
+@use '@/styles/tokens/radius' as *;
+
+.checkbox {
+	display: inline-flex;
+	flex-direction: column;
+	gap: $spacing-1;
+
+	&--disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+
+	&__label {
+		display: inline-flex;
+		align-items: center;
+		gap: $spacing-2;
+		cursor: pointer;
+		user-select: none;
+
+		.checkbox--disabled & {
+			cursor: not-allowed;
+		}
+	}
+
+	&__input {
+		appearance: none;
+		flex-shrink: 0;
+		width: 1.125rem;
+		height: 1.125rem;
+		border: 1.5px solid var(--color-border);
+		border-radius: $radius-base;
+		background-color: var(--color-surface);
+		cursor: pointer;
+		transition:
+			background-color 150ms ease,
+			border-color 150ms ease,
+			box-shadow 150ms ease;
+
+		&:focus-visible {
+			outline: 2px solid var(--color-primary);
+			outline-offset: 2px;
+		}
+
+		&:checked {
+			background-color: var(--color-primary);
+			border-color: var(--color-primary);
+			/* stylelint-disable-next-line function-no-unknown */
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 11.94l6.72-6.72a.75.75 0 0 1 1.06 0z'/%3E%3C%2Fsvg%3E");
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: 0.75rem;
+		}
+
+		&:disabled {
+			cursor: not-allowed;
+		}
+
+		.checkbox--error & {
+			border-color: var(--color-error);
+
+			&:focus-visible {
+				outline-color: var(--color-error);
+				box-shadow: 0 0 0 3px rgb(220 38 38 / 0.15);
+			}
+		}
+	}
+
+	&__text {
+		font-size: $font-size-sm;
+		color: var(--color-text);
+		line-height: $line-height-normal;
+	}
+
+	&__helper {
+		font-size: $font-size-xs;
+		color: var(--color-text-subtle);
+	}
+
+	&__error {
+		font-size: $font-size-xs;
+		color: var(--color-error);
+	}
+}

@@ -2,6 +2,18 @@
 export { Button } from './components/ui/button';
 export type { ButtonProps } from './components/ui/button';
 
+export { Checkbox } from './components/ui/checkbox';
+export type { CheckboxProps } from './components/ui/checkbox';
+
+export { Radio } from './components/ui/radio';
+export type { RadioProps } from './components/ui/radio';
+
+export { Link } from './components/ui/link';
+export type { LinkProps } from './components/ui/link';
+
+export { Textarea } from './components/ui/textarea';
+export type { TextareaProps } from './components/ui/textarea';
+
 export { Input } from './components/ui/input';
 export type { InputProps } from './components/ui/input';
 

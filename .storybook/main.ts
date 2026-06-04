@@ -30,11 +30,19 @@ const config: StorybookConfig = {
 		viteConfig.resolve.alias = {
 			...viteConfig.resolve.alias,
 			'@': path.resolve(__dirname, '../src'),
+			'next/link': path.resolve(__dirname, '../src/__mocks__/next-link.tsx'),
 		};
 
 		if (!viteConfig.css) viteConfig.css = {};
 		viteConfig.css.preprocessorOptions = {
 			scss: { api: 'modern-compiler' },
+		};
+
+		// Stub process.env so any package that references it at runtime
+		// (e.g. Next.js internals) does not throw in the browser environment.
+		viteConfig.define = {
+			...viteConfig.define,
+			'process.env': '{}',
 		};
 
 		return viteConfig;
