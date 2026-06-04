@@ -1,5 +1,6 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 import type { LucideIcon } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 
 import { Icon } from '@/components/ui/icon';
 import { cn } from '@/utils/cn';
@@ -23,6 +24,8 @@ type BaseProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 	size?: 'sm' | 'md' | 'lg';
 	/** Square padding for icon-only buttons rendered as children. */
 	iconOnly?: boolean;
+	/** Shows a spinner and prevents interaction while an action is in progress. */
+	loading?: boolean;
 };
 
 export type ButtonProps = BaseProps & (WithChildren | IconOnly);
@@ -37,28 +40,41 @@ export const Button = ({
 	variant = 'primary',
 	size = 'md',
 	iconOnly,
+	loading = false,
 	disabled,
 	children,
 	icon: IconComponent,
 	className,
 	...rest
-}: ButtonProps) => (
-	<button
-		className={cn(
-			styles.button,
-			styles[`button--${variant}`],
-			styles[`button--${size}`],
-			(iconOnly || (!children && IconComponent)) &&
-				styles['button--icon-only'],
-			disabled && styles['button--disabled'],
-			className
-		)}
-		disabled={disabled}
-		{...rest}
-	>
-		{IconComponent && (
-			<Icon icon={IconComponent} size={ICON_SIZE[size ?? 'md']} />
-		)}
-		{children}
-	</button>
-);
+}: ButtonProps) => {
+	const isDisabled = disabled || loading;
+
+	return (
+		<button
+			className={cn(
+				styles.button,
+				styles[`button--${variant}`],
+				styles[`button--${size}`],
+				(iconOnly || (!children && IconComponent)) &&
+					styles['button--icon-only'],
+				isDisabled && styles['button--disabled'],
+				loading && styles['button--loading'],
+				className
+			)}
+			disabled={isDisabled}
+			aria-busy={loading || undefined}
+			{...rest}
+		>
+			{loading ? (
+				<span className={styles['button__spinner']} aria-hidden="true">
+					<Icon icon={Loader2} size={ICON_SIZE[size ?? 'md']} />
+				</span>
+			) : (
+				IconComponent && (
+					<Icon icon={IconComponent} size={ICON_SIZE[size ?? 'md']} />
+				)
+			)}
+			{children}
+		</button>
+	);
+};

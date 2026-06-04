@@ -26,6 +26,9 @@ export type { ModalProps } from './components/ui/modal';
 export { Accordion } from './components/ui/accordion';
 export type { AccordionProps, AccordionItem, AccordionType } from './components/ui/accordion';
 
+export { Tabs } from './components/ui/tabs';
+export type { TabsProps, TabItem } from './components/ui/tabs';
+
 export { Badge } from './components/ui/badge';
 export type { BadgeProps, BadgeVariant, BadgeType } from './components/ui/badge';
 
@@ -50,6 +53,13 @@ export type { ContainerProps } from './components/layout/container';
 
 export { Stack } from './components/layout/stack';
 export type { StackProps } from './components/layout/stack';
+
+// Pattern Components
+export { EmptyState } from './components/patterns/empty-state';
+export type { EmptyStateProps } from './components/patterns/empty-state';
+
+export { Skeleton } from './components/patterns/skeleton';
+export type { SkeletonProps, SkeletonVariant, SkeletonWidth } from './components/patterns/skeleton';
 
 // Hooks
 export { useDebounce } from './hooks/useDebounce';

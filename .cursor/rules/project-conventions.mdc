@@ -11,6 +11,7 @@ Next.js 14 App Router · TypeScript (strict) · SCSS Modules · Vitest + Testing
 ## Folder Structure
 - UI components → `src/components/ui/<name>/`
 - Layout primitives → `src/components/layout/<name>/`
+- Composite patterns → `src/components/patterns/<name>/`
 - Custom hooks → `src/hooks/`
 - Pure utilities → `src/utils/`
 - Shared types → `src/types/`
@@ -74,6 +75,7 @@ function handleClick() { ... }
   - **`Stack`** — flex rows/columns with token gaps and alignment (`src/components/layout/stack/`)
   - **`Button`** — actions; use `iconOnly` + **`Icon`** for icon-only controls instead of custom styled buttons
   - **`Icon`** — Lucide icons with theme token colors; omit `variant` inside buttons so color inherits from the button
+- Composite UI patterns (empty states, future page blocks) live in **`src/components/patterns/`** — compose primitives rather than reimplementing them
 - Use **`Stack`** whenever layout is flex + gap (form field wrappers, toolbars, modal header/footer, toast rows). Keep bespoke SCSS for positioning, borders, and non-flex concerns only.
 - Extract repeated UI patterns into shared components rather than duplicating JSX
 - Avoid over-engineering: don't abstract until the pattern appears at least twice

@@ -86,6 +86,7 @@ Reuse shared components instead of duplicating flex layouts, raw buttons, or inl
 | `Stack` | Column or row layout with token `gap`, `align`, or `justify` |
 | `Button` | Any clickable action; `variant="ghost"` + `iconOnly` for dismiss/nav icon buttons |
 | `Icon` | Lucide icons; pass `variant` for standalone semantic color, omit inside `Button` |
+| `EmptyState` etc. | Composite patterns in `src/components/patterns/` — built from primitives above |
 
 ```tsx
 // ✅ form field wrapper — Stack replaces flex-column + gap in SCSS

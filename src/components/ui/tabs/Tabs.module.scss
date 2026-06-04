@@ -1,0 +1,61 @@
+@use '@/styles/tokens/spacing' as *;
+
+.tabs {
+	width: 100%;
+
+	&__list {
+		position: relative;
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	&__tab {
+		position: relative;
+		padding: $spacing-3 $spacing-4;
+		font: var(--font-control);
+		color: var(--color-text-muted);
+		background: none;
+		border: none;
+		cursor: pointer;
+		white-space: nowrap;
+		transition: color 150ms ease;
+
+		&:hover:not(:disabled):not(.tabs__tab--selected) {
+			color: var(--color-text);
+		}
+
+		&:focus-visible {
+			outline: 2px solid var(--color-primary);
+			outline-offset: -2px;
+			border-radius: 2px;
+		}
+
+		&--selected {
+			color: var(--color-primary);
+		}
+
+		&:disabled {
+			opacity: 0.5;
+			cursor: not-allowed;
+		}
+	}
+
+	&__indicator {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		height: 2px;
+		background-color: var(--color-primary);
+		border-radius: 1px;
+		pointer-events: none;
+		transition:
+			transform 250ms ease,
+			width 250ms ease;
+		will-change: transform, width;
+	}
+
+	&__panel {
+		padding: $spacing-4 0;
+		font: var(--font-base);
+		color: var(--color-text-muted);
+	}
+}

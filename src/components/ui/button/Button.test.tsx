@@ -108,4 +108,63 @@ describe('Button', () => {
 			expect(container.querySelector('svg')).toBeInTheDocument();
 		});
 	});
+
+	describe('loading', () => {
+		it('applies the loading modifier class', () => {
+			const { container } = render(<Button loading>Saving</Button>);
+			expect(container.querySelector('.button--loading')).toBeInTheDocument();
+		});
+
+		it('disables the button while loading', () => {
+			render(<Button loading>Saving</Button>);
+			expect(screen.getByRole('button', { name: /saving/i })).toBeDisabled();
+		});
+
+		it('sets aria-busy while loading', () => {
+			render(<Button loading>Saving</Button>);
+			expect(screen.getByRole('button', { name: /saving/i })).toHaveAttribute(
+				'aria-busy',
+				'true'
+			);
+		});
+
+		it('does not call onClick while loading', async () => {
+			const handleClick = vi.fn();
+			render(
+				<Button loading onClick={handleClick}>
+					Saving
+				</Button>
+			);
+
+			await userEvent.click(screen.getByRole('button', { name: /saving/i }));
+			expect(handleClick).not.toHaveBeenCalled();
+		});
+
+		it('renders a spinner instead of the icon', () => {
+			const { container } = render(
+				<Button loading icon={Star}>
+					Saving
+				</Button>
+			);
+
+			expect(container.querySelector('.button__spinner')).toBeInTheDocument();
+			expect(container.querySelectorAll('svg')).toHaveLength(1);
+		});
+
+		it('keeps the label visible while loading', () => {
+			render(<Button loading>Saving</Button>);
+			expect(screen.getByText('Saving')).toBeInTheDocument();
+		});
+
+		it('renders a spinner for icon-only buttons', () => {
+			const { container } = render(
+				<Button loading icon={X} aria-label="Close" />
+			);
+
+			expect(container.querySelector('.button__spinner')).toBeInTheDocument();
+			expect(
+				screen.getByRole('button', { name: 'Close' })
+			).toBeInTheDocument();
+		});
+	});
 });

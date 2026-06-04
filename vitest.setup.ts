@@ -21,3 +21,15 @@ class DataTransferMock {
 if (typeof globalThis.DataTransfer === 'undefined') {
 	globalThis.DataTransfer = DataTransferMock as typeof DataTransfer;
 }
+
+class ResizeObserverMock {
+	observe = () => {};
+	unobserve = () => {};
+	disconnect = () => {};
+	constructor(_callback: ResizeObserverCallback) {}
+}
+
+if (typeof globalThis.ResizeObserver === 'undefined') {
+	globalThis.ResizeObserver =
+		ResizeObserverMock as typeof ResizeObserver;
+}

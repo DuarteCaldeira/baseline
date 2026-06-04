@@ -17,6 +17,7 @@ const meta: Meta<typeof Button> = {
 			options: ['sm', 'md', 'lg'],
 		},
 		disabled: { control: 'boolean' },
+		loading: { control: 'boolean' },
 		children: { control: 'text' },
 		icon: { control: false },
 	},
@@ -48,6 +49,24 @@ export const Disabled: Story = {
 	args: { disabled: true },
 };
 
+export const Loading: Story = {
+	args: { loading: true, children: 'Saving…' },
+};
+
+export const LoadingWithIcon: Story = {
+	args: { loading: true, icon: Plus, children: 'Adding item…' },
+};
+
+export const LoadingIconOnly: Story = {
+	args: {
+		loading: true,
+		icon: X,
+		'aria-label': 'Close',
+		children: undefined,
+		variant: 'ghost',
+	},
+};
+
 export const Small: Story = {
 	args: { size: 'sm' },
 };
@@ -71,6 +90,7 @@ export const AllVariants: Story = {
 			<Button variant="secondary">Secondary</Button>
 			<Button variant="ghost">Ghost</Button>
 			<Button variant="primary" disabled>Disabled</Button>
+			<Button variant="primary" loading>Loading</Button>
 		</div>
 	),
 };
