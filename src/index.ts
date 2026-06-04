@@ -26,6 +26,12 @@ export type { ModalProps } from './components/ui/modal';
 export { Accordion } from './components/ui/accordion';
 export type { AccordionProps, AccordionItem, AccordionType } from './components/ui/accordion';
 
+export { Badge } from './components/ui/badge';
+export type { BadgeProps, BadgeVariant, BadgeType } from './components/ui/badge';
+
+export { DatePicker } from './components/ui/datepicker';
+export type { DatePickerProps, DateFormat } from './components/ui/datepicker';
+
 export { Input } from './components/ui/input';
 export type { InputProps } from './components/ui/input';
 

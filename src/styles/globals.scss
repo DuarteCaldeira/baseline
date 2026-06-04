@@ -5,29 +5,9 @@
 
 body {
 	font: var(--font-base);
-	letter-spacing: var(--letter-spacing-snug);
+	letter-spacing: var(--letter-spacing-wide);
 	background-color: var(--color-bg);
 	color: var(--color-text);
-}
-
-// Headings get tighter tracking as size increases
-h1,
-h2,
-h3 {
-	letter-spacing: var(--letter-spacing-tight);
-}
-
-h4,
-h5,
-h6 {
-	letter-spacing: var(--letter-spacing-snug);
-}
-
-// Small text reads better with a touch of extra spacing
-small,
-.text-xs,
-.text-sm {
-	letter-spacing: var(--letter-spacing-wide);
 }
 
 #root,

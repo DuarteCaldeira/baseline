@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { Star, X } from 'lucide-react';
 import { describe, expect, it, vi } from 'vitest';
 
 import { Button } from './Button';
@@ -58,5 +59,53 @@ describe('Button', () => {
 	it('applies size class', () => {
 		const { container } = render(<Button size="lg">Large</Button>);
 		expect(container.querySelector('.button--lg')).toBeInTheDocument();
+	});
+
+	describe('with icon', () => {
+		it('renders an icon alongside text', () => {
+			const { container } = render(<Button icon={Star}>Favourite</Button>);
+			expect(container.querySelector('svg')).toBeInTheDocument();
+			expect(screen.getByText('Favourite')).toBeInTheDocument();
+		});
+
+		it('marks the icon as aria-hidden when text is present', () => {
+			const { container } = render(<Button icon={Star}>Favourite</Button>);
+			expect(container.querySelector('svg')).toHaveAttribute(
+				'aria-hidden',
+				'true'
+			);
+		});
+
+		it('does not apply icon-only class when children are present', () => {
+			const { container } = render(<Button icon={Star}>Favourite</Button>);
+			expect(
+				container.querySelector('.button--icon-only')
+			).not.toBeInTheDocument();
+		});
+	});
+
+	describe('icon-only', () => {
+		it('renders an accessible button with aria-label', () => {
+			render(<Button icon={X} aria-label="Close" />);
+			expect(
+				screen.getByRole('button', { name: 'Close' })
+			).toBeInTheDocument();
+		});
+
+		it('applies the icon-only modifier class', () => {
+			const { container } = render(
+				<Button icon={X} aria-label="Close" />
+			);
+			expect(
+				container.querySelector('.button--icon-only')
+			).toBeInTheDocument();
+		});
+
+		it('renders the svg element', () => {
+			const { container } = render(
+				<Button icon={X} aria-label="Close" />
+			);
+			expect(container.querySelector('svg')).toBeInTheDocument();
+		});
 	});
 });

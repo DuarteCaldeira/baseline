@@ -1,0 +1,36 @@
+@use '@/styles/tokens/spacing' as *;
+@use '@/styles/tokens/radius' as *;
+
+.badge {
+	display: inline-flex;
+	align-items: center;
+	gap: $spacing-1;
+	padding: $spacing-1 $spacing-2;
+	border-radius: $radius-full;
+	border: 1px solid transparent;
+	font: var(--font-caption);
+	font-weight: var(--font-weight-medium);
+	white-space: nowrap;
+
+	// ── Filled (default) ──────────────────────────────────────────────────────
+
+	&--success { background-color: var(--color-success-weak); color: var(--color-success-text); }
+	&--error   { background-color: var(--color-error-weak);   color: var(--color-error-text); }
+	&--warning { background-color: var(--color-warning-weak); color: var(--color-warning-text); }
+	&--info    { background-color: var(--color-info-weak);    color: var(--color-info-text); }
+	&--neutral { background-color: var(--color-bg-muted);     color: var(--color-text-muted); }
+
+	// ── Outlined ──────────────────────────────────────────────────────────────
+	// Background is removed; the border uses the -text colour of each variant
+	// so it reads as subtle rather than harsh.
+
+	&--outlined {
+		background-color: transparent;
+
+		&.badge--success { border-color: var(--color-success-text); color: var(--color-success-text); }
+		&.badge--error   { border-color: var(--color-error-text);   color: var(--color-error-text); }
+		&.badge--warning { border-color: var(--color-warning-text); color: var(--color-warning-text); }
+		&.badge--info    { border-color: var(--color-info-text);    color: var(--color-info-text); }
+		&.badge--neutral { border-color: var(--color-border);       color: var(--color-text-muted); }
+	}
+}

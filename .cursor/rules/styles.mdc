@@ -36,10 +36,6 @@ Typography is consumed through **font shorthand custom properties** defined in `
 // ✅ — one declaration covers size, weight, line-height, and family
 font: var(--font-label);
 
-// ✅ — letter-spacing is NOT part of the font shorthand; always set it separately
-font: var(--font-label);
-letter-spacing: var(--letter-spacing-snug);
-
 // ✅ — weight-only override (e.g. a selected-state modifier) stays as font-weight
 font-weight: var(--font-weight-medium);
 
@@ -75,7 +71,7 @@ Individual override properties (for single-property changes only):
 | `--font-weight-medium` | `500` |
 | `--font-weight-bold` | `700` |
 
-Letter spacing (always set separately — not part of `font` shorthand):
+Letter spacing is set once on `body` in `globals.scss` (`--letter-spacing-wide`). Do not set it in components.
 
 | Variable | Value |
 |---|---|

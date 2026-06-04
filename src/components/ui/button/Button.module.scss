@@ -7,7 +7,6 @@
 	justify-content: center;
 	gap: $spacing-2;
 	border-radius: $radius-md;
-	letter-spacing: var(--letter-spacing-wide);
 	white-space: nowrap;
 	user-select: none;
 	transition:
@@ -46,6 +45,16 @@
 		font: var(--font-control-lg);
 		padding: $spacing-2 $spacing-5;
 		height: 2.75rem;
+	}
+
+	// Icon-only — square, no horizontal padding
+	&--icon-only {
+		padding: 0;
+		gap: 0;
+
+		&.button--sm { width: 2rem; }
+		&.button--md { width: 2.25rem; }
+		&.button--lg { width: 2.75rem; }
 	}
 
 	// Variants

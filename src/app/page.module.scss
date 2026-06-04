@@ -25,7 +25,6 @@
 		border: 1px solid var(--color-border);
 		font: var(--font-caption);
 		font-weight: var(--font-weight-medium); // explicit medium over caption's regular
-		letter-spacing: var(--letter-spacing-wider);
 		text-transform: uppercase;
 		color: var(--color-text-muted);
 		background-color: var(--color-surface);
@@ -35,7 +34,6 @@
 	&__heading {
 		font-size: clamp(3rem, 10vw, 5rem); // clamp prevents use of shorthand preset
 		font-weight: var(--font-weight-bold);
-		letter-spacing: -0.04em;
 		line-height: 1.05;
 		text-align: center;
 		background: linear-gradient(
@@ -73,7 +71,6 @@
 	&__showcase-label {
 		font: var(--font-caption);
 		font-weight: var(--font-weight-medium); // explicit medium over caption's regular
-		letter-spacing: var(--letter-spacing-wider);
 		text-transform: uppercase;
 		color: var(--color-text-subtle);
 	}
