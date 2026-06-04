@@ -70,7 +70,7 @@ describe('Button', () => {
 
 		it('marks the icon as aria-hidden when text is present', () => {
 			const { container } = render(<Button icon={Star}>Favourite</Button>);
-			expect(container.querySelector('svg')).toHaveAttribute(
+			expect(container.querySelector('.icon')).toHaveAttribute(
 				'aria-hidden',
 				'true'
 			);

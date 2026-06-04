@@ -1,5 +1,6 @@
 import type { InputHTMLAttributes } from 'react';
 
+import { Stack } from '@/components/layout/stack';
 import { cn } from '@/utils/cn';
 
 import styles from './Input.module.scss';
@@ -24,7 +25,7 @@ export const Input = ({
 		[helperId, errorId].filter(Boolean).join(' ') || undefined;
 
 	return (
-		<div className={styles['input__wrapper']}>
+		<Stack gap="1" className={styles['input__wrapper']}>
 			{label && (
 				<label className={styles['input__label']} htmlFor={id}>
 					{label}
@@ -51,6 +52,6 @@ export const Input = ({
 					{error}
 				</span>
 			)}
-		</div>
+		</Stack>
 	);
 };

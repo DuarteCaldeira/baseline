@@ -9,7 +9,12 @@ import { useToast } from './useToast';
 // ─── Toast visual component ───────────────────────────────────────────────────
 
 describe('Toast', () => {
-	beforeEach(() => vi.useFakeTimers());
+	let user: ReturnType<typeof userEvent.setup>;
+
+	beforeEach(() => {
+		vi.useFakeTimers();
+		user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+	});
 	afterEach(() => vi.useRealTimers());
 
 	it('renders the message', () => {
@@ -57,7 +62,7 @@ describe('Toast', () => {
 			<Toast id="1" variant="success" message="Done." onDismiss={onDismiss} />
 		);
 
-		await userEvent.click(
+		await user.click(
 			screen.getByRole('button', { name: /dismiss notification/i })
 		);
 
@@ -128,7 +133,12 @@ const TestConsumer = () => {
 };
 
 describe('ToastProvider', () => {
-	beforeEach(() => vi.useFakeTimers());
+	let user: ReturnType<typeof userEvent.setup>;
+
+	beforeEach(() => {
+		vi.useFakeTimers();
+		user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+	});
 	afterEach(() => vi.useRealTimers());
 
 	it('renders children', () => {
@@ -147,7 +157,7 @@ describe('ToastProvider', () => {
 			</ToastProvider>
 		);
 
-		await userEvent.click(screen.getByRole('button', { name: /show success/i }));
+		await user.click(screen.getByRole('button', { name: /show success/i }));
 		expect(screen.getByText('Saved!')).toBeInTheDocument();
 	});
 
@@ -158,7 +168,7 @@ describe('ToastProvider', () => {
 			</ToastProvider>
 		);
 
-		await userEvent.click(screen.getByRole('button', { name: /show error/i }));
+		await user.click(screen.getByRole('button', { name: /show error/i }));
 		expect(screen.getByText('Oops')).toBeInTheDocument();
 		expect(screen.getByText('Something went wrong.')).toBeInTheDocument();
 	});
@@ -170,7 +180,7 @@ describe('ToastProvider', () => {
 			</ToastProvider>
 		);
 
-		await userEvent.click(screen.getByRole('button', { name: /show success/i }));
+		await user.click(screen.getByRole('button', { name: /show success/i }));
 		expect(screen.getByText('Saved!')).toBeInTheDocument();
 
 		act(() => vi.advanceTimersByTime(6000));

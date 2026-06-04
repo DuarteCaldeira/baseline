@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import type { CSSProperties, HTMLAttributes, ReactNode } from 'react';
 
 import { cn } from '@/utils/cn';
@@ -21,7 +22,7 @@ const resolveJustify = (
 	return justify;
 };
 
-export const Stack = ({
+export const Stack = forwardRef<HTMLDivElement, StackProps>(({
 	children,
 	direction = 'column',
 	gap = '4',
@@ -31,7 +32,7 @@ export const Stack = ({
 	className,
 	style,
 	...rest
-}: StackProps) => {
+}, ref) => {
 	const inlineStyle: CSSProperties = {
 		'--stack-direction': direction,
 		'--stack-align': align,
@@ -42,6 +43,7 @@ export const Stack = ({
 
 	return (
 		<div
+			ref={ref}
 			className={cn(styles.stack, styles[`stack--gap-${gap}`], className)}
 			style={inlineStyle}
 			{...rest}
@@ -49,4 +51,6 @@ export const Stack = ({
 			{children}
 		</div>
 	);
-};
+});
+
+Stack.displayName = 'Stack';

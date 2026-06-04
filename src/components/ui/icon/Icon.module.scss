@@ -3,9 +3,8 @@
 	align-items: center;
 	justify-content: center;
 	flex-shrink: 0;
+	color: currentColor;
 
-	// Neutral variants
-	&--default { color: var(--color-text); }
 	&--muted   { color: var(--color-text-muted); }
 	&--subtle  { color: var(--color-text-subtle); }
 
@@ -15,4 +14,8 @@
 	&--warning { color: var(--color-warning); }
 	&--error   { color: var(--color-error); }
 	&--info    { color: var(--color-info); }
+
+	svg {
+		color: inherit;
+	}
 }

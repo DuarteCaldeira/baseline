@@ -1,6 +1,8 @@
 import { createContext, useCallback, useContext, useState } from 'react';
 import type { ReactNode } from 'react';
 
+import { Stack } from '@/components/layout/stack';
+
 import { Toast } from './Toast';
 import type { ToastContextValue, ToastItem } from './Toast.types';
 import styles from './Toast.module.scss';
@@ -34,8 +36,9 @@ export const ToastProvider = ({ children }: ToastProviderProps) => {
 	return (
 		<ToastContext.Provider value={{ show, dismiss }}>
 			{children}
-			<div
-				className={styles['toast__container']}
+			<Stack
+				gap="3"
+				className={styles['toast-container']}
 				aria-label="Notifications"
 				aria-live="polite"
 				aria-atomic="false"
@@ -43,7 +46,7 @@ export const ToastProvider = ({ children }: ToastProviderProps) => {
 				{toasts.map((toast) => (
 					<Toast key={toast.id} {...toast} onDismiss={dismiss} />
 				))}
-			</div>
+			</Stack>
 		</ToastContext.Provider>
 	);
 };

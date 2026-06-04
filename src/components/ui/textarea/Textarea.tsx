@@ -1,5 +1,6 @@
 import type { TextareaHTMLAttributes } from 'react';
 
+import { Stack } from '@/components/layout/stack';
 import { cn } from '@/utils/cn';
 
 import styles from './Textarea.module.scss';
@@ -26,7 +27,7 @@ export const Textarea = ({
 		[helperId, errorId].filter(Boolean).join(' ') || undefined;
 
 	return (
-		<div className={styles['textarea__wrapper']}>
+		<Stack gap="1" className={styles['textarea__wrapper']}>
 			{label && (
 				<label className={styles['textarea__label']} htmlFor={id}>
 					{label}
@@ -54,6 +55,6 @@ export const Textarea = ({
 					{error}
 				</span>
 			)}
-		</div>
+		</Stack>
 	);
 };

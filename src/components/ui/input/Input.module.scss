@@ -44,12 +44,6 @@
 		}
 	}
 
-	&__wrapper {
-		display: flex;
-		flex-direction: column;
-		gap: $spacing-1;
-	}
-
 	&__label {
 		font: var(--font-label);
 		color: var(--color-text);

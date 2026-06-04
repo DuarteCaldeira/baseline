@@ -3,7 +3,9 @@ import type { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 
+import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
+import { Stack } from '@/components/layout/stack';
 import type { Size } from '@/types/common';
 import { cn } from '@/utils/cn';
 
@@ -46,8 +48,13 @@ export const Modal = ({
 	if (!mounted || !isOpen) return null;
 
 	return createPortal(
-		<div className={styles['modal__overlay']} onClick={handleOverlayClick}>
-			<div
+		<Stack
+			align="center"
+			justify="center"
+			className={styles['modal-overlay']}
+			onClick={handleOverlayClick}
+		>
+			<Stack
 				ref={dialogRef}
 				role="dialog"
 				aria-modal="true"
@@ -57,7 +64,10 @@ export const Modal = ({
 				onClick={handleDialogClick}
 				onKeyDown={handleDialogKeyDown}
 			>
-				<div
+				<Stack
+					direction="row"
+					justify={title ? 'between' : 'end'}
+					align="center"
 					className={cn(
 						styles['modal__header'],
 						!title && styles['modal__header--no-title']
@@ -68,21 +78,30 @@ export const Modal = ({
 							{title}
 						</h2>
 					)}
-					<button
+					<Button
 						type="button"
-						className={styles['modal__close']}
+						variant="ghost"
+						size="sm"
+						iconOnly
 						onClick={onClose}
 						aria-label="Close modal"
 					>
 						<Icon icon={X} size="sm" />
-					</button>
-				</div>
+					</Button>
+				</Stack>
 				<div className={styles['modal__body']}>{children}</div>
 				{footer && (
-					<div className={styles['modal__footer']}>{footer}</div>
+					<Stack
+						direction="row"
+						justify="end"
+						gap="2"
+						className={styles['modal__footer']}
+					>
+						{footer}
+					</Stack>
 				)}
-			</div>
-		</div>,
+			</Stack>
+		</Stack>,
 		document.body
 	);
 };

@@ -2,7 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
 import { AlertCircle, AlertTriangle, CheckCircle, Info, X } from 'lucide-react';
 
+import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
+import { Stack } from '@/components/layout/stack';
 import { cn } from '@/utils/cn';
 
 import type { ToastItem, ToastVariant } from './Toast.types';
@@ -47,7 +49,10 @@ export const Toast = ({ id, variant, title, message, onDismiss }: ToastProps) =>
 	};
 
 	return (
-		<div
+		<Stack
+			direction="row"
+			gap="3"
+			align="start"
 			role="status"
 			aria-atomic="true"
 			className={cn(
@@ -63,14 +68,17 @@ export const Toast = ({ id, variant, title, message, onDismiss }: ToastProps) =>
 				{title && <p className={styles['toast__title']}>{title}</p>}
 				<p className={styles['toast__message']}>{message}</p>
 			</div>
-			<button
+			<Button
 				type="button"
+				variant="ghost"
+				size="sm"
+				iconOnly
 				className={styles['toast__close']}
 				onClick={handleClose}
 				aria-label="Dismiss notification"
 			>
 				<Icon icon={X} size="sm" />
-			</button>
-		</div>
+			</Button>
+		</Stack>
 	);
 };

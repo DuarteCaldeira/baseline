@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import type { KeyboardEvent } from 'react';
 import { ChevronDown } from 'lucide-react';
 
+import { Icon } from '@/components/ui/icon';
 import { cn } from '@/utils/cn';
 
 import type { AccordionItem, AccordionType } from './Accordion.types';
@@ -88,10 +89,10 @@ export const Accordion = ({
 								<span className={styles['accordion__trigger-label']}>
 									{item.title}
 								</span>
-								<ChevronDown
-									size={16}
+								<Icon
+									icon={ChevronDown}
+									size="sm"
 									className={styles['accordion__icon']}
-									aria-hidden="true"
 								/>
 							</button>
 						</h3>
@@ -99,6 +100,7 @@ export const Accordion = ({
 							id={panelId}
 							role="region"
 							aria-labelledby={triggerId}
+							hidden={!open}
 							className={cn(
 								styles['accordion__panel'],
 								open && styles['accordion__panel--open']

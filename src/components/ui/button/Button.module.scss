@@ -21,6 +21,15 @@
 		outline-offset: 2px;
 	}
 
+	.icon {
+		color: inherit;
+	}
+
+	svg {
+		flex-shrink: 0;
+		color: inherit;
+	}
+
 	&:disabled,
 	&--disabled {
 		opacity: 0.45;

@@ -20,7 +20,7 @@
 			opacity: 0.5;
 		}
 
-		&--open > .accordion__heading > .accordion__trigger {
+		&--open > h3 > .accordion__trigger {
 			background-color: var(--color-bg-subtle);
 		}
 	}
@@ -59,7 +59,9 @@
 	&__icon {
 		flex-shrink: 0;
 		color: var(--color-text-subtle);
-		transition: transform 250ms ease;
+		transition:
+			transform 250ms ease,
+			color 150ms ease;
 
 		.accordion__item--open & {
 			transform: rotate(-180deg);

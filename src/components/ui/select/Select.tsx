@@ -1,4 +1,5 @@
 import { useSelect } from './useSelect';
+import { Stack } from '@/components/layout/stack';
 import { cn } from '@/utils/cn';
 
 import type { SelectOption } from './Select.types';
@@ -59,7 +60,11 @@ export const Select = ({
 	const errorId = error ? getErrorId(id) : undefined;
 
 	return (
-		<div ref={containerRef} className={cn(styles['select__wrapper'], className)}>
+		<Stack
+			ref={containerRef}
+			gap="1"
+			className={cn(styles['select__wrapper'], className)}
+		>
 			{label && (
 				<label id={labelId} className={styles['select__label']} htmlFor={triggerId}>
 					{label}
@@ -187,6 +192,6 @@ export const Select = ({
 					{error}
 				</span>
 			)}
-		</div>
+		</Stack>
 	);
 };

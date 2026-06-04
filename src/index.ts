@@ -32,6 +32,9 @@ export type { BadgeProps, BadgeVariant, BadgeType } from './components/ui/badge'
 export { DatePicker } from './components/ui/datepicker';
 export type { DatePickerProps, DateFormat } from './components/ui/datepicker';
 
+export { FileUpload } from './components/ui/fileupload';
+export type { FileUploadProps } from './components/ui/fileupload';
+
 export { Input } from './components/ui/input';
 export type { InputProps } from './components/ui/input';
 

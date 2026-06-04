@@ -77,6 +77,38 @@ src/hooks/
 
 Co-locating component-scoped hooks keeps implementation details next to the UI they support and simplifies refactoring; keeping generic hooks in `src/hooks/` makes them discoverable for reuse.
 
+## Composition — layout & UI primitives
+Reuse shared components instead of duplicating flex layouts, raw buttons, or inline SVGs.
+
+| Primitive | Use when |
+|---|---|
+| `Container` | Constraining page/content width |
+| `Stack` | Column or row layout with token `gap`, `align`, or `justify` |
+| `Button` | Any clickable action; `variant="ghost"` + `iconOnly` for dismiss/nav icon buttons |
+| `Icon` | Lucide icons; pass `variant` for standalone semantic color, omit inside `Button` |
+
+```tsx
+// ✅ form field wrapper — Stack replaces flex-column + gap in SCSS
+<Stack gap="1" className={styles['input__wrapper']}>
+  {label && <label …>{label}</label>}
+  <input … />
+  {helperText && <span …>{helperText}</span>}
+</Stack>
+
+// ✅ icon-only control — Button + Icon, not a raw <button> + inline SVG
+<Button variant="ghost" size="sm" iconOnly aria-label="Close">
+  <Icon icon={X} size="sm" />
+</Button>
+
+// ❌ bespoke flex wrapper in SCSS when Stack fits
+.input__wrapper { display: flex; flex-direction: column; gap: $spacing-1; }
+
+// ❌ one-off icon button styling
+<button className={styles.close}><X /></button>
+```
+
+Keep semantic HTML where primitives don't fit (e.g. `<ul>` for file lists, native `<button>` for calendar day cells). Do not replace grid-based or absolutely positioned layouts with `Stack`.
+
 ## Styling — SCSS Modules + BEM
 - Never use inline styles or CSS-in-JS
 - Use `cn()` from `@/utils/cn` for conditional class merging

@@ -1,6 +1,7 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 import type { LucideIcon } from 'lucide-react';
 
+import { Icon } from '@/components/ui/icon';
 import { cn } from '@/utils/cn';
 
 import styles from './Button.module.scss';
@@ -20,19 +21,22 @@ type IconOnly = {
 type BaseProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 	variant?: 'primary' | 'secondary' | 'ghost';
 	size?: 'sm' | 'md' | 'lg';
+	/** Square padding for icon-only buttons rendered as children. */
+	iconOnly?: boolean;
 };
 
 export type ButtonProps = BaseProps & (WithChildren | IconOnly);
 
-const ICON_SIZE: Record<NonNullable<BaseProps['size']>, number> = {
-	sm: 14,
-	md: 16,
-	lg: 18,
+const ICON_SIZE: Record<NonNullable<BaseProps['size']>, 'sm' | 'md' | 'lg'> = {
+	sm: 'sm',
+	md: 'md',
+	lg: 'lg',
 };
 
 export const Button = ({
 	variant = 'primary',
 	size = 'md',
+	iconOnly,
 	disabled,
 	children,
 	icon: IconComponent,
@@ -44,7 +48,8 @@ export const Button = ({
 			styles.button,
 			styles[`button--${variant}`],
 			styles[`button--${size}`],
-			!children && IconComponent && styles['button--icon-only'],
+			(iconOnly || (!children && IconComponent)) &&
+				styles['button--icon-only'],
 			disabled && styles['button--disabled'],
 			className
 		)}
@@ -52,7 +57,7 @@ export const Button = ({
 		{...rest}
 	>
 		{IconComponent && (
-			<IconComponent size={ICON_SIZE[size ?? 'md']} aria-hidden="true" />
+			<Icon icon={IconComponent} size={ICON_SIZE[size ?? 'md']} />
 		)}
 		{children}
 	</button>

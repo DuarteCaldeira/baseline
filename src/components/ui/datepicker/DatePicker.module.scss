@@ -3,9 +3,6 @@
 @use '@/styles/tokens/shadows' as *;
 
 .datepicker {
-	display: flex;
-	flex-direction: column;
-	gap: $spacing-1;
 	position: relative;
 
 	&__label {
@@ -68,7 +65,6 @@
 
 	&__trigger-icon {
 		flex-shrink: 0;
-		color: var(--color-text-subtle);
 	}
 
 	// ── Calendar popup ─────────────────────────────────────────────────────────
@@ -83,43 +79,17 @@
 		border-radius: $radius-lg;
 		box-shadow: $shadow-lg;
 		padding: $spacing-3;
-		animation: datepicker-enter 2500ms ease;
+		animation: datepicker-enter 250ms ease;
 	}
 
 	// ── Navigation ─────────────────────────────────────────────────────────────
 
 	&__nav {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
 		margin-bottom: $spacing-3;
 
 		&__title {
 			font: var(--font-label);
 			color: var(--color-text);
-		}
-	
-		&__btn {
-			display: inline-flex;
-			align-items: center;
-			justify-content: center;
-			width: 2rem;
-			height: 2rem;
-			border-radius: $radius-base;
-			color: var(--color-text-subtle);
-			transition:
-				background-color 150ms ease,
-				color 150ms ease;
-	
-			&:hover {
-				background-color: var(--color-bg-muted);
-				color: var(--color-text);
-			}
-	
-			&:focus-visible {
-				outline: 2px solid var(--color-primary);
-				outline-offset: 2px;
-			}
 		}
 	}
 

@@ -1,5 +1,8 @@
 import { Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 
+import { Stack } from '@/components/layout/stack';
+import { Button } from '@/components/ui/button';
+import { Icon } from '@/components/ui/icon';
 import { cn } from '@/utils/cn';
 
 import type { DatePickerProps } from './DatePicker.types';
@@ -58,9 +61,10 @@ export const DatePicker = ({
 	} = useDatePicker({ value, defaultValue, onChange, disabled, min, max });
 
 	return (
-		<div
+		<Stack
 			ref={containerRef}
-			className={cn(styles['datepicker'], className)}
+			gap="1"
+			className={cn(styles.datepicker, className)}
 		>
 			{label && (
 				<label className={styles['datepicker__label']} htmlFor={id}>
@@ -93,7 +97,12 @@ export const DatePicker = ({
 				>
 					{selectedDate ? formatDisplay(selectedDate, format) : resolvedPlaceholder}
 				</span>
-				<Calendar size={16} className={styles['datepicker__trigger-icon']} aria-hidden="true" />
+				<Icon
+					icon={Calendar}
+					size="sm"
+					variant="subtle"
+					className={styles['datepicker__trigger-icon']}
+				/>
 			</button>
 
 			{isOpen && (
@@ -105,30 +114,39 @@ export const DatePicker = ({
 					className={styles['datepicker__calendar']}
 				>
 					{/* Navigation */}
-					<div className={styles['datepicker__nav']}>
-						<button
+					<Stack
+						direction="row"
+						justify="between"
+						align="center"
+						className={styles['datepicker__nav']}
+					>
+						<Button
 							type="button"
-							className={styles['datepicker__nav__btn']}
+							variant="ghost"
+							size="sm"
+							iconOnly
 							onClick={() => navigateMonth(-1)}
 							aria-label="Mês anterior"
 						>
-							<ChevronLeft size={16} aria-hidden="true" />
-						</button>
+							<Icon icon={ChevronLeft} size="sm" />
+						</Button>
 						<span
 							className={styles['datepicker__nav__title']}
 							aria-live="polite"
 						>
 							{formatMonthYear(viewDate)}
 						</span>
-						<button
+						<Button
 							type="button"
-							className={styles['datepicker__nav__btn']}
+							variant="ghost"
+							size="sm"
+							iconOnly
 							onClick={() => navigateMonth(1)}
 							aria-label="Mês seguinte"
 						>
-							<ChevronRight size={16} aria-hidden="true" />
-						</button>
-					</div>
+							<Icon icon={ChevronRight} size="sm" />
+						</Button>
+					</Stack>
 
 					{/* Grid */}
 					<div
@@ -208,6 +226,6 @@ export const DatePicker = ({
 					{error}
 				</span>
 			)}
-		</div>
+		</Stack>
 	);
 };
