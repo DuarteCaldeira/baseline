@@ -9,13 +9,13 @@ alwaysApply: false
 ## Token Usage
 Always import tokens via `@use` — never hardcode raw values.
 
-| Token file | Import alias |
+| Token file | Variables |
 |---|---|
-| `@/styles/tokens/colors` | colors |
-| `@/styles/tokens/spacing` | spacing |
-| `@/styles/tokens/typography` | typography |
-| `@/styles/tokens/radius` | radius |
-| `@/styles/tokens/shadows` | shadows |
+| `@/styles/tokens/colors` | `$color-*` |
+| `@/styles/tokens/spacing` | `$spacing-*` |
+| `@/styles/tokens/typography` | `$font-size-*`, `$font-weight-*`, `$line-height-*` |
+| `@/styles/tokens/radius` | `$radius-*` |
+| `@/styles/tokens/shadows` | `$shadow-*` |
 
 ```scss
 // ✅
@@ -30,7 +30,7 @@ font-size: 14px;
 ```
 
 ## Theme-Aware Values
-Use CSS custom properties for anything that should change between light and dark themes.
+Use CSS custom properties for anything that changes between light and dark themes.
 
 ```scss
 // ✅ — adapts to theme automatically
@@ -44,8 +44,35 @@ color: #111827;
 
 Available custom properties are defined in `src/styles/theme/light.scss` and `dark.scss`.
 
+## BEM
+Follow BEM strictly for all module class names.
+
+```scss
+// ✅
+.card { }                  // block
+.card__header { }          // element
+.card__header--sticky { }  // element + modifier
+.card--featured { }        // block modifier
+
+// ❌
+.cardHeader { }
+.card-header { }
+.card .header { }
+```
+
+## Transitions
+- Always list individual properties — **never `transition: all`**
+- Use short durations for micro-interactions (100–200ms), slightly longer for layout (250–350ms)
+
+```scss
+// ✅
+transition: background-color 150ms ease, color 150ms ease, box-shadow 150ms ease;
+
+// ❌
+transition: all 200ms ease;
+```
+
 ## Selectors
-- Use BEM-style modifiers: `.block--modifier`
 - Keep nesting shallow (max 3 levels)
-- Scope interactive states (`:hover`, `:focus`) inside the base class block
-- Gate hover/active states with `:not(:disabled)` for accessible components
+- Scope interactive states (`:hover`, `:focus-visible`) inside the base class block
+- Gate `:hover` and `:active` with `:not(:disabled)` for accessible interactive elements

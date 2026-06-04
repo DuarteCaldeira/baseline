@@ -1,6 +1,6 @@
 ---
-description: Component authoring rules — structure, styling, and testing
-globs: src/components/**/*.{ts,tsx}, src/components/**/*.scss
+description: Component authoring rules — structure, styling, testing, and accessibility
+globs: src/components/**/*.{ts,tsx,scss}
 alwaysApply: false
 ---
 
@@ -10,59 +10,101 @@ alwaysApply: false
 Every component lives in its own folder:
 ```
 ComponentName/
-  ComponentName.tsx          # implementation
-  ComponentName.module.scss  # styles
-  ComponentName.test.tsx     # tests
-  index.ts                   # barrel export
+  ComponentName.tsx           # implementation
+  ComponentName.module.scss   # styles (BEM)
+  ComponentName.test.tsx      # tests
+  ComponentName.types.ts      # types reused outside this file (optional)
+  ComponentName.utils.ts      # pure logic extracted from component (optional)
+  index.ts                    # barrel export
 ```
+Add `ComponentName.types.ts` only when types are shared with other files.
+Add `ComponentName.utils.ts` only when there is non-trivial logic to extract.
 
 ## Props
-- Extend the relevant HTML element interface where it makes sense (e.g. `ButtonHTMLAttributes<HTMLButtonElement>`)
+- Use `type`, never `interface`
+- Extend the relevant HTML element attributes type where it makes sense
 - Spread `...rest` onto the root element so consumers can pass `data-*`, `aria-*`, `className`, etc.
-- Always accept an optional `className` prop and merge it via `cn()`
+- Always accept an optional `className` prop and merge it with `cn()`
 
 ```tsx
 // ✅
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'primary' | 'secondary';
-}
-export function Button({ variant = 'primary', className, ...rest }: ButtonProps) {
-  return <button className={cn(styles.button, styles[`button--${variant}`], className)} {...rest} />;
-}
+};
+
+export const Button = ({ variant = 'primary', className, ...rest }: ButtonProps) => (
+  <button className={cn(styles.button, styles[`button--${variant}`], className)} {...rest} />
+);
 ```
 
-## Styling — SCSS Modules only
+## Extracting Logic
+Move logic out of the component when it grows complex:
+
+```
+// Pure transforms / calculations → ComponentName.utils.ts
+export const buildClassName = (variant: string, size: string) => ...
+
+// Stateful logic / side effects → useComponentName.ts (in src/hooks/ or co-located)
+export const useDropdown = (items: Item[]) => { ... return { isOpen, toggle, ... }; };
+```
+
+## Styling — SCSS Modules + BEM
 - Never use inline styles or CSS-in-JS
 - Use `cn()` from `@/utils/cn` for conditional class merging
-- Use BEM-style modifier classes: `.button--primary`, `.button--sm`
+- Follow BEM strictly: `.block`, `.block__element`, `.block--modifier`
 - Consume design tokens via `@use '@/styles/tokens/...' as *`
-- Use CSS custom properties (`var(--color-primary)`) for theme-aware values
+- Use CSS custom properties for theme-aware values
+
+```scss
+// ✅ BEM
+.button { }
+.button--primary { }
+.button--sm { }
+.button__icon { }
+
+// ❌ non-BEM
+.primaryButton { }
+.btn-sm { }
+```
+
+## Transitions
+Add transitions where they improve perceived quality (hover, focus, open/close states).
+- **Never** use `transition: all` — list only the properties that change
+- Prefer short durations (100–200ms) for interactive feedback, longer (250–350ms) for layout shifts
 
 ```scss
 // ✅
-@use '@/styles/tokens/spacing' as *;
-.button { padding: $spacing-2 $spacing-4; color: var(--color-text); }
+transition: background-color 150ms ease, box-shadow 150ms ease;
 
 // ❌
-.button { padding: 8px 16px; color: #111827; }
+transition: all 200ms ease;
+```
+
+## Accessibility
+- Add `aria-*` attributes whenever the semantic role or state is not obvious from the HTML alone
+- Common cases: `aria-expanded`, `aria-controls`, `aria-label`, `aria-current`, `aria-disabled`, `aria-live`
+- Interactive elements must have a visible `:focus-visible` outline
+- Form inputs must have an associated `<label>` via `htmlFor` + `id`
+- Use semantic HTML before reaching for `role` overrides
+
+```tsx
+// ✅
+<button aria-expanded={isOpen} aria-controls="menu-list">Toggle</button>
+<ul id="menu-list" role="menu"> ... </ul>
 ```
 
 ## Testing
 - One test file per component, co-located in the same folder
+- **Hooks must have tests too** (`hookName.test.ts` in `src/hooks/`)
 - Use `@testing-library/react` + `vitest`
 - Test behaviour (what the user sees/does), not implementation details
-- Cover: renders correctly · user interactions · disabled/error states · variant/size classes
+- Cover: renders correctly · user interactions · disabled/error states · aria attributes · variant/size classes
 
 ```tsx
-it('calls onClick when clicked', async () => {
-  const handler = vi.fn();
-  render(<Button onClick={handler}>Click</Button>);
+// ✅
+it('sets aria-expanded when open', async () => {
+  render(<Dropdown items={items} />);
   await userEvent.click(screen.getByRole('button'));
-  expect(handler).toHaveBeenCalledOnce();
+  expect(screen.getByRole('button')).toHaveAttribute('aria-expanded', 'true');
 });
 ```
-
-## Accessibility
-- Interactive elements must be keyboard-focusable with a visible `:focus-visible` outline
-- Form inputs must have associated `<label>` elements (use `htmlFor` + `id`)
-- Use semantic HTML before reaching for `role` overrides

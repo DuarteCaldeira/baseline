@@ -28,16 +28,52 @@ import { cn } from '../../../utils/cn';
 ```
 
 ## TypeScript
-- `strict: true` is on — no `any`, no non-null assertions without a comment explaining why
+- `strict: true` — no `any`, no non-null assertions without a comment explaining why
+- Use `type` (never `interface`) for all type definitions
 - Use `type` imports for type-only symbols: `import type { Foo } from './Foo'`
-- Define prop interfaces inline or in the same file; only extract to `types.ts` when shared across components
+- Prop types stay in the component file; any type reused across files goes in `ComponentName.types.ts`
+- Shared cross-component types live in `src/types/`
+
+```ts
+// ✅
+type ButtonProps = { variant?: 'primary' | 'secondary' };
+
+// ❌
+interface ButtonProps { variant?: 'primary' | 'secondary' }
+```
+
+## Functions
+- Use arrow functions everywhere — components, utilities, hooks, callbacks, event handlers
+- Exception: Next.js page/layout default exports may use either style
+
+```ts
+// ✅
+export const cn = (...classes: (string | undefined | null | false)[]): string =>
+  classes.filter(Boolean).join(' ');
+
+const handleClick = () => { ... };
+
+// ❌
+function cn(...classes) { ... }
+function handleClick() { ... }
+```
 
 ## Naming
 - Components and their files: `PascalCase` (`Button`, `Button.tsx`)
 - Hooks: `camelCase` prefixed with `use` (`useDisclosure`)
 - Utilities: `camelCase` (`cn`, `truncate`)
 - SCSS module files: `ComponentName.module.scss`
-- Test files: `ComponentName.test.tsx`
+- Test files: `ComponentName.test.tsx` / `hookName.test.ts`
+- Component-scoped types: `ComponentName.types.ts`
+- Component-scoped utils: `ComponentName.utils.ts`
+
+## Component Size & Reuse
+- Keep components small and focused — if a component grows beyond ~100 lines, consider splitting
+- Extract repeated UI patterns into shared components rather than duplicating JSX
+- Avoid over-engineering: don't abstract until the pattern appears at least twice
+- Move complex logic out of the component:
+  - Pure calculations / data transforms → `ComponentName.utils.ts`
+  - Stateful logic / side effects → a dedicated hook (`useComponentName.ts`)
 
 ## Exports
 - Every component folder must have an `index.ts` barrel export
