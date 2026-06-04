@@ -1,0 +1,52 @@
+---
+description: Core conventions for the baseline project — always applied
+alwaysApply: true
+---
+
+# Baseline Project Conventions
+
+## Stack
+Next.js 14 App Router · TypeScript (strict) · SCSS Modules · Vitest + Testing Library · pnpm
+
+## Folder Structure
+- UI components → `src/components/ui/<name>/`
+- Layout primitives → `src/components/layout/<name>/`
+- Custom hooks → `src/hooks/`
+- Pure utilities → `src/utils/`
+- Shared types → `src/types/`
+- Design tokens → `src/styles/tokens/` (SCSS variables)
+- Theme (CSS custom props) → `src/styles/theme/`
+
+## Path Alias
+Always use `@/` for imports from `src/`. Never use relative `../../` traversals that cross folder boundaries.
+
+```ts
+// ✅
+import { cn } from '@/utils/cn';
+// ❌
+import { cn } from '../../../utils/cn';
+```
+
+## TypeScript
+- `strict: true` is on — no `any`, no non-null assertions without a comment explaining why
+- Use `type` imports for type-only symbols: `import type { Foo } from './Foo'`
+- Define prop interfaces inline or in the same file; only extract to `types.ts` when shared across components
+
+## Naming
+- Components and their files: `PascalCase` (`Button`, `Button.tsx`)
+- Hooks: `camelCase` prefixed with `use` (`useDisclosure`)
+- Utilities: `camelCase` (`cn`, `truncate`)
+- SCSS module files: `ComponentName.module.scss`
+- Test files: `ComponentName.test.tsx`
+
+## Exports
+- Every component folder must have an `index.ts` barrel export
+- All public symbols must be re-exported from `src/index.ts`
+
+## Scripts
+| Task | Command |
+|------|---------|
+| Dev server | `pnpm dev` |
+| Tests | `pnpm test` |
+| Lint | `pnpm lint` |
+| Format | `pnpm format` |

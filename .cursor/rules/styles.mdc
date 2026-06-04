@@ -1,0 +1,51 @@
+---
+description: SCSS and design token rules
+globs: src/**/*.scss
+alwaysApply: false
+---
+
+# Styling Rules
+
+## Token Usage
+Always import tokens via `@use` — never hardcode raw values.
+
+| Token file | Import alias |
+|---|---|
+| `@/styles/tokens/colors` | colors |
+| `@/styles/tokens/spacing` | spacing |
+| `@/styles/tokens/typography` | typography |
+| `@/styles/tokens/radius` | radius |
+| `@/styles/tokens/shadows` | shadows |
+
+```scss
+// ✅
+@use '@/styles/tokens/spacing' as *;
+@use '@/styles/tokens/typography' as *;
+padding: $spacing-4;
+font-size: $font-size-sm;
+
+// ❌
+padding: 16px;
+font-size: 14px;
+```
+
+## Theme-Aware Values
+Use CSS custom properties for anything that should change between light and dark themes.
+
+```scss
+// ✅ — adapts to theme automatically
+color: var(--color-text);
+background: var(--color-surface);
+border-color: var(--color-border);
+
+// ❌ — hardcoded, breaks dark mode
+color: #111827;
+```
+
+Available custom properties are defined in `src/styles/theme/light.scss` and `dark.scss`.
+
+## Selectors
+- Use BEM-style modifiers: `.block--modifier`
+- Keep nesting shallow (max 3 levels)
+- Scope interactive states (`:hover`, `:focus`) inside the base class block
+- Gate hover/active states with `:not(:disabled)` for accessible components

@@ -1,0 +1,68 @@
+---
+description: Component authoring rules — structure, styling, and testing
+globs: src/components/**/*.{ts,tsx}, src/components/**/*.scss
+alwaysApply: false
+---
+
+# Component Rules
+
+## File Structure
+Every component lives in its own folder:
+```
+ComponentName/
+  ComponentName.tsx          # implementation
+  ComponentName.module.scss  # styles
+  ComponentName.test.tsx     # tests
+  index.ts                   # barrel export
+```
+
+## Props
+- Extend the relevant HTML element interface where it makes sense (e.g. `ButtonHTMLAttributes<HTMLButtonElement>`)
+- Spread `...rest` onto the root element so consumers can pass `data-*`, `aria-*`, `className`, etc.
+- Always accept an optional `className` prop and merge it via `cn()`
+
+```tsx
+// ✅
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'secondary';
+}
+export function Button({ variant = 'primary', className, ...rest }: ButtonProps) {
+  return <button className={cn(styles.button, styles[`button--${variant}`], className)} {...rest} />;
+}
+```
+
+## Styling — SCSS Modules only
+- Never use inline styles or CSS-in-JS
+- Use `cn()` from `@/utils/cn` for conditional class merging
+- Use BEM-style modifier classes: `.button--primary`, `.button--sm`
+- Consume design tokens via `@use '@/styles/tokens/...' as *`
+- Use CSS custom properties (`var(--color-primary)`) for theme-aware values
+
+```scss
+// ✅
+@use '@/styles/tokens/spacing' as *;
+.button { padding: $spacing-2 $spacing-4; color: var(--color-text); }
+
+// ❌
+.button { padding: 8px 16px; color: #111827; }
+```
+
+## Testing
+- One test file per component, co-located in the same folder
+- Use `@testing-library/react` + `vitest`
+- Test behaviour (what the user sees/does), not implementation details
+- Cover: renders correctly · user interactions · disabled/error states · variant/size classes
+
+```tsx
+it('calls onClick when clicked', async () => {
+  const handler = vi.fn();
+  render(<Button onClick={handler}>Click</Button>);
+  await userEvent.click(screen.getByRole('button'));
+  expect(handler).toHaveBeenCalledOnce();
+});
+```
+
+## Accessibility
+- Interactive elements must be keyboard-focusable with a visible `:focus-visible` outline
+- Form inputs must have associated `<label>` elements (use `htmlFor` + `id`)
+- Use semantic HTML before reaching for `role` overrides
