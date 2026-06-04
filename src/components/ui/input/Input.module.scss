@@ -2,18 +2,6 @@
 @use '@/styles/tokens/typography' as *;
 @use '@/styles/tokens/radius' as *;
 
-.wrapper {
-	display: flex;
-	flex-direction: column;
-	gap: $spacing-1;
-}
-
-.label {
-	font-size: $font-size-sm;
-	font-weight: $font-weight-medium;
-	color: var(--color-text);
-}
-
 .input {
 	width: 100%;
 	padding: $spacing-2 $spacing-3;
@@ -40,12 +28,24 @@
 		border-color: var(--color-error);
 
 		&:focus {
-			box-shadow: 0 0 0 3px rgb(239 68 68 / 0.15);
+			box-shadow: 0 0 0 3px rgb(220 38 38 / 0.15);
 		}
 	}
-}
 
-.error {
-	font-size: $font-size-xs;
-	color: var(--color-error);
+	&__wrapper {
+		display: flex;
+		flex-direction: column;
+		gap: $spacing-1;
+	}
+
+	&__label {
+		font-size: $font-size-sm;
+		font-weight: $font-weight-medium;
+		color: var(--color-text);
+	}
+
+	&__error {
+		font-size: $font-size-xs;
+		color: var(--color-error);
+	}
 }

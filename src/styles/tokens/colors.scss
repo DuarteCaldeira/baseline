@@ -1,4 +1,5 @@
 // Color tokens
+
 // Base palette
 $color-white: #ffffff;
 $color-black: #000000;
@@ -15,20 +16,48 @@ $color-neutral-700: #374151;
 $color-neutral-800: #1f2937;
 $color-neutral-900: #111827;
 
-// Primary scale
-$color-primary-50: #eff6ff;
-$color-primary-100: #dbeafe;
-$color-primary-200: #bfdbfe;
-$color-primary-300: #93c5fd;
-$color-primary-400: #60a5fa;
-$color-primary-500: #3b82f6;
-$color-primary-600: #2563eb;
-$color-primary-700: #1d4ed8;
-$color-primary-800: #1e40af;
-$color-primary-900: #1e3a8a;
+// Primary — Violet
+$color-primary-50: #f5f3ff;
+$color-primary-100: #ede9fe;
+$color-primary-200: #ddd6fe;
+$color-primary-300: #c4b5fd;
+$color-primary-400: #a78bfa;
+$color-primary-500: #8b5cf6;
+$color-primary-600: #7c3aed;
+$color-primary-700: #6d28d9;
+$color-primary-800: #5b21b6;
+$color-primary-900: #4c1d95;
 
-// Semantic colors
-$color-success: #22c55e;
-$color-warning: #f59e0b;
-$color-error: #ef4444;
-$color-info: #3b82f6;
+// Semantic — light mode (base, weak backgrounds, text on weak)
+$color-success: #16a34a;
+$color-success-weak: #dcfce7;
+$color-success-text: #15803d;
+
+$color-warning: #d97706;
+$color-warning-weak: #fef3c7;
+$color-warning-text: #b45309;
+
+$color-error: #dc2626;
+$color-error-weak: #fee2e2;
+$color-error-text: #b91c1c;
+
+$color-info: #7c3aed;
+$color-info-weak: #ede9fe;
+$color-info-text: #6d28d9;
+
+// Semantic — dark mode (lighter accents, deep tinted surfaces, readable text on weak)
+$color-success-dark: #4ade80;
+$color-success-weak-dark: #14532d;
+$color-success-text-dark: #86efac;
+
+$color-warning-dark: #fbbf24;
+$color-warning-weak-dark: #422006;
+$color-warning-text-dark: #fde68a;
+
+$color-error-dark: #f87171;
+$color-error-weak-dark: #7f1d1d;
+$color-error-text-dark: #fca5a5;
+
+$color-info-dark: $color-primary-400;
+$color-info-weak-dark: #2e1065;
+$color-info-text-dark: $color-primary-300;

@@ -1,49 +1,192 @@
 @use '@/styles/tokens/spacing' as *;
 @use '@/styles/tokens/typography' as *;
 @use '@/styles/tokens/radius' as *;
-
-.wrapper {
-	display: flex;
-	flex-direction: column;
-	gap: $spacing-1;
-}
-
-.label {
-	font-size: $font-size-sm;
-	font-weight: $font-weight-medium;
-	color: var(--color-text);
-}
+@use '@/styles/tokens/shadows' as *;
 
 .select {
-	width: 100%;
-	padding: $spacing-2 $spacing-3;
-	font-size: $font-size-base;
-	border: 1px solid var(--color-border);
-	border-radius: $radius-md;
-	background-color: var(--color-surface);
-	color: var(--color-text);
-	cursor: pointer;
-	transition:
-		border-color 150ms ease,
-		box-shadow 150ms ease;
-	appearance: none;
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-	background-repeat: no-repeat;
-	background-position: right $spacing-3 center;
-	padding-right: $spacing-8;
-
-	&:focus {
-		outline: none;
-		border-color: var(--color-primary);
-		box-shadow: 0 0 0 3px var(--color-primary-subtle);
+	&__wrapper {
+		display: flex;
+		flex-direction: column;
+		gap: $spacing-1;
+		position: relative;
 	}
 
-	&--error {
-		border-color: var(--color-error);
+	&__label {
+		font-size: $font-size-sm;
+		font-weight: $font-weight-medium;
+		color: var(--color-text);
+	}
+
+	&__trigger {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: $spacing-2;
+		padding: $spacing-2 $spacing-3;
+		font-size: $font-size-base;
+		font-family: inherit;
+		border: 1px solid var(--color-border);
+		border-radius: $radius-md;
+		background-color: var(--color-surface);
+		color: var(--color-text);
+		cursor: pointer;
+		text-align: left;
+		transition:
+			border-color 150ms ease,
+			box-shadow 150ms ease;
+
+		&:focus-visible {
+			outline: 2px solid var(--color-primary);
+			outline-offset: 2px;
+		}
+
+		&:hover:not(:disabled) {
+			border-color: var(--color-border-strong);
+		}
+
+		&:disabled {
+			opacity: 0.5;
+			cursor: not-allowed;
+		}
+
+		&--open {
+			border-color: var(--color-primary);
+			box-shadow: 0 0 0 3px var(--color-primary-subtle);
+		}
+
+		&--error {
+			border-color: var(--color-error);
+
+			&:focus-visible,
+			&.select__trigger--open {
+				box-shadow: 0 0 0 3px rgb(220 38 38 / 0.15);
+			}
+		}
+	}
+
+	&__trigger-value {
+		display: flex;
+		align-items: center;
+		gap: $spacing-2;
+		flex: 1;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+
+	&__trigger-icon {
+		display: flex;
+		align-items: center;
+		flex-shrink: 0;
+		font-size: 1.1em;
+	}
+
+	&__placeholder {
+		color: var(--color-text-subtle);
+	}
+
+	&__chevron {
+		flex-shrink: 0;
+		color: var(--color-text-subtle);
+		transition: transform 200ms ease;
+
+		&--open {
+			transform: rotate(180deg);
+		}
+	}
+
+	&__listbox {
+		position: absolute;
+		top: calc(100% + $spacing-1);
+		left: 0;
+		right: 0;
+		z-index: 50;
+		background-color: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: $radius-lg;
+		box-shadow: $shadow-lg;
+		max-height: 240px;
+		overflow-y: auto;
+		padding: $spacing-1;
+		animation: selectDropdownIn 120ms ease;
+	}
+
+	&__option {
+		display: flex;
+		align-items: center;
+		gap: $spacing-2;
+		padding: $spacing-2 $spacing-3;
+		border-radius: $radius-md;
+		cursor: pointer;
+		transition:
+			background-color 100ms ease,
+			color 100ms ease;
+
+		&--active {
+			background-color: var(--color-bg-muted);
+		}
+
+		&--selected {
+			color: var(--color-primary);
+			font-weight: $font-weight-medium;
+		}
+
+		&--disabled {
+			opacity: 0.4;
+			cursor: not-allowed;
+			pointer-events: none;
+		}
+	}
+
+	&__option-icon {
+		display: flex;
+		align-items: center;
+		flex-shrink: 0;
+		font-size: 1.2em;
+	}
+
+	&__option-content {
+		display: flex;
+		flex-direction: column;
+		gap: 1px;
+		flex: 1;
+		min-width: 0;
+	}
+
+	&__option-label {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	&__option-description {
+		font-size: $font-size-xs;
+		color: var(--color-text-subtle);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	&__option-check {
+		flex-shrink: 0;
+		margin-left: auto;
+		color: var(--color-primary);
+	}
+
+	&__error {
+		font-size: $font-size-xs;
+		color: var(--color-error);
 	}
 }
 
-.error {
-	font-size: $font-size-xs;
-	color: var(--color-error);
+@keyframes selectDropdownIn {
+	from {
+		opacity: 0;
+		transform: translateY(-4px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }

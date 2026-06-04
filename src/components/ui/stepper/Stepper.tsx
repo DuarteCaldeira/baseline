@@ -1,45 +1,44 @@
 import { cn } from '@/utils/cn';
 
+import type { Step } from './Stepper.types';
 import styles from './Stepper.module.scss';
 
-export interface Step {
-	label: string;
-	description?: string;
-}
-
-export interface StepperProps {
+export type StepperProps = {
 	steps: Step[];
 	currentStep: number;
 	className?: string;
-}
+};
 
-export function Stepper({ steps, currentStep, className }: StepperProps) {
-	return (
-		<ol className={cn(styles.stepper, className)} aria-label="Progress">
-			{steps.map((step, index) => {
-				const status =
-					index < currentStep
-						? 'complete'
-						: index === currentStep
-							? 'current'
-							: 'upcoming';
+type StepStatus = 'complete' | 'current' | 'upcoming';
 
-				return (
-					<li
-						key={index}
-						className={cn(styles.step, styles[`step--${status}`])}
-						aria-current={status === 'current' ? 'step' : undefined}
-					>
-						<span className={styles.stepIndicator}>
-							{status === 'complete' ? '✓' : index + 1}
+const getStepStatus = (index: number, currentStep: number): StepStatus => {
+	if (index < currentStep) return 'complete';
+	if (index === currentStep) return 'current';
+	return 'upcoming';
+};
+
+export const Stepper = ({ steps, currentStep, className }: StepperProps) => (
+	<ol className={cn(styles.stepper, className)} aria-label="Progress">
+		{steps.map((step, index) => {
+			const status = getStepStatus(index, currentStep);
+
+			return (
+				<li
+					key={index}
+					className={cn(styles.step, styles[`step--${status}`])}
+					aria-current={status === 'current' ? 'step' : undefined}
+				>
+					<span className={styles['step__indicator']} aria-hidden="true">
+						{status === 'complete' ? '✓' : index + 1}
+					</span>
+					<span className={styles['step__label']}>{step.label}</span>
+					{step.description && (
+						<span className={styles['step__description']}>
+							{step.description}
 						</span>
-						<span className={styles.stepLabel}>{step.label}</span>
-						{step.description && (
-							<span className={styles.stepDescription}>{step.description}</span>
-						)}
-					</li>
-				);
-			})}
-		</ol>
-	);
-}
+					)}
+				</li>
+			);
+		})}
+	</ol>
+);

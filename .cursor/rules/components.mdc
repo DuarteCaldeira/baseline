@@ -48,6 +48,35 @@ export const buildClassName = (variant: string, size: string) => ...
 export const useDropdown = (items: Item[]) => { ... return { isOpen, toggle, ... }; };
 ```
 
+### Hooks placement
+
+Decide where a hook lives based on its intended scope:
+
+- Component-scoped hooks — when the hook is specific to a single component's behavior (keyboard handling, open/close state tied to component internals, derived selection logic), colocate it inside the component folder alongside the component, styles, and tests:
+
+```
+ComponentName/
+  ComponentName.tsx
+  ComponentName.module.scss
+  useComponentName.ts         # component-scoped hook
+  useComponentName.test.ts    # tests for the component hook
+  ComponentName.utils.ts
+  ComponentName.types.ts
+  index.ts
+```
+
+- Generic/shared hooks — when the hook is reusable across multiple components or pages (form helpers, generic event listeners, window-size, debouncing utilities), put it in `src/hooks/` with its tests:
+
+```
+src/hooks/
+  useDebounce.ts
+  useDebounce.test.ts
+  useDisclosure.ts
+  useDisclosure.test.ts
+```
+
+Co-locating component-scoped hooks keeps implementation details next to the UI they support and simplifies refactoring; keeping generic hooks in `src/hooks/` makes them discoverable for reuse.
+
 ## Styling — SCSS Modules + BEM
 - Never use inline styles or CSS-in-JS
 - Use `cn()` from `@/utils/cn` for conditional class merging

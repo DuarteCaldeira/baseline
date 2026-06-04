@@ -2,26 +2,43 @@
 
 :root,
 [data-theme='light'] {
+	// Backgrounds
 	--color-bg: #{$color-white};
 	--color-bg-subtle: #{$color-neutral-50};
 	--color-bg-muted: #{$color-neutral-100};
 	--color-surface: #{$color-white};
 	--color-surface-raised: #{$color-neutral-50};
+
+	// Borders
 	--color-border: #{$color-neutral-200};
 	--color-border-strong: #{$color-neutral-300};
 
-	--color-text: #{$color-neutral-900};
+	// Text — neutral-800 for a dark grey default, not pure black
+	--color-text: #{$color-neutral-800};
 	--color-text-muted: #{$color-neutral-600};
 	--color-text-subtle: #{$color-neutral-400};
 	--color-text-inverse: #{$color-white};
 
+	// Primary — Violet
 	--color-primary: #{$color-primary-600};
 	--color-primary-hover: #{$color-primary-700};
 	--color-primary-active: #{$color-primary-800};
 	--color-primary-subtle: #{$color-primary-50};
 
+	// Semantic
 	--color-success: #{$color-success};
+	--color-success-weak: #{$color-success-weak};
+	--color-success-text: #{$color-success-text};
+
 	--color-warning: #{$color-warning};
+	--color-warning-weak: #{$color-warning-weak};
+	--color-warning-text: #{$color-warning-text};
+
 	--color-error: #{$color-error};
+	--color-error-weak: #{$color-error-weak};
+	--color-error-text: #{$color-error-text};
+
 	--color-info: #{$color-info};
+	--color-info-weak: #{$color-info-weak};
+	--color-info-text: #{$color-info-text};
 }

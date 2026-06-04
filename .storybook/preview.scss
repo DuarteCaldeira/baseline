@@ -1,0 +1,21 @@
+@use '../src/styles/tokens/spacing' as *;
+@use '../src/styles/tokens/radius' as *;
+
+// CSS custom properties from the theme handle light/dark automatically
+
+.sb-preview-canvas {
+	padding: $spacing-8;
+	background-color: var(--color-bg);
+}
+
+.sb-story-wrapper {
+	width: 100%;
+	background-color: var(--color-bg-muted);
+	border: 1.5px dashed var(--color-primary);
+	border-radius: $radius-lg;
+	padding: $spacing-6;
+
+	[data-theme='dark'] & {
+		background-color: var(--color-bg-subtle);
+	}
+}

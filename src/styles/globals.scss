@@ -6,8 +6,29 @@
 body {
 	font-family: $font-family-sans;
 	font-size: $font-size-base;
+	letter-spacing: $letter-spacing-snug;
 	background-color: var(--color-bg);
 	color: var(--color-text);
+}
+
+// Headings get tighter tracking as size increases
+h1,
+h2,
+h3 {
+	letter-spacing: $letter-spacing-tight;
+}
+
+h4,
+h5,
+h6 {
+	letter-spacing: $letter-spacing-snug;
+}
+
+// Small text reads better with a touch of extra spacing
+small,
+.text-xs,
+.text-sm {
+	letter-spacing: $letter-spacing-wide;
 }
 
 #root,

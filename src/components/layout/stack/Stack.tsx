@@ -4,16 +4,24 @@ import { cn } from '@/utils/cn';
 
 import styles from './Stack.module.scss';
 
-export interface StackProps extends HTMLAttributes<HTMLDivElement> {
+export type StackProps = HTMLAttributes<HTMLDivElement> & {
 	children: ReactNode;
 	direction?: 'row' | 'column';
 	gap?: '1' | '2' | '3' | '4' | '6' | '8';
 	align?: 'start' | 'center' | 'end' | 'stretch';
 	justify?: 'start' | 'center' | 'end' | 'between' | 'around';
 	wrap?: boolean;
-}
+};
 
-export function Stack({
+const resolveJustify = (
+	justify: StackProps['justify']
+): string | undefined => {
+	if (justify === 'between') return 'space-between';
+	if (justify === 'around') return 'space-around';
+	return justify;
+};
+
+export const Stack = ({
 	children,
 	direction = 'column',
 	gap = '4',
@@ -23,16 +31,11 @@ export function Stack({
 	className,
 	style,
 	...rest
-}: StackProps) {
+}: StackProps) => {
 	const inlineStyle: CSSProperties = {
 		'--stack-direction': direction,
 		'--stack-align': align,
-		'--stack-justify':
-			justify === 'between'
-				? 'space-between'
-				: justify === 'around'
-					? 'space-around'
-					: justify,
+		'--stack-justify': resolveJustify(justify),
 		'--stack-wrap': wrap ? 'wrap' : 'nowrap',
 		...style,
 	} as CSSProperties;
@@ -46,4 +49,4 @@ export function Stack({
 			{children}
 		</div>
 	);
-}
+};

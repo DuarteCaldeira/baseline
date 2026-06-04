@@ -21,6 +21,8 @@ export type { StackProps } from './components/layout/stack';
 // Hooks
 export { useDebounce } from './hooks/useDebounce';
 export { useDisclosure } from './hooks/useDisclosure';
+export { useSelect } from './hooks/useSelect';
+export type { UseSelectReturn } from './hooks/useSelect';
 
 // Utils
 export { cn } from './utils/cn';

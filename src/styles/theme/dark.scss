@@ -1,26 +1,43 @@
 @use '../tokens/colors' as *;
 
 [data-theme='dark'] {
+	// Backgrounds
 	--color-bg: #{$color-neutral-900};
 	--color-bg-subtle: #{$color-neutral-800};
 	--color-bg-muted: #{$color-neutral-700};
 	--color-surface: #{$color-neutral-800};
 	--color-surface-raised: #{$color-neutral-700};
+
+	// Borders
 	--color-border: #{$color-neutral-700};
 	--color-border-strong: #{$color-neutral-600};
 
-	--color-text: #{$color-neutral-50};
-	--color-text-muted: #{$color-neutral-400};
-	--color-text-subtle: #{$color-neutral-500};
+	// Text — neutral-100 for a light grey default, not pure white
+	--color-text: #{$color-neutral-100};
+	--color-text-muted: #{$color-neutral-300};
+	--color-text-subtle: #{$color-neutral-400};
 	--color-text-inverse: #{$color-neutral-900};
 
+	// Primary — Violet (lighter shades for dark backgrounds)
 	--color-primary: #{$color-primary-400};
 	--color-primary-hover: #{$color-primary-300};
 	--color-primary-active: #{$color-primary-200};
 	--color-primary-subtle: #{$color-primary-900};
 
-	--color-success: #{$color-success};
-	--color-warning: #{$color-warning};
-	--color-error: #{$color-error};
-	--color-info: #{$color-info};
+	// Semantic
+	--color-success: #{$color-success-dark};
+	--color-success-weak: #{$color-success-weak-dark};
+	--color-success-text: #{$color-success-text-dark};
+
+	--color-warning: #{$color-warning-dark};
+	--color-warning-weak: #{$color-warning-weak-dark};
+	--color-warning-text: #{$color-warning-text-dark};
+
+	--color-error: #{$color-error-dark};
+	--color-error-weak: #{$color-error-weak-dark};
+	--color-error-text: #{$color-error-text-dark};
+
+	--color-info: #{$color-info-dark};
+	--color-info-weak: #{$color-info-weak-dark};
+	--color-info-text: #{$color-info-text-dark};
 }

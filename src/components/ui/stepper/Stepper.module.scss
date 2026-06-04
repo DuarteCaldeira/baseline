@@ -24,56 +24,64 @@
 		right: calc(-50% + 1.25rem);
 		height: 2px;
 		background-color: var(--color-border);
+		transition: background-color 250ms ease;
 	}
 
-	&--complete::after {
-		background-color: var(--color-primary);
-	}
-}
-
-.stepIndicator {
-	width: 2rem;
-	height: 2rem;
-	border-radius: $radius-full;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: $font-size-sm;
-	font-weight: $font-weight-semibold;
-	border: 2px solid var(--color-border);
-	background-color: var(--color-surface);
-	color: var(--color-text-muted);
-	z-index: 1;
-
-	.step--complete & {
-		background-color: var(--color-primary);
-		border-color: var(--color-primary);
-		color: var(--color-text-inverse);
+	&--complete {
+		&::after {
+			background-color: var(--color-primary);
+		}
 	}
 
-	.step--current & {
-		border-color: var(--color-primary);
-		color: var(--color-primary);
+	&__indicator {
+		width: 2rem;
+		height: 2rem;
+		border-radius: $radius-full;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: $font-size-sm;
+		font-weight: $font-weight-semibold;
+		border: 2px solid var(--color-border);
+		background-color: var(--color-surface);
+		color: var(--color-text-muted);
+		z-index: 1;
+		transition:
+			background-color 250ms ease,
+			border-color 250ms ease,
+			color 250ms ease;
+
+		.step--complete & {
+			background-color: var(--color-primary);
+			border-color: var(--color-primary);
+			color: var(--color-text-inverse);
+		}
+
+		.step--current & {
+			border-color: var(--color-primary);
+			color: var(--color-primary);
+		}
 	}
-}
 
-.stepLabel {
-	font-size: $font-size-sm;
-	font-weight: $font-weight-medium;
-	color: var(--color-text-muted);
-	text-align: center;
+	&__label {
+		font-size: $font-size-sm;
+		font-weight: $font-weight-medium;
+		color: var(--color-text-muted);
+		text-align: center;
+		transition: color 250ms ease;
 
-	.step--current & {
-		color: var(--color-primary);
+		.step--current & {
+			color: var(--color-primary);
+		}
+
+		.step--complete & {
+			color: var(--color-text);
+		}
 	}
 
-	.step--complete & {
-		color: var(--color-text);
+	&__description {
+		font-size: $font-size-xs;
+		color: var(--color-text-subtle);
+		text-align: center;
 	}
-}
-
-.stepDescription {
-	font-size: $font-size-xs;
-	color: var(--color-text-subtle);
-	text-align: center;
 }

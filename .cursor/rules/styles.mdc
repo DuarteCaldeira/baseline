@@ -13,7 +13,7 @@ Always import tokens via `@use` — never hardcode raw values.
 |---|---|
 | `@/styles/tokens/colors` | `$color-*` |
 | `@/styles/tokens/spacing` | `$spacing-*` |
-| `@/styles/tokens/typography` | `$font-size-*`, `$font-weight-*`, `$line-height-*` |
+| `@/styles/tokens/typography` | `$font-size-*`, `$font-weight-*`, `$line-height-*`, `$letter-spacing-*` |
 | `@/styles/tokens/radius` | `$radius-*` |
 | `@/styles/tokens/shadows` | `$shadow-*` |
 
@@ -45,20 +45,30 @@ color: #111827;
 Available custom properties are defined in `src/styles/theme/light.scss` and `dark.scss`.
 
 ## BEM
-Follow BEM strictly for all module class names.
+Follow BEM strictly for all module class names. Always nest elements and modifiers inside the root block class using the `&` prefix — never write them as flat sibling rules.
 
 ```scss
-// ✅
-.card { }                  // block
-.card__header { }          // element
-.card__header--sticky { }  // element + modifier
-.card--featured { }        // block modifier
+// ✅ — nested from the first layer
+.card {
+  // block base styles
 
-// ❌
-.cardHeader { }
-.card-header { }
-.card .header { }
+  &--featured { }          // block modifier
+
+  &__header {              // element
+    &--sticky { }          // element modifier
+  }
+
+  &__body { }
+}
+
+// ❌ — flat rules, breaks the nesting convention
+.card { }
+.card--featured { }
+.card__header { }
+.card__header--sticky { }
 ```
+
+Keep nesting to a maximum of 3 levels (block → element → state/modifier). Pseudo-classes and pseudo-elements (`:hover`, `:focus-visible`, `::before`) count as the innermost level.
 
 ## Transitions
 - Always list individual properties — **never `transition: all`**

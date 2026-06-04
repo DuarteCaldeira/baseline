@@ -1,25 +1,27 @@
 @use '@/styles/tokens/spacing' as *;
 @use '@/styles/tokens/typography' as *;
 
-.main {
-	min-height: 100vh;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: $spacing-8;
-}
+.page {
+	&__main {
+		min-height: 100vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: $spacing-8;
+	}
 
-.heading {
-	font-size: $font-size-4xl;
-	font-weight: $font-weight-bold;
-	color: var(--color-text);
-	text-align: center;
-}
+	&__heading {
+		font-size: $font-size-4xl;
+		font-weight: $font-weight-bold;
+		color: var(--color-text);
+		text-align: center;
+	}
 
-.description {
-	font-size: $font-size-lg;
-	color: var(--color-text-muted);
-	text-align: center;
-	max-width: 480px;
-	line-height: $line-height-relaxed;
+	&__description {
+		font-size: $font-size-lg;
+		color: var(--color-text-muted);
+		text-align: center;
+		max-width: 480px;
+		line-height: $line-height-relaxed;
+	}
 }
