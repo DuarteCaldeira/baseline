@@ -2,20 +2,20 @@
 
 :root,
 [data-theme='light'] {
-	// Backgrounds
-	--color-bg: #{$color-white};
-	--color-bg-subtle: #{$color-neutral-50};
+	// Backgrounds — off-white page so white surfaces float above it
+	--color-bg: #{$color-neutral-50};
+	--color-bg-subtle: #{$color-neutral-100};
 	--color-bg-muted: #{$color-neutral-100};
 	--color-surface: #{$color-white};
-	--color-surface-raised: #{$color-neutral-50};
+	--color-surface-raised: #{$color-white};
 
-	// Borders
-	--color-border: #{$color-neutral-400};
-	--color-border-strong: #{$color-neutral-500};
+	// Borders — soft so they recede rather than dominate
+	--color-border: #{$color-neutral-200};
+	--color-border-strong: #{$color-neutral-300};
 
-	// Text — neutral-800 for a dark grey default, not pure black
-	--color-text: #{$color-neutral-800};
-	--color-text-muted: #{$color-neutral-600};
+	// Text
+	--color-text: #{$color-neutral-900};
+	--color-text-muted: #{$color-neutral-500};
 	--color-text-subtle: #{$color-neutral-400};
 	--color-text-inverse: #{$color-white};
 
@@ -38,7 +38,7 @@
 	--color-error-weak: #{$color-error-weak};
 	--color-error-text: #{$color-error-text};
 
-	--color-info: #{$color-info};
-	--color-info-weak: #{$color-info-weak};
-	--color-info-text: #{$color-info-text};
+	--color-info: #{$color-blue-600};
+	--color-info-weak: #{$color-blue-50};
+	--color-info-text: #{$color-blue-700};
 }

@@ -1,5 +1,4 @@
 @use '@/styles/tokens/spacing' as *;
-@use '@/styles/tokens/typography' as *;
 @use '@/styles/tokens/radius' as *;
 
 .radio {
@@ -70,18 +69,17 @@
 	}
 
 	&__text {
-		font-size: $font-size-sm;
+		font: var(--font-sm);
 		color: var(--color-text);
-		line-height: $line-height-normal;
 	}
 
 	&__helper {
-		font-size: $font-size-xs;
+		font: var(--font-caption);
 		color: var(--color-text-subtle);
 	}
 
 	&__error {
-		font-size: $font-size-xs;
+		font: var(--font-caption);
 		color: var(--color-error);
 	}
 }

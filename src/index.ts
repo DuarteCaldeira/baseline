@@ -14,6 +14,18 @@ export type { LinkProps } from './components/ui/link';
 export { Textarea } from './components/ui/textarea';
 export type { TextareaProps } from './components/ui/textarea';
 
+export { Icon } from './components/ui/icon';
+export type { IconProps, IconVariant } from './components/ui/icon';
+
+export { Toast, ToastProvider, useToast } from './components/ui/toast';
+export type { ToastItem, ToastVariant, ToastContextValue } from './components/ui/toast';
+
+export { Modal } from './components/ui/modal';
+export type { ModalProps } from './components/ui/modal';
+
+export { Accordion } from './components/ui/accordion';
+export type { AccordionProps, AccordionItem, AccordionType } from './components/ui/accordion';
+
 export { Input } from './components/ui/input';
 export type { InputProps } from './components/ui/input';
 

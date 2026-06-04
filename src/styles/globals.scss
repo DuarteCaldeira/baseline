@@ -1,12 +1,11 @@
 @use './reset';
 @use './theme/light';
 @use './theme/dark';
-@use './tokens/typography' as *;
+@use './theme/typography';
 
 body {
-	font-family: $font-family-sans;
-	font-size: $font-size-base;
-	letter-spacing: $letter-spacing-snug;
+	font: var(--font-base);
+	letter-spacing: var(--letter-spacing-snug);
 	background-color: var(--color-bg);
 	color: var(--color-text);
 }
@@ -15,20 +14,20 @@ body {
 h1,
 h2,
 h3 {
-	letter-spacing: $letter-spacing-tight;
+	letter-spacing: var(--letter-spacing-tight);
 }
 
 h4,
 h5,
 h6 {
-	letter-spacing: $letter-spacing-snug;
+	letter-spacing: var(--letter-spacing-snug);
 }
 
 // Small text reads better with a touch of extra spacing
 small,
 .text-xs,
 .text-sm {
-	letter-spacing: $letter-spacing-wide;
+	letter-spacing: var(--letter-spacing-wide);
 }
 
 #root,

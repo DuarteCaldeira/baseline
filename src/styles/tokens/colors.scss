@@ -5,7 +5,7 @@ $color-white: #ffffff;
 $color-black: #000000;
 
 // Neutral scale
-$color-neutral-50: #f9fafb;
+$color-neutral-50:  #f9fafb;
 $color-neutral-100: #f3f4f6;
 $color-neutral-200: #e5e7eb;
 $color-neutral-300: #d1d5db;
@@ -15,6 +15,7 @@ $color-neutral-600: #4b5563;
 $color-neutral-700: #374151;
 $color-neutral-800: #1f2937;
 $color-neutral-900: #111827;
+$color-neutral-950: #030712;
 
 // Primary — Violet
 $color-primary-50: #f5f3ff;
@@ -41,9 +42,21 @@ $color-error: #dc2626;
 $color-error-weak: #fee2e2;
 $color-error-text: #b91c1c;
 
-$color-info: #7c3aed;
-$color-info-weak: #ede9fe;
-$color-info-text: #6d28d9;
+$color-info: #2563eb;
+$color-info-weak: #dbeafe;
+$color-info-text: #1d4ed8;
+
+// Blue scale (used for info)
+$color-blue-50:  #eff6ff;
+$color-blue-100: #dbeafe;
+$color-blue-200: #bfdbfe;
+$color-blue-300: #93c5fd;
+$color-blue-400: #60a5fa;
+$color-blue-500: #3b82f6;
+$color-blue-600: #2563eb;
+$color-blue-700: #1d4ed8;
+$color-blue-800: #1e40af;
+$color-blue-900: #1e3a8a;
 
 // Semantic — dark mode (lighter accents, deep tinted surfaces, readable text on weak)
 $color-success-dark: #4ade80;
@@ -58,6 +71,6 @@ $color-error-dark: #f87171;
 $color-error-weak-dark: #7f1d1d;
 $color-error-text-dark: #fca5a5;
 
-$color-info-dark: $color-primary-400;
-$color-info-weak-dark: #2e1065;
-$color-info-text-dark: $color-primary-300;
+$color-info-dark: $color-blue-400;
+$color-info-weak-dark: $color-blue-900;
+$color-info-text-dark: $color-blue-200;

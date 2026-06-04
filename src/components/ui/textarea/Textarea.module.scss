@@ -1,18 +1,16 @@
 @use '@/styles/tokens/spacing' as *;
-@use '@/styles/tokens/typography' as *;
 @use '@/styles/tokens/radius' as *;
 
 .textarea {
 	width: 100%;
 	min-height: 6rem;
 	padding: $spacing-2 $spacing-3;
-	font-family: inherit;
-	font-size: $font-size-base;
-	line-height: $line-height-normal;
+	font: var(--font-sm);
 	border: 1px solid var(--color-border);
 	border-radius: $radius-md;
 	background-color: var(--color-surface);
 	color: var(--color-text);
+	box-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
 	transition:
 		border-color 150ms ease,
 		box-shadow 150ms ease;
@@ -21,24 +19,36 @@
 		color: var(--color-text-subtle);
 	}
 
+	&:hover:not(:focus):not(:disabled) {
+		border-color: var(--color-border-strong);
+	}
+
 	&:focus {
 		outline: none;
 		border-color: var(--color-primary);
-		box-shadow: 0 0 0 3px var(--color-primary-subtle);
+		box-shadow:
+			0 0 0 3px var(--color-primary-subtle),
+			0 1px 2px rgb(0 0 0 / 0.04);
+	}
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+		background-color: var(--color-bg-subtle);
 	}
 
 	&--error {
 		border-color: var(--color-error);
 
 		&:focus {
-			box-shadow: 0 0 0 3px rgb(220 38 38 / 0.15);
+			box-shadow: 0 0 0 3px rgb(220 38 38 / 0.12);
 		}
 	}
 
-	&--resize-none { resize: none; }
-	&--resize-vertical { resize: vertical; }
+	&--resize-none       { resize: none; }
+	&--resize-vertical   { resize: vertical; }
 	&--resize-horizontal { resize: horizontal; }
-	&--resize-both { resize: both; }
+	&--resize-both       { resize: both; }
 
 	&__wrapper {
 		display: flex;
@@ -47,18 +57,18 @@
 	}
 
 	&__label {
-		font-size: $font-size-sm;
-		font-weight: $font-weight-medium;
+		font: var(--font-label);
 		color: var(--color-text);
+		letter-spacing: var(--letter-spacing-snug);
 	}
 
 	&__helper {
-		font-size: $font-size-xs;
+		font: var(--font-caption);
 		color: var(--color-text-subtle);
 	}
 
 	&__error {
-		font-size: $font-size-xs;
+		font: var(--font-caption);
 		color: var(--color-error);
 	}
 }

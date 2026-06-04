@@ -2,21 +2,21 @@
 
 [data-theme='dark'] {
 	// Backgrounds
-	--color-bg: #{$color-neutral-900};
-	--color-bg-subtle: #{$color-neutral-800};
-	--color-bg-muted: #{$color-neutral-700};
-	--color-surface: #{$color-neutral-800};
-	--color-surface-raised: #{$color-neutral-700};
+	--color-bg: #{$color-neutral-950};
+	--color-bg-subtle: #{$color-neutral-900};
+	--color-bg-muted: #{$color-neutral-800};
+	--color-surface: #{$color-neutral-900};
+	--color-surface-raised: #{$color-neutral-800};
 
-	// Borders
-	--color-border: #{$color-neutral-500};
-	--color-border-strong: #{$color-neutral-400};
+	// Borders — subtle so they don't overpower the dark background
+	--color-border: #{$color-neutral-800};
+	--color-border-strong: #{$color-neutral-700};
 
-	// Text — neutral-100 for a light grey default, not pure white
-	--color-text: #{$color-neutral-100};
-	--color-text-muted: #{$color-neutral-300};
-	--color-text-subtle: #{$color-neutral-400};
-	--color-text-inverse: #{$color-neutral-900};
+	// Text
+	--color-text: #{$color-neutral-50};
+	--color-text-muted: #{$color-neutral-400};
+	--color-text-subtle: #{$color-neutral-600};
+	--color-text-inverse: #{$color-neutral-950};
 
 	// Primary — Violet (lighter shades for dark backgrounds)
 	--color-primary: #{$color-primary-400};
@@ -37,7 +37,7 @@
 	--color-error-weak: #{$color-error-weak-dark};
 	--color-error-text: #{$color-error-text-dark};
 
-	--color-info: #{$color-info-dark};
-	--color-info-weak: #{$color-info-weak-dark};
-	--color-info-text: #{$color-info-text-dark};
+	--color-info: #{$color-blue-400};
+	--color-info-weak: #{$color-blue-900};
+	--color-info-text: #{$color-blue-200};
 }

@@ -7,29 +7,81 @@ alwaysApply: false
 # Styling Rules
 
 ## Token Usage
-Always import tokens via `@use` — never hardcode raw values.
+
+### Spacing, radius, shadows — SCSS variables via `@use`
+Import the token file and use the SCSS variable directly.
 
 | Token file | Variables |
 |---|---|
-| `@/styles/tokens/colors` | `$color-*` |
 | `@/styles/tokens/spacing` | `$spacing-*` |
-| `@/styles/tokens/typography` | `$font-size-*`, `$font-weight-*`, `$line-height-*`, `$letter-spacing-*` |
 | `@/styles/tokens/radius` | `$radius-*` |
 | `@/styles/tokens/shadows` | `$shadow-*` |
 
 ```scss
 // ✅
 @use '@/styles/tokens/spacing' as *;
-@use '@/styles/tokens/typography' as *;
+@use '@/styles/tokens/radius' as *;
 padding: $spacing-4;
-font-size: $font-size-sm;
+border-radius: $radius-md;
 
 // ❌
 padding: 16px;
-font-size: 14px;
+border-radius: 6px;
 ```
 
-## Theme-Aware Values
+### Typography — CSS `font` shorthand via `var(--font-*)`
+Typography is consumed through **font shorthand custom properties** defined in `src/styles/theme/typography.scss`. Each variable encodes `font-weight`, `font-size`, `line-height`, and `font-family` in a single declaration. **Never** import `@/styles/tokens/typography` in component files.
+
+```scss
+// ✅ — one declaration covers size, weight, line-height, and family
+font: var(--font-label);
+
+// ✅ — letter-spacing is NOT part of the font shorthand; always set it separately
+font: var(--font-label);
+letter-spacing: var(--letter-spacing-snug);
+
+// ✅ — weight-only override (e.g. a selected-state modifier) stays as font-weight
+font-weight: var(--font-weight-medium);
+
+// ❌ — do not set font-size, font-weight, or line-height individually
+font-size: var(--font-size-sm);
+font-weight: var(--font-weight-medium);
+line-height: var(--line-height-normal);
+
+// ❌ — do not import the SCSS token file in components
+@use '@/styles/tokens/typography' as *;
+font-size: $font-size-sm;
+```
+
+Available font shorthand presets (`weight size/line-height family`):
+
+| Variable | Value | Typical use |
+|---|---|---|
+| `--font-caption` | 400 0.75rem/1.5 | Helper text, error messages, captions |
+| `--font-sm` | 400 0.875rem/1.5 | Small body text, checkbox labels |
+| `--font-sm-relaxed` | 400 0.875rem/1.625 | Accordion content, relaxed small text |
+| `--font-base` | 400 1rem/1.5 | Body content, select trigger |
+| `--font-lg-relaxed` | 400 1.125rem/1.625 | Descriptions, introductory copy |
+| `--font-label` | 500 0.875rem/1.5 | Form labels |
+| `--font-control` | 500 0.875rem/1.25 | Buttons (sm/md), accordion triggers |
+| `--font-control-lg` | 500 1rem/1.25 | Large buttons |
+| `--font-strong-sm` | 600 0.875rem/1.25 | Toast titles, step indicators |
+| `--font-title` | 600 1.125rem/1.25 | Modal titles, section headings |
+
+Individual override properties (for single-property changes only):
+
+| Variable | Value |
+|---|---|
+| `--font-weight-medium` | `500` |
+| `--font-weight-bold` | `700` |
+
+Letter spacing (always set separately — not part of `font` shorthand):
+
+| Variable | Value |
+|---|---|
+| `--letter-spacing-tight` · `snug` · `normal` · `wide` · `wider` · `widest` | `-0.02em` → `0.1em` |
+
+### Colors — CSS custom properties via `var(--*)`
 Use CSS custom properties for anything that changes between light and dark themes.
 
 ```scss
@@ -42,7 +94,7 @@ border-color: var(--color-border);
 color: #111827;
 ```
 
-Available custom properties are defined in `src/styles/theme/light.scss` and `dark.scss`.
+Available color custom properties are defined in `src/styles/theme/light.scss` and `dark.scss`.
 
 ## BEM
 Follow BEM strictly for all module class names. Always nest elements and modifiers inside the root block class using the `&` prefix — never write them as flat sibling rules.
