@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { Stack } from '@/components/layout/stack';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Stack } from '@/components/layout/stack';
 import { useDisclosure } from '@/hooks/useDisclosure';
 
 import { Modal } from './Modal';
@@ -11,7 +11,6 @@ const meta: Meta<typeof Modal> = {
 	title: 'UI/Modal',
 	component: Modal,
 	tags: ['autodocs'],
-	parameters: { layout: 'centered' },
 	argTypes: {
 		size: {
 			control: 'select',
@@ -25,8 +24,6 @@ const meta: Meta<typeof Modal> = {
 export default meta;
 
 type Story = StoryObj<typeof Modal>;
-
-// Interactive stories use useDisclosure so the open/close flow works end-to-end.
 
 const ModalDemo = ({
 	title,
@@ -59,9 +56,7 @@ const ModalDemo = ({
 };
 
 export const Default: Story = {
-	render: () => (
-		<ModalDemo title="Default modal" />
-	),
+	render: () => <ModalDemo title="Default modal" />,
 };
 
 export const WithFooter: Story = {
@@ -77,14 +72,18 @@ export const WithFooter: Story = {
 						title="Confirm deletion"
 						footer={
 							<>
-								<Button variant="secondary" onClick={close}>Cancel</Button>
-								<Button variant="primary" onClick={close}>Delete</Button>
+								<Button variant="secondary" onClick={close}>
+									Cancel
+								</Button>
+								<Button variant="primary" onClick={close}>
+									Delete
+								</Button>
 							</>
 						}
 					>
 						<p>
-							Are you sure you want to delete this item? This action cannot
-							be undone.
+							Are you sure you want to delete this item? This action cannot be
+							undone.
 						</p>
 					</Modal>
 				</>
@@ -107,14 +106,23 @@ export const WithForm: Story = {
 						title="Edit profile"
 						footer={
 							<>
-								<Button variant="secondary" onClick={close}>Cancel</Button>
-								<Button variant="primary" onClick={close}>Save changes</Button>
+								<Button variant="secondary" onClick={close}>
+									Cancel
+								</Button>
+								<Button variant="primary" onClick={close}>
+									Save changes
+								</Button>
 							</>
 						}
 					>
 						<Stack gap="4">
 							<Input id="name" label="Full name" placeholder="Jane Smith" />
-							<Input id="email" label="Email" type="email" placeholder="jane@example.com" />
+							<Input
+								id="email"
+								label="Email"
+								type="email"
+								placeholder="jane@example.com"
+							/>
 						</Stack>
 					</Modal>
 				</>
@@ -127,7 +135,10 @@ export const WithForm: Story = {
 export const WithoutTitle: Story = {
 	render: () => (
 		<ModalDemo title={undefined}>
-			<p>A modal without a title — only the close button is shown in the header area.</p>
+			<p>
+				A modal without a title — only the close button is shown in the header
+				area.
+			</p>
 		</ModalDemo>
 	),
 };
@@ -142,11 +153,11 @@ export const Large: Story = {
 
 export const NoBackdropClose: Story = {
 	render: () => (
-		<ModalDemo
-			title="Backdrop click disabled"
-			closeOnBackdropClick={false}
-		>
-			<p>Clicking the backdrop will not close this modal. Use the × button or press Escape.</p>
+		<ModalDemo title="Backdrop click disabled" closeOnBackdropClick={false}>
+			<p>
+				Clicking the backdrop will not close this modal. Use the × button or
+				press Escape.
+			</p>
 		</ModalDemo>
 	),
 };

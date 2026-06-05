@@ -73,7 +73,11 @@ export const useDatePicker = ({
 	const triggerRef = useRef<HTMLButtonElement | null>(null);
 	const calendarRef = useRef<HTMLDivElement | null>(null);
 
-	const selectedDate = isControlled ? (value ? startOfDay(value) : undefined) : internalDate;
+	const selectedDate = (() => {
+		if (!isControlled) return internalDate;
+		if (!value) return undefined;
+		return startOfDay(value);
+	})();
 
 	// Sync viewDate when controlled value changes externally
 	useEffect(() => {

@@ -1,3 +1,4 @@
+@use '@/styles/tokens/controls' as *;
 @use '@/styles/tokens/spacing' as *;
 @use '@/styles/tokens/radius' as *;
 
@@ -65,7 +66,7 @@
 	&--md {
 		font: var(--font-control);
 		padding: $spacing-2 $spacing-4;
-		height: 2.25rem;
+		height: $control-height;
 	}
 
 	&--lg {
@@ -80,7 +81,7 @@
 		gap: 0;
 
 		&.button--sm { width: 2rem; }
-		&.button--md { width: 2.25rem; }
+		&.button--md { width: $control-height; }
 		&.button--lg { width: 2.75rem; }
 	}
 

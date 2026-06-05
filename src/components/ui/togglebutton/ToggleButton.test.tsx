@@ -49,11 +49,12 @@ describe('ToggleButton', () => {
 		expect(handleChange).toHaveBeenCalledWith(true);
 	});
 
-	it('applies the pressed modifier class', () => {
+	it('marks pressed buttons with a data attribute', () => {
 		render(<ToggleButton pressed>Bold</ToggleButton>);
 
-		expect(screen.getByRole('button', { name: 'Bold' }).className).toMatch(
-			/toggle-button--pressed/
+		expect(screen.getByRole('button', { name: 'Bold' })).toHaveAttribute(
+			'data-toggle-button',
+			''
 		);
 	});
 
@@ -144,7 +145,7 @@ describe('ToggleButtonGroup', () => {
 		expect(handleChange).toHaveBeenCalledWith('right');
 	});
 
-	it('applies button group item classes to children', () => {
+	it('styles grouped toggle buttons via the button group container', () => {
 		render(
 			<ToggleButtonGroup aria-label="Alignment">
 				<ToggleButton value="left">Left</ToggleButton>
@@ -152,11 +153,8 @@ describe('ToggleButtonGroup', () => {
 			</ToggleButtonGroup>
 		);
 
-		expect(screen.getByRole('button', { name: 'Left' }).className).toMatch(
-			/button-group__item--horizontal-first/
-		);
-		expect(screen.getByRole('button', { name: 'Right' }).className).toMatch(
-			/button-group__item--horizontal-last/
-		);
+		expect(
+			screen.getByRole('group', { name: 'Alignment' }).className
+		).toMatch(/button-group--horizontal/);
 	});
 });

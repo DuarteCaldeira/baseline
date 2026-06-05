@@ -44,6 +44,16 @@ describe('Button', () => {
 		expect(screen.getByTestId('my-btn')).toBeInTheDocument();
 	});
 
+	it('does not accept className', () => {
+		render(
+			// @ts-expect-error className is not part of ButtonProps
+			<Button className="custom">Submit</Button>
+		);
+		expect(screen.getByRole('button', { name: /submit/i })).not.toHaveClass(
+			'custom'
+		);
+	});
+
 	it('applies secondary variant class', () => {
 		const { container } = render(
 			<Button variant="secondary">Secondary</Button>

@@ -13,7 +13,7 @@ export type SkeletonProps = HTMLAttributes<HTMLElement> & {
 	width?: SkeletonWidth;
 	/** Line count when `variant="paragraph"`. Defaults to 3. */
 	lines?: number;
-	/** Shimmer animation. Defaults to true. */
+	/** Pulse animation. Defaults to true. */
 	animate?: boolean;
 	/** Use `span` for inline placeholders inside running text. */
 	as?: 'span' | 'div';

@@ -82,7 +82,7 @@
 
 	&__content {
 		overflow: hidden;
-		padding: 0 $spacing-4 $spacing-4;
+		padding: $spacing-4;
 		font: var(--font-sm-relaxed);
 		color: var(--color-text-muted);
 	}

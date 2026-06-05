@@ -27,7 +27,7 @@ export const Textarea = ({
 		[helperId, errorId].filter(Boolean).join(' ') || undefined;
 
 	return (
-		<Stack gap="1" className={styles['textarea__wrapper']}>
+		<Stack gap="2" className={styles['textarea__wrapper']}>
 			{label && (
 				<label className={styles['textarea__label']} htmlFor={id}>
 					{label}

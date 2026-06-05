@@ -9,7 +9,6 @@ const meta: Meta<typeof EmptyState> = {
 	title: 'Patterns/EmptyState',
 	component: EmptyState,
 	tags: ['autodocs'],
-	parameters: { layout: 'centered' },
 	argTypes: {
 		icon: { control: false },
 		action: { control: false },

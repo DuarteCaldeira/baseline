@@ -59,6 +59,7 @@ export const Modal = ({
 				aria-modal="true"
 				aria-labelledby={title ? titleId : undefined}
 				tabIndex={-1}
+				align="stretch"
 				className={cn(styles.modal, styles[`modal--${size}`], className)}
 				onClick={handleDialogClick}
 				onKeyDown={handleDialogKeyDown}

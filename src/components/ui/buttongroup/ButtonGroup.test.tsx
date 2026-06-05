@@ -79,8 +79,8 @@ describe('ButtonGroup', () => {
 		).toBeInTheDocument();
 	});
 
-	it('applies item position classes to child buttons', () => {
-		render(
+	it('renders buttons as direct children for group border styling', () => {
+		const { container } = render(
 			<ButtonGroup aria-label="Actions">
 				<Button variant="secondary">First</Button>
 				<Button variant="secondary">Middle</Button>
@@ -88,15 +88,12 @@ describe('ButtonGroup', () => {
 			</ButtonGroup>
 		);
 
-		expect(screen.getByRole('button', { name: 'First' }).className).toMatch(
-			/button-group__item--horizontal-first/
-		);
-		expect(screen.getByRole('button', { name: 'Middle' }).className).toMatch(
-			/button-group__item--horizontal-middle/
-		);
-		expect(screen.getByRole('button', { name: 'Last' }).className).toMatch(
-			/button-group__item--horizontal-last/
-		);
+		const group = container.querySelector('.button-group--horizontal');
+
+		expect(group?.children).toHaveLength(3);
+		expect(group?.children[0].tagName).toBe('BUTTON');
+		expect(group?.children[1].tagName).toBe('BUTTON');
+		expect(group?.children[2].tagName).toBe('BUTTON');
 	});
 
 	it('applies the full-width modifier class', () => {

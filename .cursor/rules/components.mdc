@@ -32,9 +32,35 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'primary' | 'secondary';
 };
 
-export const Button = ({ variant = 'primary', className, ...rest }: ButtonProps) => (
-  <button className={cn(styles.button, styles[`button--${variant}`], className)} {...rest} />
+export const Button = ({ variant = 'primary', ...rest }: ButtonProps) => (
+  <button className={cn(styles.button, styles[`button--${variant}`], ...rest)} />
 );
+```
+
+`Button` does not accept `className` — style it via `variant`, `size`, and `iconOnly` only. Parent components should target the rendered `<button>` element when layout overrides are needed (e.g. `Tag` remove control).
+
+```tsx
+// ✅ parent styles the embedded button
+.tag--removable > button { margin-inline: 0; }
+
+// ❌
+<Button className={styles['tag__remove']} … />
+```
+
+## Readability
+- **Never nest ternaries** in JSX or logic — prefer `if`/`else`, early returns, or a small render helper
+- One-level ternaries are acceptable for simple values; not for branching UI trees
+
+```tsx
+// ✅ early return in a helper
+const renderStatus = (status: Status) => {
+  if (status === 'loading') return <Spinner />;
+  if (status === 'error') return <ErrorState />;
+  return <Content />;
+};
+
+// ❌ nested ternary in JSX
+{status === 'loading' ? <Spinner /> : status === 'error' ? <ErrorState /> : <Content />}
 ```
 
 ## Extracting Logic
@@ -84,8 +110,8 @@ Reuse shared components instead of duplicating flex layouts, raw buttons, or inl
 |---|---|
 | `Container` | Constraining page/content width |
 | `Stack` | Column or row layout with token `gap`, `align`, or `justify`; use `as` for semantic elements (`nav`, `header`, `footer`, `section`, `ul`, `li`) |
+| `Icon` | **All decorative icons** — always a `LucideIcon` rendered through `Icon`; never emoji, Unicode symbols, inline `<svg>`, or text stand-ins |
 | `Button` | Any clickable action; `variant="ghost"` + `iconOnly` for dismiss/nav icon buttons |
-| `Icon` | Lucide icons; pass `variant` for standalone semantic color, omit inside `Button` |
 | `EmptyState` etc. | Composite patterns in `src/components/patterns/` — built from primitives above |
 
 ```tsx
@@ -100,6 +126,14 @@ Reuse shared components instead of duplicating flex layouts, raw buttons, or inl
 <Button variant="ghost" size="sm" iconOnly aria-label="Close">
   <Icon icon={X} size="sm" />
 </Button>
+
+// ✅ decorative icon — Lucide via Icon
+<Icon icon={CheckCircle} size="sm" variant="success" aria-hidden />
+
+// ❌ emoji, Unicode, or text used as an icon
+<span>✓</span>
+{ icon: '🍎' }
+<svg …><path … /></svg>
 
 // ✅ semantic layout — Stack `as` avoids an extra wrapper
 <Stack as="header" direction="row" justify="between" align="center">…</Stack>

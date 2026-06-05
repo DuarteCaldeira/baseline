@@ -14,6 +14,7 @@ Import the token file and use the SCSS variable directly.
 | Token file | Variables |
 |---|---|
 | `@/styles/tokens/spacing` | `$spacing-*` |
+| `@/styles/tokens/controls` | `$control-height`, `$control-padding-inline`, `$control-field-gap` |
 | `@/styles/tokens/radius` | `$radius-*` |
 | `@/styles/tokens/shadows` | `$shadow-*` |
 
@@ -23,6 +24,9 @@ Import the token file and use the SCSS variable directly.
 @use '@/styles/tokens/radius' as *;
 padding: $spacing-4;
 border-radius: $radius-md;
+
+// Form controls — shared height via `@/styles/mixins/control-field`
+@include control-field.control-field-size;
 
 // ❌
 padding: 16px;

@@ -1,5 +1,7 @@
-import { useSelect } from './useSelect';
+import { Check, ChevronDown } from 'lucide-react';
+
 import { Stack } from '@/components/layout/stack';
+import { Icon } from '@/components/ui/icon';
 import { cn } from '@/utils/cn';
 
 import type { SelectOption } from './Select.types';
@@ -12,6 +14,7 @@ import {
 	scrollOptionIntoView,
 } from './Select.utils';
 import styles from './Select.module.scss';
+import { useSelect } from './useSelect';
 
 export type SelectProps = {
 	id: string;
@@ -54,6 +57,17 @@ export const Select = ({
 		close();
 	};
 
+	const handleToggleOpen = () => {
+		if (disabled) return;
+
+		if (isOpen) {
+			close();
+			return;
+		}
+
+		open(selectedIndex >= 0 ? selectedIndex : 0);
+	};
+
 	const triggerId = getTriggerId(id);
 	const labelId = getLabelId(id);
 	const listboxId = getListboxId(id);
@@ -62,7 +76,7 @@ export const Select = ({
 	return (
 		<Stack
 			ref={containerRef}
-			gap="1"
+			gap="2"
 			className={cn(styles['select__wrapper'], className)}
 		>
 			{label && (
@@ -91,15 +105,22 @@ export const Select = ({
 					error && styles['select__trigger--error'],
 					isOpen && styles['select__trigger--open']
 				)}
-				onClick={() => (isOpen ? close() : open(selectedIndex >= 0 ? selectedIndex : 0))}
+				onClick={handleToggleOpen}
 				onKeyDown={handleTriggerKeyDown}
 			>
 				<span className={styles['select__trigger-value']}>
 					{selectedOption ? (
 						<>
 							{selectedOption.icon && (
-								<span className={styles['select__trigger-icon']} aria-hidden="true">
-									{selectedOption.icon}
+								<span
+									className={styles['select__trigger-icon']}
+									aria-hidden="true"
+								>
+									<Icon
+										icon={selectedOption.icon}
+										size="sm"
+										variant={selectedOption.iconVariant}
+									/>
 								</span>
 							)}
 							<span>{selectedOption.label}</span>
@@ -109,23 +130,15 @@ export const Select = ({
 					)}
 				</span>
 
-				<svg
+				<Icon
+					icon={ChevronDown}
+					size="sm"
 					className={cn(
 						styles['select__chevron'],
 						isOpen && styles['select__chevron--open']
 					)}
-					aria-hidden="true"
-					width="16"
-					height="16"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-				>
-					<path d="M6 9l6 6 6-6" />
-				</svg>
+					aria-hidden
+				/>
 			</button>
 
 			{isOpen && (
@@ -154,8 +167,15 @@ export const Select = ({
 							onMouseEnter={() => !option.disabled && setActiveIndex(index)}
 						>
 							{option.icon && (
-								<span className={styles['select__option-icon']} aria-hidden="true">
-									{option.icon}
+								<span
+									className={styles['select__option-icon']}
+									aria-hidden="true"
+								>
+									<Icon
+										icon={option.icon}
+										size="sm"
+										variant={option.iconVariant}
+									/>
 								</span>
 							)}
 							<span className={styles['select__option-content']}>
@@ -167,20 +187,12 @@ export const Select = ({
 								)}
 							</span>
 							{option.value === value && (
-								<svg
+								<Icon
+									icon={Check}
+									size="sm"
 									className={styles['select__option-check']}
-									aria-hidden="true"
-									width="16"
-									height="16"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									strokeWidth="2.5"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<path d="M20 6L9 17l-5-5" />
-								</svg>
+									aria-hidden
+								/>
 							)}
 						</li>
 					))}

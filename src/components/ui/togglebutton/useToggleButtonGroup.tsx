@@ -57,13 +57,17 @@ export const useToggleButtonGroupState = ({
 
 	const select = useCallback(
 		(itemValue: string) => {
-			const next = isMultiple
-				? (currentValue as string[]).includes(itemValue)
-					? (currentValue as string[]).filter(
-							(entry) => entry !== itemValue
-						)
-					: [...(currentValue as string[]), itemValue]
-				: itemValue;
+			let next: string | string[];
+
+			if (isMultiple) {
+				const selected = currentValue as string[];
+
+				next = selected.includes(itemValue)
+					? selected.filter((entry) => entry !== itemValue)
+					: [...selected, itemValue];
+			} else {
+				next = itemValue;
+			}
 
 			setValue(next);
 		},

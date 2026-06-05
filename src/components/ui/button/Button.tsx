@@ -19,7 +19,7 @@ type IconOnly = {
 	'aria-label': string;
 };
 
-type BaseProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+type BaseProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> & {
 	variant?: 'primary' | 'secondary' | 'ghost';
 	size?: 'sm' | 'md' | 'lg';
 	/** Square padding for icon-only buttons rendered as children. */
@@ -44,10 +44,11 @@ export const Button = ({
 	disabled,
 	children,
 	icon: IconComponent,
-	className,
 	...rest
 }: ButtonProps) => {
 	const isDisabled = disabled || loading;
+	const buttonProps = { ...rest } as ButtonHTMLAttributes<HTMLButtonElement>;
+	delete buttonProps.className;
 
 	return (
 		<button
@@ -58,12 +59,11 @@ export const Button = ({
 				(iconOnly || (!children && IconComponent)) &&
 					styles['button--icon-only'],
 				isDisabled && styles['button--disabled'],
-				loading && styles['button--loading'],
-				className
+				loading && styles['button--loading']
 			)}
 			disabled={isDisabled}
 			aria-busy={loading || undefined}
-			{...rest}
+			{...buttonProps}
 		>
 			{loading ? (
 				<span className={styles['button__spinner']} aria-hidden="true">

@@ -1,42 +1,65 @@
 import { useState } from 'react';
 
 import type { Meta, StoryObj } from '@storybook/react';
+import {
+	Apple,
+	Ban,
+	Carrot,
+	Cherry,
+	CircleCheck,
+	Citrus,
+	Clock,
+	Grape,
+	WifiOff,
+} from 'lucide-react';
 
 import type { SelectOption } from './Select.types';
 import { Select } from './Select';
 
 const FRUIT_OPTIONS: SelectOption[] = [
-	{ value: 'apple', label: 'Apple', icon: '🍎', description: 'Sweet and crunchy' },
-	{ value: 'banana', label: 'Banana', icon: '🍌', description: 'Rich in potassium' },
-	{ value: 'cherry', label: 'Cherry', icon: '🍒', description: 'Sweet or sour' },
-	{ value: 'mango', label: 'Mango', icon: '🥭', description: 'Tropical favourite' },
+	{ value: 'apple', label: 'Apple', icon: Apple, description: 'Sweet and crunchy' },
+	{ value: 'cherry', label: 'Cherry', icon: Cherry, description: 'Sweet or sour' },
+	{ value: 'citrus', label: 'Citrus', icon: Citrus, description: 'Bright and zesty' },
+	{ value: 'carrot', label: 'Carrot', icon: Carrot, description: 'Crunchy and earthy' },
 	{
 		value: 'grape',
 		label: 'Grape',
-		icon: '🍇',
+		icon: Grape,
 		description: 'Comes in clusters',
 		disabled: true,
 	},
 ];
 
-const Dot = ({ color }: { color: string }) => (
-	<span
-		style={{
-			width: 10,
-			height: 10,
-			borderRadius: '50%',
-			background: color,
-			display: 'inline-block',
-			flexShrink: 0,
-		}}
-	/>
-);
-
 const STATUS_OPTIONS: SelectOption[] = [
-	{ value: 'active', label: 'Active', icon: <Dot color="#16a34a" />, description: 'User is currently active' },
-	{ value: 'idle', label: 'Idle', icon: <Dot color="#d97706" />, description: 'No activity in 30 minutes' },
-	{ value: 'offline', label: 'Offline', icon: <Dot color="#6b7280" />, description: 'Not connected' },
-	{ value: 'banned', label: 'Banned', icon: <Dot color="#dc2626" />, description: 'Account suspended', disabled: true },
+	{
+		value: 'active',
+		label: 'Active',
+		icon: CircleCheck,
+		iconVariant: 'success',
+		description: 'User is currently active',
+	},
+	{
+		value: 'idle',
+		label: 'Idle',
+		icon: Clock,
+		iconVariant: 'warning',
+		description: 'No activity in 30 minutes',
+	},
+	{
+		value: 'offline',
+		label: 'Offline',
+		icon: WifiOff,
+		iconVariant: 'muted',
+		description: 'Not connected',
+	},
+	{
+		value: 'banned',
+		label: 'Banned',
+		icon: Ban,
+		iconVariant: 'error',
+		description: 'Account suspended',
+		disabled: true,
+	},
 ];
 
 const PLAIN_OPTIONS: SelectOption[] = [
@@ -115,7 +138,7 @@ const PreselectedDemo = () => {
 const meta: Meta<typeof Select> = {
 	title: 'UI/Select',
 	component: Select,
-	tags: ['autodocs']
+	tags: ['autodocs'],
 };
 
 export default meta;

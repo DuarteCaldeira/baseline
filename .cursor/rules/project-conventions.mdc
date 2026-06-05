@@ -59,6 +59,24 @@ function cn(...classes) { ... }
 function handleClick() { ... }
 ```
 
+## Readability
+- **Never nest ternaries** — use `if`/`else`, early returns, or a small helper instead
+- A single ternary for simple assignments is fine; chaining `a ? b : c ? d : e` is not
+
+```tsx
+// ✅
+const label = isLast ? item.label : item.href ?? item.label;
+
+const renderItemContent = (item: BreadcrumbItem, isLast: boolean) => {
+  if (isLast) return <span aria-current="page">{item.label}</span>;
+  if (item.href) return <Link href={item.href}>{item.label}</Link>;
+  return <span>{item.label}</span>;
+};
+
+// ❌
+{isLast ? <span …>{item.label}</span> : item.href ? <Link …>{item.label}</Link> : <span …>{item.label}</span>}
+```
+
 ## Naming
 - Components and their files: `PascalCase` (`Button`, `Button.tsx`)
 - Hooks: `camelCase` prefixed with `use` (`useDisclosure`)
@@ -74,7 +92,7 @@ function handleClick() { ... }
   - **`Container`** — page-level width constraints (`src/components/layout/container/`)
   - **`Stack`** — flex rows/columns with token gaps and alignment (`src/components/layout/stack/`)
   - **`Button`** — actions; use `iconOnly` + **`Icon`** for icon-only controls instead of custom styled buttons
-  - **`Icon`** — Lucide icons with theme token colors; omit `variant` inside buttons so color inherits from the button
+  - **`Icon`** — the only way to render icons: pass a `LucideIcon` from `lucide-react`. Never use emoji, Unicode symbols (e.g. `✓`), raw inline `<svg>`, or text as icon stand-ins. Omit `variant` inside buttons so color inherits from the button
 - Composite UI patterns (empty states, future page blocks) live in **`src/components/patterns/`** — compose primitives rather than reimplementing them
 - Use **`Stack`** whenever layout is flex + gap (form field wrappers, toolbars, modal header/footer, toast rows). Pass **`as`** when the wrapper should be a semantic element (`header`, `footer`, `nav`, `section`, `ul`, `li`). Keep bespoke SCSS for positioning, borders, and non-flex concerns only.
 - Extract repeated UI patterns into shared components rather than duplicating JSX

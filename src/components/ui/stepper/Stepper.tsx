@@ -1,3 +1,6 @@
+import { X } from 'lucide-react';
+
+import { Icon } from '@/components/ui/icon';
 import { cn } from '@/utils/cn';
 
 import type { Step } from './Stepper.types';
@@ -17,6 +20,14 @@ const getStepStatus = (index: number, currentStep: number): StepStatus => {
 	return 'upcoming';
 };
 
+const renderStepIndicator = (status: StepStatus, index: number) => {
+	if (status === 'complete') {
+		return <Icon icon={X} size="sm" aria-hidden />;
+	}
+
+	return index + 1;
+};
+
 export const Stepper = ({ steps, currentStep, className }: StepperProps) => (
 	<ol className={cn(styles.stepper, className)} aria-label="Progress">
 		{steps.map((step, index) => {
@@ -29,7 +40,7 @@ export const Stepper = ({ steps, currentStep, className }: StepperProps) => (
 					aria-current={status === 'current' ? 'step' : undefined}
 				>
 					<span className={styles['step__indicator']} aria-hidden="true">
-						{status === 'complete' ? '✓' : index + 1}
+						{renderStepIndicator(status, index)}
 					</span>
 					<span className={styles['step__label']}>{step.label}</span>
 					{step.description && (

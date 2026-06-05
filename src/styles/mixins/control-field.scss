@@ -1,0 +1,15 @@
+@use '@/styles/tokens/controls' as *;
+
+@mixin control-field-size {
+	box-sizing: border-box;
+	height: $control-height;
+	min-height: $control-height;
+	padding-inline: $control-padding-inline;
+	padding-block: 0;
+}
+
+@mixin control-field-min-size {
+	box-sizing: border-box;
+	min-height: $control-height;
+	padding-inline: $control-padding-inline;
+}

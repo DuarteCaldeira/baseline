@@ -60,10 +60,21 @@ export const DatePicker = ({
 		isCurrentMonth,
 	} = useDatePicker({ value, defaultValue, onChange, disabled, min, max });
 
+	const handleToggleOpen = () => {
+		if (disabled) return;
+
+		if (isOpen) {
+			close();
+			return;
+		}
+
+		open();
+	};
+
 	return (
 		<Stack
 			ref={containerRef}
-			gap="1"
+			gap="2"
 			className={cn(styles.datepicker, className)}
 		>
 			{label && (
@@ -86,7 +97,7 @@ export const DatePicker = ({
 					error && styles['datepicker__trigger--error'],
 					isOpen && styles['datepicker__trigger--open']
 				)}
-				onClick={() => (isOpen ? close() : open())}
+				onClick={handleToggleOpen}
 				onKeyDown={handleTriggerKeyDown}
 			>
 				<span

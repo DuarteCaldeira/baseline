@@ -25,7 +25,7 @@ export const Input = ({
 		[helperId, errorId].filter(Boolean).join(' ') || undefined;
 
 	return (
-		<Stack gap="1" className={styles['input__wrapper']}>
+		<Stack gap="2" className={styles['input__wrapper']}>
 			{label && (
 				<label className={styles['input__label']} htmlFor={id}>
 					{label}

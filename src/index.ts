@@ -5,7 +5,6 @@ export type { ButtonProps } from './components/ui/button';
 export { ButtonGroup } from './components/ui/buttongroup';
 export type {
 	ButtonGroupProps,
-	ButtonGroupItemPosition,
 	ButtonGroupOrientation,
 } from './components/ui/buttongroup';
 
@@ -49,6 +48,9 @@ export type { TabsProps, TabItem } from './components/ui/tabs';
 export { Badge } from './components/ui/badge';
 export type { BadgeProps, BadgeVariant, BadgeType } from './components/ui/badge';
 
+export { Tag } from './components/ui/tag';
+export type { TagProps, TagVariant, TagSize } from './components/ui/tag';
+
 export { Tooltip } from './components/ui/tooltip';
 export type { TooltipProps, TooltipPlacement } from './components/ui/tooltip';
 
@@ -63,6 +65,9 @@ export type { InputProps } from './components/ui/input';
 
 export { Select } from './components/ui/select';
 export type { SelectOption, SelectProps } from './components/ui/select';
+
+export { MultiSelect } from './components/ui/multiselect';
+export type { MultiSelectProps, MultiSelectOption } from './components/ui/multiselect';
 
 export { Stepper } from './components/ui/stepper';
 export type { Step, StepperProps } from './components/ui/stepper';
@@ -84,6 +89,9 @@ export type { VisuallyHiddenProps } from './components/a11y/visually-hidden';
 // Pattern Components
 export { EmptyState } from './components/patterns/empty-state';
 export type { EmptyStateProps } from './components/patterns/empty-state';
+
+export { Breadcrumb } from './components/patterns/breadcrumb';
+export type { BreadcrumbProps, BreadcrumbItem } from './components/patterns/breadcrumb';
 
 export { Skeleton } from './components/patterns/skeleton';
 export type { SkeletonProps, SkeletonVariant, SkeletonWidth } from './components/patterns/skeleton';

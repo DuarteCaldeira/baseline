@@ -99,7 +99,7 @@ export const FileUpload = ({
 	};
 
 	return (
-		<Stack gap="1" className={cn(styles.fileupload, className)}>
+		<Stack gap="2" className={cn(styles.fileupload, className)}>
 			{label && (
 				<label className={styles['fileupload__label']} htmlFor={inputId}>
 					{label}

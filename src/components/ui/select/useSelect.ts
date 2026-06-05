@@ -11,6 +11,8 @@ type UseSelectOptions = {
 	optionsCount: number;
 	isDisabled?: boolean;
 	initialActiveIndex?: number;
+	closeOnSelect?: boolean;
+	onOptionConfirm?: (index: number) => void;
 	onScrollIntoView?: (index: number) => void;
 };
 
@@ -18,23 +20,25 @@ export type UseSelectReturn = {
 	isOpen: boolean;
 	activeIndex: number;
 	containerRef: RefObject<HTMLDivElement>;
-	triggerRef: RefObject<HTMLButtonElement>;
+	triggerRef: RefObject<HTMLElement>;
 	open: (startIndex?: number) => void;
 	close: () => void;
 	setActiveIndex: (index: number) => void;
-	handleTriggerKeyDown: (e: KeyboardEvent<HTMLButtonElement>) => void;
+	handleTriggerKeyDown: (e: KeyboardEvent<HTMLElement>) => void;
 };
 
 export const useSelect = ({
 	optionsCount,
 	isDisabled,
 	initialActiveIndex = 0,
+	closeOnSelect = true,
+	onOptionConfirm,
 	onScrollIntoView,
 }: UseSelectOptions): UseSelectReturn => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [activeIndex, setActiveIndex] = useState(initialActiveIndex);
 	const containerRef = useRef<HTMLDivElement>(null);
-	const triggerRef = useRef<HTMLButtonElement>(null);
+	const triggerRef = useRef<HTMLElement>(null);
 
 	const close = useCallback(() => {
 		setIsOpen(false);
@@ -74,13 +78,20 @@ export const useSelect = ({
 	);
 
 	const handleTriggerKeyDown = useCallback(
-		(e: KeyboardEvent<HTMLButtonElement>) => {
+		(e: KeyboardEvent<HTMLElement>) => {
 			switch (e.key) {
 				case 'Enter':
 				case ' ':
 					e.preventDefault();
-					if (isOpen) close();
-					else open();
+					if (isOpen) {
+						if (closeOnSelect) {
+							close();
+						} else {
+							onOptionConfirm?.(activeIndex);
+						}
+					} else {
+						open();
+					}
 					break;
 				case 'ArrowDown':
 					e.preventDefault();
@@ -104,7 +115,7 @@ export const useSelect = ({
 					break;
 			}
 		},
-		[isOpen, activeIndex, optionsCount, open, close, moveTo]
+		[isOpen, activeIndex, optionsCount, open, close, moveTo, closeOnSelect, onOptionConfirm]
 	);
 
 	return {
