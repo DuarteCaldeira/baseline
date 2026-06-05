@@ -13,6 +13,7 @@
 			{ "prefer": "type-imports" }
 		],
 		"react/self-closing-comp": "warn",
+		"no-nested-ternary": "error",
 		"no-console": ["warn", { "allow": ["warn", "error"] }]
 	},
 	"ignorePatterns": ["node_modules/", ".next/", "out/", "dist/"]
