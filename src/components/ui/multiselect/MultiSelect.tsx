@@ -6,10 +6,12 @@ import { Icon } from '@/components/ui/icon';
 import type { SelectOption } from '@/components/ui/select';
 import {
 	getErrorId,
+	getHelperId,
 	getLabelId,
 	getListboxId,
 	getOptionId,
 	getTriggerId,
+	getDescribedBy,
 	scrollOptionIntoView,
 } from '@/components/ui/select/Select.utils';
 import { Tag } from '@/components/ui/tag';
@@ -27,6 +29,7 @@ export type MultiSelectProps = {
 	defaultValue?: string[];
 	onChange?: (value: string[]) => void;
 	placeholder?: string;
+	helperText?: string;
 	error?: string;
 	disabled?: boolean;
 	className?: string;
@@ -43,6 +46,7 @@ export const MultiSelect = ({
 	defaultValue,
 	onChange,
 	placeholder = 'Select options',
+	helperText,
 	error,
 	disabled,
 	className,
@@ -100,7 +104,9 @@ export const MultiSelect = ({
 	const triggerId = getTriggerId(id);
 	const labelId = getLabelId(id);
 	const listboxId = getListboxId(id);
+	const helperId = helperText ? getHelperId(id) : undefined;
 	const errorId = error ? getErrorId(id) : undefined;
+	const describedBy = getDescribedBy([helperId, errorId]);
 
 	return (
 		<Stack
@@ -127,7 +133,7 @@ export const MultiSelect = ({
 					isOpen ? getOptionId(id, options[activeIndex]?.value ?? '') : undefined
 				}
 				aria-invalid={error ? true : undefined}
-				aria-describedby={errorId}
+				aria-describedby={describedBy}
 				aria-disabled={disabled || undefined}
 				className={cn(
 					styles['multiselect__trigger'],
@@ -235,6 +241,12 @@ export const MultiSelect = ({
 						);
 					})}
 				</ul>
+			)}
+
+			{helperText && (
+				<span id={helperId} className={styles['multiselect__helper']}>
+					{helperText}
+				</span>
 			)}
 
 			{error && (

@@ -134,4 +134,34 @@ describe('MultiSelect', () => {
 			'Select at least one skill.'
 		);
 	});
+
+	it('renders helper text when provided', () => {
+		render(
+			<MultiSelect
+				id="skills"
+				options={OPTIONS}
+				helperText="Pick all skills that apply."
+			/>
+		);
+
+		expect(
+			screen.getByText('Pick all skills that apply.')
+		).toBeInTheDocument();
+	});
+
+	it('sets aria-describedby to helper and error ids when both are provided', () => {
+		render(
+			<MultiSelect
+				id="skills"
+				options={OPTIONS}
+				helperText="Pick all skills that apply."
+				error="Select at least one skill."
+			/>
+		);
+
+		expect(screen.getByRole('combobox')).toHaveAttribute(
+			'aria-describedby',
+			'skills-helper skills-error'
+		);
+	});
 });

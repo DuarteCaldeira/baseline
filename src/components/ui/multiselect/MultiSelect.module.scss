@@ -165,6 +165,11 @@
 		font: var(--font-caption);
 		color: var(--color-error);
 	}
+
+	&__helper {
+		font: var(--font-caption);
+		color: var(--color-text-subtle);
+	}
 }
 
 @keyframes multiselectDropdownIn {

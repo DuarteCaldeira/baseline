@@ -7,10 +7,12 @@ import { cn } from '@/utils/cn';
 import type { SelectOption } from './Select.types';
 import {
 	getErrorId,
+	getHelperId,
 	getLabelId,
 	getListboxId,
 	getOptionId,
 	getTriggerId,
+	getDescribedBy,
 	scrollOptionIntoView,
 } from './Select.utils';
 import styles from './Select.module.scss';
@@ -23,6 +25,7 @@ export type SelectProps = {
 	value?: string;
 	onChange?: (value: string) => void;
 	placeholder?: string;
+	helperText?: string;
 	error?: string;
 	disabled?: boolean;
 	className?: string;
@@ -35,6 +38,7 @@ export const Select = ({
 	value,
 	onChange,
 	placeholder = 'Select an option',
+	helperText,
 	error,
 	disabled,
 	className,
@@ -71,7 +75,9 @@ export const Select = ({
 	const triggerId = getTriggerId(id);
 	const labelId = getLabelId(id);
 	const listboxId = getListboxId(id);
+	const helperId = helperText ? getHelperId(id) : undefined;
 	const errorId = error ? getErrorId(id) : undefined;
+	const describedBy = getDescribedBy([helperId, errorId]);
 
 	return (
 		<Stack
@@ -98,7 +104,7 @@ export const Select = ({
 					isOpen ? getOptionId(id, options[activeIndex]?.value ?? '') : undefined
 				}
 				aria-invalid={error ? true : undefined}
-				aria-describedby={errorId}
+				aria-describedby={describedBy}
 				disabled={disabled}
 				className={cn(
 					styles['select__trigger'],
@@ -197,6 +203,12 @@ export const Select = ({
 						</li>
 					))}
 				</ul>
+			)}
+
+			{helperText && (
+				<span id={helperId} className={styles['select__helper']}>
+					{helperText}
+				</span>
 			)}
 
 			{error && (

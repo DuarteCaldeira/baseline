@@ -116,7 +116,7 @@ Reuse shared components instead of duplicating flex layouts, raw buttons, or inl
 
 ```tsx
 // ✅ form field wrapper — Stack replaces flex-column + gap in SCSS
-<Stack gap="1" className={styles['input__wrapper']}>
+<Stack gap="2" className={styles['input__wrapper']}>
   {label && <label …>{label}</label>}
   <input … />
   {helperText && <span …>{helperText}</span>}
