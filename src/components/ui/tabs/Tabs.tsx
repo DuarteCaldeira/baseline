@@ -24,7 +24,7 @@ export const Tabs = ({
 	onChange,
 	className,
 }: TabsProps) => {
-	const listRef = useRef<HTMLDivElement>(null);
+	const listRef = useRef<HTMLElement>(null);
 	const tabRefs = useRef(new Map<string, HTMLButtonElement>());
 
 	const { activeId, select } = useTabs({ items, value, defaultValue, onChange });
@@ -76,36 +76,42 @@ export const Tabs = ({
 
 	return (
 		<div className={cn(styles.tabs, className)}>
-			<div ref={listRef} className={styles['tabs__list']}>
-				<Stack direction="row" gap="1" role="tablist" aria-orientation="horizontal">
-					{items.map((item) => {
-						const selected = item.id === activeId;
-						const tabId = `tab-${item.id}`;
-						const panelId = `tabpanel-${item.id}`;
+			<Stack
+				ref={listRef}
+				as="div"
+				direction="row"
+				gap="1"
+				role="tablist"
+				aria-orientation="horizontal"
+				className={styles['tabs__list']}
+			>
+				{items.map((item) => {
+					const selected = item.id === activeId;
+					const tabId = `tab-${item.id}`;
+					const panelId = `tabpanel-${item.id}`;
 
-						return (
-							<button
-								key={item.id}
-								ref={setTabRef(item.id)}
-								type="button"
-								role="tab"
-								id={tabId}
-								aria-selected={selected}
-								aria-controls={panelId}
-								tabIndex={selected ? 0 : -1}
-								disabled={item.disabled}
-								className={cn(
-									styles['tabs__tab'],
-									selected && styles['tabs__tab--selected']
-								)}
-								onClick={() => select(item.id)}
-								onKeyDown={handleKeyDown}
-							>
-								{item.label}
-							</button>
-						);
-					})}
-				</Stack>
+					return (
+						<button
+							key={item.id}
+							ref={setTabRef(item.id)}
+							type="button"
+							role="tab"
+							id={tabId}
+							aria-selected={selected}
+							aria-controls={panelId}
+							tabIndex={selected ? 0 : -1}
+							disabled={item.disabled}
+							className={cn(
+								styles['tabs__tab'],
+								selected && styles['tabs__tab--selected']
+							)}
+							onClick={() => select(item.id)}
+							onKeyDown={handleKeyDown}
+						>
+							{item.label}
+						</button>
+					);
+				})}
 				<span
 					className={styles['tabs__indicator']}
 					aria-hidden="true"
@@ -114,7 +120,7 @@ export const Tabs = ({
 						width: indicator.width,
 					}}
 				/>
-			</div>
+			</Stack>
 
 			{items.map((item) => {
 				const selected = item.id === activeId;

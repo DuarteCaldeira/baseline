@@ -83,7 +83,7 @@ Reuse shared components instead of duplicating flex layouts, raw buttons, or inl
 | Primitive | Use when |
 |---|---|
 | `Container` | Constraining page/content width |
-| `Stack` | Column or row layout with token `gap`, `align`, or `justify` |
+| `Stack` | Column or row layout with token `gap`, `align`, or `justify`; use `as` for semantic elements (`nav`, `header`, `footer`, `section`, `ul`, `li`) |
 | `Button` | Any clickable action; `variant="ghost"` + `iconOnly` for dismiss/nav icon buttons |
 | `Icon` | Lucide icons; pass `variant` for standalone semantic color, omit inside `Button` |
 | `EmptyState` etc. | Composite patterns in `src/components/patterns/` — built from primitives above |
@@ -101,6 +101,9 @@ Reuse shared components instead of duplicating flex layouts, raw buttons, or inl
   <Icon icon={X} size="sm" />
 </Button>
 
+// ✅ semantic layout — Stack `as` avoids an extra wrapper
+<Stack as="header" direction="row" justify="between" align="center">…</Stack>
+
 // ❌ bespoke flex wrapper in SCSS when Stack fits
 .input__wrapper { display: flex; flex-direction: column; gap: $spacing-1; }
 
@@ -108,7 +111,7 @@ Reuse shared components instead of duplicating flex layouts, raw buttons, or inl
 <button className={styles.close}><X /></button>
 ```
 
-Keep semantic HTML where primitives don't fit (e.g. `<ul>` for file lists, native `<button>` for calendar day cells). Do not replace grid-based or absolutely positioned layouts with `Stack`.
+Use `Stack` `as` for semantic elements (`nav`, `header`, `footer`, `section`, `ul`, `li`) instead of nesting a raw element inside Stack. Keep native `<button>` for calendar day cells and other controls that aren't layout wrappers. Do not replace grid-based or absolutely positioned layouts with `Stack`.
 
 ## Styling — SCSS Modules + BEM
 - Never use inline styles or CSS-in-JS

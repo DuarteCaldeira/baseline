@@ -147,9 +147,18 @@ export const FileUpload = ({
 			</Stack>
 
 			{selectedFiles.length > 0 && (
-				<ul className={styles['fileupload__list']} aria-live="polite">
+				<Stack
+					as="ul"
+					gap="1"
+					className={styles['fileupload__list']}
+					aria-live="polite"
+				>
 					{selectedFiles.map((file, index) => (
-						<li key={`${file.name}-${file.lastModified}`} className={styles['fileupload__file']}>
+						<Stack
+							as="li"
+							key={`${file.name}-${file.lastModified}`}
+							className={styles['fileupload__file']}
+						>
 							<Stack
 								direction="row"
 								gap="2"
@@ -175,9 +184,9 @@ export const FileUpload = ({
 									<Icon icon={X} size="sm" />
 								</Button>
 							</Stack>
-						</li>
+						</Stack>
 					))}
-				</ul>
+				</Stack>
 			)}
 
 			{helperText && (

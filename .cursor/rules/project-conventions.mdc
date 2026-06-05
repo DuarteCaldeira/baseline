@@ -76,7 +76,7 @@ function handleClick() { ... }
   - **`Button`** — actions; use `iconOnly` + **`Icon`** for icon-only controls instead of custom styled buttons
   - **`Icon`** — Lucide icons with theme token colors; omit `variant` inside buttons so color inherits from the button
 - Composite UI patterns (empty states, future page blocks) live in **`src/components/patterns/`** — compose primitives rather than reimplementing them
-- Use **`Stack`** whenever layout is flex + gap (form field wrappers, toolbars, modal header/footer, toast rows). Keep bespoke SCSS for positioning, borders, and non-flex concerns only.
+- Use **`Stack`** whenever layout is flex + gap (form field wrappers, toolbars, modal header/footer, toast rows). Pass **`as`** when the wrapper should be a semantic element (`header`, `footer`, `nav`, `section`, `ul`, `li`). Keep bespoke SCSS for positioning, borders, and non-flex concerns only.
 - Extract repeated UI patterns into shared components rather than duplicating JSX
 - Avoid over-engineering: don't abstract until the pattern appears at least twice
 - Move complex logic out of the component:

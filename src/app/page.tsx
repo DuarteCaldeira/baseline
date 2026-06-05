@@ -25,7 +25,7 @@ const HomePage = () => (
 
 				<div className={styles['page__divider']} />
 
-				<Stack gap="6" align="stretch" className={styles['page__showcase']}>
+				<Stack as="section" gap="6" align="stretch" className={styles['page__showcase']}>
 					<p className={styles['page__showcase-label']}>Components</p>
 					<Stack direction="row" gap="3" className={styles['page__button-row']}>
 						<Button variant="primary">Primary</Button>

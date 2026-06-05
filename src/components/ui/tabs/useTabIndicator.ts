@@ -12,7 +12,7 @@ type IndicatorStyle = {
 };
 
 type UseTabIndicatorOptions = {
-	listRef: RefObject<HTMLDivElement>;
+	listRef: RefObject<HTMLElement>;
 	tabRefs: RefObject<Map<string, HTMLButtonElement>>;
 	activeId: string;
 };

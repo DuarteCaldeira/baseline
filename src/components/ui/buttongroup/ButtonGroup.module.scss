@@ -1,0 +1,80 @@
+@use '@/styles/tokens/radius' as *;
+
+.button-group {
+	display: inline-flex;
+	align-items: stretch;
+	vertical-align: middle;
+
+	&--horizontal {
+		flex-direction: row;
+	}
+
+	&--vertical {
+		flex-direction: column;
+	}
+
+	&--full-width {
+		display: flex;
+		width: 100%;
+
+		.button-group__item {
+			flex: 1;
+		}
+	}
+
+	&__item {
+		position: relative;
+		z-index: 0;
+
+		&:hover,
+		&:focus-visible {
+			z-index: 1;
+		}
+
+		&--horizontal-only {
+			border-radius: $radius-md;
+		}
+
+		&--horizontal-first {
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+
+		&--horizontal-middle {
+			border-radius: 0;
+		}
+
+		&--horizontal-last {
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+		}
+
+		&--vertical-only {
+			border-radius: $radius-md;
+		}
+
+		&--vertical-first {
+			border-bottom-left-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+
+		&--vertical-middle {
+			border-radius: 0;
+		}
+
+		&--vertical-last {
+			border-top-left-radius: 0;
+			border-top-right-radius: 0;
+		}
+
+		&--horizontal-middle,
+		&--horizontal-last {
+			margin-left: -1px;
+		}
+
+		&--vertical-middle,
+		&--vertical-last {
+			margin-top: -1px;
+		}
+	}
+}

@@ -26,22 +26,24 @@ export const EmptyState = ({
 	const descriptionId = useId();
 
 	return (
-		<section
+		<Stack
+			as="section"
+			gap="4"
+			align="center"
 			className={cn(styles['empty-state'], className)}
 			aria-labelledby={titleId}
 			aria-describedby={description ? descriptionId : undefined}
 		>
-			<Stack gap="2" align="center">
-				{IconComponent && (
-					<div className={styles['empty-state__icon']} aria-hidden="true">
-						<Icon icon={IconComponent} size="lg" variant="subtle" />
-					</div>
-				)}
+			{IconComponent && (
+				<div className={styles['empty-state__icon']} aria-hidden="true">
+					<Icon icon={IconComponent} size="lg" variant="subtle" />
+				</div>
+			)}
 
+			<Stack gap="2" align="center">
 				<h3 id={titleId} className={styles['empty-state__title']}>
 					{title}
 				</h3>
-				
 				{description && (
 					<p
 						id={descriptionId}
@@ -50,11 +52,11 @@ export const EmptyState = ({
 						{description}
 					</p>
 				)}
-
-				{action && (
-					<div className={styles['empty-state__action']}>{action}</div>
-				)}
 			</Stack>
-		</section>
+
+			{action && (
+				<div className={styles['empty-state__action']}>{action}</div>
+			)}
+		</Stack>
 	);
 };

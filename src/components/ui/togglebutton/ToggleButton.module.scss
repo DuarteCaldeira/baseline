@@ -1,0 +1,23 @@
+@use '@/styles/tokens/radius' as *;
+
+.toggle-button {
+	&--pressed {
+		z-index: 1;
+		background-color: var(--color-primary-subtle);
+		color: var(--color-primary);
+		border-color: var(--color-primary);
+		box-shadow: inset 0 0 0 1px var(--color-primary);
+
+		&:hover:not(:disabled) {
+			background-color: var(--color-primary-subtle);
+			color: var(--color-primary);
+			border-color: var(--color-primary);
+			transform: none;
+		}
+
+		&:active:not(:disabled) {
+			background-color: var(--color-primary-subtle);
+			transform: none;
+		}
+	}
+}

@@ -115,6 +115,7 @@ export const DatePicker = ({
 				>
 					{/* Navigation */}
 					<Stack
+						as="nav"
 						direction="row"
 						justify="between"
 						align="center"

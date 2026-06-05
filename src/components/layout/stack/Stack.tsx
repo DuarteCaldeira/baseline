@@ -1,11 +1,26 @@
-import { forwardRef } from 'react';
+import { createElement, forwardRef } from 'react';
 import type { CSSProperties, HTMLAttributes, ReactNode } from 'react';
 
 import { cn } from '@/utils/cn';
 
 import styles from './Stack.module.scss';
 
-export type StackProps = HTMLAttributes<HTMLDivElement> & {
+export type StackAs =
+	| 'div'
+	| 'span'
+	| 'ul'
+	| 'ol'
+	| 'li'
+	| 'nav'
+	| 'section'
+	| 'header'
+	| 'footer'
+	| 'main'
+	| 'form'
+	| 'fieldset';
+
+export type StackProps = HTMLAttributes<HTMLElement> & {
+	as?: StackAs;
 	children: ReactNode;
 	direction?: 'row' | 'column';
 	gap?: '1' | '2' | '3' | '4' | '6' | '8';
@@ -22,7 +37,8 @@ const resolveJustify = (
 	return justify;
 };
 
-export const Stack = forwardRef<HTMLDivElement, StackProps>(({
+export const Stack = forwardRef<HTMLElement, StackProps>(({
+	as: Component = 'div',
 	children,
 	direction = 'column',
 	gap = '4',
@@ -41,15 +57,15 @@ export const Stack = forwardRef<HTMLDivElement, StackProps>(({
 		...style,
 	} as CSSProperties;
 
-	return (
-		<div
-			ref={ref}
-			className={cn(styles.stack, styles[`stack--gap-${gap}`], className)}
-			style={inlineStyle}
-			{...rest}
-		>
-			{children}
-		</div>
+	return createElement(
+		Component,
+		{
+			ref,
+			className: cn(styles.stack, styles[`stack--gap-${gap}`], className),
+			style: inlineStyle,
+			...rest,
+		},
+		children
 	);
 });
 

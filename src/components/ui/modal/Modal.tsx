@@ -1,4 +1,4 @@
-import { useEffect, useId, useState } from 'react';
+import { useId } from 'react';
 import type { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
@@ -6,6 +6,7 @@ import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
 import { Stack } from '@/components/layout/stack';
+import { useMounted } from '@/hooks/useMounted';
 import type { Size } from '@/types/common';
 import { cn } from '@/utils/cn';
 
@@ -34,9 +35,7 @@ export const Modal = ({
 	className,
 }: ModalProps) => {
 	const titleId = useId();
-	const [mounted, setMounted] = useState(false);
-
-	useEffect(() => setMounted(true), []);
+	const mounted = useMounted();
 
 	const {
 		dialogRef,
@@ -65,6 +64,7 @@ export const Modal = ({
 				onKeyDown={handleDialogKeyDown}
 			>
 				<Stack
+					as="header"
 					direction="row"
 					justify={title ? 'between' : 'end'}
 					align="center"
@@ -92,6 +92,7 @@ export const Modal = ({
 				<div className={styles['modal__body']}>{children}</div>
 				{footer && (
 					<Stack
+						as="footer"
 						direction="row"
 						justify="end"
 						gap="2"

@@ -2,6 +2,20 @@
 export { Button } from './components/ui/button';
 export type { ButtonProps } from './components/ui/button';
 
+export { ButtonGroup } from './components/ui/buttongroup';
+export type {
+	ButtonGroupProps,
+	ButtonGroupItemPosition,
+	ButtonGroupOrientation,
+} from './components/ui/buttongroup';
+
+export { ToggleButton, ToggleButtonGroup } from './components/ui/togglebutton';
+export type {
+	ToggleButtonProps,
+	ToggleButtonGroupProps,
+	ToggleButtonGroupType,
+} from './components/ui/togglebutton';
+
 export { Checkbox } from './components/ui/checkbox';
 export type { CheckboxProps } from './components/ui/checkbox';
 
@@ -13,6 +27,9 @@ export type { LinkProps } from './components/ui/link';
 
 export { Textarea } from './components/ui/textarea';
 export type { TextareaProps } from './components/ui/textarea';
+
+export { ToggleSwitch } from './components/ui/toggleswitch';
+export type { ToggleSwitchProps } from './components/ui/toggleswitch';
 
 export { Icon } from './components/ui/icon';
 export type { IconProps, IconVariant } from './components/ui/icon';
@@ -31,6 +48,9 @@ export type { TabsProps, TabItem } from './components/ui/tabs';
 
 export { Badge } from './components/ui/badge';
 export type { BadgeProps, BadgeVariant, BadgeType } from './components/ui/badge';
+
+export { Tooltip } from './components/ui/tooltip';
+export type { TooltipProps, TooltipPlacement } from './components/ui/tooltip';
 
 export { DatePicker } from './components/ui/datepicker';
 export type { DatePickerProps, DateFormat } from './components/ui/datepicker';
@@ -52,7 +72,14 @@ export { Container } from './components/layout/container';
 export type { ContainerProps } from './components/layout/container';
 
 export { Stack } from './components/layout/stack';
-export type { StackProps } from './components/layout/stack';
+export type { StackAs, StackProps } from './components/layout/stack';
+
+// Accessibility
+export {
+	VisuallyHidden,
+	VISUALLY_HIDDEN_CLASS,
+} from './components/a11y/visually-hidden';
+export type { VisuallyHiddenProps } from './components/a11y/visually-hidden';
 
 // Pattern Components
 export { EmptyState } from './components/patterns/empty-state';
@@ -64,6 +91,7 @@ export type { SkeletonProps, SkeletonVariant, SkeletonWidth } from './components
 // Hooks
 export { useDebounce } from './hooks/useDebounce';
 export { useDisclosure } from './hooks/useDisclosure';
+export { useMounted } from './hooks/useMounted';
 export { useSelect } from './hooks/useSelect';
 export type { UseSelectReturn } from './hooks/useSelect';
 
