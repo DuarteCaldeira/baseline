@@ -1,12 +1,7 @@
 @use '@/styles/tokens/spacing' as *;
 @use '@/styles/tokens/radius' as *;
 
-.fileupload {
-	&__label {
-		font: var(--font-label);
-		color: var(--color-text);
-	}
-
+.file-upload {
 	&__zone {
 		position: relative;
 		min-height: 7rem;
@@ -115,15 +110,5 @@
 
 	&__remove {
 		flex-shrink: 0;
-	}
-
-	&__helper {
-		font: var(--font-caption);
-		color: var(--color-text-subtle);
-	}
-
-	&__error {
-		font: var(--font-caption);
-		color: var(--color-error);
 	}
 }

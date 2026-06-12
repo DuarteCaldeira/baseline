@@ -1,30 +1,54 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import {
-	getDescribedBy,
-	getErrorId,
-	getHelperId,
-	getLabelId,
-	getListboxId,
-	getOptionId,
-	getTriggerId,
-} from './Select.utils';
+import { getListboxId, getOptionId, scrollOptionIntoView } from './Select.utils';
 
 describe('Select.utils', () => {
-	it('builds stable element ids', () => {
-		expect(getTriggerId('fruit')).toBe('fruit');
-		expect(getLabelId('fruit')).toBe('fruit-label');
-		expect(getListboxId('fruit')).toBe('fruit-listbox');
-		expect(getOptionId('fruit', 'apple')).toBe('fruit-option-apple');
-		expect(getHelperId('fruit')).toBe('fruit-helper');
-		expect(getErrorId('fruit')).toBe('fruit-error');
+	describe('getListboxId', () => {
+		it('appends -listbox to the field id', () => {
+			expect(getListboxId('fruit')).toBe('fruit-listbox');
+		});
+
+		it('works with ids that already contain hyphens', () => {
+			expect(getListboxId('user-role')).toBe('user-role-listbox');
+		});
 	});
 
-	it('joins described-by ids and omits empty values', () => {
-		expect(getDescribedBy(['fruit-helper', undefined])).toBe('fruit-helper');
-		expect(getDescribedBy(['fruit-helper', 'fruit-error'])).toBe(
-			'fruit-helper fruit-error'
-		);
-		expect(getDescribedBy([undefined, undefined])).toBeUndefined();
+	describe('getOptionId', () => {
+		it('combines field id and option value', () => {
+			expect(getOptionId('fruit', 'apple')).toBe('fruit-option-apple');
+		});
+
+		it('preserves special characters in option values', () => {
+			expect(getOptionId('country', 'pt-PT')).toBe('country-option-pt-PT');
+		});
+
+		it('keeps ids unique per option value', () => {
+			expect(getOptionId('fruit', 'apple')).not.toBe(
+				getOptionId('fruit', 'banana')
+			);
+		});
+	});
+
+	describe('scrollOptionIntoView', () => {
+		afterEach(() => {
+			vi.restoreAllMocks();
+		});
+
+		it('scrolls the matching element into view', () => {
+			const scrollIntoView = vi.fn();
+			const element = { scrollIntoView } as unknown as HTMLElement;
+			vi.spyOn(document, 'getElementById').mockReturnValue(element);
+
+			scrollOptionIntoView('fruit-option-apple');
+
+			expect(document.getElementById).toHaveBeenCalledWith('fruit-option-apple');
+			expect(scrollIntoView).toHaveBeenCalledWith({ block: 'nearest' });
+		});
+
+		it('does nothing when the element is missing', () => {
+			vi.spyOn(document, 'getElementById').mockReturnValue(null);
+
+			expect(() => scrollOptionIntoView('missing-option')).not.toThrow();
+		});
 	});
 });

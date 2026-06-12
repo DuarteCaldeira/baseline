@@ -80,14 +80,4 @@
 		font: var(--font-sm);
 		color: var(--color-text);
 	}
-
-	&__helper {
-		font: var(--font-caption);
-		color: var(--color-text-subtle);
-	}
-
-	&__error {
-		font: var(--font-caption);
-		color: var(--color-error);
-	}
 }

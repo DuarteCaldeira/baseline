@@ -2,9 +2,11 @@ import { createPortal } from 'react-dom';
 
 import { Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 
+import { FormField } from '@/components/patterns/form-field';
 import { Stack } from '@/components/layout/stack';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
+import { resolveFieldIds } from '@/utils/fieldIds';
 import { useFloatingPosition } from '@/hooks/useFloatingPosition';
 import { useMounted } from '@/hooks/useMounted';
 import { cn } from '@/utils/cn';
@@ -41,10 +43,7 @@ export const DatePicker = ({
 	const mounted = useMounted();
 	const resolvedPlaceholder = placeholder ?? formatPlaceholder(format);
 	const weekdays = getWeekdays();
-	const helperId = helperText && id ? `${id}-helper` : undefined;
-	const errorId = error && id ? `${id}-error` : undefined;
-	const describedBy =
-		[helperId, errorId].filter(Boolean).join(' ') || undefined;
+	const { describedBy } = resolveFieldIds(id, { helperText, error });
 
 	const {
 		isOpen,
@@ -86,12 +85,13 @@ export const DatePicker = ({
 	};
 
 	return (
-		<Stack ref={containerRef} gap="2" className={styles.datepicker}>
-			{label && (
-				<label className={styles['datepicker__label']} htmlFor={id}>
-					{label}
-				</label>
-			)}
+		<div ref={containerRef} className={styles.datepicker}>
+			<FormField
+				fieldId={id}
+				label={label}
+				helperText={helperText}
+				error={error}
+			>
 
 			<button
 				ref={triggerRef}
@@ -250,17 +250,7 @@ export const DatePicker = ({
 					</div>,
 					document.body
 				)}
-
-			{helperText && (
-				<span id={helperId} className={styles['datepicker__helper']}>
-					{helperText}
-				</span>
-			)}
-			{error && (
-				<span id={errorId} className={styles['datepicker__error']} role="alert">
-					{error}
-				</span>
-			)}
-		</Stack>
+			</FormField>
+		</div>
 	);
 };

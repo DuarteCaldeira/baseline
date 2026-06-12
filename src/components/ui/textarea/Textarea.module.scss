@@ -42,16 +42,4 @@
 	&--resize-both {
 		resize: both;
 	}
-
-	&__label {
-		@include control-field-label;
-	}
-
-	&__helper {
-		@include control-field-helper;
-	}
-
-	&__error {
-		@include control-field-error-text;
-	}
 }

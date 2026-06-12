@@ -151,7 +151,6 @@ export type { VisuallyHiddenProps } from './components/a11y/visually-hidden';
 
 // Pattern Components
 export { EmptyState } from './components/patterns/empty-state';
-export type { EmptyStateProps } from './components/patterns/empty-state';
 
 export { Breadcrumb } from './components/patterns/breadcrumb';
 export type {
@@ -166,6 +165,8 @@ export type {
 	SkeletonWidth,
 } from './components/patterns/skeleton';
 
+export { FormField } from './components/patterns/form-field';
+
 // Hooks
 export { useDebounce } from './hooks/useDebounce';
 export { useDisclosure } from './hooks/useDisclosure';
@@ -175,6 +176,12 @@ export { useMounted } from './hooks/useMounted';
 
 // Utils
 export { cn } from './utils/cn';
+export {
+	getDescribedBy,
+	getErrorId,
+	getHelperId,
+	getLabelId,
+} from './utils/fieldIds';
 export {
 	BREAKPOINT_SM,
 	mediaMaxWidth,

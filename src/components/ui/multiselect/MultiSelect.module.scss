@@ -7,10 +7,6 @@
 		position: relative;
 	}
 
-	&__label {
-		@include control-field-label;
-	}
-
 	&__trigger {
 		width: 100%;
 		display: flex;
@@ -44,13 +40,5 @@
 		&--open {
 			transform: rotate(180deg);
 		}
-	}
-
-	&__error {
-		@include control-field-error-text;
-	}
-
-	&__helper {
-		@include control-field-helper;
 	}
 }

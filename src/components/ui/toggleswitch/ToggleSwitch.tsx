@@ -1,7 +1,8 @@
 import type { InputHTMLAttributes } from 'react';
 
 import { VISUALLY_HIDDEN_CLASS } from '@/components/a11y/visually-hidden';
-import { Stack } from '@/components/layout/stack';
+import { FormField } from '@/components/patterns/form-field';
+import { resolveFieldIds } from '@/utils/fieldIds';
 import { cn } from '@/utils/cn';
 
 import styles from './ToggleSwitch.module.scss';
@@ -24,14 +25,10 @@ export const ToggleSwitch = ({
 	className,
 	...rest
 }: ToggleSwitchProps) => {
-	const helperId = helperText && id ? `${id}-helper` : undefined;
-	const errorId = error && id ? `${id}-error` : undefined;
-	const describedBy =
-		[helperId, errorId].filter(Boolean).join(' ') || undefined;
+	const { describedBy } = resolveFieldIds(id, { helperText, error });
 
 	return (
-		<Stack
-			gap="1"
+		<div
 			className={cn(
 				styles['toggle-switch'],
 				error && styles['toggle-switch--error'],
@@ -39,7 +36,8 @@ export const ToggleSwitch = ({
 				className
 			)}
 		>
-			<label className={styles['toggle-switch__label']} htmlFor={id}>
+			<FormField fieldId={id} helperText={helperText} error={error} gap="1">
+				<label className={styles['toggle-switch__label']} htmlFor={id}>
 				<input
 					type="checkbox"
 					role="switch"
@@ -57,20 +55,7 @@ export const ToggleSwitch = ({
 					<span className={styles['toggle-switch__text']}>{label}</span>
 				)}
 			</label>
-			{helperText && (
-				<span id={helperId} className={styles['toggle-switch__helper']}>
-					{helperText}
-				</span>
-			)}
-			{error && (
-				<span
-					id={errorId}
-					className={styles['toggle-switch__error']}
-					role="alert"
-				>
-					{error}
-				</span>
-			)}
-		</Stack>
+			</FormField>
+		</div>
 	);
 };

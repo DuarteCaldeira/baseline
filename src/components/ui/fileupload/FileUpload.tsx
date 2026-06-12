@@ -10,9 +10,11 @@ import {
 import { Upload, X } from 'lucide-react';
 
 import { Stack } from '@/components/layout/stack';
+import { FormField } from '@/components/patterns/form-field';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
 import { cn } from '@/utils/cn';
+import { resolveFieldIds } from '@/utils/fieldIds';
 
 import styles from './FileUpload.module.scss';
 import type { FileUploadProps } from './FileUpload.types';
@@ -46,10 +48,7 @@ export const FileUpload = ({
 	const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 	const [isDragOver, setIsDragOver] = useState(false);
 
-	const helperId = helperText ? `${inputId}-helper` : undefined;
-	const errorId = error ? `${inputId}-error` : undefined;
-	const describedBy =
-		[helperId, errorId].filter(Boolean).join(' ') || undefined;
+	const { describedBy } = resolveFieldIds(inputId, { helperText, error });
 
 	const updateFiles = useCallback(
 		(files: File[], options?: { syncInput?: boolean }) => {
@@ -100,107 +99,97 @@ export const FileUpload = ({
 	};
 
 	return (
-		<Stack gap="2" className={cn(styles.fileupload, className)}>
-			{label && (
-				<label className={styles['fileupload__label']} htmlFor={inputId}>
-					{label}
-				</label>
-			)}
-
-			<Stack
-				gap="2"
-				align="center"
-				justify="center"
-				className={cn(
-					styles['fileupload__zone'],
-					isDragOver && styles['fileupload__zone--dragover'],
-					disabled && styles['fileupload__zone--disabled'],
-					error && styles['fileupload__zone--error']
-				)}
-				onDragOver={handleDragOver}
-				onDragLeave={handleDragLeave}
-				onDrop={handleDrop}
+		<div className={cn(styles['file-upload'], className)}>
+			<FormField
+				fieldId={inputId}
+				label={label}
+				helperText={helperText}
+				error={error}
 			>
-				<input
-					ref={inputRef}
-					id={inputId}
-					type="file"
-					className={styles['fileupload__input']}
-					disabled={disabled}
-					multiple={multiple}
-					accept={accept}
-					aria-label={label ? undefined : placeholder}
-					aria-invalid={error ? true : undefined}
-					aria-describedby={describedBy}
-					onChange={handleInputChange}
-					{...rest}
-				/>
-				<Icon
-					icon={Upload}
-					size="lg"
-					variant="subtle"
-					className={styles['fileupload__icon']}
-				/>
-				<span className={styles['fileupload__hint']}>{placeholder}</span>
-				{accept && (
-					<span className={styles['fileupload__accept']}>{accept}</span>
-				)}
-			</Stack>
-
-			{selectedFiles.length > 0 && (
 				<Stack
-					as="ul"
-					gap="1"
-					className={styles['fileupload__list']}
-					aria-live="polite"
+					gap="2"
+					align="center"
+					justify="center"
+					className={cn(
+						styles['file-upload__zone'],
+						isDragOver && styles['file-upload__zone--dragover'],
+						disabled && styles['file-upload__zone--disabled'],
+						error && styles['file-upload__zone--error']
+					)}
+					onDragOver={handleDragOver}
+					onDragLeave={handleDragLeave}
+					onDrop={handleDrop}
 				>
-					{selectedFiles.map((file, index) => (
-						<Stack
-							as="li"
-							key={`${file.name}-${file.lastModified}`}
-							className={styles['fileupload__file']}
-						>
-							<Stack
-								direction="row"
-								gap="2"
-								align="center"
-								className={styles['fileupload__file-inner']}
-							>
-								<Stack gap="1" className={styles['fileupload__file-info']}>
-									<span className={styles['fileupload__file-name']}>
-										{file.name}
-									</span>
-									<span className={styles['fileupload__file-size']}>
-										{formatFileSize(file.size)}
-									</span>
-								</Stack>
-								<Button
-									type="button"
-									variant="ghost"
-									size="sm"
-									iconOnly
-									onClick={() => handleRemove(index)}
-									disabled={disabled}
-									aria-label={getRemoveFileLabel(file.name)}
-								>
-									<Icon icon={X} size="sm" />
-								</Button>
-							</Stack>
-						</Stack>
-					))}
+					<input
+						ref={inputRef}
+						id={inputId}
+						type="file"
+						className={styles['file-upload__input']}
+						disabled={disabled}
+						multiple={multiple}
+						accept={accept}
+						aria-label={label ? undefined : placeholder}
+						aria-invalid={error ? true : undefined}
+						aria-describedby={describedBy}
+						onChange={handleInputChange}
+						{...rest}
+					/>
+					<Icon
+						icon={Upload}
+						size="lg"
+						variant="subtle"
+						className={styles['file-upload__icon']}
+					/>
+					<span className={styles['file-upload__hint']}>{placeholder}</span>
+					{accept && (
+						<span className={styles['file-upload__accept']}>{accept}</span>
+					)}
 				</Stack>
-			)}
 
-			{helperText && (
-				<span id={helperId} className={styles['fileupload__helper']}>
-					{helperText}
-				</span>
-			)}
-			{error && (
-				<span id={errorId} className={styles['fileupload__error']} role="alert">
-					{error}
-				</span>
-			)}
-		</Stack>
+				{selectedFiles.length > 0 && (
+					<Stack
+						as="ul"
+						gap="1"
+						className={styles['file-upload__list']}
+						aria-live="polite"
+					>
+						{selectedFiles.map((file, index) => (
+							<Stack
+								as="li"
+								key={`${file.name}-${file.lastModified}`}
+								className={styles['file-upload__file']}
+							>
+								<Stack
+									direction="row"
+									gap="2"
+									align="center"
+									className={styles['file-upload__file-inner']}
+								>
+									<Stack gap="1" className={styles['file-upload__file-info']}>
+										<span className={styles['file-upload__file-name']}>
+											{file.name}
+										</span>
+										<span className={styles['file-upload__file-size']}>
+											{formatFileSize(file.size)}
+										</span>
+									</Stack>
+									<Button
+										type="button"
+										variant="ghost"
+										size="sm"
+										iconOnly
+										onClick={() => handleRemove(index)}
+										disabled={disabled}
+										aria-label={getRemoveFileLabel(file.name)}
+									>
+										<Icon icon={X} size="sm" />
+									</Button>
+								</Stack>
+							</Stack>
+						))}
+					</Stack>
+				)}
+			</FormField>
+		</div>
 	);
 };

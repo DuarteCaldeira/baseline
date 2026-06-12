@@ -7,10 +7,6 @@
 .datepicker {
 	position: relative;
 
-	&__label {
-		@include control-field-label;
-	}
-
 	&__trigger {
 		width: 100%;
 		display: flex;
@@ -149,15 +145,5 @@
 			cursor: not-allowed;
 			pointer-events: none;
 		}
-	}
-
-	// ── Helper / error ─────────────────────────────────────────────────────────
-
-	&__helper {
-		@include control-field-helper;
-	}
-
-	&__error {
-		@include control-field-error-text;
 	}
 }

@@ -1,6 +1,7 @@
 import type { TextareaHTMLAttributes } from 'react';
 
-import { Stack } from '@/components/layout/stack';
+import { FormField } from '@/components/patterns/form-field';
+import { resolveFieldIds } from '@/utils/fieldIds';
 import { cn } from '@/utils/cn';
 
 import styles from './Textarea.module.scss';
@@ -21,18 +22,10 @@ export const Textarea = ({
 	id,
 	...rest
 }: TextareaProps) => {
-	const helperId = helperText && id ? `${id}-helper` : undefined;
-	const errorId = error && id ? `${id}-error` : undefined;
-	const describedBy =
-		[helperId, errorId].filter(Boolean).join(' ') || undefined;
+	const { describedBy } = resolveFieldIds(id, { helperText, error });
 
 	return (
-		<Stack gap="2" className={styles['textarea__wrapper']}>
-			{label && (
-				<label className={styles['textarea__label']} htmlFor={id}>
-					{label}
-				</label>
-			)}
+		<FormField fieldId={id} label={label} helperText={helperText} error={error}>
 			<textarea
 				id={id}
 				className={cn(
@@ -45,16 +38,6 @@ export const Textarea = ({
 				aria-describedby={describedBy}
 				{...rest}
 			/>
-			{helperText && (
-				<span id={helperId} className={styles['textarea__helper']}>
-					{helperText}
-				</span>
-			)}
-			{error && (
-				<span id={errorId} className={styles['textarea__error']} role="alert">
-					{error}
-				</span>
-			)}
-		</Stack>
+		</FormField>
 	);
 };

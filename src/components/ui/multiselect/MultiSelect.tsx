@@ -2,17 +2,12 @@ import { type MouseEvent, useRef } from 'react';
 
 import { ChevronDown } from 'lucide-react';
 
-import { Stack } from '@/components/layout/stack';
+import { FormField } from '@/components/patterns/form-field';
 import { Icon } from '@/components/ui/icon';
 import type { SelectOption } from '@/components/ui/select';
 import {
-	getDescribedBy,
-	getErrorId,
-	getHelperId,
-	getLabelId,
 	getListboxId,
 	getOptionId,
-	getTriggerId,
 	scrollOptionIntoView,
 } from '@/components/ui/select/Select.utils';
 import { SelectListbox } from '@/components/ui/select/SelectListbox';
@@ -21,6 +16,7 @@ import { Tag } from '@/components/ui/tag';
 import { useFloatingPosition } from '@/hooks/useFloatingPosition';
 import { useMounted } from '@/hooks/useMounted';
 import { cn } from '@/utils/cn';
+import { getLabelId, resolveFieldIds } from '@/utils/fieldIds';
 
 import styles from './MultiSelect.module.scss';
 import { useMultiSelect } from './useMultiSelect';
@@ -122,32 +118,21 @@ export const MultiSelect = ({
 		toggleValue(option.value);
 	};
 
-	const triggerId = getTriggerId(id);
 	const labelId = getLabelId(id);
 	const listboxId = getListboxId(id);
-	const helperId = helperText ? getHelperId(id) : undefined;
-	const errorId = error ? getErrorId(id) : undefined;
-	const describedBy = getDescribedBy([helperId, errorId]);
+	const { describedBy } = resolveFieldIds(id, { helperText, error });
 
 	return (
-		<Stack
-			ref={containerRef}
-			gap="2"
-			className={styles['multiselect__wrapper']}
-		>
-			{label && (
-				<label
-					id={labelId}
-					className={styles['multiselect__label']}
-					htmlFor={triggerId}
-				>
-					{label}
-				</label>
-			)}
-
+		<div ref={containerRef} className={styles['multiselect__wrapper']}>
+			<FormField
+				fieldId={id}
+				label={label}
+				helperText={helperText}
+				error={error}
+			>
 			<div
 				ref={triggerRef}
-				id={triggerId}
+				id={id}
 				role="combobox"
 				tabIndex={disabled ? -1 : 0}
 				aria-haspopup="listbox"
@@ -227,22 +212,7 @@ export const MultiSelect = ({
 				mounted={mounted}
 				isOpen={isOpen}
 			/>
-
-			{helperText && (
-				<span id={helperId} className={styles['multiselect__helper']}>
-					{helperText}
-				</span>
-			)}
-
-			{error && (
-				<span
-					id={errorId}
-					className={styles['multiselect__error']}
-					role="alert"
-				>
-					{error}
-				</span>
-			)}
-		</Stack>
+			</FormField>
+		</div>
 	);
 };

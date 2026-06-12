@@ -1,7 +1,5 @@
 import type { ReactNode } from 'react';
 
-import { TABLE_MOBILE_MEDIA_QUERY } from '@/utils/breakpoints';
-
 import type {
 	SortState,
 	TableColumn,

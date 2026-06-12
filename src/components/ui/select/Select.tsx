@@ -2,24 +2,16 @@ import { useRef } from 'react';
 
 import { ChevronDown } from 'lucide-react';
 
-import { Stack } from '@/components/layout/stack';
+import { FormField } from '@/components/patterns/form-field';
 import { Icon } from '@/components/ui/icon';
 import { useFloatingPosition } from '@/hooks/useFloatingPosition';
 import { useMounted } from '@/hooks/useMounted';
 import { cn } from '@/utils/cn';
+import { getLabelId, resolveFieldIds } from '@/utils/fieldIds';
 
 import styles from './Select.module.scss';
 import type { SelectOption } from './Select.types';
-import {
-	getDescribedBy,
-	getErrorId,
-	getHelperId,
-	getLabelId,
-	getListboxId,
-	getOptionId,
-	getTriggerId,
-	scrollOptionIntoView,
-} from './Select.utils';
+import { getListboxId, getOptionId, scrollOptionIntoView } from './Select.utils';
 import { SelectListbox } from './SelectListbox';
 import { useSelect } from './useSelect';
 
@@ -94,28 +86,21 @@ export const Select = ({
 		open(selectedIndex >= 0 ? selectedIndex : 0);
 	};
 
-	const triggerId = getTriggerId(id);
 	const labelId = getLabelId(id);
 	const listboxId = getListboxId(id);
-	const helperId = helperText ? getHelperId(id) : undefined;
-	const errorId = error ? getErrorId(id) : undefined;
-	const describedBy = getDescribedBy([helperId, errorId]);
+	const { describedBy } = resolveFieldIds(id, { helperText, error });
 
 	return (
-		<Stack ref={containerRef} gap="2" className={styles['select__wrapper']}>
-			{label && (
-				<label
-					id={labelId}
-					className={styles['select__label']}
-					htmlFor={triggerId}
-				>
-					{label}
-				</label>
-			)}
-
+		<div ref={containerRef} className={styles['select__wrapper']}>
+			<FormField
+				fieldId={id}
+				label={label}
+				helperText={helperText}
+				error={error}
+			>
 			<button
 				ref={triggerRef}
-				id={triggerId}
+				id={id}
 				type="button"
 				role="combobox"
 				aria-haspopup="listbox"
@@ -184,18 +169,7 @@ export const Select = ({
 				mounted={mounted}
 				isOpen={isOpen}
 			/>
-
-			{helperText && (
-				<span id={helperId} className={styles['select__helper']}>
-					{helperText}
-				</span>
-			)}
-
-			{error && (
-				<span id={errorId} className={styles['select__error']} role="alert">
-					{error}
-				</span>
-			)}
-		</Stack>
+			</FormField>
+		</div>
 	);
 };

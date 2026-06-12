@@ -7,7 +7,7 @@ import { Icon } from '@/components/ui/icon';
 
 import styles from './EmptyState.module.scss';
 
-export type EmptyStateProps = {
+type EmptyStateProps = {
 	icon?: LucideIcon;
 	title: string;
 	description?: string;

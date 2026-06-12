@@ -1,6 +1,7 @@
 import type { InputHTMLAttributes } from 'react';
 
-import { Stack } from '@/components/layout/stack';
+import { FormField } from '@/components/patterns/form-field';
+import { resolveFieldIds } from '@/utils/fieldIds';
 import { cn } from '@/utils/cn';
 
 import styles from './Input.module.scss';
@@ -19,18 +20,10 @@ export const Input = ({
 	id,
 	...rest
 }: InputProps) => {
-	const helperId = helperText && id ? `${id}-helper` : undefined;
-	const errorId = error && id ? `${id}-error` : undefined;
-	const describedBy =
-		[helperId, errorId].filter(Boolean).join(' ') || undefined;
+	const { describedBy } = resolveFieldIds(id, { helperText, error });
 
 	return (
-		<Stack gap="2" className={styles['input__wrapper']}>
-			{label && (
-				<label className={styles['input__label']} htmlFor={id}>
-					{label}
-				</label>
-			)}
+		<FormField fieldId={id} label={label} helperText={helperText} error={error}>
 			<input
 				id={id}
 				className={cn(styles.input, error && styles['input--error'], className)}
@@ -38,16 +31,6 @@ export const Input = ({
 				aria-describedby={describedBy}
 				{...rest}
 			/>
-			{helperText && (
-				<span id={helperId} className={styles['input__helper']}>
-					{helperText}
-				</span>
-			)}
-			{error && (
-				<span id={errorId} className={styles['input__error']} role="alert">
-					{error}
-				</span>
-			)}
-		</Stack>
+		</FormField>
 	);
 };

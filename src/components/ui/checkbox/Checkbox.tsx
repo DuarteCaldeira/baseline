@@ -1,6 +1,7 @@
 import type { InputHTMLAttributes } from 'react';
 
-import { Stack } from '@/components/layout/stack';
+import { FormField } from '@/components/patterns/form-field';
+import { resolveFieldIds } from '@/utils/fieldIds';
 import { cn } from '@/utils/cn';
 
 import styles from './Checkbox.module.scss';
@@ -23,14 +24,10 @@ export const Checkbox = ({
 	className,
 	...rest
 }: CheckboxProps) => {
-	const helperId = helperText && id ? `${id}-helper` : undefined;
-	const errorId = error && id ? `${id}-error` : undefined;
-	const describedBy =
-		[helperId, errorId].filter(Boolean).join(' ') || undefined;
+	const { describedBy } = resolveFieldIds(id, { helperText, error });
 
 	return (
-		<Stack
-			gap="1"
+		<div
 			className={cn(
 				styles.checkbox,
 				error && styles['checkbox--error'],
@@ -38,7 +35,8 @@ export const Checkbox = ({
 				className
 			)}
 		>
-			<label className={styles['checkbox__label']} htmlFor={id}>
+			<FormField fieldId={id} helperText={helperText} error={error} gap="1">
+				<label className={styles['checkbox__label']} htmlFor={id}>
 				<input
 					type="checkbox"
 					id={id}
@@ -50,16 +48,7 @@ export const Checkbox = ({
 				/>
 				{label && <span className={styles['checkbox__text']}>{label}</span>}
 			</label>
-			{helperText && (
-				<span id={helperId} className={styles['checkbox__helper']}>
-					{helperText}
-				</span>
-			)}
-			{error && (
-				<span id={errorId} className={styles['checkbox__error']} role="alert">
-					{error}
-				</span>
-			)}
-		</Stack>
+			</FormField>
+		</div>
 	);
 };

@@ -33,9 +33,9 @@ export type UseDatePickerReturn = {
 	viewDate: Date;
 	focusedDate: Date | null;
 	days: Date[];
-	containerRef: RefObject<HTMLDivElement | null>;
-	triggerRef: RefObject<HTMLButtonElement | null>;
-	calendarRef: RefObject<HTMLDivElement | null>;
+	containerRef: RefObject<HTMLDivElement>;
+	triggerRef: RefObject<HTMLButtonElement>;
+	calendarRef: RefObject<HTMLDivElement>;
 	open: () => void;
 	close: () => void;
 	selectDate: (date: Date) => void;
@@ -69,9 +69,9 @@ export const useDatePicker = ({
 	const [isOpen, setIsOpen] = useState(false);
 	const [focusedDate, setFocusedDate] = useState<Date | null>(null);
 
-	const containerRef = useRef<HTMLDivElement | null>(null);
-	const triggerRef = useRef<HTMLButtonElement | null>(null);
-	const calendarRef = useRef<HTMLDivElement | null>(null);
+	const containerRef = useRef<HTMLDivElement>(null);
+	const triggerRef = useRef<HTMLButtonElement>(null);
+	const calendarRef = useRef<HTMLDivElement>(null);
 
 	const selectedDate = (() => {
 		if (!isControlled) return internalDate;
