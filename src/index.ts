@@ -33,6 +33,9 @@ export type { ToggleSwitchProps } from './components/ui/toggleswitch';
 export { Icon } from './components/ui/icon';
 export type { IconProps, IconVariant } from './components/ui/icon';
 
+export { Spinner } from './components/ui/spinner';
+export type { SpinnerProps, SpinnerSize, SpinnerVariant } from './components/ui/spinner';
+
 export { Toast, ToastProvider, useToast } from './components/ui/toast';
 export type { ToastItem, ToastVariant, ToastContextValue } from './components/ui/toast';
 

@@ -1,8 +1,9 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 import type { LucideIcon } from 'lucide-react';
-import { Loader2 } from 'lucide-react';
 
 import { Icon } from '@/components/ui/icon';
+import { Spinner } from '@/components/ui/spinner';
+import type { SpinnerSize } from '@/components/ui/spinner';
 import { cn } from '@/utils/cn';
 
 import styles from './Button.module.scss';
@@ -31,6 +32,12 @@ type BaseProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> & {
 export type ButtonProps = BaseProps & (WithChildren | IconOnly);
 
 const ICON_SIZE: Record<NonNullable<BaseProps['size']>, 'sm' | 'md' | 'lg'> = {
+	sm: 'sm',
+	md: 'md',
+	lg: 'lg',
+};
+
+const SPINNER_SIZE: Record<NonNullable<BaseProps['size']>, SpinnerSize> = {
 	sm: 'sm',
 	md: 'md',
 	lg: 'lg',
@@ -66,9 +73,7 @@ export const Button = ({
 			{...buttonProps}
 		>
 			{loading ? (
-				<span className={styles['button__spinner']} aria-hidden="true">
-					<Icon icon={Loader2} size={ICON_SIZE[size ?? 'md']} />
-				</span>
+				<Spinner size={SPINNER_SIZE[size ?? 'md']} />
 			) : (
 				IconComponent && (
 					<Icon icon={IconComponent} size={ICON_SIZE[size ?? 'md']} />

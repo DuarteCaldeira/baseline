@@ -157,8 +157,8 @@ describe('Button', () => {
 				</Button>
 			);
 
-			expect(container.querySelector('.button__spinner')).toBeInTheDocument();
-			expect(container.querySelectorAll('svg')).toHaveLength(1);
+			expect(container.querySelector('.spinner')).toBeInTheDocument();
+			expect(container.querySelector('svg')).not.toBeInTheDocument();
 		});
 
 		it('keeps the label visible while loading', () => {
@@ -171,7 +171,7 @@ describe('Button', () => {
 				<Button loading icon={X} aria-label="Close" />
 			);
 
-			expect(container.querySelector('.button__spinner')).toBeInTheDocument();
+			expect(container.querySelector('.spinner')).toBeInTheDocument();
 			expect(
 				screen.getByRole('button', { name: 'Close' })
 			).toBeInTheDocument();

@@ -50,12 +50,6 @@
 		}
 	}
 
-	&__spinner {
-		display: inline-flex;
-		flex-shrink: 0;
-		animation: button-spin 600ms linear infinite;
-	}
-
 	// Sizes
 	&--sm {
 		font: var(--font-control);
@@ -140,11 +134,5 @@
 		&:active:not(:disabled) {
 			background-color: var(--color-bg-muted);
 		}
-	}
-}
-
-@keyframes button-spin {
-	to {
-		transform: rotate(360deg);
 	}
 }

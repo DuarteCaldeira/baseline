@@ -59,16 +59,6 @@ export const LoadingWithIcon: Story = {
 	args: { loading: true, icon: Plus, children: 'Adding item…' },
 };
 
-export const LoadingIconOnly: Story = {
-	args: {
-		loading: true,
-		icon: X,
-		'aria-label': 'Close',
-		children: undefined,
-		variant: 'ghost',
-	},
-};
-
 export const Small: Story = {
 	args: { size: 'sm' },
 };
