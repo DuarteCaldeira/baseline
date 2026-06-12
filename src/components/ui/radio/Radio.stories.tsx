@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { Stack } from '@/components/layout/stack';
+
 import { Radio } from './Radio';
 
 const meta: Meta<typeof Radio> = {
@@ -64,17 +66,17 @@ export const WithHelperTextAndError: Story = {
 
 export const Group: Story = {
 	render: () => (
-		<div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+		<Stack direction="column" gap="2">
 			<Radio id="opt-a" name="demo" label="Option A" defaultChecked />
 			<Radio id="opt-b" name="demo" label="Option B" />
 			<Radio id="opt-c" name="demo" label="Option C" />
-		</div>
+		</Stack>
 	),
 };
 
 export const AllStates: Story = {
 	render: () => (
-		<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+		<Stack direction="column" gap="4">
 			<Radio label="Default" />
 			<Radio label="Checked" defaultChecked />
 			<Radio
@@ -89,6 +91,6 @@ export const AllStates: Story = {
 				label="With error"
 				error="Please select an option."
 			/>
-		</div>
+		</Stack>
 	),
 };

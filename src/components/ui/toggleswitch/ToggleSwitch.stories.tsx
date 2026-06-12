@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { Stack } from '@/components/layout/stack';
+
 import { ToggleSwitch } from './ToggleSwitch';
 
 const meta: Meta<typeof ToggleSwitch> = {
@@ -64,7 +66,7 @@ export const WithError: Story = {
 
 export const AllStates: Story = {
 	render: () => (
-		<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+		<Stack direction="column" gap="4">
 			<ToggleSwitch id="all-off" label="Off" />
 			<ToggleSwitch id="all-on" label="On" defaultChecked />
 			<ToggleSwitch
@@ -73,26 +75,24 @@ export const AllStates: Story = {
 				helperText="You can change this preference at any time."
 			/>
 			<ToggleSwitch id="all-disabled" label="Disabled" disabled />
-			<ToggleSwitch id="all-disabled-on" label="Disabled on" disabled defaultChecked />
+			<ToggleSwitch
+				id="all-disabled-on"
+				label="Disabled on"
+				disabled
+				defaultChecked
+			/>
 			<ToggleSwitch
 				id="all-error"
 				label="With error"
 				error="This field is required."
 			/>
-		</div>
+		</Stack>
 	),
 };
 
 export const SettingsList: Story = {
 	render: () => (
-		<div
-			style={{
-				display: 'flex',
-				flexDirection: 'column',
-				gap: '1.25rem',
-				width: '22rem',
-			}}
-		>
+		<Stack direction="column" gap="4" style={{ width: '22rem' }}>
 			<ToggleSwitch
 				id="email-notifications"
 				label="Email notifications"
@@ -110,6 +110,6 @@ export const SettingsList: Story = {
 				defaultChecked
 				helperText="Important alerts about your account security."
 			/>
-		</div>
+		</Stack>
 	),
 };

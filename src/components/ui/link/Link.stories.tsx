@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { Stack } from '@/components/layout/stack';
+
 import { Link } from './Link';
 
 const meta: Meta<typeof Link> = {
@@ -53,17 +55,23 @@ export const External: Story = {
 
 export const AllVariants: Story = {
 	render: () => (
-		<div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-			<Link href="#" variant="default">Default link</Link>
-			<Link href="#" variant="subtle">Subtle link</Link>
+		<Stack direction="column" gap="3">
+			<Link href="#" variant="default">
+				Default link
+			</Link>
+			<Link href="#" variant="subtle">
+				Subtle link
+			</Link>
 			<p style={{ margin: 0 }}>
 				Paragraph with a{' '}
-				<Link href="#" variant="inherit">inherit link</Link>{' '}
+				<Link href="#" variant="inherit">
+					inherit link
+				</Link>{' '}
 				inside it.
 			</p>
 			<Link href="https://example.com" variant="default" external>
 				External link
 			</Link>
-		</div>
+		</Stack>
 	),
 };

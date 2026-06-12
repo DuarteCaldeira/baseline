@@ -1,0 +1,20 @@
+@use '@/styles/tokens/spacing' as *;
+@use '@/styles/tokens/radius' as *;
+
+.exampleStack {
+	border: 1px dashed var(--color-border);
+	padding: $spacing-4;
+}
+
+.container {
+	border: 1px solid var(--color-border-strong);
+	background: var(--color-surface);
+}
+
+.item {
+	padding: $spacing-3 $spacing-4;
+	border-radius: $radius-lg;
+	background: var(--color-bg-muted);
+	border: 1px solid var(--color-border-strong);
+	min-width: $spacing-20;
+}

@@ -1,12 +1,6 @@
 @use '@/styles/tokens/spacing' as *;
 @use '@/styles/tokens/radius' as *;
 
-.stepper {
-	display: flex;
-	align-items: flex-start;
-	gap: $spacing-4;
-}
-
 .step {
 	display: flex;
 	flex-direction: column;
@@ -80,5 +74,10 @@
 		font: var(--font-caption);
 		color: var(--color-text-subtle);
 		text-align: center;
+	}
+
+	&__content {
+		height: 24rem;
+		max-height: 100%;
 	}
 }

@@ -8,6 +8,7 @@ import {
 	Underline,
 } from 'lucide-react';
 
+import { Stack } from '@/components/layout/stack';
 import { Button } from '@/components/ui/button';
 import { withSurfaceInline } from '@/storybook/decorators';
 
@@ -79,7 +80,11 @@ export const IconButtons: Story = {
 	render: (args) => (
 		<ButtonGroup {...args} aria-label="Alignment">
 			<Button variant="secondary" icon={AlignLeft} aria-label="Align left" />
-			<Button variant="secondary" icon={AlignCenter} aria-label="Align center" />
+			<Button
+				variant="secondary"
+				icon={AlignCenter}
+				aria-label="Align center"
+			/>
 			<Button variant="secondary" icon={AlignRight} aria-label="Align right" />
 		</ButtonGroup>
 	),
@@ -111,7 +116,7 @@ export const FullWidth: Story = {
 
 export const MixedVariants: Story = {
 	render: () => (
-		<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+		<Stack direction="column" gap="4">
 			<ButtonGroup aria-label="Secondary group">
 				<Button variant="secondary">One</Button>
 				<Button variant="secondary">Two</Button>
@@ -125,6 +130,6 @@ export const MixedVariants: Story = {
 				<Button variant="ghost">Prev</Button>
 				<Button variant="ghost">Next</Button>
 			</ButtonGroup>
-		</div>
+		</Stack>
 	),
 };

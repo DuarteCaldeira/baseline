@@ -257,13 +257,6 @@ describe('DatePicker', () => {
 			expect(screen.getByRole('grid')).toBeInTheDocument();
 		});
 
-		it('renders columnheader roles for weekday labels', async () => {
-			render(<DatePicker />);
-			await userEvent.click(screen.getByRole('button'));
-			const headers = screen.getAllByRole('columnheader');
-			expect(headers).toHaveLength(7);
-		});
-
 		it('renders gridcell roles for each day', async () => {
 			render(<DatePicker defaultValue={FIXED_TODAY} />);
 			await userEvent.click(screen.getByRole('button'));

@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { Stack } from '@/components/layout/stack';
+
 import { FileUpload } from './FileUpload';
 
 const meta: Meta<typeof FileUpload> = {
@@ -69,14 +71,7 @@ export const CustomPlaceholder: Story = {
 
 export const AllStates: Story = {
 	render: () => (
-		<div
-			style={{
-				display: 'flex',
-				flexDirection: 'column',
-				gap: '1.5rem',
-				maxWidth: '28rem',
-			}}
-		>
+		<Stack direction="column" gap="6" style={{ maxWidth: '28rem' }}>
 			<FileUpload id="fu-1" label="Predefinido" />
 			<FileUpload
 				id="fu-2"
@@ -86,6 +81,6 @@ export const AllStates: Story = {
 			/>
 			<FileUpload id="fu-3" label="Erro" error="O ficheiro é obrigatório." />
 			<FileUpload id="fu-4" label="Desativado" disabled />
-		</div>
+		</Stack>
 	),
 };

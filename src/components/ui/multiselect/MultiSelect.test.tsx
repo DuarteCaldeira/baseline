@@ -135,6 +135,12 @@ describe('MultiSelect', () => {
 		);
 	});
 
+	it('sets aria-invalid when error is provided', () => {
+		render(<MultiSelect id="skills" options={OPTIONS} error="Required" />);
+
+		expect(screen.getByRole('combobox')).toHaveAttribute('aria-invalid', 'true');
+	});
+
 	it('renders helper text when provided', () => {
 		render(
 			<MultiSelect

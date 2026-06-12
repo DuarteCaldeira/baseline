@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { HelpCircle, Info, Settings, Trash2 } from 'lucide-react';
 
+import { Stack } from '@/components/layout/stack';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
 import { Link } from '@/components/ui/link';
@@ -104,11 +105,11 @@ export const Placements: Story = {
 
 export const Toolbar: Story = {
 	render: () => (
-		<div
+		<Stack
+			direction="row"
+			align="center"
+			gap="2"
 			style={{
-				display: 'flex',
-				alignItems: 'center',
-				gap: '0.5rem',
 				padding: '0.75rem',
 				border: '1px solid var(--color-border)',
 				borderRadius: '0.5rem',
@@ -130,6 +131,6 @@ export const Toolbar: Story = {
 					<Icon icon={Trash2} size="sm" />
 				</Button>
 			</Tooltip>
-		</div>
+		</Stack>
 	),
 };

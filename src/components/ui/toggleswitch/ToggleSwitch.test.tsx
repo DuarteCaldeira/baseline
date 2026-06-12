@@ -65,6 +65,30 @@ describe('ToggleSwitch', () => {
 		);
 	});
 
+	it('sets aria-describedby to both helper and error ids when both are provided', () => {
+		render(
+			<ToggleSwitch id="notifications" helperText="Optional field." error="Required" />
+		);
+		expect(screen.getByRole('switch')).toHaveAttribute(
+			'aria-describedby',
+			'notifications-helper notifications-error'
+		);
+	});
+
+	it('sets aria-describedby linking to error element', () => {
+		render(<ToggleSwitch id="notifications" error="Required" />);
+		const input = screen.getByRole('switch');
+		const error = screen.getByRole('alert');
+
+		expect(input).toHaveAttribute('aria-describedby', 'notifications-error');
+		expect(error).toHaveAttribute('id', 'notifications-error');
+	});
+
+	it('does not set aria-describedby when neither helperText nor error is provided', () => {
+		render(<ToggleSwitch id="notifications" />);
+		expect(screen.getByRole('switch')).not.toHaveAttribute('aria-describedby');
+	});
+
 	it('renders error message when error prop is provided', () => {
 		render(<ToggleSwitch error="This field is required" />);
 		expect(screen.getByRole('alert')).toHaveTextContent(

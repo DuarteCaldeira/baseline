@@ -104,6 +104,29 @@ describe('Select', () => {
 		expect(screen.getByRole('combobox')).toBeDisabled();
 	});
 
+	it('does not call onChange when a disabled option is clicked', async () => {
+		const user = userEvent.setup();
+		const onChange = vi.fn();
+
+		render(<Select id="framework" options={OPTIONS} onChange={onChange} />);
+
+		await user.click(screen.getByRole('combobox'));
+		await user.click(screen.getByRole('option', { name: /accessibility/i }));
+
+		expect(onChange).not.toHaveBeenCalled();
+	});
+
+	it('keeps the listbox open after clicking a disabled option', async () => {
+		const user = userEvent.setup();
+
+		render(<Select id="framework" options={OPTIONS} />);
+
+		await user.click(screen.getByRole('combobox'));
+		await user.click(screen.getByRole('option', { name: /accessibility/i }));
+
+		expect(screen.getByRole('listbox')).toBeInTheDocument();
+	});
+
 	it('renders helper text when provided', () => {
 		render(
 			<Select

@@ -7,6 +7,8 @@ import {
 	Tag,
 } from 'lucide-react';
 
+import { Stack } from '@/components/layout/stack';
+
 import { Badge } from './Badge';
 
 const meta: Meta<typeof Badge> = {
@@ -52,67 +54,39 @@ export const IconOnly: Story = {
 
 export const AllVariantsFilled: Story = {
 	render: () => (
-		<div
-			style={{
-				display: 'flex',
-				gap: '0.5rem',
-				flexWrap: 'wrap',
-				alignItems: 'center',
-			}}
-		>
+		<Stack direction="row" gap="2" wrap align="center">
 			<Badge variant="success" text="Approved" />
 			<Badge variant="error" text="Failed" />
 			<Badge variant="warning" text="Pending" />
 			<Badge variant="info" text="In review" />
 			<Badge variant="neutral" text="Draft" />
-		</div>
+		</Stack>
 	),
 };
 
 export const AllVariantsOutlined: Story = {
 	render: () => (
-		<div
-			style={{
-				display: 'flex',
-				gap: '0.5rem',
-				flexWrap: 'wrap',
-				alignItems: 'center',
-			}}
-		>
+		<Stack direction="row" gap="2" wrap align="center">
 			<Badge variant="success" type="outlined" text="Approved" />
 			<Badge variant="error" type="outlined" text="Failed" />
 			<Badge variant="warning" type="outlined" text="Pending" />
 			<Badge variant="info" type="outlined" text="In review" />
 			<Badge variant="neutral" type="outlined" text="Draft" />
-		</div>
+		</Stack>
 	),
 };
 
 export const AllVariantsWithIcons: Story = {
 	render: () => (
-		<div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-			<div
-				style={{
-					display: 'flex',
-					gap: '0.5rem',
-					flexWrap: 'wrap',
-					alignItems: 'center',
-				}}
-			>
+		<Stack direction="column" gap="3">
+			<Stack direction="row" gap="2" wrap align="center">
 				<Badge variant="success" icon={CheckCircle} text="Approved" />
 				<Badge variant="error" icon={AlertCircle} text="Failed" />
 				<Badge variant="warning" icon={AlertTriangle} text="Pending" />
 				<Badge variant="info" icon={Info} text="In review" />
 				<Badge variant="neutral" icon={Tag} text="Draft" />
-			</div>
-			<div
-				style={{
-					display: 'flex',
-					gap: '0.5rem',
-					flexWrap: 'wrap',
-					alignItems: 'center',
-				}}
-			>
+			</Stack>
+			<Stack direction="row" gap="2" wrap align="center">
 				<Badge
 					variant="success"
 					type="outlined"
@@ -133,21 +107,14 @@ export const AllVariantsWithIcons: Story = {
 				/>
 				<Badge variant="info" type="outlined" icon={Info} text="In review" />
 				<Badge variant="neutral" type="outlined" icon={Tag} text="Draft" />
-			</div>
-		</div>
+			</Stack>
+		</Stack>
 	),
 };
 
 export const InlineUsage: Story = {
 	render: () => (
-		<div
-			style={{
-				display: 'flex',
-				flexDirection: 'column',
-				gap: '0.75rem',
-				maxWidth: '26rem',
-			}}
-		>
+		<Stack direction="column" gap="3" style={{ maxWidth: '26rem' }}>
 			{[
 				{
 					label: 'Payment processed',
@@ -180,12 +147,13 @@ export const InlineUsage: Story = {
 					text: 'Draft',
 				},
 			].map(({ label, variant, icon, text }) => (
-				<div
+				<Stack
 					key={variant}
+					direction="row"
+					gap="4"
+					justify="between"
+					align="center"
 					style={{
-						display: 'flex',
-						justifyContent: 'space-between',
-						alignItems: 'center',
 						padding: '0.75rem 1rem',
 						border: '1px solid var(--color-border)',
 						borderRadius: '0.5rem',
@@ -196,8 +164,8 @@ export const InlineUsage: Story = {
 						{label}
 					</span>
 					<Badge variant={variant} icon={icon} text={text} />
-				</div>
+				</Stack>
 			))}
-		</div>
+		</Stack>
 	),
 };

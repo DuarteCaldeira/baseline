@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { Stack } from '@/components/layout/stack';
+
 import { Textarea } from './Textarea';
 
 const meta: Meta<typeof Textarea> = {
@@ -73,11 +75,25 @@ export const WithoutLabel: Story = {
 
 export const AllStates: Story = {
 	render: () => (
-		<div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '480px' }}>
-			<Textarea id="s1" label="Default" placeholder="Write your message here..." />
-			<Textarea id="s2" label="With helper text" placeholder="Write your message here..." helperText="Maximum 500 characters." />
+		<Stack direction="column" gap="6" style={{ maxWidth: '480px' }}>
+			<Textarea
+				id="s1"
+				label="Default"
+				placeholder="Write your message here..."
+			/>
+			<Textarea
+				id="s2"
+				label="With helper text"
+				placeholder="Write your message here..."
+				helperText="Maximum 500 characters."
+			/>
 			<Textarea id="s3" label="With error" error="This field is required." />
-			<Textarea id="s4" label="Disabled" disabled value="Cannot edit this content." />
-		</div>
+			<Textarea
+				id="s4"
+				label="Disabled"
+				disabled
+				value="Cannot edit this content."
+			/>
+		</Stack>
 	),
 };

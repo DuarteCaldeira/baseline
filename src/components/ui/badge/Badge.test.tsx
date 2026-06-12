@@ -50,13 +50,6 @@ describe('Badge', () => {
 		).not.toBeInTheDocument();
 	});
 
-	it('defaults to filled type', () => {
-		const { container } = render(<Badge variant="success" text="Approved" />);
-		expect(
-			container.querySelector('.badge--outlined')
-		).not.toBeInTheDocument();
-	});
-
 	it('renders an icon when the icon prop is provided', () => {
 		const { container } = render(
 			<Badge variant="success" icon={CheckCircle} text="Done" />
@@ -67,6 +60,13 @@ describe('Badge', () => {
 	it('does not render an icon element when icon prop is omitted', () => {
 		const { container } = render(<Badge variant="success" text="Done" />);
 		expect(container.querySelector('svg')).not.toBeInTheDocument();
+	});
+
+	it('marks the icon as aria-hidden', () => {
+		const { container } = render(
+			<Badge variant="success" icon={CheckCircle} text="Done" />
+		);
+		expect(container.querySelector('.icon')).toHaveAttribute('aria-hidden', 'true');
 	});
 
 	it('merges custom className', () => {

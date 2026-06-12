@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { Stack } from '@/components/layout/stack';
+
 import { Checkbox } from './Checkbox';
 
 const meta: Meta<typeof Checkbox> = {
@@ -65,7 +67,7 @@ export const WithHelperTextAndError: Story = {
 
 export const AllStates: Story = {
 	render: () => (
-		<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+		<Stack direction="column" gap="4">
 			<Checkbox label="Default" />
 			<Checkbox label="Checked" defaultChecked />
 			<Checkbox
@@ -80,6 +82,6 @@ export const AllStates: Story = {
 				label="With error"
 				error="This field is required."
 			/>
-		</div>
+		</Stack>
 	),
 };

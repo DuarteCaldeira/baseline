@@ -8,6 +8,8 @@ import {
 	X,
 } from 'lucide-react';
 
+import { Stack } from '@/components/layout/stack';
+
 import { Icon } from './Icon';
 
 const meta: Meta<typeof Icon> = {
@@ -23,8 +25,14 @@ const meta: Meta<typeof Icon> = {
 		variant: {
 			control: 'select',
 			options: [
-				'default', 'muted', 'subtle',
-				'primary', 'success', 'warning', 'error', 'info',
+				'default',
+				'muted',
+				'subtle',
+				'primary',
+				'success',
+				'warning',
+				'error',
+				'info',
 			],
 		},
 		label: { control: 'text' },
@@ -49,52 +57,52 @@ export const WithLabel: Story = {
 
 export const Sizes: Story = {
 	render: () => (
-		<div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+		<Stack direction="row" gap="4" align="center">
 			<Icon icon={Star} size="sm" label="Small" />
 			<Icon icon={Star} size="md" label="Medium" />
 			<Icon icon={Star} size="lg" label="Large" />
-		</div>
+		</Stack>
 	),
 };
 
 export const Variants: Story = {
 	render: () => (
-		<div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-			<Icon icon={Star}          variant="default" label="Default" />
-			<Icon icon={Star}          variant="muted"   label="Muted" />
-			<Icon icon={Star}          variant="subtle"  label="Subtle" />
-			<Icon icon={Star}          variant="primary" label="Primary" />
-			<Icon icon={CheckCircle}   variant="success" label="Success" />
+		<Stack direction="row" gap="4" wrap align="center">
+			<Icon icon={Star} variant="default" label="Default" />
+			<Icon icon={Star} variant="muted" label="Muted" />
+			<Icon icon={Star} variant="subtle" label="Subtle" />
+			<Icon icon={Star} variant="primary" label="Primary" />
+			<Icon icon={CheckCircle} variant="success" label="Success" />
 			<Icon icon={AlertTriangle} variant="warning" label="Warning" />
-			<Icon icon={AlertCircle}   variant="error"   label="Error" />
-			<Icon icon={Info}          variant="info"    label="Info" />
-		</div>
+			<Icon icon={AlertCircle} variant="error" label="Error" />
+			<Icon icon={Info} variant="info" label="Info" />
+		</Stack>
 	),
 };
 
 export const SemanticUsage: Story = {
 	render: () => (
-		<div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-			<div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+		<Stack direction="column" gap="3">
+			<Stack direction="row" gap="2" align="center">
 				<Icon icon={CheckCircle} variant="success" label="Success" />
 				<span>Changes saved successfully.</span>
-			</div>
-			<div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+			</Stack>
+			<Stack direction="row" gap="2" align="center">
 				<Icon icon={AlertTriangle} variant="warning" label="Warning" />
 				<span>This action cannot be undone.</span>
-			</div>
-			<div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+			</Stack>
+			<Stack direction="row" gap="2" align="center">
 				<Icon icon={AlertCircle} variant="error" label="Error" />
 				<span>Something went wrong.</span>
-			</div>
-			<div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+			</Stack>
+			<Stack direction="row" gap="2" align="center">
 				<Icon icon={Info} variant="info" label="Info" />
 				<span>Your session expires in 5 minutes.</span>
-			</div>
-			<div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+			</Stack>
+			<Stack direction="row" gap="2" align="center">
 				<Icon icon={X} variant="muted" />
 				<span>Decorative icon (no label, aria-hidden).</span>
-			</div>
-		</div>
+			</Stack>
+		</Stack>
 	),
 };

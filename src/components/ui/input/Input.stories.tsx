@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { Stack } from '@/components/layout/stack';
+
 import { Input } from './Input';
 
 const meta: Meta<typeof Input> = {
@@ -73,12 +75,23 @@ export const Password: Story = {
 
 export const AllStates: Story = {
 	render: () => (
-		<div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '400px' }}>
+		<Stack direction="column" gap="6" style={{ maxWidth: '400px' }}>
 			<Input id="s1" label="Default" placeholder="Placeholder..." />
-			<Input id="s2" label="With helper text" placeholder="Placeholder..." helperText="This is some helpful context." />
+			<Input
+				id="s2"
+				label="With helper text"
+				placeholder="Placeholder..."
+				helperText="This is some helpful context."
+			/>
 			<Input id="s3" label="Filled" value="Some value" onChange={() => {}} />
-			<Input id="s4" label="Error" error="This field is required." value="" onChange={() => {}} />
+			<Input
+				id="s4"
+				label="Error"
+				error="This field is required."
+				value=""
+				onChange={() => {}}
+			/>
 			<Input id="s5" label="Disabled" disabled value="Disabled value" />
-		</div>
+		</Stack>
 	),
 };

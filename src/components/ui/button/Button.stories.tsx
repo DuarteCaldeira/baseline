@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Plus, Star, Trash2, X } from 'lucide-react';
 
+import { Stack } from '@/components/layout/stack';
+
 import { Button } from './Button';
 
 const meta: Meta<typeof Button> = {
@@ -85,42 +87,52 @@ export const IconOnly: Story = {
 
 export const AllVariants: Story = {
 	render: () => (
-		<div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
+		<Stack direction="row" gap="3" wrap align="center">
 			<Button variant="primary">Primary</Button>
 			<Button variant="secondary">Secondary</Button>
 			<Button variant="ghost">Ghost</Button>
-			<Button variant="primary" disabled>Disabled</Button>
-			<Button variant="primary" loading>Loading</Button>
-		</div>
+			<Button variant="primary" disabled>
+				Disabled
+			</Button>
+			<Button variant="primary" loading>
+				Loading
+			</Button>
+		</Stack>
 	),
 };
 
 export const AllSizes: Story = {
 	render: () => (
-		<div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+		<Stack direction="row" gap="3" align="center">
 			<Button size="sm">Small</Button>
 			<Button size="md">Medium</Button>
 			<Button size="lg">Large</Button>
-		</div>
+		</Stack>
 	),
 };
 
 export const AllSizesWithIcon: Story = {
 	render: () => (
-		<div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-			<Button size="sm" icon={Plus}>Add item</Button>
-			<Button size="md" icon={Plus}>Add item</Button>
-			<Button size="lg" icon={Plus}>Add item</Button>
-		</div>
+		<Stack direction="row" gap="3" align="center">
+			<Button size="sm" icon={Plus}>
+				Add item
+			</Button>
+			<Button size="md" icon={Plus}>
+				Add item
+			</Button>
+			<Button size="lg" icon={Plus}>
+				Add item
+			</Button>
+		</Stack>
 	),
 };
 
 export const AllSizesIconOnly: Story = {
 	render: () => (
-		<div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+		<Stack direction="row" gap="3" align="center">
 			<Button size="sm" icon={Trash2} aria-label="Delete" variant="ghost" />
 			<Button size="md" icon={Trash2} aria-label="Delete" variant="ghost" />
 			<Button size="lg" icon={Trash2} aria-label="Delete" variant="ghost" />
-		</div>
+		</Stack>
 	),
 };
