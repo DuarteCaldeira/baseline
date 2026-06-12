@@ -1,16 +1,18 @@
-// Shadow tokens
+// Shadow tokens — values live in theme CSS custom properties (light/dark).
+// SCSS aliases keep existing $shadow-* usage theme-aware at compile time.
+
 $shadow-none: none;
-$shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-$shadow-base:
-	0 1px 3px 0 rgb(0 0 0 / 0.1),
-	0 1px 2px -1px rgb(0 0 0 / 0.1);
-$shadow-md:
-	0 4px 6px -1px rgb(0 0 0 / 0.1),
-	0 2px 4px -2px rgb(0 0 0 / 0.1);
-$shadow-lg:
-	0 10px 15px -3px rgb(0 0 0 / 0.1),
-	0 4px 6px -4px rgb(0 0 0 / 0.1);
-$shadow-xl:
-	0 20px 25px -5px rgb(0 0 0 / 0.1),
-	0 8px 10px -6px rgb(0 0 0 / 0.1);
-$shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+$shadow-sm: var(--shadow-sm);
+$shadow-base: var(--shadow-base);
+$shadow-md: var(--shadow-md);
+$shadow-lg: var(--shadow-lg);
+$shadow-xl: var(--shadow-xl);
+$shadow-inner: var(--shadow-inner);
+
+$shadow-field-shell: var(--shadow-field-shell);
+$shadow-field-focus: var(--shadow-field-focus);
+
+$shadow-button-primary: var(--shadow-button-primary);
+$shadow-button-primary-hover: var(--shadow-button-primary-hover);
+$shadow-button-primary-active: var(--shadow-button-primary-active);
+$shadow-button-secondary-hover: var(--shadow-button-secondary-hover);

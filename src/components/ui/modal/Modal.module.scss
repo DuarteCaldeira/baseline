@@ -1,15 +1,14 @@
+@use '@/styles/mixins/overlay' as *;
 @use '@/styles/tokens/spacing' as *;
 @use '@/styles/tokens/radius' as *;
 @use '@/styles/tokens/shadows' as *;
+@use '@/styles/tokens/motion' as *;
 
 .modal-overlay {
-	position: fixed;
-	inset: 0;
-	z-index: var(--z-index-overlay);
+	@include overlay-backdrop;
 	padding: $spacing-4;
 	overflow-y: auto;
-	background-color: var(--color-overlay);
-	animation: overlay-enter 150ms ease forwards;
+	@include overlay-enter;
 }
 
 .modal {
@@ -19,7 +18,7 @@
 	background-color: var(--color-surface);
 	border-radius: $radius-xl;
 	box-shadow: $shadow-xl;
-	animation: dialog-enter 200ms ease forwards;
+	animation: dialog-enter $duration-moderate $ease-default forwards;
 
 	&--sm {
 		max-width: 24rem;
@@ -66,15 +65,6 @@
 		padding: $spacing-3 $spacing-4 $spacing-4;
 		flex-shrink: 0;
 		border-top: 1px solid var(--color-border);
-	}
-}
-
-@keyframes overlay-enter {
-	from {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
 	}
 }
 

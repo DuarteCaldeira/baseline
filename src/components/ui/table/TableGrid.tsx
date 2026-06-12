@@ -2,12 +2,12 @@ import { memo, useCallback, useMemo } from 'react';
 import type { KeyboardEvent, MouseEvent, ReactElement } from 'react';
 
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { TABLE_MOBILE_MEDIA_QUERY } from '@/utils/breakpoints';
 import { cn } from '@/utils/cn';
 
 import styles from './Table.module.scss';
 import type { TableColumn, TableGridProps } from './Table.types';
 import {
-	TABLE_MOBILE_MEDIA_QUERY,
 	getClickableRowLabel,
 	getPrimaryColumnKey,
 	getRowKey,

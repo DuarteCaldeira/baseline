@@ -1,6 +1,8 @@
 @use '@/styles/tokens/controls' as *;
 @use '@/styles/tokens/spacing' as *;
 @use '@/styles/tokens/radius' as *;
+@use '@/styles/tokens/shadows' as *;
+@use '@/styles/tokens/motion' as *;
 
 @mixin control-field-size {
 	box-sizing: border-box;
@@ -21,10 +23,10 @@
 	border-radius: $radius-md;
 	background-color: var(--color-surface);
 	color: var(--color-text);
-	box-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
+	box-shadow: $shadow-field-shell;
 	transition:
-		border-color 150ms ease,
-		box-shadow 150ms ease;
+		border-color $duration-base $ease-default,
+		box-shadow $duration-base $ease-default;
 }
 
 @mixin control-field-hover {
@@ -36,9 +38,7 @@
 @mixin control-field-focus-ring {
 	outline: none;
 	border-color: var(--color-primary);
-	box-shadow:
-		0 0 0 3px var(--color-primary-subtle),
-		0 1px 2px rgb(0 0 0 / 0.04);
+	box-shadow: $shadow-field-focus;
 }
 
 @mixin control-field-open-ring {
@@ -73,4 +73,88 @@
 @mixin control-field-error-text {
 	font: var(--font-caption);
 	color: var(--color-error);
+}
+
+// Button-like combobox triggers (Select, MultiSelect)
+@mixin control-field-trigger-base($open-class) {
+	border: 1px solid var(--color-border);
+	border-radius: $radius-md;
+	background-color: var(--color-surface);
+	color: var(--color-text);
+	cursor: pointer;
+	transition:
+		border-color $duration-base $ease-default,
+		box-shadow $duration-base $ease-default;
+
+	&:focus-visible {
+		outline: 2px solid var(--color-primary);
+		outline-offset: 2px;
+	}
+
+	&--open {
+		@include control-field-open-ring;
+	}
+
+	&--error {
+		@include control-field-error;
+
+		&:focus-visible,
+		&.#{$open-class} {
+			@include control-field-error-ring;
+		}
+	}
+}
+
+@mixin control-field-trigger($open-class) {
+	@include control-field-trigger-base($open-class);
+
+	&:hover:not(:disabled) {
+		border-color: var(--color-border-strong);
+	}
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+}
+
+// MultiSelect uses aria-disabled instead of the native disabled attribute
+@mixin control-field-trigger-aria-disabled($open-class) {
+	@include control-field-trigger-base($open-class);
+
+	&:hover:not([aria-disabled='true']) {
+		border-color: var(--color-border-strong);
+	}
+
+	&[aria-disabled='true'] {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+}
+
+// DatePicker trigger — shell shadow + combined focus/open ring
+@mixin control-field-date-trigger($open-class) {
+	@include control-field-shell;
+
+	&:hover:not(:disabled) {
+		border-color: var(--color-border-strong);
+	}
+
+	&:focus-visible,
+	&--open {
+		@include control-field-focus-ring;
+	}
+
+	&:disabled {
+		@include control-field-disabled;
+	}
+
+	&--error {
+		@include control-field-error;
+
+		&:focus-visible,
+		&.#{$open-class} {
+			@include control-field-error-ring;
+		}
+	}
 }

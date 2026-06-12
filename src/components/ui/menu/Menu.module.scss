@@ -1,6 +1,7 @@
+@use '@/styles/mixins/floating-panel' as *;
 @use '@/styles/tokens/spacing' as *;
 @use '@/styles/tokens/radius' as *;
-@use '@/styles/tokens/shadows' as *;
+@use '@/styles/tokens/motion' as *;
 
 @mixin menu-panel-surface {
 	border: 1px solid var(--color-border);
@@ -36,8 +37,8 @@
 	cursor: pointer;
 	transform: none;
 	transition:
-		background-color 100ms ease,
-		color 100ms ease;
+		background-color $duration-instant $ease-default,
+		color $duration-instant $ease-default;
 
 	&:focus-visible {
 		background-color: var(--color-bg-muted);
@@ -104,15 +105,13 @@
 
 	&__content {
 		position: relative;
-		z-index: var(--z-index-floating);
 		display: flex;
 		flex-direction: column;
 		gap: 0;
 		min-width: 12rem;
 		padding: $spacing-1;
-		@include menu-panel-surface;
-		box-shadow: $shadow-lg;
-		animation: menu-enter-bottom 120ms ease;
+		@include floating-panel-surface;
+		@include floating-panel-enter-bottom;
 
 		&--floating {
 			position: fixed;
@@ -122,19 +121,15 @@
 			max-height: var(--menu-floating-max-height);
 		}
 
-		&--placement-top {
-			animation-name: menu-enter-top;
-		}
-
 		&--placement-right {
 			z-index: calc(var(--z-index-floating) + 1);
-			animation: menu-enter-right 120ms ease;
+			@include floating-panel-enter-right;
 			@include menu-side-bridge(left);
 		}
 
 		&--placement-left {
 			z-index: calc(var(--z-index-floating) + 1);
-			animation: menu-enter-left 120ms ease;
+			@include floating-panel-enter-left;
 			@include menu-side-bridge(right);
 		}
 
@@ -183,53 +178,5 @@
 		margin: 0;
 		border: none;
 		background-color: var(--color-border);
-	}
-}
-
-@keyframes menu-enter-bottom {
-	from {
-		opacity: 0;
-		transform: translateY(-4px);
-	}
-
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
-
-@keyframes menu-enter-top {
-	from {
-		opacity: 0;
-		transform: translateY(4px);
-	}
-
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
-
-@keyframes menu-enter-right {
-	from {
-		opacity: 0;
-		transform: translateX(-4px);
-	}
-
-	to {
-		opacity: 1;
-		transform: translateX(0);
-	}
-}
-
-@keyframes menu-enter-left {
-	from {
-		opacity: 0;
-		transform: translateX(4px);
-	}
-
-	to {
-		opacity: 1;
-		transform: translateX(0);
 	}
 }

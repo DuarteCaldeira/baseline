@@ -1,14 +1,13 @@
 import type { ReactNode } from 'react';
 
+import { TABLE_MOBILE_MEDIA_QUERY } from '@/utils/breakpoints';
+
 import type {
 	SortState,
 	TableColumn,
 	TableFilter,
 	TableFilterValues,
 } from './Table.types';
-
-/** Keep in sync with the mobile breakpoint in Table.module.scss. */
-export const TABLE_MOBILE_MEDIA_QUERY = '(max-width: 40rem)';
 
 /** String label for mobile card rows — falls back to the column key. */
 export const getColumnLabel = (header: ReactNode, key: string): string => {

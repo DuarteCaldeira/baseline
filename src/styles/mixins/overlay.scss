@@ -1,0 +1,40 @@
+@use '@/styles/tokens/motion' as *;
+
+@mixin overlay-backdrop($blur: null) {
+	position: fixed;
+	inset: 0;
+	z-index: var(--z-index-overlay);
+	background-color: var(--color-overlay);
+
+	@if $blur {
+		backdrop-filter: blur($blur);
+	}
+}
+
+@mixin overlay-enter($duration: $duration-base) {
+	animation: overlay-fade-enter $duration $ease-default forwards;
+}
+
+@mixin overlay-exit($duration: $duration-moderate) {
+	animation: overlay-fade-exit $duration $ease-default forwards;
+}
+
+@keyframes overlay-fade-enter {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes overlay-fade-exit {
+	from {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 0;
+	}
+}

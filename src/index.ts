@@ -176,6 +176,11 @@ export { useMounted } from './hooks/useMounted';
 // Utils
 export { cn } from './utils/cn';
 export {
+	BREAKPOINT_SM,
+	mediaMaxWidth,
+	TABLE_MOBILE_MEDIA_QUERY,
+} from './utils/breakpoints';
+export {
 	capitalize,
 	formatCompact,
 	toKebabCase,

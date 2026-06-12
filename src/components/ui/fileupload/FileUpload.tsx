@@ -179,7 +179,6 @@ export const FileUpload = ({
 									variant="ghost"
 									size="sm"
 									iconOnly
-									className={styles['fileupload__remove']}
 									onClick={() => handleRemove(index)}
 									disabled={disabled}
 									aria-label={getRemoveFileLabel(file.name)}

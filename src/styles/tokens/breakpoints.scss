@@ -1,0 +1,8 @@
+// Keep in sync with BREAKPOINT_SM in src/utils/breakpoints.ts
+$breakpoint-sm: 40rem; // 640px — table mobile layout
+
+@mixin breakpoint-down($max: $breakpoint-sm) {
+	@media (max-width: $max) {
+		@content;
+	}
+}

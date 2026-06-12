@@ -1,13 +1,15 @@
 @use '@/styles/tokens/controls' as *;
 @use '@/styles/tokens/spacing' as *;
 @use '@/styles/tokens/radius' as *;
+@use '@/styles/tokens/shadows' as *;
+@use '@/styles/tokens/motion' as *;
 
 $button-transition:
-	background-color 150ms ease,
-	color 150ms ease,
-	box-shadow 150ms ease,
-	opacity 150ms ease,
-	transform 150ms ease;
+	background-color $duration-base $ease-default,
+	color $duration-base $ease-default,
+	box-shadow $duration-base $ease-default,
+	opacity $duration-base $ease-default,
+	transform $duration-base $ease-default;
 
 .button {
 	display: inline-flex;
@@ -93,21 +95,17 @@ $button-transition:
 	&--primary {
 		background-color: var(--color-primary);
 		color: var(--color-text-inverse);
-		box-shadow:
-			0 1px 2px rgb(0 0 0 / 0.12),
-			inset 0 1px 0 rgb(255 255 255 / 0.1);
+		box-shadow: $shadow-button-primary;
 
 		&:hover:not(:disabled) {
 			background-color: var(--color-primary-hover);
-			box-shadow:
-				0 3px 8px rgb(0 0 0 / 0.18),
-				inset 0 1px 0 rgb(255 255 255 / 0.1);
+			box-shadow: $shadow-button-primary-hover;
 			transform: translateY(-1px);
 		}
 
 		&:active:not(:disabled) {
 			background-color: var(--color-primary-active);
-			box-shadow: 0 1px 2px rgb(0 0 0 / 0.1);
+			box-shadow: $shadow-button-primary-active;
 			transform: translateY(0);
 		}
 
@@ -126,12 +124,12 @@ $button-transition:
 		background-color: var(--color-surface);
 		color: var(--color-text);
 		border: 1px solid var(--color-border);
-		box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+		box-shadow: $shadow-sm;
 
 		&:hover:not(:disabled) {
 			background-color: var(--color-bg-subtle);
 			border-color: var(--color-border-strong);
-			box-shadow: 0 2px 4px rgb(0 0 0 / 0.08);
+			box-shadow: $shadow-button-secondary-hover;
 			transform: translateY(-1px);
 		}
 

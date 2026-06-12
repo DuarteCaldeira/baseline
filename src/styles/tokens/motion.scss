@@ -1,0 +1,14 @@
+$duration-instant: 100ms;
+$duration-fast: 120ms;
+$duration-base: 150ms;
+$duration-moderate: 200ms;
+$duration-slow: 250ms;
+$duration-drawer: 320ms;
+$duration-accordion-content: 250ms;
+$duration-accordion-padding: 100ms;
+$duration-accordion-padding-delay: 100ms;
+
+$ease-default: ease;
+$ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+$floating-panel-offset: 0.25rem;

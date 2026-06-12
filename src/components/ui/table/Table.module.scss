@@ -1,3 +1,4 @@
+@use '@/styles/tokens/breakpoints' as *;
 @use '@/styles/tokens/spacing' as *;
 @use '@/styles/tokens/radius' as *;
 @use '@/styles/tokens/shadows' as *;
@@ -21,7 +22,7 @@
 		min-width: 10rem;
 		max-width: 24rem;
 
-		@media (max-width: 40rem) {
+		@include breakpoint-down {
 			flex: 1 1 100%;
 			min-width: 0;
 			max-width: none;
@@ -34,7 +35,7 @@
 		overflow-x: auto;
 		-webkit-overflow-scrolling: touch;
 
-		@media (max-width: 40rem) {
+		@include breakpoint-down {
 			overflow-x: visible;
 		}
 	}
@@ -177,7 +178,7 @@
 		padding: $spacing-3 $spacing-4;
 		border-top: 1px solid var(--color-border);
 
-		@media (max-width: 40rem) {
+		@include breakpoint-down {
 			flex-direction: column;
 			align-items: flex-start;
 		}
@@ -212,7 +213,7 @@
 
 // ── Mobile card layout ────────────────────────────────────────────────────────
 
-@media (max-width: 40rem) {
+@include breakpoint-down {
 	.table {
 		border: none;
 		border-radius: 0;

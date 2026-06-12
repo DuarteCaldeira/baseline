@@ -1,10 +1,7 @@
 @use '@/styles/tokens/spacing' as *;
 @use '@/styles/tokens/radius' as *;
 @use '@/styles/tokens/shadows' as *;
-
-$accordion-content-duration: 250ms;
-$accordion-padding-delay: 100ms;
-$accordion-padding-duration: 100ms;
+@use '@/styles/tokens/motion' as *;
 
 .accordion {
 	width: 100%;
@@ -63,8 +60,8 @@ $accordion-padding-duration: 100ms;
 		flex-shrink: 0;
 		color: var(--color-text-subtle);
 		transition:
-			transform 250ms ease,
-			color 150ms ease;
+			transform $duration-slow $ease-default,
+			color $duration-base $ease-default;
 
 		.accordion__item--open & {
 			transform: rotate(-180deg);
@@ -80,17 +77,18 @@ $accordion-padding-duration: 100ms;
 		overflow: hidden;
 		visibility: hidden;
 		transition:
-			grid-template-rows $accordion-content-duration ease,
-			padding-block $accordion-padding-duration ease $accordion-padding-delay,
-			visibility 0ms linear $accordion-content-duration;
+			grid-template-rows $duration-accordion-content $ease-default,
+			padding-block $duration-accordion-padding $ease-default
+				$duration-accordion-padding-delay,
+			visibility 0ms linear $duration-accordion-content;
 
 		&--open {
 			grid-template-rows: 1fr;
 			padding-block: $spacing-4;
 			visibility: visible;
 			transition:
-				grid-template-rows $accordion-content-duration ease,
-				padding-block $accordion-padding-duration ease 0ms,
+				grid-template-rows $duration-accordion-content $ease-default,
+				padding-block $duration-accordion-padding $ease-default 0ms,
 				visibility 0ms linear 0ms;
 		}
 	}

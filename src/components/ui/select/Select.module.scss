@@ -1,7 +1,6 @@
 @use '@/styles/mixins/control-field' as *;
 @use '@/styles/tokens/spacing' as *;
-@use '@/styles/tokens/radius' as *;
-@use '@/styles/tokens/shadows' as *;
+@use '@/styles/tokens/motion' as *;
 
 .select {
 	&__wrapper {
@@ -20,60 +19,25 @@
 		gap: $spacing-2;
 		@include control-field-size;
 		font: var(--font-sm);
-		border: 1px solid var(--color-border);
-		border-radius: $radius-md;
-		background-color: var(--color-surface);
-		color: var(--color-text);
-		cursor: pointer;
 		text-align: left;
-		transition:
-			border-color 150ms ease,
-			box-shadow 150ms ease;
+		@include control-field-trigger('select__trigger--open');
 
-		&:focus-visible {
-			outline: 2px solid var(--color-primary);
-			outline-offset: 2px;
+		&-value {
+			display: flex;
+			align-items: center;
+			gap: $spacing-2;
+			flex: 1;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
 		}
 
-		&:hover:not(:disabled) {
-			border-color: var(--color-border-strong);
+		&-icon {
+			display: flex;
+			align-items: center;
+			flex-shrink: 0;
+			font-size: 1.1em;
 		}
-
-		&:disabled {
-			opacity: 0.5;
-			cursor: not-allowed;
-		}
-
-		&--open {
-			border-color: var(--color-primary);
-			box-shadow: 0 0 0 3px var(--color-primary-subtle);
-		}
-
-		&--error {
-			border-color: var(--color-error);
-
-			&:focus-visible,
-			&.select__trigger--open {
-				box-shadow: 0 0 0 3px var(--color-error-ring);
-			}
-		}
-	}
-
-	&__trigger-value {
-		display: flex;
-		align-items: center;
-		gap: $spacing-2;
-		flex: 1;
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
-	}
-
-	&__trigger-icon {
-		display: flex;
-		align-items: center;
-		flex-shrink: 0;
-		font-size: 1.1em;
 	}
 
 	&__placeholder {
@@ -83,7 +47,7 @@
 	&__chevron {
 		flex-shrink: 0;
 		color: var(--color-text-subtle);
-		transition: transform 200ms ease;
+		transition: transform $duration-moderate $ease-default;
 
 		&--open {
 			transform: rotate(180deg);
