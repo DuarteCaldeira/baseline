@@ -30,8 +30,8 @@ export const ToggleButton = ({
 			aria-pressed={pressed}
 			data-toggle-button=""
 			onClick={(event) => {
-				onClick?.(event);
 				toggle();
+				onClick?.(event);
 			}}
 		/>
 	);

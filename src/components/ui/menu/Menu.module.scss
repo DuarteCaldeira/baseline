@@ -1,0 +1,235 @@
+@use '@/styles/tokens/spacing' as *;
+@use '@/styles/tokens/radius' as *;
+@use '@/styles/tokens/shadows' as *;
+
+@mixin menu-panel-surface {
+	border: 1px solid var(--color-border);
+	border-radius: $radius-lg;
+	background-color: var(--color-surface);
+}
+
+@mixin menu-side-bridge($edge) {
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		#{$edge}: -$spacing-2;
+		width: $spacing-2;
+		height: 100%;
+	}
+}
+
+@mixin menu-interactive-item {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	padding: $spacing-2 $spacing-3;
+	border: none;
+	border-radius: $radius-md;
+	background: none;
+	box-shadow: none;
+	font: var(--font-sm);
+	color: var(--color-text);
+	text-align: left;
+	text-decoration: none;
+	cursor: pointer;
+	transform: none;
+	transition:
+		background-color 100ms ease,
+		color 100ms ease;
+
+	&:focus-visible {
+		background-color: var(--color-bg-muted);
+		outline: none;
+	}
+
+	&[data-submenu-open='true'] {
+		background-color: var(--color-primary-subtle);
+	}
+
+	&:hover {
+		background-color: var(--color-primary-subtle);
+
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: -$spacing-1;
+			width: 3px;
+			border-radius: 0;
+			background-color: var(--color-primary);
+		}
+	}
+
+	&[data-destructive='true'] {
+		color: var(--color-error-text);
+
+		&:hover,
+		&:focus-visible {
+			background-color: var(--color-error-weak);
+		}
+
+		&:hover::before {
+			background-color: var(--color-error-text);
+		}
+	}
+
+	&[data-disabled='true'] {
+		opacity: 0.4;
+		cursor: not-allowed;
+		pointer-events: none;
+	}
+}
+
+.menu {
+	&--dropdown {
+		position: relative;
+		display: inline-flex;
+	}
+
+	&--submenu {
+		position: relative;
+		width: 100%;
+	}
+
+	&--menubar {
+		display: inline-flex;
+		align-items: center;
+		gap: 0;
+		padding: $spacing-1;
+		@include menu-panel-surface;
+	}
+
+	&__content {
+		position: relative;
+		z-index: var(--z-index-floating);
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+		min-width: 12rem;
+		padding: $spacing-1;
+		@include menu-panel-surface;
+		box-shadow: $shadow-lg;
+		animation: menu-enter-bottom 120ms ease;
+
+		&--floating {
+			position: fixed;
+			top: var(--menu-floating-top);
+			left: var(--menu-floating-left);
+			width: var(--menu-floating-width);
+			max-height: var(--menu-floating-max-height);
+		}
+
+		&--placement-top {
+			animation-name: menu-enter-top;
+		}
+
+		&--placement-right {
+			z-index: calc(var(--z-index-floating) + 1);
+			animation: menu-enter-right 120ms ease;
+			@include menu-side-bridge(left);
+		}
+
+		&--placement-left {
+			z-index: calc(var(--z-index-floating) + 1);
+			animation: menu-enter-left 120ms ease;
+			@include menu-side-bridge(right);
+		}
+
+		[data-menu-item='true'],
+		a[role='menuitem'] {
+			@include menu-interactive-item;
+			width: 100%;
+			height: auto;
+			min-height: unset;
+		}
+	}
+
+	&--menubar [data-menu-menubar-item='true']:not([data-menu-item='true']),
+	&--menubar a[role='menuitem'] {
+		@include menu-interactive-item;
+		display: inline-flex;
+		width: auto;
+		color: var(--color-text-muted);
+
+		&:hover,
+		&[aria-expanded='true'] {
+			background-color: var(--color-bg-muted);
+			color: var(--color-text);
+		}
+
+		&:focus-visible {
+			outline: 2px solid var(--color-primary);
+			outline-offset: 2px;
+		}
+	}
+
+	&__submenu-trigger-inner {
+		width: 100%;
+	}
+
+	&__label {
+		margin: 0;
+		padding: $spacing-2 $spacing-3 $spacing-1;
+		font: var(--font-caption);
+		font-weight: var(--font-weight-medium);
+		color: var(--color-text-subtle);
+	}
+
+	&__separator {
+		height: 1px;
+		margin: 0;
+		border: none;
+		background-color: var(--color-border);
+	}
+}
+
+@keyframes menu-enter-bottom {
+	from {
+		opacity: 0;
+		transform: translateY(-4px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes menu-enter-top {
+	from {
+		opacity: 0;
+		transform: translateY(4px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes menu-enter-right {
+	from {
+		opacity: 0;
+		transform: translateX(-4px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes menu-enter-left {
+	from {
+		opacity: 0;
+		transform: translateX(4px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}

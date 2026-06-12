@@ -11,7 +11,6 @@ const meta: Meta<typeof Drawer> = {
 	title: 'UI/Drawer',
 	component: Drawer,
 	tags: ['autodocs'],
-	parameters: { layout: 'padded' },
 	argTypes: {
 		side: {
 			control: 'select',

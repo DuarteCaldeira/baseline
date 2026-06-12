@@ -2,6 +2,11 @@
 
 :root,
 [data-theme='light'] {
+	// Layering
+	--z-index-floating: 9000;
+	--z-index-overlay: 9998;
+	--z-index-toast: 9999;
+
 	// Backgrounds — off-white page so white surfaces float above it
 	--color-bg: #{$color-neutral-50};
 	--color-bg-subtle: #{$color-neutral-100};

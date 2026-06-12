@@ -79,8 +79,8 @@ describe('ButtonGroup', () => {
 		).toBeInTheDocument();
 	});
 
-	it('renders buttons as direct children for group border styling', () => {
-		const { container } = render(
+	it('marks the group and buttons for shared border styling', () => {
+		render(
 			<ButtonGroup aria-label="Actions">
 				<Button variant="secondary">First</Button>
 				<Button variant="secondary">Middle</Button>
@@ -88,12 +88,13 @@ describe('ButtonGroup', () => {
 			</ButtonGroup>
 		);
 
-		const group = container.querySelector('.button-group--horizontal');
+		const group = screen.getByRole('group', { name: 'Actions' });
 
-		expect(group?.children).toHaveLength(3);
-		expect(group?.children[0].tagName).toBe('BUTTON');
-		expect(group?.children[1].tagName).toBe('BUTTON');
-		expect(group?.children[2].tagName).toBe('BUTTON');
+		expect(group).toHaveAttribute('data-button-group', 'horizontal');
+		expect(screen.getByRole('button', { name: 'First' })).toHaveAttribute(
+			'data-button-group-item',
+			'horizontal'
+		);
 	});
 
 	it('applies the full-width modifier class', () => {

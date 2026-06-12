@@ -1,14 +1,12 @@
-import { renderHook, waitFor } from '@testing-library/react';
+import { renderHook } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import { useMounted } from './useMounted';
 
 describe('useMounted', () => {
-	it('returns true after the component has mounted', async () => {
+	it('returns true in the client environment', () => {
 		const { result } = renderHook(() => useMounted());
 
-		await waitFor(() => {
-			expect(result.current).toBe(true);
-		});
+		expect(result.current).toBe(true);
 	});
 });

@@ -20,7 +20,12 @@ describe('Accordion', () => {
 
 	it('all panels are closed by default', () => {
 		render(<Accordion items={items} />);
-		expect(screen.queryByText('A minimal React starter.')).not.toBeVisible();
+		const trigger = screen.getByRole('button', { name: /what is baseline/i });
+		const panel = document.getElementById(
+			trigger.getAttribute('aria-controls')!
+		)!;
+
+		expect(panel).toHaveAttribute('aria-hidden', 'true');
 	});
 
 	it('opens a panel when its trigger is clicked', async () => {

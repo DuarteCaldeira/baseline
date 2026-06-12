@@ -1,0 +1,233 @@
+import {
+	type KeyboardEvent,
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+} from 'react';
+
+import type { UseMenuOptions, UseMenuReturn } from '../Menu.types';
+import {
+	focusMenuItem,
+	focusMenubarItem,
+	getMenuItems,
+	getMenubarItems,
+	handleMenuBoundaryFocus,
+	handleMenuClose,
+	handleMenuListNavigation,
+	isActivationKey,
+	openSubmenuFromKeyboard,
+	runMenuKeyHandler,
+} from '../Menu.utils';
+
+const SUBMENU_CLOSE_DELAY_MS = 120;
+
+export const useMenu = ({
+	variant,
+	menuId,
+	parentMenuId,
+	activeSubmenu,
+	setActiveSubmenu,
+}: UseMenuOptions): UseMenuReturn => {
+	const [isOpen, setIsOpen] = useState(false);
+	const containerRef = useRef<HTMLDivElement>(null);
+	const triggerRef = useRef<HTMLElement>(null);
+	const contentRef = useRef<HTMLDivElement>(null);
+	const menubarRef = useRef<HTMLDivElement>(null);
+	const closeTimerRef = useRef<ReturnType<typeof setTimeout>>();
+
+	const cancelSubmenuClose = useCallback(() => {
+		if (!closeTimerRef.current) return;
+		clearTimeout(closeTimerRef.current);
+		closeTimerRef.current = undefined;
+	}, []);
+
+	const close = useCallback(() => {
+		cancelSubmenuClose();
+		if (variant === 'submenu' && activeSubmenu?.menuId === menuId) {
+			setActiveSubmenu(null);
+		}
+		setIsOpen(false);
+		triggerRef.current?.focus();
+	}, [activeSubmenu, cancelSubmenuClose, menuId, setActiveSubmenu, variant]);
+
+	const scheduleSubmenuClose = useCallback(() => {
+		if (variant !== 'submenu') return;
+		cancelSubmenuClose();
+		closeTimerRef.current = setTimeout(close, SUBMENU_CLOSE_DELAY_MS);
+	}, [cancelSubmenuClose, close, variant]);
+
+	const open = useCallback(() => {
+		cancelSubmenuClose();
+		if (variant === 'submenu' && parentMenuId) {
+			setActiveSubmenu({ menuId, parentMenuId });
+		}
+		setIsOpen(true);
+	}, [cancelSubmenuClose, menuId, parentMenuId, setActiveSubmenu, variant]);
+
+	const toggle = useCallback(() => {
+		if (isOpen) {
+			close();
+			return;
+		}
+		open();
+	}, [isOpen, open, close]);
+
+	useEffect(() => {
+		if (variant !== 'submenu' || !isOpen || !parentMenuId) return;
+		if (!activeSubmenu || activeSubmenu.menuId === menuId) return;
+		if (activeSubmenu.parentMenuId === parentMenuId) {
+			setIsOpen(false);
+		}
+	}, [activeSubmenu, isOpen, menuId, parentMenuId, variant]);
+
+	useEffect(() => {
+		if (!isOpen || variant === 'menubar') return;
+
+		const handlePointerDown = (event: PointerEvent) => {
+			const target = event.target as Node;
+			if (containerRef.current?.contains(target)) return;
+			if (contentRef.current?.contains(target)) return;
+			close();
+		};
+
+		document.addEventListener('pointerdown', handlePointerDown);
+		return () => document.removeEventListener('pointerdown', handlePointerDown);
+	}, [close, isOpen, variant]);
+
+	useEffect(() => {
+		if (!isOpen || variant === 'menubar') return;
+		focusMenuItem(contentRef.current, 'first');
+	}, [isOpen, variant]);
+
+	const handleTriggerKeyDown = useCallback(
+		(event: KeyboardEvent<HTMLElement>) => {
+			if (variant === 'submenu') {
+				runMenuKeyHandler(event, {
+					ArrowRight: () => {
+						event.preventDefault();
+						open();
+					},
+					Enter: () => {
+						event.preventDefault();
+						open();
+					},
+					' ': () => {
+						event.preventDefault();
+						open();
+					},
+					ArrowLeft: () => {
+						event.preventDefault();
+						close();
+					},
+				});
+				return;
+			}
+
+			runMenuKeyHandler(event, {
+				ArrowDown: () => {
+					event.preventDefault();
+					if (!isOpen) open();
+					else focusMenuItem(contentRef.current, 'first');
+				},
+				ArrowUp: () => {
+					event.preventDefault();
+					if (!isOpen) open();
+					else focusMenuItem(contentRef.current, 'last');
+				},
+				Escape: () => {
+					if (!isOpen) return;
+					event.preventDefault();
+					close();
+				},
+			});
+
+			if (!event.defaultPrevented && isActivationKey(event)) {
+				event.preventDefault();
+				toggle();
+			}
+		},
+		[close, isOpen, open, toggle, variant]
+	);
+
+	const handleContentKeyDown = useCallback(
+		(event: KeyboardEvent<HTMLElement>) => {
+			const ctx = {
+				event,
+				items: getMenuItems(contentRef.current),
+				current: document.activeElement as HTMLElement,
+				contentElement: contentRef.current,
+				close,
+			};
+
+			if (variant === 'submenu') {
+				runMenuKeyHandler(event, {
+					ArrowDown: () => handleMenuListNavigation(ctx, 1),
+					ArrowUp: () => handleMenuListNavigation(ctx, -1),
+					ArrowLeft: () => handleMenuClose(ctx, { stopPropagation: true }),
+					Escape: () => handleMenuClose(ctx, { stopPropagation: true }),
+				});
+				return;
+			}
+
+			runMenuKeyHandler(event, {
+				ArrowDown: () => handleMenuListNavigation(ctx, 1),
+				ArrowUp: () => handleMenuListNavigation(ctx, -1),
+				ArrowRight: () => {
+					if (!openSubmenuFromKeyboard(ctx.current)) return;
+					event.preventDefault();
+				},
+				Home: () => handleMenuBoundaryFocus(ctx, 'first'),
+				End: () => handleMenuBoundaryFocus(ctx, 'last'),
+				Escape: () => handleMenuClose(ctx),
+				Tab: () => handleMenuClose(ctx),
+			});
+		},
+		[close, variant]
+	);
+
+	const handleMenubarKeyDown = useCallback(
+		(event: KeyboardEvent<HTMLElement>) => {
+			const items = getMenubarItems(menubarRef.current);
+			const current = document.activeElement as HTMLElement;
+
+			runMenuKeyHandler(event, {
+				ArrowRight: () =>
+					handleMenuListNavigation(
+						{ event, items, current, contentElement: null, close },
+						1
+					),
+				ArrowLeft: () =>
+					handleMenuListNavigation(
+						{ event, items, current, contentElement: null, close },
+						-1
+					),
+				Home: () => {
+					event.preventDefault();
+					focusMenubarItem(menubarRef.current, 'first');
+				},
+				End: () => {
+					event.preventDefault();
+					focusMenubarItem(menubarRef.current, 'last');
+				},
+			});
+		},
+		[close]
+	);
+
+	return {
+		isOpen,
+		open,
+		close,
+		toggle,
+		containerRef,
+		triggerRef,
+		contentRef,
+		menubarRef,
+		handleTriggerKeyDown,
+		handleContentKeyDown,
+		handleMenubarKeyDown,
+		scheduleSubmenuClose,
+		cancelSubmenuClose,
+	};
+};

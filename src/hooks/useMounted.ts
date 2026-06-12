@@ -1,15 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
+
+const subscribe = () => () => {};
 
 /**
- * Returns true after the component has mounted on the client.
- * Useful for guarding portal renders in SSR environments.
+ * Returns true on the client and false during SSR.
+ * Uses useSyncExternalStore so portals can render in the same commit as open state.
  */
-export const useMounted = (): boolean => {
-	const [mounted, setMounted] = useState(false);
-
-	useEffect(() => {
-		setMounted(true);
-	}, []);
-
-	return mounted;
-};
+export const useMounted = (): boolean =>
+	useSyncExternalStore(subscribe, () => true, () => false);

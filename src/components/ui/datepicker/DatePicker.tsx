@@ -1,8 +1,11 @@
 import { Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
+import { createPortal } from 'react-dom';
 
 import { Stack } from '@/components/layout/stack';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
+import { useFloatingPosition } from '@/hooks/useFloatingPosition';
+import { useMounted } from '@/hooks/useMounted';
 import { cn } from '@/utils/cn';
 
 import type { DatePickerProps } from './DatePicker.types';
@@ -31,6 +34,7 @@ export const DatePicker = ({
 	min,
 	max,
 }: DatePickerProps) => {
+	const mounted = useMounted();
 	const resolvedPlaceholder = placeholder ?? formatPlaceholder(format);
 	const weekdays = getWeekdays();
 	const helperId = helperText && id ? `${id}-helper` : undefined;
@@ -58,6 +62,13 @@ export const DatePicker = ({
 		isToday,
 		isCurrentMonth,
 	} = useDatePicker({ value, defaultValue, onChange, disabled, min, max });
+
+	const { style, placement } = useFloatingPosition({
+		isOpen,
+		triggerRef,
+		floatingRef: calendarRef,
+		align: 'start',
+	});
 
 	const handleToggleOpen = () => {
 		if (disabled) return;
@@ -115,14 +126,20 @@ export const DatePicker = ({
 				/>
 			</button>
 
-			{isOpen && (
-				<div
-					ref={calendarRef}
-					role="dialog"
-					aria-modal="true"
-					aria-label="Escolher data"
-					className={styles['datepicker__calendar']}
-				>
+			{mounted &&
+				isOpen &&
+				createPortal(
+					<div
+						ref={calendarRef}
+						role="dialog"
+						aria-modal="true"
+						aria-label="Escolher data"
+						style={style}
+						className={cn(
+							styles['datepicker__calendar'],
+							styles[`datepicker__calendar--placement-${placement}`]
+						)}
+					>
 					{/* Navigation */}
 					<Stack
 						as="nav"
@@ -224,8 +241,9 @@ export const DatePicker = ({
 							</div>
 						))}
 					</div>
-				</div>
-			)}
+				</div>,
+					document.body
+				)}
 
 			{helperText && (
 				<span id={helperId} className={styles['datepicker__helper']}>

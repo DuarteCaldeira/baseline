@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 import type { LucideIcon } from 'lucide-react';
 
@@ -43,7 +44,7 @@ const SPINNER_SIZE: Record<NonNullable<BaseProps['size']>, SpinnerSize> = {
 	lg: 'lg',
 };
 
-export const Button = ({
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
 	variant = 'primary',
 	size = 'md',
 	iconOnly,
@@ -52,13 +53,14 @@ export const Button = ({
 	children,
 	icon: IconComponent,
 	...rest
-}: ButtonProps) => {
+}, ref) => {
 	const isDisabled = disabled || loading;
 	const buttonProps = { ...rest } as ButtonHTMLAttributes<HTMLButtonElement>;
 	delete buttonProps.className;
 
 	return (
 		<button
+			ref={ref}
 			className={cn(
 				styles.button,
 				styles[`button--${variant}`],
@@ -82,4 +84,6 @@ export const Button = ({
 			{children}
 		</button>
 	);
-};
+});
+
+Button.displayName = 'Button';

@@ -3,6 +3,7 @@ import type { HTMLAttributes, ReactNode } from 'react';
 import { cn } from '@/utils/cn';
 
 import type { ButtonGroupOrientation } from './ButtonGroup.types';
+import { assignGroupItemAttributes } from './ButtonGroup.utils';
 import styles from './ButtonGroup.module.scss';
 
 export type ButtonGroupProps = Omit<HTMLAttributes<HTMLDivElement>, 'className'> & {
@@ -23,6 +24,7 @@ export const ButtonGroup = ({
 	return (
 		<div
 			role="group"
+			data-button-group={orientationKey}
 			className={cn(
 				styles['button-group'],
 				styles[`button-group--${orientationKey}`],
@@ -30,7 +32,7 @@ export const ButtonGroup = ({
 			)}
 			{...rest}
 		>
-			{children}
+			{assignGroupItemAttributes(children, orientationKey)}
 		</div>
 	);
 };

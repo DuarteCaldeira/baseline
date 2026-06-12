@@ -51,6 +51,34 @@ export type { AccordionProps, AccordionItem, AccordionType } from './components/
 export { Tabs } from './components/ui/tabs';
 export type { TabsProps, TabItem } from './components/ui/tabs';
 
+export { Alert } from './components/ui/alert';
+export type { AlertProps, AlertVariant } from './components/ui/alert';
+
+export {
+	Menu,
+	MenuContent,
+	MenuItem,
+	MenuLabel,
+	MenuSeparator,
+	MenuSub,
+	MenuSubContent,
+	MenuSubTrigger,
+	MenuTrigger,
+} from './components/ui/menu';
+export type {
+	MenuAlign,
+	MenuContentProps,
+	MenuItemProps,
+	MenuChildrenProps,
+	MenuLabelProps,
+	MenuProps,
+	MenuSubContentProps,
+	MenuSubProps,
+	MenuSubTriggerProps,
+	MenuTriggerProps,
+	MenuVariant,
+} from './components/ui/menu';
+
 export { Badge } from './components/ui/badge';
 export type { BadgeProps, BadgeVariant, BadgeType } from './components/ui/badge';
 
@@ -115,9 +143,8 @@ export type { SkeletonProps, SkeletonVariant, SkeletonWidth } from './components
 // Hooks
 export { useDebounce } from './hooks/useDebounce';
 export { useDisclosure } from './hooks/useDisclosure';
+export { useFloatingPosition } from './hooks/useFloatingPosition';
 export { useMounted } from './hooks/useMounted';
-export { useSelect } from './hooks/useSelect';
-export type { UseSelectReturn } from './hooks/useSelect';
 
 // Utils
 export { cn } from './utils/cn';

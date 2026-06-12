@@ -15,7 +15,6 @@ const preview: Preview = {
 		a11y: {
 			config: {},
 		},
-		layout: 'fullscreen',
 	},
 	globalTypes: {
 		theme: {

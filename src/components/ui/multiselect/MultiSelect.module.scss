@@ -84,19 +84,18 @@
 	}
 
 	&__listbox {
-		position: absolute;
-		top: calc(100% + $spacing-1);
-		left: 0;
-		right: 0;
-		z-index: 50;
+		z-index: var(--z-index-floating);
 		background-color: var(--color-surface);
 		border: 1px solid var(--color-border);
 		border-radius: $radius-lg;
 		box-shadow: $shadow-lg;
-		max-height: 240px;
 		overflow-y: auto;
 		padding: $spacing-1;
-		animation: multiselectDropdownIn 120ms ease;
+		animation: multiselectDropdownInBottom 120ms ease;
+
+		&--placement-top {
+			animation-name: multiselectDropdownInTop;
+		}
 	}
 
 	&__option {
@@ -172,10 +171,22 @@
 	}
 }
 
-@keyframes multiselectDropdownIn {
+@keyframes multiselectDropdownInBottom {
 	from {
 		opacity: 0;
 		transform: translateY(-4px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes multiselectDropdownInTop {
+	from {
+		opacity: 0;
+		transform: translateY(4px);
 	}
 
 	to {

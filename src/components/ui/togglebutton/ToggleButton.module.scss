@@ -1,19 +1,25 @@
+// Selection state should feel instant — skip Button's 150ms color transitions.
+[data-toggle-button] {
+	transition:
+		box-shadow 150ms ease,
+		opacity 150ms ease,
+		transform 150ms ease;
+}
+
 [data-toggle-button][aria-pressed='true'] {
 	background-color: var(--color-primary-subtle);
 	color: var(--color-primary);
 	border-color: var(--color-primary);
 	box-shadow: none;
 
-	&:hover:not(:disabled) {
+	&:hover:not(:disabled),
+	&:active:not(:disabled),
+	&:focus-visible,
+	&[data-button-group-item]:hover:not(:disabled),
+	&[data-button-group-item]:active:not(:disabled) {
 		background-color: var(--color-primary-subtle);
 		color: var(--color-primary);
 		border-color: var(--color-primary);
-		box-shadow: none;
-		transform: none;
-	}
-
-	&:active:not(:disabled) {
-		background-color: var(--color-primary-subtle);
 		box-shadow: none;
 		transform: none;
 	}

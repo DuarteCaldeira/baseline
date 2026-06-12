@@ -87,18 +87,18 @@ export const Accordion = ({
 								<span className={styles['accordion__trigger-label']}>
 									{item.title}
 								</span>
-						<Icon
-							icon={ChevronDown}
-							size="sm"
-							className={styles['accordion__icon']}
-						/>
+								<Icon
+									icon={ChevronDown}
+									size="sm"
+									className={styles['accordion__icon']}
+								/>
 							</button>
 						</h3>
 						<div
 							id={panelId}
 							role="region"
 							aria-labelledby={triggerId}
-							hidden={!open}
+							aria-hidden={!open}
 							className={cn(
 								styles['accordion__panel'],
 								open && styles['accordion__panel--open']

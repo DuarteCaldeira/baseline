@@ -71,16 +71,17 @@
 	// ── Calendar popup ─────────────────────────────────────────────────────────
 
 	&__calendar {
-		position: absolute;
-		top: calc(100% + $spacing-1);
-		left: 0;
-		z-index: 50;
+		z-index: var(--z-index-floating);
 		background-color: var(--color-surface);
 		border: 1px solid var(--color-border);
 		border-radius: $radius-lg;
 		box-shadow: $shadow-lg;
 		padding: $spacing-3;
-		animation: datepicker-enter 250ms ease;
+		animation: datepicker-enter-bottom 250ms ease;
+
+		&--placement-top {
+			animation-name: datepicker-enter-top;
+		}
 	}
 
 	// ── Navigation ─────────────────────────────────────────────────────────────
@@ -205,10 +206,22 @@
 	}
 }
 
-@keyframes datepicker-enter {
+@keyframes datepicker-enter-bottom {
 	from {
 		opacity: 0;
 		transform: translateY(-4px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes datepicker-enter-top {
+	from {
+		opacity: 0;
+		transform: translateY(4px);
 	}
 
 	to {

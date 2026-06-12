@@ -1,4 +1,5 @@
-import type { MouseEvent, RefObject } from 'react';
+import { useRef, type MouseEvent, type RefObject } from 'react';
+import { createPortal } from 'react-dom';
 import { Check, ChevronDown } from 'lucide-react';
 
 import { Stack } from '@/components/layout/stack';
@@ -16,6 +17,8 @@ import {
 } from '@/components/ui/select/Select.utils';
 import { Tag } from '@/components/ui/tag';
 import { useSelect } from '@/components/ui/select/useSelect';
+import { useFloatingPosition } from '@/hooks/useFloatingPosition';
+import { useMounted } from '@/hooks/useMounted';
 import { cn } from '@/utils/cn';
 
 import styles from './MultiSelect.module.scss';
@@ -49,6 +52,8 @@ export const MultiSelect = ({
 	error,
 	disabled,
 }: MultiSelectProps) => {
+	const listboxRef = useRef<HTMLUListElement>(null);
+	const mounted = useMounted();
 	const { selectedValues, toggleValue, removeValue } = useMultiSelect({
 		value,
 		defaultValue,
@@ -69,6 +74,7 @@ export const MultiSelect = ({
 			isDisabled: disabled,
 			initialActiveIndex: firstSelectedIndex >= 0 ? firstSelectedIndex : 0,
 			closeOnSelect: false,
+			overlayRef: listboxRef,
 			onOptionConfirm: (index) => {
 				const option = options[index];
 				if (!option || option.disabled) return;
@@ -77,6 +83,14 @@ export const MultiSelect = ({
 			onScrollIntoView: (index) =>
 				scrollOptionIntoView(getOptionId(id, options[index].value)),
 		});
+
+	const { style, placement } = useFloatingPosition({
+		isOpen,
+		triggerRef,
+		floatingRef: listboxRef,
+		matchTriggerWidth: true,
+		maxHeightLimit: 240,
+	});
 
 	const handleToggleOpen = () => {
 		if (disabled) return;
@@ -170,74 +184,82 @@ export const MultiSelect = ({
 			/>
 			</div>
 
-			{isOpen && (
-				<ul
-					id={listboxId}
-					role="listbox"
-					aria-labelledby={label ? labelId : undefined}
-					aria-multiselectable
-					className={styles['multiselect__listbox']}
-				>
-					{options.map((option, index) => {
-						const isSelected = selectedValues.includes(option.value);
+			{mounted &&
+				isOpen &&
+				createPortal(
+					<ul
+						ref={listboxRef}
+						id={listboxId}
+						role="listbox"
+						aria-labelledby={label ? labelId : undefined}
+						aria-multiselectable
+						style={style}
+						className={cn(
+							styles['multiselect__listbox'],
+							styles[`multiselect__listbox--placement-${placement}`]
+						)}
+					>
+						{options.map((option, index) => {
+							const isSelected = selectedValues.includes(option.value);
 
-						return (
-							<li
-								key={option.value}
-								id={getOptionId(id, option.value)}
-								role="option"
-								aria-selected={isSelected}
-								aria-disabled={option.disabled}
-								className={cn(
-									styles['multiselect__option'],
-									isSelected && styles['multiselect__option--selected'],
-									index === activeIndex &&
-										styles['multiselect__option--active'],
-									option.disabled &&
-										styles['multiselect__option--disabled']
-								)}
-								onPointerDown={(event) => event.preventDefault()}
-								onClick={() => handleOptionSelect(option)}
-								onMouseEnter={() =>
-									!option.disabled && setActiveIndex(index)
-								}
-							>
-								{option.icon && (
-									<span
-										className={styles['multiselect__option-icon']}
-										aria-hidden="true"
-									>
-										<Icon
-											icon={option.icon}
-											size="sm"
-											variant={option.iconVariant}
-										/>
-									</span>
-								)}
-								<span className={styles['multiselect__option-content']}>
-									<span className={styles['multiselect__option-label']}>
-										{option.label}
-									</span>
-									{option.description && (
+							return (
+								<li
+									key={option.value}
+									id={getOptionId(id, option.value)}
+									role="option"
+									aria-selected={isSelected}
+									aria-disabled={option.disabled}
+									className={cn(
+										styles['multiselect__option'],
+										isSelected && styles['multiselect__option--selected'],
+										index === activeIndex &&
+											styles['multiselect__option--active'],
+										option.disabled &&
+											styles['multiselect__option--disabled']
+									)}
+									onPointerDown={(event) => event.preventDefault()}
+									onClick={() => handleOptionSelect(option)}
+									onMouseEnter={() =>
+										!option.disabled && setActiveIndex(index)
+									}
+								>
+									{option.icon && (
 										<span
-											className={styles['multiselect__option-description']}
+											className={styles['multiselect__option-icon']}
+											aria-hidden="true"
 										>
-											{option.description}
+											<Icon
+												icon={option.icon}
+												size="sm"
+												variant={option.iconVariant}
+											/>
 										</span>
 									)}
-								</span>
-							{isSelected && (
-								<Icon
-									icon={Check}
-									size="sm"
-									className={styles['multiselect__option-check']}
-								/>
-							)}
-							</li>
-						);
-					})}
-				</ul>
-			)}
+									<span className={styles['multiselect__option-content']}>
+										<span className={styles['multiselect__option-label']}>
+											{option.label}
+										</span>
+										{option.description && (
+											<span
+												className={styles['multiselect__option-description']}
+											>
+												{option.description}
+											</span>
+										)}
+									</span>
+									{isSelected && (
+										<Icon
+											icon={Check}
+											size="sm"
+											className={styles['multiselect__option-check']}
+										/>
+									)}
+								</li>
+							);
+						})}
+					</ul>,
+					document.body
+				)}
 
 			{helperText && (
 				<span id={helperId} className={styles['multiselect__helper']}>

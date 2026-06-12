@@ -14,6 +14,7 @@ type UseSelectOptions = {
 	closeOnSelect?: boolean;
 	onOptionConfirm?: (index: number) => void;
 	onScrollIntoView?: (index: number) => void;
+	overlayRef?: RefObject<HTMLElement | null>;
 };
 
 export type UseSelectReturn = {
@@ -34,6 +35,7 @@ export const useSelect = ({
 	closeOnSelect = true,
 	onOptionConfirm,
 	onScrollIntoView,
+	overlayRef,
 }: UseSelectOptions): UseSelectReturn => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [activeIndex, setActiveIndex] = useState(initialActiveIndex);
@@ -59,14 +61,15 @@ export const useSelect = ({
 		if (!isOpen) return;
 
 		const handlePointerDown = (e: PointerEvent) => {
-			if (!containerRef.current?.contains(e.target as Node)) {
-				close();
-			}
+			const target = e.target as Node;
+			if (containerRef.current?.contains(target)) return;
+			if (overlayRef?.current?.contains(target)) return;
+			close();
 		};
 
 		document.addEventListener('pointerdown', handlePointerDown);
 		return () => document.removeEventListener('pointerdown', handlePointerDown);
-	}, [isOpen, close]);
+	}, [isOpen, close, overlayRef]);
 
 	const moveTo = useCallback(
 		(index: number) => {

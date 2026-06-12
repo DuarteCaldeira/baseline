@@ -99,7 +99,10 @@ export const useDatePicker = ({
 	useEffect(() => {
 		if (!isOpen) return;
 		const handlePointerDown = (e: PointerEvent) => {
-			if (!containerRef.current?.contains(e.target as Node)) close();
+			const target = e.target as Node;
+			if (containerRef.current?.contains(target)) return;
+			if (calendarRef.current?.contains(target)) return;
+			close();
 		};
 		document.addEventListener('pointerdown', handlePointerDown);
 		return () => document.removeEventListener('pointerdown', handlePointerDown);
