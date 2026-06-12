@@ -23,7 +23,7 @@ type UseModalOptions = {
 };
 
 type UseModalReturn = {
-	dialogRef: RefObject<HTMLDivElement | null>;
+	dialogRef: RefObject<HTMLDivElement>;
 	handleOverlayClick: () => void;
 	handleDialogClick: (e: MouseEvent) => void;
 	handleDialogKeyDown: (e: KeyboardEvent) => void;
@@ -34,7 +34,7 @@ export const useModal = ({
 	onClose,
 	closeOnBackdropClick,
 }: UseModalOptions): UseModalReturn => {
-	const dialogRef = useRef<HTMLDivElement | null>(null);
+	const dialogRef = useRef<HTMLDivElement>(null);
 	const previousFocusRef = useRef<HTMLElement | null>(null);
 
 	// Scroll lock

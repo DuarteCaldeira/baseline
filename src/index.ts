@@ -42,6 +42,9 @@ export type { ToastItem, ToastVariant, ToastContextValue } from './components/ui
 export { Modal } from './components/ui/modal';
 export type { ModalProps } from './components/ui/modal';
 
+export { Drawer } from './components/ui/drawer';
+export type { DrawerProps, DrawerSide } from './components/ui/drawer';
+
 export { Accordion } from './components/ui/accordion';
 export type { AccordionProps, AccordionItem, AccordionType } from './components/ui/accordion';
 
