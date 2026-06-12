@@ -79,6 +79,16 @@ export type { ContainerProps } from './components/layout/container';
 export { Stack } from './components/layout/stack';
 export type { StackAs, StackProps } from './components/layout/stack';
 
+export { Table } from './components/ui/table';
+export type {
+	SortDirection,
+	SortState,
+	TableColumn,
+	TableFilter,
+	TableFilterValues,
+	TableProps,
+} from './components/ui/table';
+
 // Accessibility
 export {
 	VisuallyHidden,

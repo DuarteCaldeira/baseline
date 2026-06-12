@@ -2,7 +2,7 @@
 @use './theme/light';
 @use './theme/dark';
 @use './theme/typography';
-@import './utilities/visually-hidden';
+@use './utilities/visually-hidden';
 
 body {
 	font: var(--font-base);
