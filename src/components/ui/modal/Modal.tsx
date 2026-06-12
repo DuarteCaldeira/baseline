@@ -21,7 +21,6 @@ export type ModalProps = {
 	children: ReactNode;
 	size?: Size;
 	closeOnBackdropClick?: boolean;
-	className?: string;
 };
 
 export const Modal = ({
@@ -32,7 +31,6 @@ export const Modal = ({
 	children,
 	size = 'md',
 	closeOnBackdropClick = true,
-	className,
 }: ModalProps) => {
 	const titleId = useId();
 	const mounted = useMounted();
@@ -60,7 +58,7 @@ export const Modal = ({
 				aria-labelledby={title ? titleId : undefined}
 				tabIndex={-1}
 				align="stretch"
-				className={cn(styles.modal, styles[`modal--${size}`], className)}
+				className={cn(styles.modal, styles[`modal--${size}`])}
 				onClick={handleDialogClick}
 				onKeyDown={handleDialogKeyDown}
 			>

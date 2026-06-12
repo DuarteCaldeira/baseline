@@ -32,7 +32,6 @@ export type MultiSelectProps = {
 	helperText?: string;
 	error?: string;
 	disabled?: boolean;
-	className?: string;
 };
 
 const isRemoveButton = (target: EventTarget | null) =>
@@ -49,7 +48,6 @@ export const MultiSelect = ({
 	helperText,
 	error,
 	disabled,
-	className,
 }: MultiSelectProps) => {
 	const { selectedValues, toggleValue, removeValue } = useMultiSelect({
 		value,
@@ -112,7 +110,7 @@ export const MultiSelect = ({
 		<Stack
 			ref={containerRef}
 			gap="2"
-			className={cn(styles['multiselect__wrapper'], className)}
+			className={styles['multiselect__wrapper']}
 		>
 			{label && (
 				<label id={labelId} className={styles['multiselect__label']} htmlFor={triggerId}>
@@ -162,15 +160,14 @@ export const MultiSelect = ({
 					)}
 				</span>
 
-				<Icon
-					icon={ChevronDown}
-					size="sm"
-					className={cn(
-						styles['multiselect__chevron'],
-						isOpen && styles['multiselect__chevron--open']
-					)}
-					aria-hidden
-				/>
+			<Icon
+				icon={ChevronDown}
+				size="sm"
+				className={cn(
+					styles['multiselect__chevron'],
+					isOpen && styles['multiselect__chevron--open']
+				)}
+			/>
 			</div>
 
 			{isOpen && (
@@ -229,14 +226,13 @@ export const MultiSelect = ({
 										</span>
 									)}
 								</span>
-								{isSelected && (
-									<Icon
-										icon={Check}
-										size="sm"
-										className={styles['multiselect__option-check']}
-										aria-hidden
-									/>
-								)}
+							{isSelected && (
+								<Icon
+									icon={Check}
+									size="sm"
+									className={styles['multiselect__option-check']}
+								/>
+							)}
 							</li>
 						);
 					})}

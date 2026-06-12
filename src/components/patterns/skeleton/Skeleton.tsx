@@ -7,7 +7,7 @@ import { cn } from '@/utils/cn';
 import type { SkeletonVariant, SkeletonWidth } from './Skeleton.types';
 import styles from './Skeleton.module.scss';
 
-export type SkeletonProps = HTMLAttributes<HTMLElement> & {
+export type SkeletonProps = Omit<HTMLAttributes<HTMLElement>, 'className'> & {
 	variant?: SkeletonVariant;
 	size?: Size;
 	width?: SkeletonWidth;
@@ -17,7 +17,6 @@ export type SkeletonProps = HTMLAttributes<HTMLElement> & {
 	animate?: boolean;
 	/** Use `span` for inline placeholders inside running text. */
 	as?: 'span' | 'div';
-	className?: string;
 };
 
 const WIDTH_CLASS: Record<SkeletonWidth, string | undefined> = {
@@ -41,14 +40,12 @@ const buildSkeletonClassName = ({
 	width,
 	animate,
 	inline,
-	className,
 }: {
 	variant: SkeletonVariant;
 	size: Size;
 	width: SkeletonWidth;
 	animate: boolean;
 	inline: boolean;
-	className?: string;
 }) => {
 	const usesWidth =
 		variant === 'text' ||
@@ -62,8 +59,7 @@ const buildSkeletonClassName = ({
 		styles[`skeleton--${size}`],
 		usesWidth && WIDTH_CLASS[width],
 		!animate && styles['skeleton--static'],
-		inline && styles['skeleton--inline'],
-		className
+		inline && styles['skeleton--inline']
 	);
 };
 
@@ -74,14 +70,13 @@ export const Skeleton = ({
 	lines = 3,
 	animate = true,
 	as: Component = 'div',
-	className,
 	...rest
 }: SkeletonProps) => {
 	if (variant === 'paragraph' && lines > 1) {
 		return (
 			<Stack
 				gap="2"
-				className={cn(styles['skeleton__lines'], className)}
+				className={styles['skeleton__lines']}
 				aria-hidden="true"
 				{...(rest as HTMLAttributes<HTMLDivElement>)}
 			>
@@ -109,7 +104,6 @@ export const Skeleton = ({
 				width,
 				animate,
 				inline: Component === 'span',
-				className,
 			})}
 			aria-hidden="true"
 			{...rest}

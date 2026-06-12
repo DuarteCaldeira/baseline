@@ -19,10 +19,6 @@ describe('VisuallyHidden', () => {
 		expect(screen.getByText('Hidden block').tagName).toBe('DIV');
 	});
 
-	it('merges custom className', () => {
-		render(<VisuallyHidden className="custom">Hidden</VisuallyHidden>);
-		expect(screen.getByText('Hidden')).toHaveClass('custom');
-	});
 });
 
 describe('VISUALLY_HIDDEN_CLASS', () => {

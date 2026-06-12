@@ -95,11 +95,6 @@ describe('Tag', () => {
 		expect(container.querySelector('.tag--removable')).not.toBeInTheDocument();
 	});
 
-	it('merges custom className', () => {
-		const { container } = render(<Tag className="custom">Label</Tag>);
-		expect(container.querySelector('.custom')).toBeInTheDocument();
-	});
-
 	it('forwards additional HTML attributes', () => {
 		render(<Tag data-testid="tag">Label</Tag>);
 		expect(screen.getByTestId('tag')).toBeInTheDocument();

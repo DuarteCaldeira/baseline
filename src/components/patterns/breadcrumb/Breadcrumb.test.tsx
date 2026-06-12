@@ -72,11 +72,4 @@ describe('Breadcrumb', () => {
 		).toBeInTheDocument();
 	});
 
-	it('merges custom className', () => {
-		const { container } = render(
-			<Breadcrumb items={items} className="custom" />
-		);
-
-		expect(container.querySelector('.custom')).toBeInTheDocument();
-	});
 });

@@ -14,7 +14,6 @@ export type BadgeProps = {
 	type?: BadgeType;
 	text?: string;
 	icon?: LucideIcon;
-	className?: string;
 };
 
 const ICON_VARIANT: Record<BadgeVariant, IconVariant> = {
@@ -30,14 +29,12 @@ export const Badge = ({
 	type = 'filled',
 	text,
 	icon,
-	className,
 }: BadgeProps) => (
 	<span
 		className={cn(
 			styles.badge,
 			styles[`badge--${variant}`],
-			type === 'outlined' && styles['badge--outlined'],
-			className
+			type === 'outlined' && styles['badge--outlined']
 		)}
 	>
 		{icon && (

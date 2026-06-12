@@ -86,12 +86,4 @@ describe('Link', () => {
 		expect(screen.getByTestId('my-link')).toBeInTheDocument();
 	});
 
-	it('merges custom className', () => {
-		const { container } = render(
-			<Link href="/" className="custom-class">
-				Home
-			</Link>
-		);
-		expect(container.querySelector('.custom-class')).toBeInTheDocument();
-	});
 });

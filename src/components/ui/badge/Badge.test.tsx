@@ -69,10 +69,4 @@ describe('Badge', () => {
 		expect(container.querySelector('.icon')).toHaveAttribute('aria-hidden', 'true');
 	});
 
-	it('merges custom className', () => {
-		const { container } = render(
-			<Badge variant="info" text="Info" className="custom" />
-		);
-		expect(container.querySelector('.custom')).toBeInTheDocument();
-	});
 });

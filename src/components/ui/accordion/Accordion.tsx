@@ -14,14 +14,12 @@ export type AccordionProps = {
 	type?: AccordionType;
 	/** Id(s) of items open on first render. */
 	defaultValue?: string | string[];
-	className?: string;
 };
 
 export const Accordion = ({
 	items,
 	type = 'single',
 	defaultValue,
-	className,
 }: AccordionProps) => {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const { isOpen, toggle } = useAccordion({ type, defaultValue });
@@ -59,7 +57,7 @@ export const Accordion = ({
 	};
 
 	return (
-		<div ref={containerRef} className={cn(styles.accordion, className)}>
+		<div ref={containerRef} className={styles.accordion}>
 			{items.map((item) => {
 				const open = isOpen(item.id);
 				const triggerId = `accordion-trigger-${item.id}`;
@@ -89,11 +87,11 @@ export const Accordion = ({
 								<span className={styles['accordion__trigger-label']}>
 									{item.title}
 								</span>
-								<Icon
-									icon={ChevronDown}
-									size="sm"
-									className={styles['accordion__icon']}
-								/>
+						<Icon
+							icon={ChevronDown}
+							size="sm"
+							className={styles['accordion__icon']}
+						/>
 							</button>
 						</h3>
 						<div

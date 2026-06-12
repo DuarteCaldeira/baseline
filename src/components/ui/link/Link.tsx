@@ -5,7 +5,7 @@ import { cn } from '@/utils/cn';
 
 import styles from './Link.module.scss';
 
-export type LinkProps = ComponentPropsWithoutRef<typeof NextLink> & {
+export type LinkProps = Omit<ComponentPropsWithoutRef<typeof NextLink>, 'className'> & {
 	variant?: 'default' | 'subtle' | 'inherit';
 	external?: boolean;
 };
@@ -13,12 +13,11 @@ export type LinkProps = ComponentPropsWithoutRef<typeof NextLink> & {
 export const Link = ({
 	variant = 'default',
 	external = false,
-	className,
 	children,
 	...rest
 }: LinkProps) => (
 	<NextLink
-		className={cn(styles.link, styles[`link--${variant}`], className)}
+		className={cn(styles.link, styles[`link--${variant}`])}
 		target={external ? '_blank' : undefined}
 		rel={external ? 'noopener noreferrer' : undefined}
 		{...rest}

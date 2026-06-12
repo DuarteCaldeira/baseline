@@ -109,13 +109,4 @@ describe('ButtonGroup', () => {
 		).toBeInTheDocument();
 	});
 
-	it('merges custom className on the group', () => {
-		const { container } = render(
-			<ButtonGroup aria-label="Actions" className="custom-group">
-				<Button variant="secondary">One</Button>
-			</ButtonGroup>
-		);
-
-		expect(container.querySelector('.custom-group')).toBeInTheDocument();
-	});
 });

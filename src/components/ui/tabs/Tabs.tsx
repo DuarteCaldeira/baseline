@@ -14,7 +14,6 @@ export type TabsProps = {
 	value?: string;
 	defaultValue?: string;
 	onChange?: (id: string) => void;
-	className?: string;
 };
 
 export const Tabs = ({
@@ -22,7 +21,6 @@ export const Tabs = ({
 	value,
 	defaultValue,
 	onChange,
-	className,
 }: TabsProps) => {
 	const listRef = useRef<HTMLElement>(null);
 	const tabRefs = useRef(new Map<string, HTMLButtonElement>());
@@ -75,7 +73,7 @@ export const Tabs = ({
 	};
 
 	return (
-		<div className={cn(styles.tabs, className)}>
+		<div className={styles.tabs}>
 			<Stack
 				ref={listRef}
 				as="div"

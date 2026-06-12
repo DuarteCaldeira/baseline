@@ -78,10 +78,4 @@ describe('EmptyState', () => {
 		);
 	});
 
-	it('merges custom className', () => {
-		const { container } = render(
-			<EmptyState title="No items yet" className="custom" />
-		);
-		expect(container.querySelector('.custom')).toBeInTheDocument();
-	});
 });

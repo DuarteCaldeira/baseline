@@ -21,7 +21,6 @@ export type TooltipProps = {
 	placement?: TooltipPlacement;
 	openDelay?: number;
 	closeDelay?: number;
-	className?: string;
 };
 
 export const Tooltip = ({
@@ -30,7 +29,6 @@ export const Tooltip = ({
 	placement = 'top',
 	openDelay,
 	closeDelay,
-	className,
 }: TooltipProps) => {
 	const triggerRef = useRef<HTMLSpanElement>(null);
 	const bubbleRef = useRef<HTMLSpanElement>(null);
@@ -64,7 +62,7 @@ export const Tooltip = ({
 	const resolvedPlacement = position?.placement ?? placement;
 
 	return (
-		<span ref={triggerRef} className={cn(styles.tooltip, className)}>
+		<span ref={triggerRef} className={styles.tooltip}>
 			{cloneElement(child, triggerProps)}
 			{mounted &&
 				isOpen &&

@@ -16,5 +16,4 @@ export type DatePickerProps = {
 	disabled?: boolean;
 	min?: Date;
 	max?: Date;
-	className?: string;
 };

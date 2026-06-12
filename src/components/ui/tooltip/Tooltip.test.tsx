@@ -141,13 +141,4 @@ describe('Tooltip', () => {
 		expect(arrow).toBeInTheDocument();
 	});
 
-	it('merges custom className on the wrapper', () => {
-		const { container } = render(
-			<Tooltip content="Hint" className="custom-tooltip">
-				<Button>Save</Button>
-			</Tooltip>
-		);
-
-		expect(container.querySelector('.custom-tooltip')).toBeInTheDocument();
-	});
 });

@@ -3,7 +3,6 @@ import type { LucideIcon } from 'lucide-react';
 
 import { Stack } from '@/components/layout/stack';
 import { Icon } from '@/components/ui/icon';
-import { cn } from '@/utils/cn';
 
 import styles from './EmptyState.module.scss';
 
@@ -12,7 +11,6 @@ export type EmptyStateProps = {
 	title: string;
 	description?: string;
 	action?: ReactNode;
-	className?: string;
 };
 
 export const EmptyState = ({
@@ -20,7 +18,6 @@ export const EmptyState = ({
 	title,
 	description,
 	action,
-	className,
 }: EmptyStateProps) => {
 	const titleId = useId();
 	const descriptionId = useId();
@@ -30,7 +27,7 @@ export const EmptyState = ({
 			as="section"
 			gap="4"
 			align="center"
-			className={cn(styles['empty-state'], className)}
+			className={styles['empty-state']}
 			aria-labelledby={titleId}
 			aria-describedby={description ? descriptionId : undefined}
 		>

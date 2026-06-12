@@ -10,14 +10,13 @@ import { cn } from '@/utils/cn';
 import styles from './Tag.module.scss';
 import type { TagSize, TagVariant } from './Tag.types';
 
-export type TagProps = HTMLAttributes<HTMLSpanElement> & {
+export type TagProps = Omit<HTMLAttributes<HTMLSpanElement>, 'className'> & {
 	children: ReactNode;
 	variant?: TagVariant;
 	size?: TagSize;
 	icon?: LucideIcon;
 	onRemove?: () => void;
 	removeLabel?: string;
-	className?: string;
 };
 
 const ICON_SIZE: Record<TagSize, 'sm' | 'md'> = {
@@ -32,7 +31,6 @@ export const Tag = ({
 	icon,
 	onRemove,
 	removeLabel = 'Remove tag',
-	className,
 	...rest
 }: TagProps) => (
 	<span
@@ -40,8 +38,7 @@ export const Tag = ({
 			styles.tag,
 			styles[`tag--${variant}`],
 			styles[`tag--${size}`],
-			onRemove && styles['tag--removable'],
-			className
+			onRemove && styles['tag--removable']
 		)}
 		{...rest}
 	>

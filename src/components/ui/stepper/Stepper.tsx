@@ -18,7 +18,6 @@ export type StepperProps = {
 	currentStep?: number;
 	defaultStep?: number;
 	onStepChange?: (step: number) => void;
-	className?: string;
 };
 
 const getStepStatus = (index: number, currentStep: number): StepStatus => {
@@ -41,7 +40,6 @@ export const Stepper = ({
 	currentStep: controlledStep,
 	defaultStep = 0,
 	onStepChange,
-	className,
 }: StepperProps) => {
 	const [internalStep, setInternalStep] = useState(defaultStep);
 	const isControlled = controlledStep !== undefined;
@@ -57,7 +55,7 @@ export const Stepper = ({
 	const activePanel = stepPanels[activeStep] ?? null;
 
 	return (
-		<Stack gap="6" className={className}>
+		<Stack gap="6">
 			<Stack as="ol" direction="row" align="start" aria-label="Progress">
 				{steps.map((step, index) => {
 					const status = getStepStatus(index, activeStep);

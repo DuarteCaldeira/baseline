@@ -79,11 +79,6 @@ describe('Skeleton', () => {
 		expect(container.querySelector('.skeleton--inline')).toBeInTheDocument();
 	});
 
-	it('merges custom className', () => {
-		const { container } = render(<Skeleton className="custom" />);
-		expect(container.querySelector('.custom')).toBeInTheDocument();
-	});
-
 	it('forwards HTML attributes', () => {
 		render(<Skeleton data-testid="custom-skeleton" />);
 		expect(screen.getByTestId('custom-skeleton')).toBeInTheDocument();

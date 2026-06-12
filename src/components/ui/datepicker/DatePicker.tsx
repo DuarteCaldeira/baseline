@@ -30,7 +30,6 @@ export const DatePicker = ({
 	disabled,
 	min,
 	max,
-	className,
 }: DatePickerProps) => {
 	const resolvedPlaceholder = placeholder ?? formatPlaceholder(format);
 	const weekdays = getWeekdays();
@@ -75,7 +74,7 @@ export const DatePicker = ({
 		<Stack
 			ref={containerRef}
 			gap="2"
-			className={cn(styles.datepicker, className)}
+			className={styles.datepicker}
 		>
 			{label && (
 				<label className={styles['datepicker__label']} htmlFor={id}>

@@ -28,7 +28,6 @@ export type SelectProps = {
 	helperText?: string;
 	error?: string;
 	disabled?: boolean;
-	className?: string;
 };
 
 export const Select = ({
@@ -41,7 +40,6 @@ export const Select = ({
 	helperText,
 	error,
 	disabled,
-	className,
 }: SelectProps) => {
 	const selectedIndex = options.findIndex((o) => o.value === value);
 	const selectedOption = selectedIndex >= 0 ? options[selectedIndex] : null;
@@ -83,7 +81,7 @@ export const Select = ({
 		<Stack
 			ref={containerRef}
 			gap="2"
-			className={cn(styles['select__wrapper'], className)}
+			className={styles['select__wrapper']}
 		>
 			{label && (
 				<label id={labelId} className={styles['select__label']} htmlFor={triggerId}>
@@ -136,15 +134,14 @@ export const Select = ({
 					)}
 				</span>
 
-				<Icon
-					icon={ChevronDown}
-					size="sm"
-					className={cn(
-						styles['select__chevron'],
-						isOpen && styles['select__chevron--open']
-					)}
-					aria-hidden
-				/>
+			<Icon
+				icon={ChevronDown}
+				size="sm"
+				className={cn(
+					styles['select__chevron'],
+					isOpen && styles['select__chevron--open']
+				)}
+			/>
 			</button>
 
 			{isOpen && (
@@ -192,14 +189,13 @@ export const Select = ({
 									</span>
 								)}
 							</span>
-							{option.value === value && (
-								<Icon
-									icon={Check}
-									size="sm"
-									className={styles['select__option-check']}
-									aria-hidden
-								/>
-							)}
+					{option.value === value && (
+						<Icon
+							icon={Check}
+							size="sm"
+							className={styles['select__option-check']}
+						/>
+					)}
 						</li>
 					))}
 				</ul>

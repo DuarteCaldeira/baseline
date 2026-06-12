@@ -4,14 +4,11 @@ import { ChevronRight } from 'lucide-react';
 import { Stack } from '@/components/layout/stack';
 import { Icon } from '@/components/ui/icon';
 import { Link } from '@/components/ui/link';
-import { cn } from '@/utils/cn';
-
 import type { BreadcrumbItem } from './Breadcrumb.types';
 import styles from './Breadcrumb.module.scss';
 
-export type BreadcrumbProps = HTMLAttributes<HTMLElement> & {
+export type BreadcrumbProps = Omit<HTMLAttributes<HTMLElement>, 'className'> & {
 	items: BreadcrumbItem[];
-	className?: string;
 };
 
 const renderItemContent = (item: BreadcrumbItem, isLast: boolean) => {
@@ -36,12 +33,11 @@ const renderItemContent = (item: BreadcrumbItem, isLast: boolean) => {
 
 export const Breadcrumb = ({
 	items,
-	className,
 	'aria-label': ariaLabel = 'Breadcrumb',
 	...rest
 }: BreadcrumbProps) => (
 	<nav
-		className={cn(styles.breadcrumb, className)}
+		className={styles.breadcrumb}
 		aria-label={ariaLabel}
 		{...rest}
 	>
@@ -61,14 +57,14 @@ export const Breadcrumb = ({
 						key={`${item.label}-${index}`}
 						className={styles['breadcrumb__item']}
 					>
-						{index > 0 && (
-							<Icon
-								icon={ChevronRight}
-								size="sm"
-								variant="subtle"
-								className={styles['breadcrumb__separator']}
-							/>
-						)}
+				{index > 0 && (
+					<Icon
+						icon={ChevronRight}
+						size="sm"
+						variant="subtle"
+						className={styles['breadcrumb__separator']}
+					/>
+				)}
 
 						{renderItemContent(item, isLast)}
 					</li>

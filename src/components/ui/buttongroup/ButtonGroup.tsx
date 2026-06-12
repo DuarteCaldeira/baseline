@@ -5,7 +5,7 @@ import { cn } from '@/utils/cn';
 import type { ButtonGroupOrientation } from './ButtonGroup.types';
 import styles from './ButtonGroup.module.scss';
 
-export type ButtonGroupProps = HTMLAttributes<HTMLDivElement> & {
+export type ButtonGroupProps = Omit<HTMLAttributes<HTMLDivElement>, 'className'> & {
 	children: ReactNode;
 	orientation?: ButtonGroupOrientation;
 	fullWidth?: boolean;
@@ -15,7 +15,6 @@ export const ButtonGroup = ({
 	children,
 	orientation = 'horizontal',
 	fullWidth = false,
-	className,
 	...rest
 }: ButtonGroupProps) => {
 	const orientationKey =
@@ -27,8 +26,7 @@ export const ButtonGroup = ({
 			className={cn(
 				styles['button-group'],
 				styles[`button-group--${orientationKey}`],
-				fullWidth && styles['button-group--full-width'],
-				className
+				fullWidth && styles['button-group--full-width']
 			)}
 			{...rest}
 		>
