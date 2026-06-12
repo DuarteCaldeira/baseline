@@ -46,7 +46,7 @@
 			border-color: var(--color-error);
 
 			&:focus-within:not(.fileupload__zone--disabled) {
-				box-shadow: 0 0 0 3px rgb(220 38 38 / 0.12);
+				box-shadow: 0 0 0 3px var(--color-error-ring);
 			}
 		}
 	}

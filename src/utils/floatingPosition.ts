@@ -259,3 +259,202 @@ export const computeFloatingPosition = ({
 		placement,
 	};
 };
+
+// ─── Tooltip positioning (centered, with arrow offset) ────────────────────────
+
+export type ComputedTooltipPosition = {
+	top: number;
+	left: number;
+	placement: FloatingPlacement;
+	arrowOffset: number;
+};
+
+export const TOOLTIP_GAP = 8;
+export const TOOLTIP_ARROW_SIZE = 4;
+export const TOOLTIP_ARROW_EDGE_PADDING = 10;
+
+const OPPOSITE_PLACEMENT: Record<FloatingPlacement, FloatingPlacement> = {
+	top: 'bottom',
+	bottom: 'top',
+	left: 'right',
+	right: 'left',
+};
+
+const getTriggerCenter = (trigger: FloatingRect) => ({
+	x: trigger.left + trigger.width / 2,
+	y: trigger.top + trigger.height / 2,
+});
+
+const getTooltipPlacementCoords = (
+	placement: FloatingPlacement,
+	trigger: FloatingRect,
+	bubble: FloatingRect,
+	gap: number,
+	arrow: number
+): { top: number; left: number } => {
+	const center = getTriggerCenter(trigger);
+
+	switch (placement) {
+		case 'top':
+			return {
+				top: trigger.top - bubble.height - gap - arrow,
+				left: center.x - bubble.width / 2,
+			};
+		case 'bottom':
+			return {
+				top: trigger.top + trigger.height + gap + arrow,
+				left: center.x - bubble.width / 2,
+			};
+		case 'left':
+			return {
+				top: center.y - bubble.height / 2,
+				left: trigger.left - bubble.width - gap - arrow,
+			};
+		case 'right':
+			return {
+				top: center.y - bubble.height / 2,
+				left: trigger.left + trigger.width + gap + arrow,
+			};
+	}
+};
+
+const hasRoomForTooltipPlacement = (
+	placement: FloatingPlacement,
+	trigger: FloatingRect,
+	bubble: FloatingRect,
+	viewport: FloatingViewport,
+	gap: number,
+	arrow: number,
+	padding: number
+): boolean => {
+	switch (placement) {
+		case 'top':
+			return trigger.top - padding >= bubble.height + gap + arrow;
+		case 'bottom':
+			return (
+				viewport.height -
+					(trigger.top + trigger.height) -
+					padding >=
+				bubble.height + gap + arrow
+			);
+		case 'left':
+			return trigger.left - padding >= bubble.width + gap + arrow;
+		case 'right':
+			return (
+				viewport.width -
+					(trigger.left + trigger.width) -
+					padding >=
+				bubble.width + gap + arrow
+			);
+	}
+};
+
+const clampTooltipToViewport = (
+	top: number,
+	left: number,
+	bubble: FloatingRect,
+	viewport: FloatingViewport,
+	padding: number
+) => ({
+	top: clamp(top, padding, viewport.height - bubble.height - padding),
+	left: clamp(left, padding, viewport.width - bubble.width - padding),
+});
+
+const getTooltipArrowOffset = (
+	placement: FloatingPlacement,
+	trigger: FloatingRect,
+	position: { top: number; left: number },
+	bubble: FloatingRect,
+	arrowEdgePadding: number
+): number => {
+	const center = getTriggerCenter(trigger);
+
+	if (placement === 'top' || placement === 'bottom') {
+		return clamp(
+			center.x - position.left,
+			arrowEdgePadding,
+			bubble.width - arrowEdgePadding
+		);
+	}
+
+	return clamp(
+		center.y - position.top,
+		arrowEdgePadding,
+		bubble.height - arrowEdgePadding
+	);
+};
+
+export const computeTooltipPosition = ({
+	triggerRect,
+	bubbleRect,
+	preferredPlacement,
+	viewport,
+}: {
+	triggerRect: FloatingRect;
+	bubbleRect: FloatingRect;
+	preferredPlacement: FloatingPlacement;
+	viewport: FloatingViewport;
+}): ComputedTooltipPosition => {
+	const gap = TOOLTIP_GAP;
+	const arrow = TOOLTIP_ARROW_SIZE;
+	const padding = FLOATING_VIEWPORT_PADDING;
+	const arrowEdgePadding = TOOLTIP_ARROW_EDGE_PADDING;
+
+	const candidates = [
+		preferredPlacement,
+		OPPOSITE_PLACEMENT[preferredPlacement],
+	];
+
+	let placement = preferredPlacement;
+	let coords = getTooltipPlacementCoords(
+		preferredPlacement,
+		triggerRect,
+		bubbleRect,
+		gap,
+		arrow
+	);
+
+	for (const candidate of candidates) {
+		if (
+			hasRoomForTooltipPlacement(
+				candidate,
+				triggerRect,
+				bubbleRect,
+				viewport,
+				gap,
+				arrow,
+				padding
+			)
+		) {
+			placement = candidate;
+			coords = getTooltipPlacementCoords(
+				candidate,
+				triggerRect,
+				bubbleRect,
+				gap,
+				arrow
+			);
+			break;
+		}
+	}
+
+	const clamped = clampTooltipToViewport(
+		coords.top,
+		coords.left,
+		bubbleRect,
+		viewport,
+		padding
+	);
+
+	return {
+		...clamped,
+		placement,
+		arrowOffset: getTooltipArrowOffset(
+			placement,
+			triggerRect,
+			clamped,
+			bubbleRect,
+			arrowEdgePadding
+		),
+	};
+};

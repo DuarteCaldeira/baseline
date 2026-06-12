@@ -34,7 +34,7 @@
 
 		.toggle-switch--error &:has(.toggle-switch__input:focus-visible) .toggle-switch__track {
 			outline-color: var(--color-error);
-			box-shadow: 0 0 0 3px rgb(220 38 38 / 0.15);
+			box-shadow: 0 0 0 3px var(--color-error-ring);
 		}
 	}
 

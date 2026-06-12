@@ -6,11 +6,12 @@ import {
 	type RefObject,
 } from 'react';
 
-import type { TooltipPlacement } from './Tooltip.types';
 import {
 	computeTooltipPosition,
 	type ComputedTooltipPosition,
-} from './Tooltip.utils';
+} from '@/utils/floatingPosition';
+
+import type { TooltipPlacement } from './Tooltip.types';
 
 type UseTooltipPositionOptions = {
 	isOpen: boolean;

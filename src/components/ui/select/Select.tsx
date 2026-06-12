@@ -1,6 +1,5 @@
-import { Check, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { useRef } from 'react';
-import { createPortal } from 'react-dom';
 
 import { Stack } from '@/components/layout/stack';
 import { Icon } from '@/components/ui/icon';
@@ -19,6 +18,7 @@ import {
 	getDescribedBy,
 	scrollOptionIntoView,
 } from './Select.utils';
+import { SelectListbox } from './SelectListbox';
 import styles from './Select.module.scss';
 import { useSelect } from './useSelect';
 
@@ -159,69 +159,20 @@ export const Select = ({
 			/>
 			</button>
 
-			{mounted &&
-				isOpen &&
-				createPortal(
-					<ul
-						ref={listboxRef}
-						id={listboxId}
-						role="listbox"
-						aria-labelledby={label ? labelId : undefined}
-						style={style}
-						className={cn(
-							styles['select__listbox'],
-							styles[`select__listbox--placement-${placement}`]
-						)}
-					>
-						{options.map((option, index) => (
-							<li
-								key={option.value}
-								id={getOptionId(id, option.value)}
-								role="option"
-								aria-selected={option.value === value}
-								aria-disabled={option.disabled}
-								className={cn(
-									styles['select__option'],
-									option.value === value && styles['select__option--selected'],
-									index === activeIndex && styles['select__option--active'],
-									option.disabled && styles['select__option--disabled']
-								)}
-								onPointerDown={(e) => e.preventDefault()}
-								onClick={() => handleSelect(option)}
-								onMouseEnter={() => !option.disabled && setActiveIndex(index)}
-							>
-								{option.icon && (
-									<span
-										className={styles['select__option-icon']}
-										aria-hidden="true"
-									>
-										<Icon
-											icon={option.icon}
-											size="sm"
-											variant={option.iconVariant}
-										/>
-									</span>
-								)}
-								<span className={styles['select__option-content']}>
-									<span className={styles['select__option-label']}>{option.label}</span>
-									{option.description && (
-										<span className={styles['select__option-description']}>
-											{option.description}
-										</span>
-									)}
-								</span>
-								{option.value === value && (
-									<Icon
-										icon={Check}
-										size="sm"
-										className={styles['select__option-check']}
-									/>
-								)}
-							</li>
-						))}
-					</ul>,
-					document.body
-				)}
+			<SelectListbox
+				id={id}
+				labelId={label ? labelId : undefined}
+				options={options}
+				activeIndex={activeIndex}
+				listboxRef={listboxRef}
+				style={style}
+				placement={placement}
+				isSelected={(optionValue) => optionValue === value}
+				onSelect={handleSelect}
+				onHighlight={setActiveIndex}
+				mounted={mounted}
+				isOpen={isOpen}
+			/>
 
 			{helperText && (
 				<span id={helperId} className={styles['select__helper']}>

@@ -1,6 +1,5 @@
 import { useRef, type KeyboardEvent, type MouseEvent, type RefObject } from 'react';
-import { createPortal } from 'react-dom';
-import { Check, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
 import { Stack } from '@/components/layout/stack';
 import { Icon } from '@/components/ui/icon';
@@ -15,6 +14,7 @@ import {
 	getDescribedBy,
 	scrollOptionIntoView,
 } from '@/components/ui/select/Select.utils';
+import { SelectListbox } from '@/components/ui/select/SelectListbox';
 import { Tag } from '@/components/ui/tag';
 import { useSelect } from '@/components/ui/select/useSelect';
 import { useFloatingPosition } from '@/hooks/useFloatingPosition';
@@ -197,82 +197,21 @@ export const MultiSelect = ({
 			/>
 			</div>
 
-			{mounted &&
-				isOpen &&
-				createPortal(
-					<ul
-						ref={listboxRef}
-						id={listboxId}
-						role="listbox"
-						aria-labelledby={label ? labelId : undefined}
-						aria-multiselectable
-						style={style}
-						className={cn(
-							styles['multiselect__listbox'],
-							styles[`multiselect__listbox--placement-${placement}`]
-						)}
-					>
-						{options.map((option, index) => {
-							const isSelected = selectedValues.includes(option.value);
-
-							return (
-								<li
-									key={option.value}
-									id={getOptionId(id, option.value)}
-									role="option"
-									aria-selected={isSelected}
-									aria-disabled={option.disabled}
-									className={cn(
-										styles['multiselect__option'],
-										isSelected && styles['multiselect__option--selected'],
-										index === activeIndex &&
-											styles['multiselect__option--active'],
-										option.disabled &&
-											styles['multiselect__option--disabled']
-									)}
-									onPointerDown={(event) => event.preventDefault()}
-									onClick={() => handleOptionSelect(option)}
-									onMouseEnter={() =>
-										!option.disabled && setActiveIndex(index)
-									}
-								>
-									{option.icon && (
-										<span
-											className={styles['multiselect__option-icon']}
-											aria-hidden="true"
-										>
-											<Icon
-												icon={option.icon}
-												size="sm"
-												variant={option.iconVariant}
-											/>
-										</span>
-									)}
-									<span className={styles['multiselect__option-content']}>
-										<span className={styles['multiselect__option-label']}>
-											{option.label}
-										</span>
-										{option.description && (
-											<span
-												className={styles['multiselect__option-description']}
-											>
-												{option.description}
-											</span>
-										)}
-									</span>
-									{isSelected && (
-										<Icon
-											icon={Check}
-											size="sm"
-											className={styles['multiselect__option-check']}
-										/>
-									)}
-								</li>
-							);
-						})}
-					</ul>,
-					document.body
-				)}
+			<SelectListbox
+				id={id}
+				labelId={label ? labelId : undefined}
+				options={options}
+				activeIndex={activeIndex}
+				listboxRef={listboxRef}
+				style={style}
+				placement={placement}
+				multi
+				isSelected={(optionValue) => selectedValues.includes(optionValue)}
+				onSelect={handleOptionSelect}
+				onHighlight={setActiveIndex}
+				mounted={mounted}
+				isOpen={isOpen}
+			/>
 
 			{helperText && (
 				<span id={helperId} className={styles['multiselect__helper']}>

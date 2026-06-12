@@ -42,8 +42,11 @@
 	--color-error: #{$color-error};
 	--color-error-weak: #{$color-error-weak};
 	--color-error-text: #{$color-error-text};
+	--color-error-ring: color-mix(in srgb, #{$color-error} 15%, transparent);
 
 	--color-info: #{$color-blue-600};
 	--color-info-weak: #{$color-blue-50};
 	--color-info-text: #{$color-blue-700};
+
+	--color-overlay: rgb(0 0 0 / 0.45);
 }

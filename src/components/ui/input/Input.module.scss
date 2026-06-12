@@ -1,62 +1,42 @@
 @use '@/styles/mixins/control-field' as *;
 @use '@/styles/tokens/spacing' as *;
-@use '@/styles/tokens/radius' as *;
 
 .input {
 	width: 100%;
 	@include control-field-size;
 	font: var(--font-sm);
-	border: 1px solid var(--color-border);
-	border-radius: $radius-md;
-	background-color: var(--color-surface);
-	color: var(--color-text);
-	box-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
-	transition:
-		border-color 150ms ease,
-		box-shadow 150ms ease;
+	@include control-field-shell;
+	@include control-field-hover;
 
 	&::placeholder {
 		color: var(--color-text-subtle);
 	}
 
-	&:hover:not(:focus):not(:disabled) {
-		border-color: var(--color-border-strong);
-	}
-
 	&:focus {
-		outline: none;
-		border-color: var(--color-primary);
-		box-shadow:
-			0 0 0 3px var(--color-primary-subtle),
-			0 1px 2px rgb(0 0 0 / 0.04);
+		@include control-field-focus-ring;
 	}
 
 	&:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-		background-color: var(--color-bg-subtle);
+		@include control-field-disabled;
 	}
 
 	&--error {
-		border-color: var(--color-error);
+		@include control-field-error;
 
 		&:focus {
-			box-shadow: 0 0 0 3px rgb(220 38 38 / 0.12);
+			@include control-field-error-ring;
 		}
 	}
 
 	&__label {
-		font: var(--font-label);
-		color: var(--color-text);
+		@include control-field-label;
 	}
 
 	&__helper {
-		font: var(--font-caption);
-		color: var(--color-text-subtle);
+		@include control-field-helper;
 	}
 
 	&__error {
-		font: var(--font-caption);
-		color: var(--color-error);
+		@include control-field-error-text;
 	}
 }
