@@ -1,7 +1,7 @@
 import { ButtonGroup } from '@/components/ui/buttongroup';
 
 import type { ToggleButtonGroupProps } from './ToggleButton.types';
-import { ToggleButtonGroupProvider } from './useToggleButtonGroup';
+import { ToggleButtonGroupProvider } from './ToggleButtonGroupProvider';
 
 export const ToggleButtonGroup = ({
 	type = 'single',

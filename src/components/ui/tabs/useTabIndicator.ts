@@ -6,6 +6,8 @@ import {
 	useState,
 } from 'react';
 
+import { computeTabIndicator } from './useTabIndicator.utils';
+
 type IndicatorStyle = {
 	left: number;
 	width: number;
@@ -36,10 +38,14 @@ export const useTabIndicator = ({
 		const listRect = list.getBoundingClientRect();
 		const tabRect = tab.getBoundingClientRect();
 
-		setIndicator({
-			left: tabRect.left - listRect.left + list.scrollLeft,
-			width: tabRect.width,
-		});
+		setIndicator(
+			computeTabIndicator({
+				listLeft: listRect.left,
+				listScrollLeft: list.scrollLeft,
+				tabLeft: tabRect.left,
+				tabWidth: tabRect.width,
+			})
+		);
 	}, [activeId, listRef, tabRefs]);
 
 	useLayoutEffect(() => {

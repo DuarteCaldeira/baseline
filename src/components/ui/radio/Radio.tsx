@@ -1,5 +1,6 @@
 import type { InputHTMLAttributes } from 'react';
 
+import { Stack } from '@/components/layout/stack';
 import { cn } from '@/utils/cn';
 
 import styles from './Radio.module.scss';
@@ -25,7 +26,8 @@ export const Radio = ({
 		[helperId, errorId].filter(Boolean).join(' ') || undefined;
 
 	return (
-		<div
+		<Stack
+			gap="1"
 			className={cn(
 				styles.radio,
 				error && styles['radio--error'],
@@ -54,6 +56,6 @@ export const Radio = ({
 					{error}
 				</span>
 			)}
-		</div>
+		</Stack>
 	);
 };

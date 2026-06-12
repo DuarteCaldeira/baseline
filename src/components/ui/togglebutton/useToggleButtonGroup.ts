@@ -1,4 +1,4 @@
-import { type ReactNode, createContext, useCallback, useContext } from 'react';
+import { createContext, useCallback, useContext } from 'react';
 
 import { useControllableState } from '@/hooks/useControllableState';
 
@@ -10,17 +10,16 @@ type ToggleButtonGroupContextValue = {
 	select: (value: string) => void;
 };
 
-const ToggleButtonGroupContext =
+export const ToggleButtonGroupContext =
 	createContext<ToggleButtonGroupContextValue | null>(null);
 
 export const useToggleButtonGroup = () => useContext(ToggleButtonGroupContext);
 
-type ToggleButtonGroupProviderProps = {
+export type ToggleButtonGroupStateOptions = {
 	type: ToggleButtonGroupType;
 	value?: string | string[];
 	defaultValue?: string | string[];
 	onChange?: (value: string | string[]) => void;
-	children: ReactNode;
 };
 
 export const useToggleButtonGroupState = ({
@@ -28,7 +27,7 @@ export const useToggleButtonGroupState = ({
 	value,
 	defaultValue,
 	onChange,
-}: Omit<ToggleButtonGroupProviderProps, 'children'>) => {
+}: ToggleButtonGroupStateOptions) => {
 	const isMultiple = type === 'multiple';
 	const { value: currentValue, setValue } = useControllableState<
 		string | string[]
@@ -69,25 +68,4 @@ export const useToggleButtonGroupState = ({
 	);
 
 	return { type, isSelected, select };
-};
-
-export const ToggleButtonGroupProvider = ({
-	type,
-	value,
-	defaultValue,
-	onChange,
-	children,
-}: ToggleButtonGroupProviderProps) => {
-	const groupState = useToggleButtonGroupState({
-		type,
-		value,
-		defaultValue,
-		onChange,
-	});
-
-	return (
-		<ToggleButtonGroupContext.Provider value={groupState}>
-			{children}
-		</ToggleButtonGroupContext.Provider>
-	);
 };

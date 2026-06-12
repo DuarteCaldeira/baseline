@@ -1,5 +1,6 @@
 import type { InputHTMLAttributes } from 'react';
 
+import { Stack } from '@/components/layout/stack';
 import { cn } from '@/utils/cn';
 
 import styles from './Checkbox.module.scss';
@@ -28,7 +29,8 @@ export const Checkbox = ({
 		[helperId, errorId].filter(Boolean).join(' ') || undefined;
 
 	return (
-		<div
+		<Stack
+			gap="1"
 			className={cn(
 				styles.checkbox,
 				error && styles['checkbox--error'],
@@ -58,6 +60,6 @@ export const Checkbox = ({
 					{error}
 				</span>
 			)}
-		</div>
+		</Stack>
 	);
 };

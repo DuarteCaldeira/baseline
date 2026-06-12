@@ -3,8 +3,6 @@
 
 .radio {
 	display: inline-flex;
-	flex-direction: column;
-	gap: $spacing-1;
 
 	&--disabled {
 		opacity: 0.5;
