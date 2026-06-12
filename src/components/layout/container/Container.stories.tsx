@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import styles from '@/storybook/storyHelpers.module.scss';
 
-import { Stack } from '../stack';
+import { Stack } from '@/components/layout/stack';
 import { Container } from './Container';
 
 const meta: Meta<typeof Container> = {

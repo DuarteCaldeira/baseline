@@ -16,10 +16,11 @@ const meta: Meta<typeof FileUpload> = {
 		accept: { control: 'text' },
 		disabled: { control: 'boolean' },
 		multiple: { control: 'boolean' },
+		getRemoveFileLabel: { control: false },
 	},
 	args: {
 		id: 'fileupload-story',
-		label: 'Ficheiro',
+		label: 'File',
 		disabled: false,
 		multiple: false,
 	},
@@ -34,26 +35,26 @@ export const Default: Story = {};
 export const Multiple: Story = {
 	args: {
 		multiple: true,
-		helperText: 'Pode selecionar vários ficheiros.',
+		helperText: 'You can select multiple files.',
 	},
 };
 
 export const WithAccept: Story = {
 	args: {
 		accept: '.pdf,.png,.jpg',
-		helperText: 'Apenas PDF e imagens.',
+		helperText: 'PDF and images only.',
 	},
 };
 
 export const WithHelperText: Story = {
 	args: {
-		helperText: 'Tamanho máximo: 5 MB.',
+		helperText: 'Maximum size: 5 MB.',
 	},
 };
 
 export const WithError: Story = {
 	args: {
-		error: 'Selecione um ficheiro.',
+		error: 'Please select a file.',
 	},
 };
 
@@ -65,22 +66,22 @@ export const Disabled: Story = {
 
 export const CustomPlaceholder: Story = {
 	args: {
-		placeholder: 'Clique para escolher um documento',
+		placeholder: 'Click to choose a document',
 	},
 };
 
 export const AllStates: Story = {
 	render: () => (
 		<Stack direction="column" gap="6" style={{ maxWidth: '28rem' }}>
-			<FileUpload id="fu-1" label="Predefinido" />
+			<FileUpload id="fu-1" label="Default" />
 			<FileUpload
 				id="fu-2"
-				label="Com ajuda"
-				helperText="Formatos aceites: PDF, PNG, JPG."
+				label="With helper"
+				helperText="Accepted formats: PDF, PNG, JPG."
 				accept=".pdf,.png,.jpg"
 			/>
-			<FileUpload id="fu-3" label="Erro" error="O ficheiro é obrigatório." />
-			<FileUpload id="fu-4" label="Desativado" disabled />
+			<FileUpload id="fu-3" label="Error" error="A file is required." />
+			<FileUpload id="fu-4" label="Disabled" disabled />
 		</Stack>
 	),
 };

@@ -10,86 +10,100 @@ const createFile = (name: string, size = 12) =>
 describe('FileUpload', () => {
 	it('renders a file input', () => {
 		render(<FileUpload id="file" />);
-		expect(screen.getByLabelText(/arraste ficheiros/i)).toBeInTheDocument();
+		expect(screen.getByLabelText(/drag files here/i)).toBeInTheDocument();
 	});
 
 	it('renders label text when label prop is provided', () => {
-		render(<FileUpload id="file" label="Anexo" />);
-		expect(screen.getByText('Anexo')).toBeInTheDocument();
+		render(<FileUpload id="file" label="Attachment" />);
+		expect(screen.getByText('Attachment')).toBeInTheDocument();
 	});
 
 	it('associates label with input via htmlFor and id', () => {
-		render(<FileUpload id="file" label="Anexo" />);
-		expect(screen.getByLabelText('Anexo')).toBeInTheDocument();
+		render(<FileUpload id="file" label="Attachment" />);
+		expect(screen.getByLabelText('Attachment')).toBeInTheDocument();
 	});
 
 	it('shows the default placeholder', () => {
 		render(<FileUpload id="file" />);
 		expect(
-			screen.getByText('Arraste ficheiros aqui ou clique para selecionar')
+			screen.getByText('Drag files here or click to select')
 		).toBeInTheDocument();
 	});
 
 	it('shows a custom placeholder', () => {
-		render(<FileUpload id="file" placeholder="Escolha um PDF" />);
-		expect(screen.getByText('Escolha um PDF')).toBeInTheDocument();
+		render(<FileUpload id="file" placeholder="Choose a PDF" />);
+		expect(screen.getByText('Choose a PDF')).toBeInTheDocument();
 	});
 
 	it('calls onChange with selected files', async () => {
 		const handleChange = vi.fn();
 		render(<FileUpload id="file" onChange={handleChange} />);
 
-		const input = screen.getByLabelText(/arraste ficheiros/i);
-		const file = createFile('documento.pdf');
+		const input = screen.getByLabelText(/drag files here/i);
+		const file = createFile('document.pdf');
 		await userEvent.upload(input, file);
 
 		expect(handleChange).toHaveBeenCalled();
-		expect(handleChange.mock.calls.at(-1)?.[0]?.[0].name).toBe('documento.pdf');
+		expect(handleChange.mock.calls.at(-1)?.[0]?.[0].name).toBe('document.pdf');
 	});
 
 	it('shows selected file name and size', async () => {
 		render(<FileUpload id="file" />);
 
-		const input = screen.getByLabelText(/arraste ficheiros/i);
-		await userEvent.upload(input, createFile('foto.png', 2048));
+		const input = screen.getByLabelText(/drag files here/i);
+		await userEvent.upload(input, createFile('photo.png', 2048));
 
-		expect(screen.getByText('foto.png')).toBeInTheDocument();
+		expect(screen.getByText('photo.png')).toBeInTheDocument();
 		expect(screen.getByText('2.0 KB')).toBeInTheDocument();
 	});
 
 	it('removes a selected file when remove is clicked', async () => {
 		render(<FileUpload id="file" />);
 
-		const input = screen.getByLabelText(/arraste ficheiros/i);
-		await userEvent.upload(input, createFile('foto.png'));
+		const input = screen.getByLabelText(/drag files here/i);
+		await userEvent.upload(input, createFile('photo.png'));
 
 		await userEvent.click(
-			screen.getByRole('button', { name: 'Remover foto.png' })
+			screen.getByRole('button', { name: 'Remove photo.png' })
 		);
 
-		expect(screen.queryByText('foto.png')).not.toBeInTheDocument();
+		expect(screen.queryByText('photo.png')).not.toBeInTheDocument();
+	});
+
+	it('uses a custom remove file label', async () => {
+		render(
+			<FileUpload
+				id="file"
+				getRemoveFileLabel={(name) => `Delete ${name}`}
+			/>
+		);
+
+		const input = screen.getByLabelText(/drag files here/i);
+		await userEvent.upload(input, createFile('photo.png'));
+
+		expect(
+			screen.getByRole('button', { name: 'Delete photo.png' })
+		).toBeInTheDocument();
 	});
 
 	it('applies disabled state', () => {
 		render(<FileUpload id="file" disabled />);
-		expect(screen.getByLabelText(/arraste ficheiros/i)).toBeDisabled();
+		expect(screen.getByLabelText(/drag files here/i)).toBeDisabled();
 	});
 
 	it('renders helper text', () => {
-		render(<FileUpload id="file" helperText="Apenas ficheiros PDF." />);
-		expect(screen.getByText('Apenas ficheiros PDF.')).toBeInTheDocument();
+		render(<FileUpload id="file" helperText="PDF files only." />);
+		expect(screen.getByText('PDF files only.')).toBeInTheDocument();
 	});
 
 	it('renders error message with role="alert"', () => {
-		render(<FileUpload id="file" error="O ficheiro é obrigatório." />);
-		expect(screen.getByRole('alert')).toHaveTextContent(
-			'O ficheiro é obrigatório.'
-		);
+		render(<FileUpload id="file" error="A file is required." />);
+		expect(screen.getByRole('alert')).toHaveTextContent('A file is required.');
 	});
 
 	it('sets aria-invalid when error is provided', () => {
-		render(<FileUpload id="file" error="Obrigatório" />);
-		expect(screen.getByLabelText(/arraste ficheiros/i)).toHaveAttribute(
+		render(<FileUpload id="file" error="Required" />);
+		expect(screen.getByLabelText(/drag files here/i)).toHaveAttribute(
 			'aria-invalid',
 			'true'
 		);
@@ -99,12 +113,12 @@ describe('FileUpload', () => {
 		render(
 			<FileUpload
 				id="file"
-				helperText="Máximo 5 MB."
-				error="O ficheiro é obrigatório."
+				helperText="Maximum 5 MB."
+				error="A file is required."
 			/>
 		);
 
-		expect(screen.getByLabelText(/arraste ficheiros/i)).toHaveAttribute(
+		expect(screen.getByLabelText(/drag files here/i)).toHaveAttribute(
 			'aria-describedby',
 			'file-helper file-error'
 		);
@@ -116,7 +130,7 @@ describe('FileUpload', () => {
 	});
 
 	it('applies error modifier class when error is provided', () => {
-		const { container } = render(<FileUpload id="file" error="Obrigatório" />);
+		const { container } = render(<FileUpload id="file" error="Required" />);
 		expect(
 			container.querySelector('.fileupload__zone--error')
 		).toBeInTheDocument();

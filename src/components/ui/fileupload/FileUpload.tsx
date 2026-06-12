@@ -22,13 +22,16 @@ import {
 	formatFileSize,
 } from './FileUpload.utils';
 
-const DEFAULT_PLACEHOLDER = 'Arraste ficheiros aqui ou clique para selecionar';
+const DEFAULT_PLACEHOLDER = 'Drag files here or click to select';
+
+const defaultRemoveFileLabel = (fileName: string) => `Remove ${fileName}`;
 
 export const FileUpload = ({
 	label,
 	helperText,
 	error,
 	placeholder = DEFAULT_PLACEHOLDER,
+	getRemoveFileLabel = defaultRemoveFileLabel,
 	className,
 	id,
 	disabled,
@@ -179,7 +182,7 @@ export const FileUpload = ({
 									className={styles['fileupload__remove']}
 									onClick={() => handleRemove(index)}
 									disabled={disabled}
-									aria-label={`Remover ${file.name}`}
+									aria-label={getRemoveFileLabel(file.name)}
 								>
 									<Icon icon={X} size="sm" />
 								</Button>

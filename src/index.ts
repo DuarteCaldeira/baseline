@@ -170,6 +170,7 @@ export type {
 export { useDebounce } from './hooks/useDebounce';
 export { useDisclosure } from './hooks/useDisclosure';
 export { useFloatingPosition } from './hooks/useFloatingPosition';
+export { useMediaQuery } from './hooks/useMediaQuery';
 export { useMounted } from './hooks/useMounted';
 
 // Utils
