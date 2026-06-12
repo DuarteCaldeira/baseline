@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -15,21 +15,26 @@ const COLUMNS: TableColumn<Row>[] = [
 ];
 
 const DATA: Row[] = [
-	{ id: '1', name: 'Alice',   role: 'Admin' },
-	{ id: '2', name: 'Bob',     role: 'Editor' },
+	{ id: '1', name: 'Alice', role: 'Admin' },
+	{ id: '2', name: 'Bob', role: 'Editor' },
 	{ id: '3', name: 'Charlie', role: 'Viewer' },
-	{ id: '4', name: 'Diana',   role: 'Admin' },
-	{ id: '5', name: 'Eve',     role: 'Editor' },
+	{ id: '4', name: 'Diana', role: 'Admin' },
+	{ id: '5', name: 'Eve', role: 'Editor' },
 ];
 
 const SEARCH_FILTER: TableFilter = {
-	key: 'name', label: 'Search', type: 'search', placeholder: 'Search…',
+	key: 'name',
+	label: 'Search',
+	type: 'search',
+	placeholder: 'Search…',
 };
 
 const SELECT_FILTER: TableFilter = {
-	key: 'role', label: 'Role', type: 'select',
+	key: 'role',
+	label: 'Role',
+	type: 'select',
 	options: [
-		{ value: 'Admin',  label: 'Admin' },
+		{ value: 'Admin', label: 'Admin' },
 		{ value: 'Editor', label: 'Editor' },
 		{ value: 'Viewer', label: 'Viewer' },
 	],
@@ -49,8 +54,12 @@ describe('Table — rendering', () => {
 	it('renders column headers', () => {
 		render(<Table data={DATA} columns={COLUMNS} />);
 
-		expect(screen.getByRole('columnheader', { name: 'Name' })).toBeInTheDocument();
-		expect(screen.getByRole('columnheader', { name: 'Role' })).toBeInTheDocument();
+		expect(
+			screen.getByRole('columnheader', { name: 'Name' })
+		).toBeInTheDocument();
+		expect(
+			screen.getByRole('columnheader', { name: 'Role' })
+		).toBeInTheDocument();
 	});
 
 	it('renders all rows when page size exceeds the dataset', () => {
@@ -73,7 +82,9 @@ describe('Table — rendering', () => {
 		const columns: TableColumn<Row>[] = [
 			{ key: 'name', header: 'Name', render: (row) => <em>{row.name}</em> },
 		];
-		const { container } = render(<Table data={DATA} columns={columns} pageSize={10} />);
+		const { container } = render(
+			<Table data={DATA} columns={columns} pageSize={10} />
+		);
 
 		expect(container.querySelector('em')).toBeInTheDocument();
 	});
@@ -91,11 +102,19 @@ describe('Table — rendering', () => {
 		);
 
 		try {
-			const { container } = render(<Table data={DATA} columns={COLUMNS} pageSize={10} />);
+			const { container } = render(
+				<Table data={DATA} columns={COLUMNS} pageSize={10} />
+			);
 
-			expect(container.querySelectorAll('.table__card')).toHaveLength(DATA.length);
-			expect(container.querySelector('.table__card-header')).toBeInTheDocument();
-			expect(container.querySelector('.table__card-fields')).toBeInTheDocument();
+			expect(container.querySelectorAll('.table__card')).toHaveLength(
+				DATA.length
+			);
+			expect(
+				container.querySelector('.table__card-header')
+			).toBeInTheDocument();
+			expect(
+				container.querySelector('.table__card-fields')
+			).toBeInTheDocument();
 		} finally {
 			vi.unstubAllGlobals();
 		}
@@ -116,7 +135,9 @@ describe('Table — rendering', () => {
 		try {
 			render(<Table data={DATA} columns={COLUMNS} pageSize={10} />);
 
-			expect(screen.getByRole('combobox', { name: 'Sort by' })).toBeInTheDocument();
+			expect(
+				screen.getByRole('combobox', { name: 'Sort by' })
+			).toBeInTheDocument();
 		} finally {
 			vi.unstubAllGlobals();
 		}
@@ -151,11 +172,15 @@ describe('Table — loading', () => {
 	it('still renders column headers while loading', () => {
 		render(<Table data={DATA} columns={COLUMNS} loading />);
 
-		expect(screen.getByRole('columnheader', { name: 'Name' })).toBeInTheDocument();
+		expect(
+			screen.getByRole('columnheader', { name: 'Name' })
+		).toBeInTheDocument();
 	});
 
 	it('marks the scroll region as busy while loading', () => {
-		const { container } = render(<Table data={DATA} columns={COLUMNS} loading />);
+		const { container } = render(
+			<Table data={DATA} columns={COLUMNS} loading />
+		);
 
 		expect(container.querySelector('[aria-busy="true"]')).toBeInTheDocument();
 	});
@@ -163,7 +188,9 @@ describe('Table — loading', () => {
 	it('does not mark the scroll region as busy when not loading', () => {
 		const { container } = render(<Table data={DATA} columns={COLUMNS} />);
 
-		expect(container.querySelector('[aria-busy="true"]')).not.toBeInTheDocument();
+		expect(
+			container.querySelector('[aria-busy="true"]')
+		).not.toBeInTheDocument();
 	});
 });
 
@@ -191,7 +218,9 @@ describe('Table — sorting', () => {
 	it('does not set aria-sort on a non-sortable column', () => {
 		render(<Table data={DATA} columns={COLUMNS} />);
 
-		expect(screen.getByRole('columnheader', { name: 'Role' })).not.toHaveAttribute('aria-sort');
+		expect(
+			screen.getByRole('columnheader', { name: 'Role' })
+		).not.toHaveAttribute('aria-sort');
 	});
 
 	it('sorts rows ascending on the first click', async () => {
@@ -305,7 +334,9 @@ describe('Table — pagination', () => {
 	it('disables the previous button on the first page', () => {
 		render(<Table data={DATA} columns={COLUMNS} pageSize={2} />);
 
-		expect(screen.getByRole('button', { name: 'Previous page' })).toBeDisabled();
+		expect(
+			screen.getByRole('button', { name: 'Previous page' })
+		).toBeDisabled();
 	});
 
 	it('disables the next button on the last page', async () => {
@@ -352,7 +383,14 @@ describe('Table — search filter (debounced)', () => {
 	});
 
 	it('shows only matching rows after the debounce delay', () => {
-		render(<Table data={DATA} columns={COLUMNS} filters={[SEARCH_FILTER]} pageSize={10} />);
+		render(
+			<Table
+				data={DATA}
+				columns={COLUMNS}
+				filters={[SEARCH_FILTER]}
+				pageSize={10}
+			/>
+		);
 
 		act(() => {
 			fireEvent.change(screen.getByRole('searchbox', { name: 'Search' }), {
@@ -368,7 +406,14 @@ describe('Table — search filter (debounced)', () => {
 	});
 
 	it('restores all rows when the search input is cleared', () => {
-		render(<Table data={DATA} columns={COLUMNS} filters={[SEARCH_FILTER]} pageSize={10} />);
+		render(
+			<Table
+				data={DATA}
+				columns={COLUMNS}
+				filters={[SEARCH_FILTER]}
+				pageSize={10}
+			/>
+		);
 
 		const search = screen.getByRole('searchbox', { name: 'Search' });
 		act(() => {
@@ -389,7 +434,14 @@ describe('Table — search filter (debounced)', () => {
 	});
 
 	it('resets to page 1 when the filter changes', () => {
-		render(<Table data={DATA} columns={COLUMNS} filters={[SEARCH_FILTER]} pageSize={2} />);
+		render(
+			<Table
+				data={DATA}
+				columns={COLUMNS}
+				filters={[SEARCH_FILTER]}
+				pageSize={2}
+			/>
+		);
 
 		act(() => {
 			fireEvent.click(screen.getByRole('button', { name: 'Next page' }));
@@ -411,7 +463,14 @@ describe('Table — search filter (debounced)', () => {
 describe('Table — select filter (immediate)', () => {
 	it('shows only matching rows immediately when a select option is chosen', async () => {
 		const user = userEvent.setup();
-		render(<Table data={DATA} columns={COLUMNS} filters={[SELECT_FILTER]} pageSize={10} />);
+		render(
+			<Table
+				data={DATA}
+				columns={COLUMNS}
+				filters={[SELECT_FILTER]}
+				pageSize={10}
+			/>
+		);
 
 		await user.click(screen.getByRole('combobox', { name: 'Role' }));
 		await user.click(screen.getByRole('option', { name: 'Viewer' }));
@@ -428,7 +487,14 @@ describe('Table — row interaction', () => {
 	it('calls onRowClick with the correct row data when a row button is clicked', async () => {
 		const user = userEvent.setup();
 		const onRowClick = vi.fn();
-		render(<Table data={DATA} columns={COLUMNS} pageSize={10} onRowClick={onRowClick} />);
+		render(
+			<Table
+				data={DATA}
+				columns={COLUMNS}
+				pageSize={10}
+				onRowClick={onRowClick}
+			/>
+		);
 
 		await user.click(screen.getByRole('button', { name: 'Open row: Alice' }));
 
@@ -438,7 +504,14 @@ describe('Table — row interaction', () => {
 	it('calls onRowClick when Enter is pressed on a focused row button', async () => {
 		const user = userEvent.setup();
 		const onRowClick = vi.fn();
-		render(<Table data={DATA} columns={COLUMNS} pageSize={10} onRowClick={onRowClick} />);
+		render(
+			<Table
+				data={DATA}
+				columns={COLUMNS}
+				pageSize={10}
+				onRowClick={onRowClick}
+			/>
+		);
 
 		screen.getByRole('button', { name: 'Open row: Alice' }).focus();
 		await user.keyboard('{Enter}');
@@ -449,7 +522,14 @@ describe('Table — row interaction', () => {
 	it('calls onRowClick when Space is pressed on a focused row button', async () => {
 		const user = userEvent.setup();
 		const onRowClick = vi.fn();
-		render(<Table data={DATA} columns={COLUMNS} pageSize={10} onRowClick={onRowClick} />);
+		render(
+			<Table
+				data={DATA}
+				columns={COLUMNS}
+				pageSize={10}
+				onRowClick={onRowClick}
+			/>
+		);
 
 		screen.getByRole('button', { name: 'Open row: Alice' }).focus();
 		await user.keyboard(' ');
@@ -480,7 +560,9 @@ describe('Table — row keys', () => {
 			/>
 		);
 
-		expect(screen.getByRole('button', { name: 'Open row: Alice' })).toBeInTheDocument();
+		expect(
+			screen.getByRole('button', { name: 'Open row: Alice' })
+		).toBeInTheDocument();
 
 		const reordered = [DATA[1], DATA[0], ...DATA.slice(2)];
 		rerender(
@@ -493,7 +575,9 @@ describe('Table — row keys', () => {
 			/>
 		);
 
-		expect(screen.getByRole('button', { name: 'Open row: Alice' })).toBeInTheDocument();
+		expect(
+			screen.getByRole('button', { name: 'Open row: Alice' })
+		).toBeInTheDocument();
 	});
 });
 
@@ -509,7 +593,14 @@ describe('Table — accessibility', () => {
 
 	it('updates aria-rowcount to reflect filtered results', async () => {
 		const user = userEvent.setup();
-		render(<Table data={DATA} columns={COLUMNS} filters={[SELECT_FILTER]} pageSize={10} />);
+		render(
+			<Table
+				data={DATA}
+				columns={COLUMNS}
+				filters={[SELECT_FILTER]}
+				pageSize={10}
+			/>
+		);
 
 		await user.click(screen.getByRole('combobox', { name: 'Role' }));
 		await user.click(screen.getByRole('option', { name: 'Admin' }));

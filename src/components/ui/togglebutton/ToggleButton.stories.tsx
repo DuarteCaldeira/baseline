@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import type { Meta, StoryObj } from '@storybook/react';
 import {
 	AlignCenter,
@@ -7,7 +9,6 @@ import {
 	Italic,
 	Underline,
 } from 'lucide-react';
-import { useState } from 'react';
 
 import { withSurfaceInline } from '@/storybook/decorators';
 
@@ -75,7 +76,11 @@ export const SingleGroup: Story = {
 					icon={AlignCenter}
 					aria-label="Align center"
 				/>
-				<ToggleButton value="right" icon={AlignRight} aria-label="Align right" />
+				<ToggleButton
+					value="right"
+					icon={AlignRight}
+					aria-label="Align right"
+				/>
 			</ToggleButtonGroup>
 		);
 	},

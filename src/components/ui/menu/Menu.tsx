@@ -127,13 +127,7 @@ export const MenuSub = ({ children }: MenuSubProps) => {
 		if (!parent.inContent) return;
 		parent.registerSubmenuClose(menuId, menu.close);
 		return () => parent.unregisterSubmenuClose(menuId);
-	}, [
-		menu.close,
-		menuId,
-		parent.inContent,
-		parent.registerSubmenuClose,
-		parent.unregisterSubmenuClose,
-	]);
+	}, [menu.close, menuId, parent]);
 
 	const context: MenuContextValue = {
 		menuId,

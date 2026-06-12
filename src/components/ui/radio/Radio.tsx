@@ -39,13 +39,10 @@ export const Radio = ({
 					id={id}
 					className={styles['radio__input']}
 					disabled={disabled}
-					aria-invalid={error ? true : undefined}
 					aria-describedby={describedBy}
 					{...rest}
 				/>
-				{label && (
-					<span className={styles['radio__text']}>{label}</span>
-				)}
+				{label && <span className={styles['radio__text']}>{label}</span>}
 			</label>
 			{helperText && (
 				<span id={helperId} className={styles['radio__helper']}>
@@ -53,11 +50,7 @@ export const Radio = ({
 				</span>
 			)}
 			{error && (
-				<span
-					id={errorId}
-					className={styles['radio__error']}
-					role="alert"
-				>
+				<span id={errorId} className={styles['radio__error']} role="alert">
 					{error}
 				</span>
 			)}

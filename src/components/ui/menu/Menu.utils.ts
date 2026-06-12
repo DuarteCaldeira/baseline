@@ -1,9 +1,4 @@
-import type {
-	KeyboardEvent,
-	MouseEvent,
-	MutableRefObject,
-	Ref,
-} from 'react';
+import type { KeyboardEvent, MouseEvent, MutableRefObject, Ref } from 'react';
 
 import type { ComputedFloatingPosition } from '@/utils/floatingPosition';
 

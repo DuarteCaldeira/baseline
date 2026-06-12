@@ -1,17 +1,18 @@
 import { useId } from 'react';
 import type { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
+
 import { X } from 'lucide-react';
 
+import { Stack } from '@/components/layout/stack';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
-import { Stack } from '@/components/layout/stack';
 import { useMounted } from '@/hooks/useMounted';
 import type { Size } from '@/types/common';
 import { cn } from '@/utils/cn';
 
-import { useModal } from './useModal';
 import styles from './Modal.module.scss';
+import { useModal } from './useModal';
 
 export type ModalProps = {
 	isOpen: boolean;

@@ -7,4 +7,8 @@ const subscribe = () => () => {};
  * Uses useSyncExternalStore so portals can render in the same commit as open state.
  */
 export const useMounted = (): boolean =>
-	useSyncExternalStore(subscribe, () => true, () => false);
+	useSyncExternalStore(
+		subscribe,
+		() => true,
+		() => false
+	);

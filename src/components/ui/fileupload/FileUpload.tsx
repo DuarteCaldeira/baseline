@@ -1,11 +1,12 @@
 import {
+	type ChangeEvent,
+	type DragEvent,
 	useCallback,
 	useId,
 	useRef,
 	useState,
-	type ChangeEvent,
-	type DragEvent,
 } from 'react';
+
 import { Upload, X } from 'lucide-react';
 
 import { Stack } from '@/components/layout/stack';
@@ -13,16 +14,15 @@ import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
 import { cn } from '@/utils/cn';
 
+import styles from './FileUpload.module.scss';
 import type { FileUploadProps } from './FileUpload.types';
 import {
 	assignFilesToInput,
 	filesToArray,
 	formatFileSize,
 } from './FileUpload.utils';
-import styles from './FileUpload.module.scss';
 
-const DEFAULT_PLACEHOLDER =
-	'Arraste ficheiros aqui ou clique para selecionar';
+const DEFAULT_PLACEHOLDER = 'Arraste ficheiros aqui ou clique para selecionar';
 
 export const FileUpload = ({
 	label,
@@ -56,9 +56,7 @@ export const FileUpload = ({
 				assignFilesToInput(inputRef.current, files);
 			}
 
-			onChange?.(
-				files.length > 0 ? inputRef.current?.files ?? null : null
-			);
+			onChange?.(files.length > 0 ? (inputRef.current?.files ?? null) : null);
 		},
 		[onChange]
 	);
@@ -166,7 +164,9 @@ export const FileUpload = ({
 								className={styles['fileupload__file-inner']}
 							>
 								<Stack gap="1" className={styles['fileupload__file-info']}>
-									<span className={styles['fileupload__file-name']}>{file.name}</span>
+									<span className={styles['fileupload__file-name']}>
+										{file.name}
+									</span>
 									<span className={styles['fileupload__file-size']}>
 										{formatFileSize(file.size)}
 									</span>

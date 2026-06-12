@@ -2,11 +2,14 @@ import type { HTMLAttributes, ReactNode } from 'react';
 
 import { cn } from '@/utils/cn';
 
+import styles from './ButtonGroup.module.scss';
 import type { ButtonGroupOrientation } from './ButtonGroup.types';
 import { assignGroupItemAttributes } from './ButtonGroup.utils';
-import styles from './ButtonGroup.module.scss';
 
-export type ButtonGroupProps = Omit<HTMLAttributes<HTMLDivElement>, 'className'> & {
+export type ButtonGroupProps = Omit<
+	HTMLAttributes<HTMLDivElement>,
+	'className'
+> & {
 	children: ReactNode;
 	orientation?: ButtonGroupOrientation;
 	fullWidth?: boolean;
@@ -18,8 +21,7 @@ export const ButtonGroup = ({
 	fullWidth = false,
 	...rest
 }: ButtonGroupProps) => {
-	const orientationKey =
-		orientation === 'vertical' ? 'vertical' : 'horizontal';
+	const orientationKey = orientation === 'vertical' ? 'vertical' : 'horizontal';
 
 	return (
 		<div

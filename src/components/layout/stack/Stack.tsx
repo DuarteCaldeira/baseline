@@ -29,44 +29,47 @@ export type StackProps = HTMLAttributes<HTMLElement> & {
 	wrap?: boolean;
 };
 
-const resolveJustify = (
-	justify: StackProps['justify']
-): string | undefined => {
+const resolveJustify = (justify: StackProps['justify']): string | undefined => {
 	if (justify === 'between') return 'space-between';
 	if (justify === 'around') return 'space-around';
 	return justify;
 };
 
-export const Stack = forwardRef<HTMLElement, StackProps>(({
-	as: Component = 'div',
-	children,
-	direction = 'column',
-	gap = '4',
-	align,
-	justify,
-	wrap,
-	className,
-	style,
-	...rest
-}, ref) => {
-	const inlineStyle: CSSProperties = {
-		'--stack-direction': direction,
-		'--stack-align': align,
-		'--stack-justify': resolveJustify(justify),
-		'--stack-wrap': wrap ? 'wrap' : 'nowrap',
-		...style,
-	} as CSSProperties;
-
-	return createElement(
-		Component,
+export const Stack = forwardRef<HTMLElement, StackProps>(
+	(
 		{
-			ref,
-			className: cn(styles.stack, styles[`stack--gap-${gap}`], className),
-			style: inlineStyle,
-			...rest,
+			as: Component = 'div',
+			children,
+			direction = 'column',
+			gap = '4',
+			align,
+			justify,
+			wrap,
+			className,
+			style,
+			...rest
 		},
-		children
-	);
-});
+		ref
+	) => {
+		const inlineStyle: CSSProperties = {
+			'--stack-direction': direction,
+			'--stack-align': align,
+			'--stack-justify': resolveJustify(justify),
+			'--stack-wrap': wrap ? 'wrap' : 'nowrap',
+			...style,
+		} as CSSProperties;
+
+		return createElement(
+			Component,
+			{
+				ref,
+				className: cn(styles.stack, styles[`stack--gap-${gap}`], className),
+				style: inlineStyle,
+				...rest,
+			},
+			children
+		);
+	}
+);
 
 Stack.displayName = 'Stack';

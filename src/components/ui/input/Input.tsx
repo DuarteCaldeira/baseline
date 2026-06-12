@@ -33,11 +33,7 @@ export const Input = ({
 			)}
 			<input
 				id={id}
-				className={cn(
-					styles.input,
-					error && styles['input--error'],
-					className
-				)}
+				className={cn(styles.input, error && styles['input--error'], className)}
 				aria-invalid={error ? true : undefined}
 				aria-describedby={describedBy}
 				{...rest}

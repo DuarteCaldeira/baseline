@@ -1,5 +1,6 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import type { ReactNode } from 'react';
+
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Copy, MoreHorizontal, Pencil, Trash2 } from 'lucide-react';
 import { describe, expect, it, vi } from 'vitest';
@@ -58,8 +59,12 @@ describe('Menu', () => {
 
 			expect(screen.queryByRole('menu')).not.toBeInTheDocument();
 
-			await userEvent.click(screen.getByRole('button', { name: /row actions/i }));
-			expect(screen.getByRole('menuitem', { name: /duplicate/i })).toBeInTheDocument();
+			await userEvent.click(
+				screen.getByRole('button', { name: /row actions/i })
+			);
+			expect(
+				screen.getByRole('menuitem', { name: /duplicate/i })
+			).toBeInTheDocument();
 
 			await userEvent.click(screen.getByRole('menuitem', { name: /edit/i }));
 			expect(onEdit).toHaveBeenCalledOnce();
@@ -211,14 +216,20 @@ describe('Menu', () => {
 				expect(screen.getAllByRole('menu')).toHaveLength(2);
 			});
 
-			await userEvent.hover(screen.getByRole('menuitem', { name: /^export$/i }));
+			await userEvent.hover(
+				screen.getByRole('menuitem', { name: /^export$/i })
+			);
 
 			await waitFor(() => {
 				expect(screen.getAllByRole('menu')).toHaveLength(3);
 			});
 
-			expect(screen.getByRole('menuitem', { name: /pdf/i })).toBeInTheDocument();
-			expect(screen.getByRole('menuitem', { name: /email/i })).toBeInTheDocument();
+			expect(
+				screen.getByRole('menuitem', { name: /pdf/i })
+			).toBeInTheDocument();
+			expect(
+				screen.getByRole('menuitem', { name: /email/i })
+			).toBeInTheDocument();
 		});
 
 		it('closes a sibling submenu when hovering another trigger', async () => {
@@ -246,7 +257,9 @@ describe('Menu', () => {
 
 			fireEvent.mouseEnter(shareTrigger);
 			await waitFor(() => {
-				expect(screen.getByRole('menuitem', { name: /email/i })).toBeInTheDocument();
+				expect(
+					screen.getByRole('menuitem', { name: /email/i })
+				).toBeInTheDocument();
 			});
 
 			fireEvent.mouseEnter(moreTrigger);
@@ -255,7 +268,9 @@ describe('Menu', () => {
 					screen.queryByRole('menuitem', { name: /email/i })
 				).not.toBeInTheDocument();
 			});
-			expect(screen.getByRole('menuitem', { name: /archive/i })).toBeInTheDocument();
+			expect(
+				screen.getByRole('menuitem', { name: /archive/i })
+			).toBeInTheDocument();
 		});
 	});
 
@@ -320,7 +335,9 @@ describe('Menu', () => {
 			fireEvent.mouseEnter(emailItem);
 
 			expect(emailItem).toHaveAttribute('data-highlighted', 'true');
-			expect(screen.queryByRole('menuitem', { name: /pdf/i })).not.toBeInTheDocument();
+			expect(
+				screen.queryByRole('menuitem', { name: /pdf/i })
+			).not.toBeInTheDocument();
 		});
 	});
 
@@ -347,10 +364,9 @@ describe('Menu', () => {
 			await userEvent.click(screen.getByRole('button', { name: /products/i }));
 
 			expect(screen.getByRole('menu')).toBeInTheDocument();
-			expect(screen.getByRole('menuitem', { name: /widgets/i })).toHaveAttribute(
-				'href',
-				'/widgets'
-			);
+			expect(
+				screen.getByRole('menuitem', { name: /widgets/i })
+			).toHaveAttribute('href', '/widgets');
 		});
 
 		it('accepts a custom menubar aria-label', () => {

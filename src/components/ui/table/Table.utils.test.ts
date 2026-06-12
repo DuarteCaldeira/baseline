@@ -1,7 +1,15 @@
 import { describe, expect, it } from 'vitest';
 
-import { filterData, getClickableRowLabel, getColumnLabel, getPrimaryColumnKey, getRowKey, resolvePageSize, sortData } from './Table.utils';
 import type { TableColumn, TableFilter } from './Table.types';
+import {
+	filterData,
+	getClickableRowLabel,
+	getColumnLabel,
+	getPrimaryColumnKey,
+	getRowKey,
+	resolvePageSize,
+	sortData,
+} from './Table.utils';
 
 // ─── getColumnLabel / getPrimaryColumnKey ─────────────────────────────────────
 
@@ -51,13 +59,21 @@ describe('resolvePageSize', () => {
 type Row = { id: string; name: string; role: string };
 
 const DATA: Row[] = [
-	{ id: '1', name: 'Alice',   role: 'Admin' },
-	{ id: '2', name: 'Bob',     role: 'Editor' },
+	{ id: '1', name: 'Alice', role: 'Admin' },
+	{ id: '2', name: 'Bob', role: 'Editor' },
 	{ id: '3', name: 'Charlie', role: 'Viewer' },
 ];
 
-const SEARCH_FILTER: TableFilter = { key: 'name', label: 'Name', type: 'search' };
-const SELECT_FILTER: TableFilter = { key: 'role', label: 'Role', type: 'select' };
+const SEARCH_FILTER: TableFilter = {
+	key: 'name',
+	label: 'Name',
+	type: 'search',
+};
+const SELECT_FILTER: TableFilter = {
+	key: 'role',
+	label: 'Role',
+	type: 'select',
+};
 
 // ─── getRowKey / getClickableRowLabel ─────────────────────────────────────────
 
@@ -115,26 +131,27 @@ describe('filterData', () => {
 	});
 
 	it('applies multiple active filters with AND logic', () => {
-		const result = filterData(
-			DATA,
-			[SEARCH_FILTER, SELECT_FILTER],
-			{ name: 'ali', role: 'Admin' }
-		);
+		const result = filterData(DATA, [SEARCH_FILTER, SELECT_FILTER], {
+			name: 'ali',
+			role: 'Admin',
+		});
 		expect(result).toHaveLength(1);
 		expect(result[0].name).toBe('Alice');
 	});
 
 	it('returns no rows when multiple filters produce an empty intersection', () => {
-		const result = filterData(
-			DATA,
-			[SEARCH_FILTER, SELECT_FILTER],
-			{ name: 'alice', role: 'Editor' }
-		);
+		const result = filterData(DATA, [SEARCH_FILTER, SELECT_FILTER], {
+			name: 'alice',
+			role: 'Editor',
+		});
 		expect(result).toHaveLength(0);
 	});
 
 	it('ignores filter keys not present in the filters definition', () => {
-		const result = filterData(DATA, [SEARCH_FILTER], { name: '', unknown: 'foo' });
+		const result = filterData(DATA, [SEARCH_FILTER], {
+			name: '',
+			unknown: 'foo',
+		});
 		expect(result).toHaveLength(3);
 	});
 });

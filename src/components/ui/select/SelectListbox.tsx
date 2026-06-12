@@ -7,9 +7,9 @@ import { Icon } from '@/components/ui/icon';
 import { cn } from '@/utils/cn';
 import type { FloatingPlacement } from '@/utils/floatingPosition';
 
-import styles from './Listbox.module.scss';
 import type { SelectOption } from './Select.types';
 import { getListboxId, getOptionId } from './Select.utils';
+import styles from './SelectListbox.module.scss';
 
 export type SelectListboxProps = {
 	id: string;

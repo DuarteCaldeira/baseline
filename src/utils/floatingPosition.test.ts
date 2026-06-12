@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
-import { computeFloatingPosition, computeTooltipPosition } from './floatingPosition';
+import {
+	computeFloatingPosition,
+	computeTooltipPosition,
+} from './floatingPosition';
 
 describe('computeFloatingPosition', () => {
 	const trigger = { top: 200, left: 200, width: 240, height: 40 };

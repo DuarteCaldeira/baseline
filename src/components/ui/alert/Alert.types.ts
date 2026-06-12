@@ -1,5 +1,6 @@
-import type { LucideIcon } from 'lucide-react';
 import type { ReactNode } from 'react';
+
+import type { LucideIcon } from 'lucide-react';
 
 export type AlertVariant = 'success' | 'error' | 'warning' | 'info';
 

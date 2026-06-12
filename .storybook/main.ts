@@ -1,7 +1,6 @@
-import path from 'path';
-
-import react from '@vitejs/plugin-react';
 import type { StorybookConfig } from '@storybook/react-vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
 
 const config: StorybookConfig = {
 	stories: ['../src/**/*.stories.@(ts|tsx)'],
@@ -21,7 +20,10 @@ const config: StorybookConfig = {
 		// Replace any existing React plugins with one that uses the automatic runtime
 		viteConfig.plugins = [
 			...(viteConfig.plugins ?? []).filter(
-				(p) => !p || !('name' in (p as object)) || !(p as { name: string }).name?.startsWith('vite:react')
+				(p) =>
+					!p ||
+					!('name' in (p as object)) ||
+					!(p as { name: string }).name?.startsWith('vite:react')
 			),
 			react({ jsxRuntime: 'automatic' }),
 		];

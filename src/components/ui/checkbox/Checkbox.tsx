@@ -4,7 +4,10 @@ import { cn } from '@/utils/cn';
 
 import styles from './Checkbox.module.scss';
 
-export type CheckboxProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> & {
+export type CheckboxProps = Omit<
+	InputHTMLAttributes<HTMLInputElement>,
+	'type'
+> & {
 	label?: string;
 	helperText?: string;
 	error?: string;
@@ -43,9 +46,7 @@ export const Checkbox = ({
 					aria-describedby={describedBy}
 					{...rest}
 				/>
-				{label && (
-					<span className={styles['checkbox__text']}>{label}</span>
-				)}
+				{label && <span className={styles['checkbox__text']}>{label}</span>}
 			</label>
 			{helperText && (
 				<span id={helperId} className={styles['checkbox__helper']}>
@@ -53,11 +54,7 @@ export const Checkbox = ({
 				</span>
 			)}
 			{error && (
-				<span
-					id={errorId}
-					className={styles['checkbox__error']}
-					role="alert"
-				>
+				<span id={errorId} className={styles['checkbox__error']} role="alert">
 					{error}
 				</span>
 			)}

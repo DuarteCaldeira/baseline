@@ -1,10 +1,10 @@
 import {
+	type KeyboardEvent,
+	type MouseEvent,
+	type RefObject,
 	useCallback,
 	useEffect,
 	useRef,
-	type MouseEvent,
-	type KeyboardEvent,
-	type RefObject,
 } from 'react';
 
 const FOCUSABLE_SELECTORS = [
@@ -77,34 +77,30 @@ export const useModal = ({
 	}, [isOpen, onClose]);
 
 	// Focus trap — cycle Tab/Shift+Tab within the dialog
-	const handleDialogKeyDown = useCallback(
-		(e: KeyboardEvent) => {
-			if (e.key !== 'Tab') return;
+	const handleDialogKeyDown = useCallback((e: KeyboardEvent) => {
+		if (e.key !== 'Tab') return;
 
-			const focusable = Array.from(
-				dialogRef.current?.querySelectorAll<HTMLElement>(
-					FOCUSABLE_SELECTORS
-				) ?? []
-			);
+		const focusable = Array.from(
+			dialogRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTORS) ??
+				[]
+		);
 
-			if (focusable.length === 0) {
-				e.preventDefault();
-				return;
-			}
+		if (focusable.length === 0) {
+			e.preventDefault();
+			return;
+		}
 
-			const first = focusable[0];
-			const last = focusable[focusable.length - 1];
+		const first = focusable[0];
+		const last = focusable[focusable.length - 1];
 
-			if (e.shiftKey && document.activeElement === first) {
-				e.preventDefault();
-				last.focus();
-			} else if (!e.shiftKey && document.activeElement === last) {
-				e.preventDefault();
-				first.focus();
-			}
-		},
-		[]
-	);
+		if (e.shiftKey && document.activeElement === first) {
+			e.preventDefault();
+			last.focus();
+		} else if (!e.shiftKey && document.activeElement === last) {
+			e.preventDefault();
+			first.focus();
+		}
+	}, []);
 
 	const handleOverlayClick = useCallback(() => {
 		if (closeOnBackdropClick) onClose();

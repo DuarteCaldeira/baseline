@@ -76,10 +76,7 @@ describe('Input', () => {
 
 	it('sets aria-invalid when error prop is provided', () => {
 		render(<Input error="Required" />);
-		expect(screen.getByRole('textbox')).toHaveAttribute(
-			'aria-invalid',
-			'true'
-		);
+		expect(screen.getByRole('textbox')).toHaveAttribute('aria-invalid', 'true');
 	});
 
 	it('sets aria-describedby linking to error element', () => {
@@ -98,9 +95,7 @@ describe('Input', () => {
 
 	it('does not set aria-describedby when neither helperText nor error is provided', () => {
 		render(<Input id="email" />);
-		expect(screen.getByRole('textbox')).not.toHaveAttribute(
-			'aria-describedby'
-		);
+		expect(screen.getByRole('textbox')).not.toHaveAttribute('aria-describedby');
 	});
 
 	it('forwards additional HTML attributes', () => {
@@ -110,9 +105,7 @@ describe('Input', () => {
 
 	it('forwards placeholder attribute', () => {
 		render(<Input placeholder="Enter your email" />);
-		expect(
-			screen.getByPlaceholderText('Enter your email')
-		).toBeInTheDocument();
+		expect(screen.getByPlaceholderText('Enter your email')).toBeInTheDocument();
 	});
 
 	it('applies error modifier class when error is provided', () => {

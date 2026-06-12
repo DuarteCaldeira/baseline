@@ -117,6 +117,8 @@ describe('FileUpload', () => {
 
 	it('applies error modifier class when error is provided', () => {
 		const { container } = render(<FileUpload id="file" error="Obrigatório" />);
-		expect(container.querySelector('.fileupload__zone--error')).toBeInTheDocument();
+		expect(
+			container.querySelector('.fileupload__zone--error')
+		).toBeInTheDocument();
 	});
 });

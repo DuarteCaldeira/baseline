@@ -1,13 +1,9 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
 import { Stepper } from './Stepper';
 
-const STEPS = [
-	{ label: 'Account' },
-	{ label: 'Profile' },
-	{ label: 'Review' },
-];
+const STEPS = [{ label: 'Account' }, { label: 'Profile' }, { label: 'Review' }];
 
 const STEPS_WITH_DESC = [
 	{ label: 'Account', description: 'Create your account' },
@@ -19,9 +15,7 @@ describe('Stepper', () => {
 	// ── Step indicators ──────────────────────────────────────────────────────
 
 	it('renders a check icon for completed steps', () => {
-		const { container } = render(
-			<Stepper steps={STEPS} currentStep={2} />
-		);
+		const { container } = render(<Stepper steps={STEPS} currentStep={2} />);
 
 		expect(container.querySelectorAll('.step--complete svg')).toHaveLength(2);
 	});
@@ -141,7 +135,9 @@ describe('Stepper', () => {
 
 	it('calls onStepChange with the next step index when Next is clicked', () => {
 		const onStepChange = vi.fn();
-		render(<Stepper steps={STEPS} defaultStep={0} onStepChange={onStepChange} />);
+		render(
+			<Stepper steps={STEPS} defaultStep={0} onStepChange={onStepChange} />
+		);
 
 		fireEvent.click(screen.getByRole('button', { name: /next/i }));
 
@@ -151,7 +147,9 @@ describe('Stepper', () => {
 
 	it('calls onStepChange with the previous step index when Previous is clicked', () => {
 		const onStepChange = vi.fn();
-		render(<Stepper steps={STEPS} defaultStep={2} onStepChange={onStepChange} />);
+		render(
+			<Stepper steps={STEPS} defaultStep={2} onStepChange={onStepChange} />
+		);
 
 		fireEvent.click(screen.getByRole('button', { name: /previous/i }));
 
@@ -218,16 +216,12 @@ describe('Stepper', () => {
 	});
 
 	it('renders custom navigation labels', () => {
-		render(
-			<Stepper
-				steps={STEPS}
-				previousLabel="Back"
-				nextLabel="Continue"
-			/>
-		);
+		render(<Stepper steps={STEPS} previousLabel="Back" nextLabel="Continue" />);
 
 		expect(screen.getByRole('button', { name: 'Back' })).toBeInTheDocument();
-		expect(screen.getByRole('button', { name: 'Continue' })).toBeInTheDocument();
+		expect(
+			screen.getByRole('button', { name: 'Continue' })
+		).toBeInTheDocument();
 	});
 
 	it('renders duplicate labels when steps have distinct ids', () => {

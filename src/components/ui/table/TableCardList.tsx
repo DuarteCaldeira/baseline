@@ -3,9 +3,9 @@ import type { KeyboardEvent, MouseEvent } from 'react';
 
 import { cn } from '@/utils/cn';
 
+import styles from './Table.module.scss';
 import type { TableColumn } from './Table.types';
 import { getClickableRowLabel, getColumnLabel, getRowKey } from './Table.utils';
-import styles from './Table.module.scss';
 
 type TableCardListProps<T extends Record<string, unknown>> = {
 	columns: TableColumn<T>[];
@@ -32,7 +32,9 @@ export const TableCardList = <T extends Record<string, unknown>>({
 }: TableCardListProps<T>) => {
 	const isClickable = !!onRowClick;
 	const primaryColumn = columns.find((col) => col.key === primaryColumnKey);
-	const secondaryColumns = columns.filter((col) => col.key !== primaryColumnKey);
+	const secondaryColumns = columns.filter(
+		(col) => col.key !== primaryColumnKey
+	);
 
 	const handleClick = useCallback(
 		(e: MouseEvent<HTMLDivElement>) => {
@@ -77,12 +79,7 @@ export const TableCardList = <T extends Record<string, unknown>>({
 					data-row-index={rowIndex}
 					aria-label={
 						isClickable
-							? getClickableRowLabel(
-									row,
-									rowIndex,
-									columns,
-									primaryColumnKey
-								)
+							? getClickableRowLabel(row, rowIndex, columns, primaryColumnKey)
 							: undefined
 					}
 					className={cn(

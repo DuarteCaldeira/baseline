@@ -1,6 +1,7 @@
+import { useState } from 'react';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useState } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
 import { Tabs } from './Tabs';
@@ -40,9 +41,10 @@ describe('Tabs', () => {
 	it('opens the defaultValue tab on mount', () => {
 		render(<Tabs items={items} defaultValue="details" />);
 		expect(screen.getByText('Details content.')).toBeVisible();
-		expect(
-			screen.getByRole('tab', { name: 'Details' })
-		).toHaveAttribute('aria-selected', 'true');
+		expect(screen.getByRole('tab', { name: 'Details' })).toHaveAttribute(
+			'aria-selected',
+			'true'
+		);
 	});
 
 	it('switches panels when a tab is clicked', async () => {
@@ -53,9 +55,10 @@ describe('Tabs', () => {
 
 		expect(screen.getByText('Details content.')).toBeVisible();
 		expect(screen.getByText('Overview content.')).not.toBeVisible();
-		expect(
-			screen.getByRole('tab', { name: 'Details' })
-		).toHaveAttribute('aria-selected', 'true');
+		expect(screen.getByRole('tab', { name: 'Details' })).toHaveAttribute(
+			'aria-selected',
+			'true'
+		);
 	});
 
 	it('renders a sliding underline indicator', () => {
@@ -70,29 +73,24 @@ describe('Tabs', () => {
 
 	it('does not activate a disabled tab', async () => {
 		const user = userEvent.setup();
-		const disabledItems = [
-			items[0],
-			{ ...items[1], disabled: true },
-			items[2],
-		];
+		const disabledItems = [items[0], { ...items[1], disabled: true }, items[2]];
 
 		render(<Tabs items={disabledItems} />);
 
 		await user.click(screen.getByRole('tab', { name: 'Details' }));
 
 		expect(screen.getByText('Overview content.')).toBeVisible();
-		expect(
-			screen.getByRole('tab', { name: 'Details' })
-		).toHaveAttribute('aria-selected', 'false');
+		expect(screen.getByRole('tab', { name: 'Details' })).toHaveAttribute(
+			'aria-selected',
+			'false'
+		);
 	});
 
 	it('calls onChange in controlled mode', async () => {
 		const user = userEvent.setup();
 		const onChange = vi.fn();
 
-		render(
-			<Tabs items={items} value="overview" onChange={onChange} />
-		);
+		render(<Tabs items={items} value="overview" onChange={onChange} />);
 
 		await user.click(screen.getByRole('tab', { name: 'Settings' }));
 		expect(onChange).toHaveBeenCalledWith('settings');
@@ -135,9 +133,10 @@ describe('Tabs', () => {
 			screen.getByRole('tab', { name: 'Overview' }).focus();
 			await user.keyboard('{ArrowRight}');
 
-			expect(
-				screen.getByRole('tab', { name: 'Details' })
-			).toHaveAttribute('aria-selected', 'true');
+			expect(screen.getByRole('tab', { name: 'Details' })).toHaveAttribute(
+				'aria-selected',
+				'true'
+			);
 			expect(screen.getByText('Details content.')).toBeVisible();
 		});
 
@@ -148,9 +147,10 @@ describe('Tabs', () => {
 			screen.getByRole('tab', { name: 'Details' }).focus();
 			await user.keyboard('{ArrowLeft}');
 
-			expect(
-				screen.getByRole('tab', { name: 'Overview' })
-			).toHaveAttribute('aria-selected', 'true');
+			expect(screen.getByRole('tab', { name: 'Overview' })).toHaveAttribute(
+				'aria-selected',
+				'true'
+			);
 		});
 
 		it('skips disabled tabs when navigating with ArrowRight', async () => {
@@ -166,9 +166,10 @@ describe('Tabs', () => {
 			screen.getByRole('tab', { name: 'Overview' }).focus();
 			await user.keyboard('{ArrowRight}');
 
-			expect(
-				screen.getByRole('tab', { name: 'Settings' })
-			).toHaveAttribute('aria-selected', 'true');
+			expect(screen.getByRole('tab', { name: 'Settings' })).toHaveAttribute(
+				'aria-selected',
+				'true'
+			);
 		});
 
 		it('moves to the first tab on Home', async () => {
@@ -178,9 +179,10 @@ describe('Tabs', () => {
 			screen.getByRole('tab', { name: 'Settings' }).focus();
 			await user.keyboard('{Home}');
 
-			expect(
-				screen.getByRole('tab', { name: 'Overview' })
-			).toHaveAttribute('aria-selected', 'true');
+			expect(screen.getByRole('tab', { name: 'Overview' })).toHaveAttribute(
+				'aria-selected',
+				'true'
+			);
 		});
 
 		it('moves to the last enabled tab on End', async () => {
@@ -190,9 +192,10 @@ describe('Tabs', () => {
 			screen.getByRole('tab', { name: 'Overview' }).focus();
 			await user.keyboard('{End}');
 
-			expect(
-				screen.getByRole('tab', { name: 'Settings' })
-			).toHaveAttribute('aria-selected', 'true');
+			expect(screen.getByRole('tab', { name: 'Settings' })).toHaveAttribute(
+				'aria-selected',
+				'true'
+			);
 		});
 	});
 });

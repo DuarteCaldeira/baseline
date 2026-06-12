@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest';
 
-import { ALERT_ICON_MAP, ALERT_ROLE_MAP, hasAlertDescription } from './Alert.utils';
+import {
+	ALERT_ICON_MAP,
+	ALERT_ROLE_MAP,
+	hasAlertDescription,
+} from './Alert.utils';
 
 describe('Alert.utils', () => {
 	it.each(['success', 'error', 'warning', 'info'] as const)(

@@ -40,9 +40,7 @@ describe('Textarea', () => {
 
 	it('renders helper text when helperText prop is provided', () => {
 		render(<Textarea helperText="Maximum 500 characters." />);
-		expect(
-			screen.getByText('Maximum 500 characters.')
-		).toBeInTheDocument();
+		expect(screen.getByText('Maximum 500 characters.')).toBeInTheDocument();
 	});
 
 	it('sets aria-describedby to helper id when only helperText is provided', () => {
@@ -76,10 +74,7 @@ describe('Textarea', () => {
 
 	it('sets aria-invalid when error prop is provided', () => {
 		render(<Textarea error="Required" />);
-		expect(screen.getByRole('textbox')).toHaveAttribute(
-			'aria-invalid',
-			'true'
-		);
+		expect(screen.getByRole('textbox')).toHaveAttribute('aria-invalid', 'true');
 	});
 
 	it('sets aria-describedby linking to error element', () => {
@@ -98,9 +93,7 @@ describe('Textarea', () => {
 
 	it('does not set aria-describedby when neither helperText nor error is provided', () => {
 		render(<Textarea id="message" />);
-		expect(screen.getByRole('textbox')).not.toHaveAttribute(
-			'aria-describedby'
-		);
+		expect(screen.getByRole('textbox')).not.toHaveAttribute('aria-describedby');
 	});
 
 	it('applies resize-vertical modifier class by default', () => {
@@ -136,8 +129,6 @@ describe('Textarea', () => {
 
 	it('applies error modifier class when error is provided', () => {
 		const { container } = render(<Textarea error="Required" />);
-		expect(
-			container.querySelector('.textarea--error')
-		).toBeInTheDocument();
+		expect(container.querySelector('.textarea--error')).toBeInTheDocument();
 	});
 });

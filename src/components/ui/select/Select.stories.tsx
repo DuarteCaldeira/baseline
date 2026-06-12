@@ -13,14 +13,34 @@ import {
 	WifiOff,
 } from 'lucide-react';
 
-import type { SelectOption } from './Select.types';
 import { Select } from './Select';
+import type { SelectOption } from './Select.types';
 
 const FRUIT_OPTIONS: SelectOption[] = [
-	{ value: 'apple', label: 'Apple', icon: Apple, description: 'Sweet and crunchy' },
-	{ value: 'cherry', label: 'Cherry', icon: Cherry, description: 'Sweet or sour' },
-	{ value: 'citrus', label: 'Citrus', icon: Citrus, description: 'Bright and zesty' },
-	{ value: 'carrot', label: 'Carrot', icon: Carrot, description: 'Crunchy and earthy' },
+	{
+		value: 'apple',
+		label: 'Apple',
+		icon: Apple,
+		description: 'Sweet and crunchy',
+	},
+	{
+		value: 'cherry',
+		label: 'Cherry',
+		icon: Cherry,
+		description: 'Sweet or sour',
+	},
+	{
+		value: 'citrus',
+		label: 'Citrus',
+		icon: Citrus,
+		description: 'Bright and zesty',
+	},
+	{
+		value: 'carrot',
+		label: 'Carrot',
+		icon: Carrot,
+		description: 'Crunchy and earthy',
+	},
 	{
 		value: 'grape',
 		label: 'Grape',

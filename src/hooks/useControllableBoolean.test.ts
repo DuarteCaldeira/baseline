@@ -12,9 +12,7 @@ describe('useControllableBoolean', () => {
 
 	it('toggles the uncontrolled value', () => {
 		const onChange = vi.fn();
-		const { result } = renderHook(() =>
-			useControllableBoolean({ onChange })
-		);
+		const { result } = renderHook(() => useControllableBoolean({ onChange }));
 
 		act(() => result.current.toggle());
 

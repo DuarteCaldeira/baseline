@@ -5,13 +5,13 @@ import { useCallback, useMemo, useState } from 'react';
 import { useDebounce } from '@/hooks/useDebounce';
 import { cn } from '@/utils/cn';
 
+import styles from './Table.module.scss';
 import type { SortState, TableFilterValues, TableProps } from './Table.types';
 import { filterData, resolvePageSize, sortData } from './Table.utils';
 import { TableFilters } from './TableFilters';
 import { TableGrid } from './TableGrid';
 import { TablePagination } from './TablePagination';
 import { TableSkeleton } from './TableSkeleton';
-import styles from './Table.module.scss';
 
 const DEFAULT_PAGE_SIZE_OPTIONS = [10, 25, 50];
 const SEARCH_DEBOUNCE_MS = 300;
@@ -52,7 +52,8 @@ export const Table = <T extends Record<string, unknown>>({
 		if (!filters?.length) return debouncedFilterValues;
 		const selectOverrides: TableFilterValues = {};
 		for (const f of filters) {
-			if (f.type === 'select') selectOverrides[f.key] = filterValues[f.key] ?? '';
+			if (f.type === 'select')
+				selectOverrides[f.key] = filterValues[f.key] ?? '';
 		}
 		return { ...debouncedFilterValues, ...selectOverrides };
 	}, [debouncedFilterValues, filterValues, filters]);
@@ -110,10 +111,7 @@ export const Table = <T extends Record<string, unknown>>({
 				/>
 			)}
 
-			<div
-				className={styles['table__scroll']}
-				aria-busy={loading || undefined}
-			>
+			<div className={styles['table__scroll']} aria-busy={loading || undefined}>
 				{loading ? (
 					<TableSkeleton columns={columns} rows={pageSize} />
 				) : (

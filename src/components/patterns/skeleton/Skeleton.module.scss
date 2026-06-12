@@ -33,37 +33,75 @@
 	&--circular {
 		border-radius: $radius-full;
 
-		&.skeleton--sm { width: 2rem; height: 2rem; }
-		&.skeleton--md { width: 2.5rem; height: 2.5rem; }
-		&.skeleton--lg { width: 3rem; height: 3rem; }
+		&.skeleton--sm {
+			width: 2rem;
+			height: 2rem;
+		}
+		&.skeleton--md {
+			width: 2.5rem;
+			height: 2.5rem;
+		}
+		&.skeleton--lg {
+			width: 3rem;
+			height: 3rem;
+		}
 	}
 
 	&--rectangular {
 		width: 100%;
 		border-radius: $radius-md;
 
-		&.skeleton--sm { height: 4rem; }
-		&.skeleton--md { height: 6rem; }
-		&.skeleton--lg { height: 8rem; }
+		&.skeleton--sm {
+			height: 4rem;
+		}
+		&.skeleton--md {
+			height: 6rem;
+		}
+		&.skeleton--lg {
+			height: 8rem;
+		}
 	}
 
 	&--button {
 		border-radius: $radius-md;
 
-		&.skeleton--sm { width: 4.5rem; height: 2rem; }
-		&.skeleton--md { width: 5.5rem; height: 2.25rem; }
-		&.skeleton--lg { width: 6.5rem; height: 2.75rem; }
+		&.skeleton--sm {
+			width: 4.5rem;
+			height: 2rem;
+		}
+		&.skeleton--md {
+			width: 5.5rem;
+			height: 2.25rem;
+		}
+		&.skeleton--lg {
+			width: 6.5rem;
+			height: 2.75rem;
+		}
 	}
 
 	// ── Width presets (non-circular / non-button defaults) ─────────────────────
 
-	&--width-full { width: 100%; }
-	&--width-3\/4 { width: 75%; }
-	&--width-2\/3 { width: 66.6667%; }
-	&--width-1\/2 { width: 50%; }
-	&--width-1\/3 { width: 33.3333%; }
-	&--width-1\/4 { width: 25%; }
-	&--width-auto { width: auto; }
+	&--width-full {
+		width: 100%;
+	}
+	&--width-3\/4 {
+		width: 75%;
+	}
+	&--width-2\/3 {
+		width: 66.6667%;
+	}
+	&--width-1\/2 {
+		width: 50%;
+	}
+	&--width-1\/3 {
+		width: 33.3333%;
+	}
+	&--width-1\/4 {
+		width: 25%;
+	}
+	&--width-auto {
+		width: auto;
+	}
 
 	// ── Paragraph block ──────────────────────────────────────────────────────
 

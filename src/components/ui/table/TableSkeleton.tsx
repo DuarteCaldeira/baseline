@@ -1,10 +1,10 @@
 import { Skeleton } from '@/components/patterns/skeleton';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 
+import styles from './Table.module.scss';
 import type { TableColumn } from './Table.types';
 import { TABLE_MOBILE_MEDIA_QUERY } from './Table.utils';
 import { TableCardSkeleton } from './TableCardSkeleton';
-import styles from './Table.module.scss';
 
 type TableSkeletonProps<T extends Record<string, unknown>> = {
 	columns: TableColumn<T>[];

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-import { VisuallyHidden, VISUALLY_HIDDEN_CLASS } from './VisuallyHidden';
+import { VISUALLY_HIDDEN_CLASS, VisuallyHidden } from './VisuallyHidden';
 
 describe('VisuallyHidden', () => {
 	it('renders children', () => {
@@ -18,7 +18,6 @@ describe('VisuallyHidden', () => {
 		render(<VisuallyHidden as="div">Hidden block</VisuallyHidden>);
 		expect(screen.getByText('Hidden block').tagName).toBe('DIV');
 	});
-
 });
 
 describe('VISUALLY_HIDDEN_CLASS', () => {

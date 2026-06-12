@@ -109,5 +109,4 @@ describe('ButtonGroup', () => {
 			container.querySelector('.button-group--full-width')
 		).toBeInTheDocument();
 	});
-
 });

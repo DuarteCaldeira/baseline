@@ -1,5 +1,6 @@
 import { useId } from 'react';
 import { createPortal } from 'react-dom';
+
 import { X } from 'lucide-react';
 
 import { Stack } from '@/components/layout/stack';
@@ -8,9 +9,9 @@ import { Icon } from '@/components/ui/icon';
 import { useMounted } from '@/hooks/useMounted';
 import { cn } from '@/utils/cn';
 
+import styles from './Drawer.module.scss';
 import type { DrawerProps } from './Drawer.types';
 import { useDrawer } from './useDrawer';
-import styles from './Drawer.module.scss';
 
 export type { DrawerProps, DrawerSide } from './Drawer.types';
 

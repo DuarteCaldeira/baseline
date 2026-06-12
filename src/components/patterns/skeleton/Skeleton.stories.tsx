@@ -11,7 +11,14 @@ const meta: Meta<typeof Skeleton> = {
 	argTypes: {
 		variant: {
 			control: 'select',
-			options: ['text', 'heading', 'paragraph', 'circular', 'rectangular', 'button'],
+			options: [
+				'text',
+				'heading',
+				'paragraph',
+				'circular',
+				'rectangular',
+				'button',
+			],
 		},
 		size: {
 			control: 'select',
@@ -111,8 +118,7 @@ export const CardPlaceholder: Story = {
 export const InlineText: Story = {
 	render: () => (
 		<p style={{ font: 'var(--font-base)', color: 'var(--color-text-muted)' }}>
-			Loading profile for{' '}
-			<Skeleton as="span" variant="text" width="1/4" />…
+			Loading profile for <Skeleton as="span" variant="text" width="1/4" />…
 		</p>
 	),
 };

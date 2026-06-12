@@ -1,10 +1,10 @@
 import {
+	type KeyboardEvent,
+	type RefObject,
 	useCallback,
 	useEffect,
 	useRef,
 	useState,
-	type KeyboardEvent,
-	type RefObject,
 } from 'react';
 
 type UseSelectOptions = {
@@ -17,18 +17,18 @@ type UseSelectOptions = {
 	overlayRef?: RefObject<HTMLElement | null>;
 };
 
-export type UseSelectReturn = {
+export type UseSelectReturn<T extends HTMLElement = HTMLElement> = {
 	isOpen: boolean;
 	activeIndex: number;
 	containerRef: RefObject<HTMLDivElement>;
-	triggerRef: RefObject<HTMLElement>;
+	triggerRef: RefObject<T>;
 	open: (startIndex?: number) => void;
 	close: () => void;
 	setActiveIndex: (index: number) => void;
-	handleTriggerKeyDown: (e: KeyboardEvent<HTMLElement>) => void;
+	handleTriggerKeyDown: (e: KeyboardEvent<T>) => void;
 };
 
-export const useSelect = ({
+export const useSelect = <T extends HTMLElement = HTMLElement>({
 	optionsCount,
 	isDisabled,
 	initialActiveIndex = 0,
@@ -36,11 +36,11 @@ export const useSelect = ({
 	onOptionConfirm,
 	onScrollIntoView,
 	overlayRef,
-}: UseSelectOptions): UseSelectReturn => {
+}: UseSelectOptions): UseSelectReturn<T> => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [activeIndex, setActiveIndex] = useState(initialActiveIndex);
 	const containerRef = useRef<HTMLDivElement>(null);
-	const triggerRef = useRef<HTMLElement>(null);
+	const triggerRef = useRef<T>(null);
 
 	const close = useCallback(() => {
 		setIsOpen(false);
@@ -56,7 +56,6 @@ export const useSelect = ({
 		[isDisabled, initialActiveIndex]
 	);
 
-	// Close on pointer-down outside the component
 	useEffect(() => {
 		if (!isOpen) return;
 
@@ -81,7 +80,7 @@ export const useSelect = ({
 	);
 
 	const handleTriggerKeyDown = useCallback(
-		(e: KeyboardEvent<HTMLElement>) => {
+		(e: KeyboardEvent<T>) => {
 			switch (e.key) {
 				case 'Enter':
 				case ' ':
@@ -118,7 +117,16 @@ export const useSelect = ({
 					break;
 			}
 		},
-		[isOpen, activeIndex, optionsCount, open, close, moveTo, closeOnSelect, onOptionConfirm]
+		[
+			isOpen,
+			activeIndex,
+			optionsCount,
+			open,
+			close,
+			moveTo,
+			closeOnSelect,
+			onOptionConfirm,
+		]
 	);
 
 	return {

@@ -13,7 +13,11 @@ export const useControllableBoolean = ({
 	defaultValue = false,
 	onChange,
 }: UseControllableBooleanOptions = {}) => {
-	const { value: currentValue, setValue, isControlled } = useControllableState({
+	const {
+		value: currentValue,
+		setValue,
+		isControlled,
+	} = useControllableState({
 		value,
 		defaultValue,
 		onChange,

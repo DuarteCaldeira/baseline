@@ -27,7 +27,9 @@ export const useToggleButton = ({
 		onChange: onPressedChange,
 	});
 
-	const pressed = isInGroup ? group.isSelected(value) : standalone.value;
+	const { value: standalonePressed, toggle: toggleStandalone } = standalone;
+
+	const pressed = isInGroup ? group.isSelected(value) : standalonePressed;
 
 	const toggle = useCallback(() => {
 		if (disabled) return;
@@ -37,8 +39,8 @@ export const useToggleButton = ({
 			return;
 		}
 
-		standalone.toggle();
-	}, [disabled, group, isInGroup, standalone.toggle, value]);
+		toggleStandalone();
+	}, [disabled, group, isInGroup, toggleStandalone, value]);
 
 	return { pressed, toggle };
 };

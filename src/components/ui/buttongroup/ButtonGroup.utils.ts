@@ -1,4 +1,10 @@
-import { Children, cloneElement, isValidElement, type ReactElement, type ReactNode } from 'react';
+import {
+	Children,
+	type ReactElement,
+	type ReactNode,
+	cloneElement,
+	isValidElement,
+} from 'react';
 
 import type { ButtonGroupOrientation } from './ButtonGroup.types';
 

@@ -48,9 +48,7 @@ describe('Checkbox', () => {
 
 	it('renders helper text when helperText prop is provided', () => {
 		render(<Checkbox helperText="You can change this later." />);
-		expect(
-			screen.getByText('You can change this later.')
-		).toBeInTheDocument();
+		expect(screen.getByText('You can change this later.')).toBeInTheDocument();
 	});
 
 	it('sets aria-describedby to helper id when only helperText is provided', () => {
@@ -107,15 +105,11 @@ describe('Checkbox', () => {
 
 	it('applies disabled modifier class when disabled', () => {
 		const { container } = render(<Checkbox disabled />);
-		expect(
-			container.querySelector('.checkbox--disabled')
-		).toBeInTheDocument();
+		expect(container.querySelector('.checkbox--disabled')).toBeInTheDocument();
 	});
 
 	it('applies error modifier class when error is provided', () => {
 		const { container } = render(<Checkbox error="Required" />);
-		expect(
-			container.querySelector('.checkbox--error')
-		).toBeInTheDocument();
+		expect(container.querySelector('.checkbox--error')).toBeInTheDocument();
 	});
 });

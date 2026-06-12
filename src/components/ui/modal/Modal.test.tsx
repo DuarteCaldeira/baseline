@@ -51,7 +51,9 @@ describe('Modal', () => {
 	});
 
 	it('does not render footer section when footer is omitted', () => {
-		const { container } = render(<Modal {...defaultProps} footer={undefined} />);
+		const { container } = render(
+			<Modal {...defaultProps} footer={undefined} />
+		);
 		expect(container.querySelector('.modal__footer')).not.toBeInTheDocument();
 	});
 
@@ -116,7 +118,9 @@ describe('Modal', () => {
 
 	it('applies the correct size modifier class', () => {
 		const { container } = render(<Modal {...defaultProps} size="lg" />);
-		expect(container.ownerDocument.querySelector('.modal--lg')).toBeInTheDocument();
+		expect(
+			container.ownerDocument.querySelector('.modal--lg')
+		).toBeInTheDocument();
 	});
 
 	it('renders content into document.body via portal', () => {

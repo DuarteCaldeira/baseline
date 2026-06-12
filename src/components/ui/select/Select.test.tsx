@@ -2,8 +2,8 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
-import type { SelectOption } from './Select.types';
 import { Select } from './Select';
+import type { SelectOption } from './Select.types';
 
 const OPTIONS: SelectOption[] = [
 	{ value: 'react', label: 'React' },
@@ -20,20 +20,14 @@ describe('Select', () => {
 
 	it('shows the placeholder when no value is selected', () => {
 		render(
-			<Select
-				id="framework"
-				options={OPTIONS}
-				placeholder="Pick a framework"
-			/>
+			<Select id="framework" options={OPTIONS} placeholder="Pick a framework" />
 		);
 
 		expect(screen.getByText('Pick a framework')).toBeInTheDocument();
 	});
 
 	it('shows the selected option label', () => {
-		render(
-			<Select id="framework" options={OPTIONS} value="react" />
-		);
+		render(<Select id="framework" options={OPTIONS} value="react" />);
 
 		expect(screen.getByRole('combobox')).toHaveTextContent('React');
 	});
@@ -63,9 +57,7 @@ describe('Select', () => {
 		const user = userEvent.setup();
 		const onChange = vi.fn();
 
-		render(
-			<Select id="framework" options={OPTIONS} onChange={onChange} />
-		);
+		render(<Select id="framework" options={OPTIONS} onChange={onChange} />);
 
 		await user.click(screen.getByRole('combobox'));
 		await user.click(screen.getByRole('option', { name: /react/i }));
@@ -87,15 +79,14 @@ describe('Select', () => {
 	it('marks the selected option with aria-selected', async () => {
 		const user = userEvent.setup();
 
-		render(
-			<Select id="framework" options={OPTIONS} value="typescript" />
-		);
+		render(<Select id="framework" options={OPTIONS} value="typescript" />);
 
 		await user.click(screen.getByRole('combobox'));
 
-		expect(
-			screen.getByRole('option', { name: /typescript/i })
-		).toHaveAttribute('aria-selected', 'true');
+		expect(screen.getByRole('option', { name: /typescript/i })).toHaveAttribute(
+			'aria-selected',
+			'true'
+		);
 	});
 
 	it('disables the trigger when disabled', () => {
@@ -187,9 +178,7 @@ describe('Select', () => {
 	});
 
 	it('sets aria-invalid when error is provided', () => {
-		render(
-			<Select id="framework" options={OPTIONS} error="Required" />
-		);
+		render(<Select id="framework" options={OPTIONS} error="Required" />);
 
 		expect(screen.getByRole('combobox')).toHaveAttribute(
 			'aria-invalid',

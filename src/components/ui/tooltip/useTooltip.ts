@@ -1,10 +1,10 @@
 import {
+	type HTMLAttributes,
 	useCallback,
 	useEffect,
 	useId,
 	useRef,
 	useState,
-	type HTMLAttributes,
 } from 'react';
 
 const OPEN_DELAY = 200;
@@ -12,19 +12,13 @@ const CLOSE_DELAY = 0;
 
 type TriggerProps = Pick<
 	HTMLAttributes<HTMLElement>,
-	| 'onMouseEnter'
-	| 'onMouseLeave'
-	| 'onFocus'
-	| 'onBlur'
-	| 'aria-describedby'
+	'onMouseEnter' | 'onMouseLeave' | 'onFocus' | 'onBlur' | 'aria-describedby'
 >;
 
 type UseTooltipReturn = {
 	isOpen: boolean;
 	tooltipId: string;
-	getTriggerProps: (
-		existing?: HTMLAttributes<HTMLElement>
-	) => TriggerProps;
+	getTriggerProps: (existing?: HTMLAttributes<HTMLElement>) => TriggerProps;
 };
 
 export const useTooltip = (): UseTooltipReturn => {
@@ -92,12 +86,10 @@ export const useTooltip = (): UseTooltipReturn => {
 				existing.onBlur?.(event);
 				hide();
 			},
-			'aria-describedby':
-				isOpen
-					? [existing['aria-describedby'], tooltipId]
-							.filter(Boolean)
-							.join(' ') || tooltipId
-					: existing['aria-describedby'],
+			'aria-describedby': isOpen
+				? [existing['aria-describedby'], tooltipId].filter(Boolean).join(' ') ||
+					tooltipId
+				: existing['aria-describedby'],
 		}),
 		[hide, isOpen, show, tooltipId]
 	);

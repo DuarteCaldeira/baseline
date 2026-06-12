@@ -1,14 +1,14 @@
 import {
+	type RefObject,
 	useCallback,
 	useEffect,
 	useLayoutEffect,
 	useState,
-	type RefObject,
 } from 'react';
 
 import {
-	computeTooltipPosition,
 	type ComputedTooltipPosition,
+	computeTooltipPosition,
 } from '@/utils/floatingPosition';
 
 import type { TooltipPlacement } from './Tooltip.types';

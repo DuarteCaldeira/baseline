@@ -1,5 +1,6 @@
-import { Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 import { createPortal } from 'react-dom';
+
+import { Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 
 import { Stack } from '@/components/layout/stack';
 import { Button } from '@/components/ui/button';
@@ -8,6 +9,7 @@ import { useFloatingPosition } from '@/hooks/useFloatingPosition';
 import { useMounted } from '@/hooks/useMounted';
 import { cn } from '@/utils/cn';
 
+import styles from './DatePicker.module.scss';
 import type { DatePickerProps } from './DatePicker.types';
 import {
 	formatDayLabel,
@@ -18,7 +20,6 @@ import {
 	isSameDay,
 } from './DatePicker.utils';
 import { useDatePicker } from './useDatePicker';
-import styles from './DatePicker.module.scss';
 
 export const DatePicker = ({
 	id,
@@ -85,11 +86,7 @@ export const DatePicker = ({
 	};
 
 	return (
-		<Stack
-			ref={containerRef}
-			gap="2"
-			className={styles.datepicker}
-		>
+		<Stack ref={containerRef} gap="2" className={styles.datepicker}>
 			{label && (
 				<label className={styles['datepicker__label']} htmlFor={id}>
 					{label}
@@ -102,7 +99,6 @@ export const DatePicker = ({
 				type="button"
 				aria-haspopup="dialog"
 				aria-expanded={isOpen}
-				aria-invalid={error ? true : undefined}
 				aria-describedby={describedBy}
 				disabled={disabled}
 				className={cn(
@@ -119,7 +115,9 @@ export const DatePicker = ({
 						!selectedDate && styles['datepicker__trigger-text--placeholder']
 					)}
 				>
-					{selectedDate ? formatDisplay(selectedDate, format) : resolvedPlaceholder}
+					{selectedDate
+						? formatDisplay(selectedDate, format)
+						: resolvedPlaceholder}
 				</span>
 				<Icon
 					icon={Calendar}
@@ -143,108 +141,113 @@ export const DatePicker = ({
 							styles[`datepicker__calendar--placement-${placement}`]
 						)}
 					>
-					{/* Navigation */}
-					<Stack
-						as="nav"
-						direction="row"
-						justify="between"
-						align="center"
-						className={styles['datepicker__nav']}
-					>
-						<Button
-							type="button"
-							variant="ghost"
-							size="sm"
-							iconOnly
-							onClick={() => navigateMonth(-1)}
-							aria-label={previousMonthLabel}
+						{/* Navigation */}
+						<Stack
+							as="nav"
+							direction="row"
+							justify="between"
+							align="center"
+							className={styles['datepicker__nav']}
 						>
-							<Icon icon={ChevronLeft} size="sm" />
-						</Button>
-						<span
-							className={styles['datepicker__nav__title']}
-							aria-live="polite"
-						>
-							{formatMonthYear(viewDate)}
-						</span>
-						<Button
-							type="button"
-							variant="ghost"
-							size="sm"
-							iconOnly
-							onClick={() => navigateMonth(1)}
-							aria-label={nextMonthLabel}
-						>
-							<Icon icon={ChevronRight} size="sm" />
-						</Button>
-					</Stack>
+							<Button
+								type="button"
+								variant="ghost"
+								size="sm"
+								iconOnly
+								onClick={() => navigateMonth(-1)}
+								aria-label={previousMonthLabel}
+							>
+								<Icon icon={ChevronLeft} size="sm" />
+							</Button>
+							<span
+								className={styles['datepicker__nav__title']}
+								aria-live="polite"
+							>
+								{formatMonthYear(viewDate)}
+							</span>
+							<Button
+								type="button"
+								variant="ghost"
+								size="sm"
+								iconOnly
+								onClick={() => navigateMonth(1)}
+								aria-label={nextMonthLabel}
+							>
+								<Icon icon={ChevronRight} size="sm" />
+							</Button>
+						</Stack>
 
-					{/* Grid */}
-					<div
-						role="grid"
-						aria-label={formatMonthYear(viewDate)}
-						className={styles['datepicker__grid']}
-					>
-						{/* Weekday headers */}
-						<div role="row" className={styles['datepicker__weekdays']}>
-							{weekdays.map(({ abbr, label }) => (
+						{/* Grid */}
+						<div
+							role="grid"
+							aria-label={formatMonthYear(viewDate)}
+							className={styles['datepicker__grid']}
+						>
+							{/* Weekday headers */}
+							<div role="row" className={styles['datepicker__weekdays']}>
+								{weekdays.map(({ abbr, label }) => (
+									<div
+										key={abbr}
+										role="columnheader"
+										aria-label={label}
+										className={styles['datepicker__weekday']}
+									>
+										{abbr}
+									</div>
+								))}
+							</div>
+
+							{/* Day rows — 6 weeks */}
+							{Array.from({ length: 6 }, (_, week) => (
 								<div
-									key={abbr}
-									role="columnheader"
-									aria-label={label}
-									className={styles['datepicker__weekday']}
+									key={week}
+									role="row"
+									className={styles['datepicker__week']}
 								>
-									{abbr}
+									{days.slice(week * 7, week * 7 + 7).map((date) => {
+										const outside = !isCurrentMonth(date);
+										const disabled = isDisabled(date) || outside;
+										const selected = isSelected(date);
+										const today = isToday(date);
+										const focused =
+											!!focusedDate && isSameDay(date, focusedDate);
+
+										return (
+											<div
+												key={date.toISOString()}
+												role="gridcell"
+												aria-selected={selected || undefined}
+												aria-disabled={disabled || undefined}
+											>
+												<button
+													type="button"
+													tabIndex={focused ? 0 : -1}
+													data-date={date.toDateString()}
+													aria-label={formatDayLabel(date)}
+													className={cn(
+														styles['datepicker__day'],
+														today && styles['datepicker__day--today'],
+														selected && styles['datepicker__day--selected'],
+														outside && styles['datepicker__day--outside'],
+														disabled && styles['datepicker__day--disabled']
+													)}
+													aria-current={today ? 'date' : undefined}
+													// Prevent trigger blur before onClick fires
+													onPointerDown={(e) => e.preventDefault()}
+													onClick={() => {
+														if (!isDisabled(date) && !outside) selectDate(date);
+													}}
+													onKeyDown={(e) => handleDayKeyDown(e, date)}
+												>
+													{date.getDate()}
+												</button>
+											</div>
+										);
+									})}
 								</div>
 							))}
 						</div>
-
-						{/* Day rows — 6 weeks */}
-						{Array.from({ length: 6 }, (_, week) => (
-							<div key={week} role="row" className={styles['datepicker__week']}>
-								{days.slice(week * 7, week * 7 + 7).map((date) => {
-									const outside = !isCurrentMonth(date);
-									const disabled = isDisabled(date) || outside;
-									const selected = isSelected(date);
-									const today = isToday(date);
-									const focused = !!focusedDate && isSameDay(date, focusedDate);
-
-									return (
-										<div
-											key={date.toISOString()}
-											role="gridcell"
-											aria-selected={selected || undefined}
-											aria-disabled={disabled || undefined}
-										>
-											<button
-												type="button"
-												tabIndex={focused ? 0 : -1}
-												data-date={date.toDateString()}
-												aria-label={formatDayLabel(date)}
-												className={cn(
-													styles['datepicker__day'],
-													today && styles['datepicker__day--today'],
-													selected && styles['datepicker__day--selected'],
-													outside && styles['datepicker__day--outside'],
-													disabled && styles['datepicker__day--disabled']
-												)}
-												aria-current={today ? 'date' : undefined}
-												// Prevent trigger blur before onClick fires
-												onPointerDown={(e) => e.preventDefault()}
-												onClick={() => {
-													if (!isDisabled(date) && !outside) selectDate(date);
-												}}
-												onKeyDown={(e) => handleDayKeyDown(e, date)}
-											>
-												{date.getDate()}
-											</button>
-										</div>
-									);
-								})}
-							</div>
-						))}
-					</div>
-				</div>,
+					</div>,
 					document.body
 				)}
 

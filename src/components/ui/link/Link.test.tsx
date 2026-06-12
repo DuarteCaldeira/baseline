@@ -85,5 +85,4 @@ describe('Link', () => {
 		);
 		expect(screen.getByTestId('my-link')).toBeInTheDocument();
 	});
-
 });

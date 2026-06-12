@@ -1,6 +1,7 @@
+import { useState } from 'react';
+
 import type { Meta, StoryObj } from '@storybook/react';
 import { Hash, Tag as TagIcon } from 'lucide-react';
-import { useState } from 'react';
 
 import { Stack } from '@/components/layout/stack';
 
@@ -75,7 +76,13 @@ export const RemovableGroup: Story = {
 			]);
 
 			if (tags.length === 0) {
-				return <p style={{ font: 'var(--font-sm)', color: 'var(--color-text-muted)' }}>No tags selected.</p>;
+				return (
+					<p
+						style={{ font: 'var(--font-sm)', color: 'var(--color-text-muted)' }}
+					>
+						No tags selected.
+					</p>
+				);
 			}
 
 			return (
@@ -84,9 +91,7 @@ export const RemovableGroup: Story = {
 						<Tag
 							key={tag}
 							onRemove={() =>
-								setTags((current) =>
-									current.filter((entry) => entry !== tag)
-								)
+								setTags((current) => current.filter((entry) => entry !== tag))
 							}
 							removeLabel={`Remove ${tag}`}
 						>
@@ -104,7 +109,9 @@ export const RemovableGroup: Story = {
 export const FilterBar: Story = {
 	render: () => (
 		<Stack direction="row" gap="2" wrap align="center">
-			<span style={{ font: 'var(--font-sm)', color: 'var(--color-text-muted)' }}>
+			<span
+				style={{ font: 'var(--font-sm)', color: 'var(--color-text-muted)' }}
+			>
 				Active filters:
 			</span>
 			<Tag size="sm" onRemove={() => {}} removeLabel="Remove Open status">

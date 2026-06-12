@@ -7,7 +7,9 @@ import styles from './Skeleton.module.scss';
 describe('Skeleton', () => {
 	it('renders a placeholder element', () => {
 		const { container } = render(<Skeleton data-testid="skeleton" />);
-		expect(container.querySelector('[data-testid="skeleton"]')).toBeInTheDocument();
+		expect(
+			container.querySelector('[data-testid="skeleton"]')
+		).toBeInTheDocument();
 	});
 
 	it('is hidden from assistive technology by default', () => {
@@ -20,18 +22,15 @@ describe('Skeleton', () => {
 		expect(container.querySelector('.skeleton--text')).toBeInTheDocument();
 	});
 
-	it.each([
-		'text',
-		'heading',
-		'circular',
-		'rectangular',
-		'button',
-	] as const)('applies the %s variant class', (variant) => {
-		const { container } = render(<Skeleton variant={variant} />);
-		expect(
-			container.querySelector(`.skeleton--${variant}`)
-		).toBeInTheDocument();
-	});
+	it.each(['text', 'heading', 'circular', 'rectangular', 'button'] as const)(
+		'applies the %s variant class',
+		(variant) => {
+			const { container } = render(<Skeleton variant={variant} />);
+			expect(
+				container.querySelector(`.skeleton--${variant}`)
+			).toBeInTheDocument();
+		}
+	);
 
 	it.each(['sm', 'md', 'lg'] as const)('applies the %s size class', (size) => {
 		const { container } = render(<Skeleton size={size} variant="circular" />);
@@ -54,16 +53,12 @@ describe('Skeleton', () => {
 	});
 
 	it('renders multiple lines for paragraph variant', () => {
-		const { container } = render(
-			<Skeleton variant="paragraph" lines={4} />
-		);
+		const { container } = render(<Skeleton variant="paragraph" lines={4} />);
 		expect(container.querySelectorAll('.skeleton')).toHaveLength(4);
 	});
 
 	it('shortens the last paragraph line by default', () => {
-		const { container } = render(
-			<Skeleton variant="paragraph" lines={3} />
-		);
+		const { container } = render(<Skeleton variant="paragraph" lines={3} />);
 		const lines = container.querySelectorAll(`.${styles.skeleton}`);
 		expect(lines[2]).toHaveClass(styles['skeleton--width-2/3']);
 	});

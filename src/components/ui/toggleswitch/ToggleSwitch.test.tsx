@@ -42,9 +42,7 @@ describe('ToggleSwitch', () => {
 
 	it('does not call onChange when disabled', async () => {
 		const handleChange = vi.fn();
-		render(
-			<ToggleSwitch disabled onChange={handleChange} label="Disabled" />
-		);
+		render(<ToggleSwitch disabled onChange={handleChange} label="Disabled" />);
 
 		await userEvent.click(screen.getByRole('switch'));
 		expect(handleChange).not.toHaveBeenCalled();
@@ -52,9 +50,7 @@ describe('ToggleSwitch', () => {
 
 	it('renders helper text when helperText prop is provided', () => {
 		render(<ToggleSwitch helperText="You can change this later." />);
-		expect(
-			screen.getByText('You can change this later.')
-		).toBeInTheDocument();
+		expect(screen.getByText('You can change this later.')).toBeInTheDocument();
 	});
 
 	it('sets aria-describedby to helper id when only helperText is provided', () => {
@@ -67,7 +63,11 @@ describe('ToggleSwitch', () => {
 
 	it('sets aria-describedby to both helper and error ids when both are provided', () => {
 		render(
-			<ToggleSwitch id="notifications" helperText="Optional field." error="Required" />
+			<ToggleSwitch
+				id="notifications"
+				helperText="Optional field."
+				error="Required"
+			/>
 		);
 		expect(screen.getByRole('switch')).toHaveAttribute(
 			'aria-describedby',
@@ -122,8 +122,12 @@ describe('ToggleSwitch', () => {
 
 	it('renders the track and thumb elements', () => {
 		const { container } = render(<ToggleSwitch label="Notifications" />);
-		expect(container.querySelector('.toggle-switch__track')).toBeInTheDocument();
-		expect(container.querySelector('.toggle-switch__thumb')).toBeInTheDocument();
+		expect(
+			container.querySelector('.toggle-switch__track')
+		).toBeInTheDocument();
+		expect(
+			container.querySelector('.toggle-switch__thumb')
+		).toBeInTheDocument();
 	});
 
 	it('applies the visually-hidden class to the input', () => {

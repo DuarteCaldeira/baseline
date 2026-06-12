@@ -1,21 +1,21 @@
 import {
+	type KeyboardEvent,
+	type RefObject,
 	useCallback,
 	useEffect,
 	useMemo,
 	useRef,
 	useState,
-	type KeyboardEvent,
-	type RefObject,
 } from 'react';
 
 import {
+	WEEK_STARTS_ON,
 	addDays,
 	addMonths,
 	getCalendarDays,
 	isSameDay,
 	isSameMonth,
 	startOfDay,
-	WEEK_STARTS_ON,
 } from './DatePicker.utils';
 
 type UseDatePickerOptions = {
@@ -163,7 +163,8 @@ export const useDatePicker = ({
 
 	const moveFocus = useCallback(
 		(from: Date, delta: number | ((d: Date) => Date)) => {
-			const next = typeof delta === 'function' ? delta(from) : addDays(from, delta);
+			const next =
+				typeof delta === 'function' ? delta(from) : addDays(from, delta);
 			setFocusedDate(next);
 			if (!isSameMonth(next, viewDate)) {
 				setViewDate(new Date(next.getFullYear(), next.getMonth(), 1));

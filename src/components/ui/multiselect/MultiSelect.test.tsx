@@ -14,20 +14,14 @@ const OPTIONS: SelectOption[] = [
 
 describe('MultiSelect', () => {
 	it('renders a label when provided', () => {
-		render(
-			<MultiSelect id="skills" label="Skills" options={OPTIONS} />
-		);
+		render(<MultiSelect id="skills" label="Skills" options={OPTIONS} />);
 
 		expect(screen.getByText('Skills')).toBeInTheDocument();
 	});
 
 	it('shows the placeholder when nothing is selected', () => {
 		render(
-			<MultiSelect
-				id="skills"
-				options={OPTIONS}
-				placeholder="Pick skills"
-			/>
+			<MultiSelect id="skills" options={OPTIONS} placeholder="Pick skills" />
 		);
 
 		expect(screen.getByText('Pick skills')).toBeInTheDocument();
@@ -60,9 +54,7 @@ describe('MultiSelect', () => {
 		const user = userEvent.setup();
 		const onChange = vi.fn();
 
-		render(
-			<MultiSelect id="skills" options={OPTIONS} onChange={onChange} />
-		);
+		render(<MultiSelect id="skills" options={OPTIONS} onChange={onChange} />);
 
 		await user.click(screen.getByRole('combobox'));
 		await user.click(screen.getByRole('option', { name: /react/i }));
@@ -83,9 +75,7 @@ describe('MultiSelect', () => {
 			/>
 		);
 
-		await user.click(
-			screen.getByRole('button', { name: 'Remove React' })
-		);
+		await user.click(screen.getByRole('button', { name: 'Remove React' }));
 
 		expect(onChange).toHaveBeenCalledWith(['typescript']);
 	});
@@ -113,16 +103,10 @@ describe('MultiSelect', () => {
 		const user = userEvent.setup();
 
 		render(
-			<MultiSelect
-				id="skills"
-				options={OPTIONS}
-				defaultValue={['react']}
-			/>
+			<MultiSelect id="skills" options={OPTIONS} defaultValue={['react']} />
 		);
 
-		await user.click(
-			screen.getByRole('button', { name: 'Remove React' })
-		);
+		await user.click(screen.getByRole('button', { name: 'Remove React' }));
 
 		expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
 	});
@@ -157,7 +141,10 @@ describe('MultiSelect', () => {
 	it('sets aria-invalid when error is provided', () => {
 		render(<MultiSelect id="skills" options={OPTIONS} error="Required" />);
 
-		expect(screen.getByRole('combobox')).toHaveAttribute('aria-invalid', 'true');
+		expect(screen.getByRole('combobox')).toHaveAttribute(
+			'aria-invalid',
+			'true'
+		);
 	});
 
 	it('renders helper text when provided', () => {
@@ -169,9 +156,7 @@ describe('MultiSelect', () => {
 			/>
 		);
 
-		expect(
-			screen.getByText('Pick all skills that apply.')
-		).toBeInTheDocument();
+		expect(screen.getByText('Pick all skills that apply.')).toBeInTheDocument();
 	});
 
 	it('sets aria-describedby to helper and error ids when both are provided', () => {

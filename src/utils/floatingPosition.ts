@@ -24,14 +24,16 @@ export type ComputedFloatingPosition = {
 export const FLOATING_GAP = 4;
 export const FLOATING_VIEWPORT_PADDING = 8;
 
-const OPPOSITE_VERTICAL_PLACEMENT: Record<'top' | 'bottom', 'top' | 'bottom'> = {
-	top: 'bottom',
-	bottom: 'top',
-};
+const OPPOSITE_VERTICAL_PLACEMENT: Record<'top' | 'bottom', 'top' | 'bottom'> =
+	{
+		top: 'bottom',
+		bottom: 'top',
+	};
 
 const isSidePlacement = (
 	placement: FloatingPlacement
-): placement is 'left' | 'right' => placement === 'left' || placement === 'right';
+): placement is 'left' | 'right' =>
+	placement === 'left' || placement === 'right';
 
 const computeSideFloatingPosition = ({
 	triggerRect,
@@ -50,10 +52,8 @@ const computeSideFloatingPosition = ({
 }): ComputedFloatingPosition => {
 	const width = Math.min(floatingRect.width, viewport.width - padding * 2);
 	const rightLeft = triggerRect.left + triggerRect.width + gap;
-	const fitsRight =
-		rightLeft + floatingRect.width <= viewport.width - padding;
-	const fitsLeft =
-		triggerRect.left - floatingRect.width - gap >= padding;
+	const fitsRight = rightLeft + floatingRect.width <= viewport.width - padding;
+	const fitsLeft = triggerRect.left - floatingRect.width - gap >= padding;
 
 	let placement: 'left' | 'right' = preferredPlacement;
 	let left: number;
@@ -73,15 +73,15 @@ const computeSideFloatingPosition = ({
 	}
 
 	const maxTop = viewport.height - floatingRect.height - padding;
-	const top = clamp(
-		triggerRect.top,
-		padding,
-		Math.max(padding, maxTop)
-	);
+	const top = clamp(triggerRect.top, padding, Math.max(padding, maxTop));
 
 	return {
 		top,
-		left: clamp(left, padding, Math.max(padding, viewport.width - width - padding)),
+		left: clamp(
+			left,
+			padding,
+			Math.max(padding, viewport.width - width - padding)
+		),
 		width,
 		maxHeight: viewport.height - padding * 2,
 		placement,
@@ -131,14 +131,7 @@ const pickPlacement = (
 
 	for (const placement of candidates) {
 		if (
-			hasRoomForPlacement(
-				placement,
-				trigger,
-				floating,
-				viewport,
-				gap,
-				padding
-			)
+			hasRoomForPlacement(placement, trigger, floating, viewport, gap, padding)
 		) {
 			const space =
 				placement === 'bottom'
@@ -189,7 +182,11 @@ const getLeft = (
 		left = trigger.left + trigger.width / 2 - width / 2;
 	}
 
-	return clamp(left, padding, Math.max(padding, viewport.width - width - padding));
+	return clamp(
+		left,
+		padding,
+		Math.max(padding, viewport.width - width - padding)
+	);
 };
 
 export const computeFloatingPosition = ({
@@ -332,18 +329,14 @@ const hasRoomForTooltipPlacement = (
 			return trigger.top - padding >= bubble.height + gap + arrow;
 		case 'bottom':
 			return (
-				viewport.height -
-					(trigger.top + trigger.height) -
-					padding >=
+				viewport.height - (trigger.top + trigger.height) - padding >=
 				bubble.height + gap + arrow
 			);
 		case 'left':
 			return trigger.left - padding >= bubble.width + gap + arrow;
 		case 'right':
 			return (
-				viewport.width -
-					(trigger.left + trigger.width) -
-					padding >=
+				viewport.width - (trigger.left + trigger.width) - padding >=
 				bubble.width + gap + arrow
 			);
 	}

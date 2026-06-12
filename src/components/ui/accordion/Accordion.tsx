@@ -1,13 +1,14 @@
 import { useRef } from 'react';
 import type { KeyboardEvent } from 'react';
+
 import { ChevronDown } from 'lucide-react';
 
 import { Icon } from '@/components/ui/icon';
 import { cn } from '@/utils/cn';
 
+import styles from './Accordion.module.scss';
 import type { AccordionItem, AccordionType } from './Accordion.types';
 import { useAccordion } from './useAccordion';
-import styles from './Accordion.module.scss';
 
 export type AccordionProps = {
 	items: AccordionItem[];
@@ -27,7 +28,12 @@ export const Accordion = ({
 	onChange,
 }: AccordionProps) => {
 	const containerRef = useRef<HTMLDivElement>(null);
-	const { isOpen, toggle } = useAccordion({ type, defaultValue, value, onChange });
+	const { isOpen, toggle } = useAccordion({
+		type,
+		defaultValue,
+		value,
+		onChange,
+	});
 
 	const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
 		const triggers = Array.from(
@@ -109,9 +115,7 @@ export const Accordion = ({
 								open && styles['accordion__panel--open']
 							)}
 						>
-							<div className={styles['accordion__content']}>
-								{item.content}
-							</div>
+							<div className={styles['accordion__content']}>{item.content}</div>
 						</div>
 					</div>
 				);

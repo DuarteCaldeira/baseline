@@ -4,17 +4,17 @@ import type { KeyboardEvent, MouseEvent, ReactElement } from 'react';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { cn } from '@/utils/cn';
 
+import styles from './Table.module.scss';
 import type { TableColumn, TableGridProps } from './Table.types';
 import {
+	TABLE_MOBILE_MEDIA_QUERY,
 	getClickableRowLabel,
 	getPrimaryColumnKey,
 	getRowKey,
-	TABLE_MOBILE_MEDIA_QUERY,
 } from './Table.utils';
 import { TableCardList } from './TableCardList';
 import { TableHeaderCell } from './TableHeaderCell';
 import { TableMobileSort } from './TableMobileSort';
-import styles from './Table.module.scss';
 
 // ── Memoised row ──────────────────────────────────────────────────────────────
 
@@ -40,7 +40,10 @@ const TableRowInner = <T extends Record<string, unknown>>({
 		aria-rowindex={ariaRowIndex}
 		role={isClickable ? 'button' : undefined}
 		aria-label={isClickable ? rowLabel : undefined}
-		className={cn(styles['table__tr'], isClickable && styles['table__tr--clickable'])}
+		className={cn(
+			styles['table__tr'],
+			isClickable && styles['table__tr--clickable']
+		)}
 		tabIndex={isClickable ? 0 : undefined}
 	>
 		{columns.map((col) => (
@@ -70,7 +73,10 @@ export const TableGrid = <T extends Record<string, unknown>>({
 }: TableGridProps<T>) => {
 	const isClickable = !!onRowClick;
 	const isMobile = useMediaQuery(TABLE_MOBILE_MEDIA_QUERY);
-	const primaryColumnKey = useMemo(() => getPrimaryColumnKey(columns), [columns]);
+	const primaryColumnKey = useMemo(
+		() => getPrimaryColumnKey(columns),
+		[columns]
+	);
 
 	// Single delegated handler on <tbody> — avoids attaching N onClick closures
 	const handleBodyClick = useCallback(
@@ -132,7 +138,9 @@ export const TableGrid = <T extends Record<string, unknown>>({
 							key={col.key}
 							header={col.header}
 							sortable={col.sortable}
-							sortDirection={sortState?.key === col.key ? sortState.direction : null}
+							sortDirection={
+								sortState?.key === col.key ? sortState.direction : null
+							}
 							onSort={col.sortable ? () => onSort(col.key) : undefined}
 							width={col.width}
 						/>

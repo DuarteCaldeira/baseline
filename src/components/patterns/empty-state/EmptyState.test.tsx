@@ -41,7 +41,9 @@ describe('EmptyState', () => {
 
 	it('does not render an icon wrapper when icon is omitted', () => {
 		const { container } = render(<EmptyState title="No items yet" />);
-		expect(container.querySelector('.empty-state__icon')).not.toBeInTheDocument();
+		expect(
+			container.querySelector('.empty-state__icon')
+		).not.toBeInTheDocument();
 	});
 
 	it('renders the action slot when provided', () => {
@@ -77,5 +79,4 @@ describe('EmptyState', () => {
 			expect.stringMatching(/.+/)
 		);
 	});
-
 });

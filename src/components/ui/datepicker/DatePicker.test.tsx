@@ -68,7 +68,9 @@ describe('DatePicker', () => {
 		});
 
 		it('respects an explicit placeholder over the format default', () => {
-			render(<DatePicker format="YYYY-MM-DD" placeholder="Selecione uma data" />);
+			render(
+				<DatePicker format="YYYY-MM-DD" placeholder="Selecione uma data" />
+			);
 			expect(screen.getByText('Selecione uma data')).toBeInTheDocument();
 		});
 	});
@@ -76,9 +78,7 @@ describe('DatePicker', () => {
 	describe('label / helper / error', () => {
 		it('renders a label when provided', () => {
 			render(<DatePicker id="dob" label="Data de nascimento" />);
-			expect(
-				screen.getByLabelText('Data de nascimento')
-			).toBeInTheDocument();
+			expect(screen.getByLabelText('Data de nascimento')).toBeInTheDocument();
 		});
 
 		it('renders helper text', () => {
@@ -95,11 +95,11 @@ describe('DatePicker', () => {
 			);
 		});
 
-		it('sets aria-invalid when error is provided', () => {
-			render(<DatePicker error="Obrigatório" />);
+		it('links the error message via aria-describedby', () => {
+			render(<DatePicker id="dob" error="Obrigatório" />);
 			expect(screen.getByRole('button')).toHaveAttribute(
-				'aria-invalid',
-				'true'
+				'aria-describedby',
+				'dob-error'
 			);
 		});
 	});
@@ -129,10 +129,9 @@ describe('DatePicker', () => {
 		it('has aria-expanded="true" when open', async () => {
 			render(<DatePicker />);
 			await userEvent.click(screen.getByRole('button'));
-			expect(screen.getByRole('button', { name: /DD\/MM\/YYYY/i })).toHaveAttribute(
-				'aria-expanded',
-				'true'
-			);
+			expect(
+				screen.getByRole('button', { name: /DD\/MM\/YYYY/i })
+			).toHaveAttribute('aria-expanded', 'true');
 		});
 
 		it('has role="dialog" and aria-modal on the calendar', async () => {
@@ -151,26 +150,27 @@ describe('DatePicker', () => {
 				/>
 			);
 			await userEvent.click(screen.getByRole('button'));
-			expect(screen.getByRole('dialog', { name: 'Pick a date' })).toBeInTheDocument();
-			expect(screen.getByRole('button', { name: 'Go back' })).toBeInTheDocument();
-			expect(screen.getByRole('button', { name: 'Go forward' })).toBeInTheDocument();
+			expect(
+				screen.getByRole('dialog', { name: 'Pick a date' })
+			).toBeInTheDocument();
+			expect(
+				screen.getByRole('button', { name: 'Go back' })
+			).toBeInTheDocument();
+			expect(
+				screen.getByRole('button', { name: 'Go forward' })
+			).toBeInTheDocument();
 		});
 	});
 
 	describe('date selection', () => {
 		it('calls onChange with the selected date', async () => {
 			const handleChange = vi.fn();
-			render(
-				<DatePicker
-					defaultValue={FIXED_TODAY}
-					onChange={handleChange}
-				/>
-			);
+			render(<DatePicker defaultValue={FIXED_TODAY} onChange={handleChange} />);
 			await userEvent.click(screen.getByRole('button'));
 
-			const day10 = screen.getAllByRole('button').find(
-				(btn) => btn.textContent === '10' && !btn.disabled
-			)!;
+			const day10 = screen
+				.getAllByRole('button')
+				.find((btn) => btn.textContent === '10' && !btn.disabled)!;
 			await userEvent.click(day10);
 
 			expect(handleChange).toHaveBeenCalledOnce();
@@ -182,9 +182,9 @@ describe('DatePicker', () => {
 			render(<DatePicker defaultValue={FIXED_TODAY} />);
 			await userEvent.click(screen.getByRole('button'));
 
-			const day10 = screen.getAllByRole('button').find(
-				(btn) => btn.textContent === '10' && !btn.disabled
-			)!;
+			const day10 = screen
+				.getAllByRole('button')
+				.find((btn) => btn.textContent === '10' && !btn.disabled)!;
 			await userEvent.click(day10);
 
 			expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
@@ -194,9 +194,9 @@ describe('DatePicker', () => {
 			render(<DatePicker defaultValue={FIXED_TODAY} />);
 			await userEvent.click(screen.getByRole('button'));
 
-			const day5 = screen.getAllByRole('button').find(
-				(btn) => btn.textContent === '5' && !btn.disabled
-			)!;
+			const day5 = screen
+				.getAllByRole('button')
+				.find((btn) => btn.textContent === '5' && !btn.disabled)!;
 			await userEvent.click(day5);
 
 			expect(screen.getByText('05/02/2024')).toBeInTheDocument();
@@ -236,9 +236,9 @@ describe('DatePicker', () => {
 			);
 			await userEvent.click(screen.getByRole('button'));
 
-			const day5Cell = screen.getAllByRole('gridcell').find(
-				(cell) => within(cell).getByRole('button').textContent === '5'
-			);
+			const day5Cell = screen
+				.getAllByRole('gridcell')
+				.find((cell) => within(cell).getByRole('button').textContent === '5');
 			expect(day5Cell).toHaveAttribute('aria-disabled', 'true');
 		});
 	});

@@ -35,13 +35,17 @@ describe('Icon', () => {
 	});
 
 	it.each([
-		'default', 'muted', 'subtle',
-		'primary', 'success', 'warning', 'error', 'info',
+		'default',
+		'muted',
+		'subtle',
+		'primary',
+		'success',
+		'warning',
+		'error',
+		'info',
 	] as const)('applies %s variant class', (variant) => {
 		const { container } = render(<Icon icon={Circle} variant={variant} />);
-		expect(
-			container.querySelector(`.icon--${variant}`)
-		).toBeInTheDocument();
+		expect(container.querySelector(`.icon--${variant}`)).toBeInTheDocument();
 	});
 
 	it('renders at sm size (16px)', () => {
@@ -61,10 +65,7 @@ describe('Icon', () => {
 
 	it('forwards strokeWidth to the svg element', () => {
 		const { container } = render(<Icon icon={Circle} strokeWidth={1} />);
-		expect(container.querySelector('svg')).toHaveAttribute(
-			'stroke-width',
-			'1'
-		);
+		expect(container.querySelector('svg')).toHaveAttribute('stroke-width', '1');
 	});
 
 	it('merges custom className onto the wrapper', () => {

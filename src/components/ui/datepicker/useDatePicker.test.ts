@@ -1,8 +1,8 @@
 import { act, renderHook } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
-import { useDatePicker } from './useDatePicker';
 import { startOfDay } from './DatePicker.utils';
+import { useDatePicker } from './useDatePicker';
 
 describe('useDatePicker', () => {
 	it('starts closed with no selected date by default', () => {
@@ -80,9 +80,7 @@ describe('useDatePicker', () => {
 
 	it('navigates months', () => {
 		const date = new Date(2024, 5, 15);
-		const { result } = renderHook(() =>
-			useDatePicker({ defaultValue: date })
-		);
+		const { result } = renderHook(() => useDatePicker({ defaultValue: date }));
 
 		const initialMonth = result.current.viewDate.getMonth();
 

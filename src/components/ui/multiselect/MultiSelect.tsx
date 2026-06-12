@@ -1,22 +1,23 @@
-import { useRef, type KeyboardEvent, type MouseEvent, type RefObject } from 'react';
+import { type MouseEvent, useRef } from 'react';
+
 import { ChevronDown } from 'lucide-react';
 
 import { Stack } from '@/components/layout/stack';
 import { Icon } from '@/components/ui/icon';
 import type { SelectOption } from '@/components/ui/select';
 import {
+	getDescribedBy,
 	getErrorId,
 	getHelperId,
 	getLabelId,
 	getListboxId,
 	getOptionId,
 	getTriggerId,
-	getDescribedBy,
 	scrollOptionIntoView,
 } from '@/components/ui/select/Select.utils';
 import { SelectListbox } from '@/components/ui/select/SelectListbox';
-import { Tag } from '@/components/ui/tag';
 import { useSelect } from '@/components/ui/select/useSelect';
+import { Tag } from '@/components/ui/tag';
 import { useFloatingPosition } from '@/hooks/useFloatingPosition';
 import { useMounted } from '@/hooks/useMounted';
 import { cn } from '@/utils/cn';
@@ -68,21 +69,29 @@ export const MultiSelect = ({
 		selectedValues.includes(option.value)
 	);
 
-	const { isOpen, activeIndex, containerRef, triggerRef, open, close, setActiveIndex, handleTriggerKeyDown } =
-		useSelect({
-			optionsCount: options.length,
-			isDisabled: disabled,
-			initialActiveIndex: firstSelectedIndex >= 0 ? firstSelectedIndex : 0,
-			closeOnSelect: false,
-			overlayRef: listboxRef,
-			onOptionConfirm: (index) => {
-				const option = options[index];
-				if (!option || option.disabled) return;
-				toggleValue(option.value);
-			},
-			onScrollIntoView: (index) =>
-				scrollOptionIntoView(getOptionId(id, options[index].value)),
-		});
+	const {
+		isOpen,
+		activeIndex,
+		containerRef,
+		triggerRef,
+		open,
+		close,
+		setActiveIndex,
+		handleTriggerKeyDown,
+	} = useSelect<HTMLDivElement>({
+		optionsCount: options.length,
+		isDisabled: disabled,
+		initialActiveIndex: firstSelectedIndex >= 0 ? firstSelectedIndex : 0,
+		closeOnSelect: false,
+		overlayRef: listboxRef,
+		onOptionConfirm: (index) => {
+			const option = options[index];
+			if (!option || option.disabled) return;
+			toggleValue(option.value);
+		},
+		onScrollIntoView: (index) =>
+			scrollOptionIntoView(getOptionId(id, options[index].value)),
+	});
 
 	const { style, placement } = useFloatingPosition({
 		isOpen,
@@ -127,13 +136,17 @@ export const MultiSelect = ({
 			className={styles['multiselect__wrapper']}
 		>
 			{label && (
-				<label id={labelId} className={styles['multiselect__label']} htmlFor={triggerId}>
+				<label
+					id={labelId}
+					className={styles['multiselect__label']}
+					htmlFor={triggerId}
+				>
 					{label}
 				</label>
 			)}
 
 			<div
-				ref={triggerRef as RefObject<HTMLDivElement>}
+				ref={triggerRef}
 				id={triggerId}
 				role="combobox"
 				tabIndex={disabled ? -1 : 0}
@@ -142,7 +155,9 @@ export const MultiSelect = ({
 				aria-controls={listboxId}
 				aria-labelledby={label ? labelId : undefined}
 				aria-activedescendant={
-					isOpen ? getOptionId(id, options[activeIndex]?.value ?? '') : undefined
+					isOpen
+						? getOptionId(id, options[activeIndex]?.value ?? '')
+						: undefined
 				}
 				aria-invalid={error ? true : undefined}
 				aria-describedby={describedBy}
@@ -187,14 +202,14 @@ export const MultiSelect = ({
 					)}
 				</span>
 
-			<Icon
-				icon={ChevronDown}
-				size="sm"
-				className={cn(
-					styles['multiselect__chevron'],
-					isOpen && styles['multiselect__chevron--open']
-				)}
-			/>
+				<Icon
+					icon={ChevronDown}
+					size="sm"
+					className={cn(
+						styles['multiselect__chevron'],
+						isOpen && styles['multiselect__chevron--open']
+					)}
+				/>
 			</div>
 
 			<SelectListbox
@@ -220,7 +235,11 @@ export const MultiSelect = ({
 			)}
 
 			{error && (
-				<span id={errorId} className={styles['multiselect__error']} role="alert">
+				<span
+					id={errorId}
+					className={styles['multiselect__error']}
+					role="alert"
+				>
 					{error}
 				</span>
 			)}

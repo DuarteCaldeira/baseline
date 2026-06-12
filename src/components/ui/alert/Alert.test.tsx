@@ -6,12 +6,10 @@ import { Alert } from './Alert';
 
 describe('Alert', () => {
 	it('renders children', () => {
-		render(
-			<Alert variant="info">
-				Your changes have been saved.
-			</Alert>
-		);
-		expect(screen.getByText('Your changes have been saved.')).toBeInTheDocument();
+		render(<Alert variant="info">Your changes have been saved.</Alert>);
+		expect(
+			screen.getByText('Your changes have been saved.')
+		).toBeInTheDocument();
 	});
 
 	it('renders an optional title', () => {
@@ -29,12 +27,8 @@ describe('Alert', () => {
 	it.each(['success', 'error', 'warning', 'info'] as const)(
 		'applies the %s variant class',
 		(variant) => {
-			const { container } = render(
-				<Alert variant={variant}>Message</Alert>
-			);
-			expect(
-				container.querySelector(`.alert--${variant}`)
-			).toBeInTheDocument();
+			const { container } = render(<Alert variant={variant}>Message</Alert>);
+			expect(container.querySelector(`.alert--${variant}`)).toBeInTheDocument();
 		}
 	);
 
@@ -62,7 +56,9 @@ describe('Alert', () => {
 			</Alert>
 		);
 
-		await userEvent.click(screen.getByRole('button', { name: /dismiss alert/i }));
+		await userEvent.click(
+			screen.getByRole('button', { name: /dismiss alert/i })
+		);
 		expect(onDismiss).toHaveBeenCalledOnce();
 	});
 

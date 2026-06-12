@@ -19,9 +19,24 @@ const SKILL_OPTIONS: SelectOption[] = [
 ];
 
 const FRUIT_OPTIONS: SelectOption[] = [
-	{ value: 'apple', label: 'Apple', icon: Apple, description: 'Sweet and crunchy' },
-	{ value: 'cherry', label: 'Cherry', icon: Cherry, description: 'Sweet or sour' },
-	{ value: 'citrus', label: 'Citrus', icon: Citrus, description: 'Bright and zesty' },
+	{
+		value: 'apple',
+		label: 'Apple',
+		icon: Apple,
+		description: 'Sweet and crunchy',
+	},
+	{
+		value: 'cherry',
+		label: 'Cherry',
+		icon: Cherry,
+		description: 'Sweet or sour',
+	},
+	{
+		value: 'citrus',
+		label: 'Citrus',
+		icon: Citrus,
+		description: 'Bright and zesty',
+	},
 ];
 
 const DefaultDemo = () => {

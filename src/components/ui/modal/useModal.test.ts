@@ -1,6 +1,7 @@
+import { type KeyboardEvent, type MouseEvent, createRef } from 'react';
+
 import { act, renderHook } from '@testing-library/react';
-import { createRef, type KeyboardEvent, type MouseEvent } from 'react';
-import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { useModal } from './useModal';
 

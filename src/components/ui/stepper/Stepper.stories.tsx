@@ -42,7 +42,7 @@ const PANELS = [
 		</p>
 	</Stack>,
 	<Stack key="done" gap="2" className={storyStyles.item}>
-		<strong>You're all set!</strong>
+		<strong>You are all set!</strong>
 		<p>Your account has been created. Welcome aboard!</p>
 	</Stack>,
 ];

@@ -75,13 +75,7 @@ describe('Radio', () => {
 	});
 
 	it('sets aria-describedby to both helper and error ids when both are provided', () => {
-		render(
-			<Radio
-				id="option-a"
-				helperText="Recommended."
-				error="Required"
-			/>
-		);
+		render(<Radio id="option-a" helperText="Recommended." error="Required" />);
 		expect(screen.getByRole('radio')).toHaveAttribute(
 			'aria-describedby',
 			'option-a-helper option-a-error'
@@ -95,14 +89,6 @@ describe('Radio', () => {
 		);
 	});
 
-	it('sets aria-invalid when error prop is provided', () => {
-		render(<Radio error="Required" />);
-		expect(screen.getByRole('radio')).toHaveAttribute(
-			'aria-invalid',
-			'true'
-		);
-	});
-
 	it('sets aria-describedby linking to error element', () => {
 		render(<Radio id="option-a" error="Required" />);
 		const input = screen.getByRole('radio');
@@ -112,9 +98,9 @@ describe('Radio', () => {
 		expect(error).toHaveAttribute('id', 'option-a-error');
 	});
 
-	it('does not set aria-invalid when no error', () => {
+	it('does not set aria-describedby when there is no helper or error', () => {
 		render(<Radio />);
-		expect(screen.getByRole('radio')).not.toHaveAttribute('aria-invalid');
+		expect(screen.getByRole('radio')).not.toHaveAttribute('aria-describedby');
 	});
 
 	it('forwards additional HTML attributes', () => {

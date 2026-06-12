@@ -3,9 +3,9 @@ import { useId, useMemo } from 'react';
 import { Select } from '@/components/ui/select';
 import type { SelectOption } from '@/components/ui/select';
 
+import styles from './Table.module.scss';
 import type { SortDirection, SortState, TableColumn } from './Table.types';
 import { getColumnLabel } from './Table.utils';
-import styles from './Table.module.scss';
 
 const SORT_VALUE_SEP = ':';
 
@@ -39,8 +39,14 @@ const buildSortOptions = <T extends Record<string, unknown>>(
 		...sortableColumns.flatMap((col) => {
 			const label = getColumnLabel(col.header, col.key);
 			return [
-				{ value: encodeSortValue(col.key, 'asc'), label: `${label} (ascending)` },
-				{ value: encodeSortValue(col.key, 'desc'), label: `${label} (descending)` },
+				{
+					value: encodeSortValue(col.key, 'asc'),
+					label: `${label} (ascending)`,
+				},
+				{
+					value: encodeSortValue(col.key, 'desc'),
+					label: `${label} (descending)`,
+				},
 			];
 		}),
 	];

@@ -4,8 +4,8 @@ import { Stack } from '@/components/layout/stack';
 import type { Size } from '@/types/common';
 import { cn } from '@/utils/cn';
 
-import type { SkeletonVariant, SkeletonWidth } from './Skeleton.types';
 import styles from './Skeleton.module.scss';
+import type { SkeletonVariant, SkeletonWidth } from './Skeleton.types';
 
 export type SkeletonProps = Omit<HTMLAttributes<HTMLElement>, 'className'> & {
 	variant?: SkeletonVariant;

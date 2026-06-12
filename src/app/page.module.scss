@@ -9,12 +9,11 @@
 		align-items: center;
 		justify-content: center;
 		padding: $spacing-12 $spacing-6;
-		background:
-			radial-gradient(
-				ellipse 90% 55% at 50% 0%,
-				var(--color-primary-subtle),
-				transparent 70%
-			);
+		background: radial-gradient(
+			ellipse 90% 55% at 50% 0%,
+			var(--color-primary-subtle),
+			transparent 70%
+		);
 	}
 
 	&__badge {
@@ -24,7 +23,9 @@
 		border-radius: $radius-full;
 		border: 1px solid var(--color-border);
 		font: var(--font-caption);
-		font-weight: var(--font-weight-medium); // explicit medium over caption's regular
+		font-weight: var(
+			--font-weight-medium
+		); // explicit medium over caption's regular
 		text-transform: uppercase;
 		color: var(--color-text-muted);
 		background-color: var(--color-surface);
@@ -32,7 +33,11 @@
 	}
 
 	&__heading {
-		font-size: clamp(3rem, 10vw, 5rem); // clamp prevents use of shorthand preset
+		font-size: clamp(
+			3rem,
+			10vw,
+			5rem
+		); // clamp prevents use of shorthand preset
 		font-weight: var(--font-weight-bold);
 		line-height: 1.05;
 		text-align: center;
@@ -70,7 +75,9 @@
 
 	&__showcase-label {
 		font: var(--font-caption);
-		font-weight: var(--font-weight-medium); // explicit medium over caption's regular
+		font-weight: var(
+			--font-weight-medium
+		); // explicit medium over caption's regular
 		text-transform: uppercase;
 		color: var(--color-text-subtle);
 	}

@@ -5,9 +5,13 @@ import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
 import { cn } from '@/utils/cn';
 
-import type { AlertProps } from './Alert.types';
-import { ALERT_ICON_MAP, ALERT_ROLE_MAP, hasAlertDescription } from './Alert.utils';
 import styles from './Alert.module.scss';
+import type { AlertProps } from './Alert.types';
+import {
+	ALERT_ICON_MAP,
+	ALERT_ROLE_MAP,
+	hasAlertDescription,
+} from './Alert.utils';
 
 export type { AlertProps, AlertVariant } from './Alert.types';
 
@@ -36,14 +40,15 @@ export const Alert = ({
 			)}
 		>
 			<span className={styles['alert__icon-wrap']}>
-				<Icon icon={IconComponent} variant={variant} size="sm" label={variant} />
+				<Icon
+					icon={IconComponent}
+					variant={variant}
+					size="sm"
+					label={variant}
+				/>
 			</span>
 			<div className={styles['alert__body']}>
-				{title && (
-					<h2 className={styles['alert__title']}>
-						{title}
-					</h2>
-				)}
+				{title && <h2 className={styles['alert__title']}>{title}</h2>}
 				{hasDescription && (
 					<div className={styles['alert__message']}>{children}</div>
 				)}

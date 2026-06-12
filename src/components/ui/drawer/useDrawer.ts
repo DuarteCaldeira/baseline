@@ -1,11 +1,11 @@
 import {
-	useCallback,
-	useEffect,
-	useState,
 	type AnimationEvent,
 	type KeyboardEvent,
 	type MouseEvent,
 	type RefObject,
+	useCallback,
+	useEffect,
+	useState,
 } from 'react';
 
 import { useModal } from '@/components/ui/modal/useModal';
@@ -39,7 +39,9 @@ export const useDrawer = ({
 	onClose,
 	closeOnBackdropClick,
 }: UseDrawerOptions): UseDrawerReturn => {
-	const [phase, setPhase] = useState<DrawerPhase>(isOpen ? 'visible' : 'hidden');
+	const [phase, setPhase] = useState<DrawerPhase>(
+		isOpen ? 'visible' : 'hidden'
+	);
 
 	const present = phase !== 'hidden';
 	const closing = phase === 'exiting';

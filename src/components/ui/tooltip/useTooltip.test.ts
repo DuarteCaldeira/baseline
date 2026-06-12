@@ -1,5 +1,5 @@
-import { renderHook, act } from '@testing-library/react';
-import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
+import { act, renderHook } from '@testing-library/react';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { useTooltip } from './useTooltip';
 
@@ -21,9 +21,9 @@ describe('useTooltip', () => {
 		const { result } = renderHook(() => useTooltip());
 
 		act(() => {
-			result.current.getTriggerProps().onMouseEnter?.(
-				{} as React.MouseEvent<HTMLElement>
-			);
+			result.current
+				.getTriggerProps()
+				.onMouseEnter?.({} as React.MouseEvent<HTMLElement>);
 		});
 
 		expect(result.current.isOpen).toBe(false);
@@ -39,18 +39,18 @@ describe('useTooltip', () => {
 		const { result } = renderHook(() => useTooltip());
 
 		act(() => {
-			result.current.getTriggerProps().onFocus?.(
-				{} as React.FocusEvent<HTMLElement>
-			);
+			result.current
+				.getTriggerProps()
+				.onFocus?.({} as React.FocusEvent<HTMLElement>);
 			vi.advanceTimersByTime(200);
 		});
 
 		expect(result.current.isOpen).toBe(true);
 
 		act(() => {
-			result.current.getTriggerProps().onBlur?.(
-				{} as React.FocusEvent<HTMLElement>
-			);
+			result.current
+				.getTriggerProps()
+				.onBlur?.({} as React.FocusEvent<HTMLElement>);
 			vi.runAllTimers();
 		});
 
@@ -61,9 +61,9 @@ describe('useTooltip', () => {
 		const { result } = renderHook(() => useTooltip());
 
 		act(() => {
-			result.current.getTriggerProps().onMouseEnter?.(
-				{} as React.MouseEvent<HTMLElement>
-			);
+			result.current
+				.getTriggerProps()
+				.onMouseEnter?.({} as React.MouseEvent<HTMLElement>);
 			vi.advanceTimersByTime(200);
 		});
 
@@ -75,16 +75,18 @@ describe('useTooltip', () => {
 	it('does not set aria-describedby when closed', () => {
 		const { result } = renderHook(() => useTooltip());
 
-		expect(result.current.getTriggerProps()['aria-describedby']).toBeUndefined();
+		expect(
+			result.current.getTriggerProps()['aria-describedby']
+		).toBeUndefined();
 	});
 
 	it('preserves an existing aria-describedby when open', () => {
 		const { result } = renderHook(() => useTooltip());
 
 		act(() => {
-			result.current.getTriggerProps().onFocus?.(
-				{} as React.FocusEvent<HTMLElement>
-			);
+			result.current
+				.getTriggerProps()
+				.onFocus?.({} as React.FocusEvent<HTMLElement>);
 			vi.advanceTimersByTime(200);
 		});
 
@@ -101,9 +103,9 @@ describe('useTooltip', () => {
 		const { result } = renderHook(() => useTooltip());
 
 		act(() => {
-			result.current.getTriggerProps().onFocus?.(
-				{} as React.FocusEvent<HTMLElement>
-			);
+			result.current
+				.getTriggerProps()
+				.onFocus?.({} as React.FocusEvent<HTMLElement>);
 			vi.advanceTimersByTime(200);
 		});
 

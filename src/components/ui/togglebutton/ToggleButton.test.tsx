@@ -40,9 +40,7 @@ describe('ToggleButton', () => {
 
 	it('calls onPressedChange when toggled', async () => {
 		const handleChange = vi.fn();
-		render(
-			<ToggleButton onPressedChange={handleChange}>Bold</ToggleButton>
-		);
+		render(<ToggleButton onPressedChange={handleChange}>Bold</ToggleButton>);
 
 		await userEvent.click(screen.getByRole('button', { name: 'Bold' }));
 
@@ -59,9 +57,7 @@ describe('ToggleButton', () => {
 	});
 
 	it('supports icon-only buttons', () => {
-		render(
-			<ToggleButton icon={Bold} aria-label="Bold" pressed />
-		);
+		render(<ToggleButton icon={Bold} aria-label="Bold" pressed />);
 
 		expect(screen.getByRole('button', { name: 'Bold' })).toHaveAttribute(
 			'aria-pressed',
@@ -131,10 +127,7 @@ describe('ToggleButtonGroup', () => {
 		const handleChange = vi.fn();
 
 		render(
-			<ToggleButtonGroup
-				aria-label="Alignment"
-				onChange={handleChange}
-			>
+			<ToggleButtonGroup aria-label="Alignment" onChange={handleChange}>
 				<ToggleButton value="left">Left</ToggleButton>
 				<ToggleButton value="right">Right</ToggleButton>
 			</ToggleButtonGroup>
@@ -153,8 +146,8 @@ describe('ToggleButtonGroup', () => {
 			</ToggleButtonGroup>
 		);
 
-		expect(
-			screen.getByRole('group', { name: 'Alignment' }).className
-		).toMatch(/button-group--horizontal/);
+		expect(screen.getByRole('group', { name: 'Alignment' }).className).toMatch(
+			/button-group--horizontal/
+		);
 	});
 });

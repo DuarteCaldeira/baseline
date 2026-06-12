@@ -1,6 +1,11 @@
 import type { ReactNode } from 'react';
 
-import type { SortState, TableColumn, TableFilter, TableFilterValues } from './Table.types';
+import type {
+	SortState,
+	TableColumn,
+	TableFilter,
+	TableFilterValues,
+} from './Table.types';
 
 /** Keep in sync with the mobile breakpoint in Table.module.scss. */
 export const TABLE_MOBILE_MEDIA_QUERY = '(max-width: 40rem)';
@@ -15,7 +20,8 @@ export const getColumnLabel = (header: ReactNode, key: string): string => {
 /** Which column becomes the card title on mobile. */
 export const getPrimaryColumnKey = <T extends Record<string, unknown>>(
 	columns: TableColumn<T>[]
-): string | undefined => columns.find((col) => col.mobilePrimary)?.key ?? columns[0]?.key;
+): string | undefined =>
+	columns.find((col) => col.mobilePrimary)?.key ?? columns[0]?.key;
 
 export const getRowKey = <T extends Record<string, unknown>>(
 	row: T,
@@ -43,12 +49,19 @@ export const getClickableRowLabel = <T extends Record<string, unknown>>(
 	return `Open row ${rowIndex + 1}`;
 };
 
-export const resolvePageSize = (requested: number, options: number[]): number => {
+export const resolvePageSize = (
+	requested: number,
+	options: number[]
+): number => {
 	if (options.includes(requested)) return requested;
 	return options[0] ?? requested;
 };
 
-const matchesFilter = (cell: string, value: string, type: TableFilter['type']): boolean => {
+const matchesFilter = (
+	cell: string,
+	value: string,
+	type: TableFilter['type']
+): boolean => {
 	if (type === 'select') return cell === value.toLowerCase();
 	return cell.includes(value.toLowerCase());
 };

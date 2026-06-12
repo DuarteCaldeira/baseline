@@ -20,7 +20,10 @@ const toOpenIds = (value: string | string[] | undefined): Set<string> => {
 	return new Set(value);
 };
 
-const fromOpenIds = (ids: Set<string>, type: AccordionType): string | string[] => {
+const fromOpenIds = (
+	ids: Set<string>,
+	type: AccordionType
+): string | string[] => {
 	if (type === 'single') return [...ids][0] ?? '';
 	return [...ids];
 };

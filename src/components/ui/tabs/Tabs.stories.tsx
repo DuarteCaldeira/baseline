@@ -39,9 +39,9 @@ const tabItems = [
 		label: 'Theming',
 		content: (
 			<p>
-				Design tokens live in <code>src/styles/tokens/</code> and theme variables
-				in <code>src/styles/theme/</code>. Light and dark modes share the same
-				component markup.
+				Design tokens live in <code>src/styles/tokens/</code> and theme
+				variables in <code>src/styles/theme/</code>. Light and dark modes share
+				the same component markup.
 			</p>
 		),
 	},

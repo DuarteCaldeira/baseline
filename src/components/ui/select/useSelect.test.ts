@@ -1,5 +1,6 @@
-import { act, renderHook } from '@testing-library/react';
 import { type KeyboardEvent } from 'react';
+
+import { act, renderHook } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
 import { useSelect } from './useSelect';
@@ -35,7 +36,9 @@ describe('useSelect', () => {
 		const { result } = renderHook(() => useSelect({ optionsCount: 3 }));
 
 		act(() => {
-			result.current.triggerRef.current = trigger;
+			(
+				result.current.triggerRef as { current: HTMLButtonElement | null }
+			).current = trigger;
 			result.current.open(2);
 		});
 
@@ -126,7 +129,9 @@ describe('useSelect', () => {
 		const { result } = renderHook(() => useSelect({ optionsCount: 3 }));
 
 		act(() => {
-			result.current.containerRef.current = container;
+			(
+				result.current.containerRef as { current: HTMLDivElement | null }
+			).current = container;
 			result.current.open();
 		});
 

@@ -39,8 +39,7 @@ $accordion-padding-duration: 100ms;
 		background-color: var(--color-surface);
 		color: var(--color-text);
 		text-align: left;
-		transition:
-			background-color 150ms ease;
+		transition: background-color 150ms ease;
 
 		&:hover:not(:disabled) {
 			background-color: var(--color-bg-subtle);

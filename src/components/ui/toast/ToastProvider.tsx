@@ -4,8 +4,8 @@ import type { ReactNode } from 'react';
 import { Stack } from '@/components/layout/stack';
 
 import { Toast } from './Toast';
-import type { ToastContextValue, ToastItem } from './Toast.types';
 import styles from './Toast.module.scss';
+import type { ToastContextValue, ToastItem } from './Toast.types';
 
 export const ToastContext = createContext<ToastContextValue | null>(null);
 

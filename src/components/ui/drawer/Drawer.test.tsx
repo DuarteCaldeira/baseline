@@ -46,7 +46,9 @@ describe('Drawer', () => {
 		const onClose = vi.fn();
 		render(<Drawer {...defaultProps} onClose={onClose} />);
 
-		await userEvent.click(screen.getByRole('button', { name: /close drawer/i }));
+		await userEvent.click(
+			screen.getByRole('button', { name: /close drawer/i })
+		);
 		expect(onClose).toHaveBeenCalledOnce();
 	});
 
@@ -98,7 +100,9 @@ describe('Drawer', () => {
 
 		expect(screen.getByRole('dialog')).toBeInTheDocument();
 		expect(screen.getByRole('dialog').className).toMatch(/drawer--closing/);
-		expect(document.querySelector('.drawer-overlay--closing')).toBeInTheDocument();
+		expect(
+			document.querySelector('.drawer-overlay--closing')
+		).toBeInTheDocument();
 	});
 
 	it('unmounts after exit animation completes', () => {

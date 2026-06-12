@@ -16,5 +16,13 @@
 		"no-nested-ternary": "error",
 		"no-console": ["warn", { "allow": ["warn", "error"] }]
 	},
+	"overrides": [
+		{
+			"files": ["**/*.stories.tsx", "**/*.stories.ts"],
+			"rules": {
+				"react-hooks/rules-of-hooks": "off"
+			}
+		}
+	],
 	"ignorePatterns": ["node_modules/", ".next/", "out/", "dist/"]
 }

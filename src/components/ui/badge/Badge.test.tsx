@@ -32,12 +32,8 @@ describe('Badge', () => {
 	it.each(['success', 'error', 'warning', 'info', 'neutral'] as const)(
 		'applies the %s variant class',
 		(variant) => {
-			const { container } = render(
-				<Badge variant={variant} text={variant} />
-			);
-			expect(
-				container.querySelector(`.badge--${variant}`)
-			).toBeInTheDocument();
+			const { container } = render(<Badge variant={variant} text={variant} />);
+			expect(container.querySelector(`.badge--${variant}`)).toBeInTheDocument();
 		}
 	);
 
@@ -52,9 +48,7 @@ describe('Badge', () => {
 		const { container } = render(
 			<Badge variant="success" type="filled" text="Approved" />
 		);
-		expect(
-			container.querySelector('.badge--outlined')
-		).not.toBeInTheDocument();
+		expect(container.querySelector('.badge--outlined')).not.toBeInTheDocument();
 	});
 
 	it('renders an icon when the icon prop is provided', () => {
@@ -73,7 +67,9 @@ describe('Badge', () => {
 		const { container } = render(
 			<Badge variant="success" icon={CheckCircle} text="Done" />
 		);
-		expect(container.querySelector('.icon')).toHaveAttribute('aria-hidden', 'true');
+		expect(container.querySelector('.icon')).toHaveAttribute(
+			'aria-hidden',
+			'true'
+		);
 	});
-
 });

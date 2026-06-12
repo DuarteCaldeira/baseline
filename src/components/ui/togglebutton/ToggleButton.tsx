@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button';
 
+import './ToggleButton.module.scss';
 import type { ToggleButtonProps } from './ToggleButton.types';
 import { useToggleButton } from './useToggleButton';
-import './ToggleButton.module.scss';
 
 export const ToggleButton = ({
 	value,

@@ -1,4 +1,5 @@
-import { useId, type ReactNode } from 'react';
+import { type ReactNode, useId } from 'react';
+
 import type { LucideIcon } from 'lucide-react';
 
 import { Stack } from '@/components/layout/stack';
@@ -42,18 +43,13 @@ export const EmptyState = ({
 					{title}
 				</h3>
 				{description && (
-					<p
-						id={descriptionId}
-						className={styles['empty-state__description']}
-					>
+					<p id={descriptionId} className={styles['empty-state__description']}>
 						{description}
 					</p>
 				)}
 			</Stack>
 
-			{action && (
-				<div className={styles['empty-state__action']}>{action}</div>
-			)}
+			{action && <div className={styles['empty-state__action']}>{action}</div>}
 		</Stack>
 	);
 };

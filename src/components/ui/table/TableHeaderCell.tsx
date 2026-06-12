@@ -1,11 +1,12 @@
 import type { ReactNode } from 'react';
+
 import { ArrowDown, ArrowUp, ArrowUpDown } from 'lucide-react';
 
 import { Icon } from '@/components/ui/icon';
 import { cn } from '@/utils/cn';
 
-import type { SortDirection } from './Table.types';
 import styles from './Table.module.scss';
+import type { SortDirection } from './Table.types';
 
 type TableHeaderCellProps = {
 	header: ReactNode;
@@ -40,7 +41,10 @@ export const TableHeaderCell = ({
 }: TableHeaderCellProps) => (
 	<th
 		scope="col"
-		className={cn(styles['table__th'], sortable && styles['table__th--sortable'])}
+		className={cn(
+			styles['table__th'],
+			sortable && styles['table__th--sortable']
+		)}
 		style={width ? { width } : undefined}
 		aria-sort={getAriaSort(sortable, sortDirection)}
 	>

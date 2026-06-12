@@ -14,11 +14,26 @@
 
 	// ── Filled (default) ──────────────────────────────────────────────────────
 
-	&--success { background-color: var(--color-success-weak); color: var(--color-success-text); }
-	&--error   { background-color: var(--color-error-weak);   color: var(--color-error-text); }
-	&--warning { background-color: var(--color-warning-weak); color: var(--color-warning-text); }
-	&--info    { background-color: var(--color-info-weak);    color: var(--color-info-text); }
-	&--neutral { background-color: var(--color-bg-muted);     color: var(--color-text-muted); }
+	&--success {
+		background-color: var(--color-success-weak);
+		color: var(--color-success-text);
+	}
+	&--error {
+		background-color: var(--color-error-weak);
+		color: var(--color-error-text);
+	}
+	&--warning {
+		background-color: var(--color-warning-weak);
+		color: var(--color-warning-text);
+	}
+	&--info {
+		background-color: var(--color-info-weak);
+		color: var(--color-info-text);
+	}
+	&--neutral {
+		background-color: var(--color-bg-muted);
+		color: var(--color-text-muted);
+	}
 
 	// ── Outlined ──────────────────────────────────────────────────────────────
 	// Background is removed; the border uses the -text colour of each variant
@@ -27,10 +42,25 @@
 	&--outlined {
 		background-color: transparent;
 
-		&.badge--success { border-color: var(--color-success-text); color: var(--color-success-text); }
-		&.badge--error   { border-color: var(--color-error-text);   color: var(--color-error-text); }
-		&.badge--warning { border-color: var(--color-warning-text); color: var(--color-warning-text); }
-		&.badge--info    { border-color: var(--color-info-text);    color: var(--color-info-text); }
-		&.badge--neutral { border-color: var(--color-border);       color: var(--color-text-muted); }
+		&.badge--success {
+			border-color: var(--color-success-text);
+			color: var(--color-success-text);
+		}
+		&.badge--error {
+			border-color: var(--color-error-text);
+			color: var(--color-error-text);
+		}
+		&.badge--warning {
+			border-color: var(--color-warning-text);
+			color: var(--color-warning-text);
+		}
+		&.badge--info {
+			border-color: var(--color-info-text);
+			color: var(--color-info-text);
+		}
+		&.badge--neutral {
+			border-color: var(--color-border);
+			color: var(--color-text-muted);
+		}
 	}
 }

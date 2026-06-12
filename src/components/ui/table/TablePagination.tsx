@@ -1,14 +1,15 @@
 'use client';
 
 import { memo, useCallback, useId, useMemo } from 'react';
+
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 import { Stack } from '@/components/layout/stack';
 import { Button } from '@/components/ui/button';
 import { Select } from '@/components/ui/select';
 
-import type { TablePaginationProps } from './Table.types';
 import styles from './Table.module.scss';
+import type { TablePaginationProps } from './Table.types';
 
 const TablePaginationBase = ({
 	currentPage,

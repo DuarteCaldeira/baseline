@@ -1,5 +1,6 @@
-import { ChevronDown } from 'lucide-react';
 import { useRef } from 'react';
+
+import { ChevronDown } from 'lucide-react';
 
 import { Stack } from '@/components/layout/stack';
 import { Icon } from '@/components/ui/icon';
@@ -7,19 +8,19 @@ import { useFloatingPosition } from '@/hooks/useFloatingPosition';
 import { useMounted } from '@/hooks/useMounted';
 import { cn } from '@/utils/cn';
 
+import styles from './Select.module.scss';
 import type { SelectOption } from './Select.types';
 import {
+	getDescribedBy,
 	getErrorId,
 	getHelperId,
 	getLabelId,
 	getListboxId,
 	getOptionId,
 	getTriggerId,
-	getDescribedBy,
 	scrollOptionIntoView,
 } from './Select.utils';
 import { SelectListbox } from './SelectListbox';
-import styles from './Select.module.scss';
 import { useSelect } from './useSelect';
 
 export type SelectProps = {
@@ -50,15 +51,23 @@ export const Select = ({
 	const selectedIndex = options.findIndex((o) => o.value === value);
 	const selectedOption = selectedIndex >= 0 ? options[selectedIndex] : null;
 
-	const { isOpen, activeIndex, containerRef, triggerRef, open, close, setActiveIndex, handleTriggerKeyDown } =
-		useSelect({
-			optionsCount: options.length,
-			isDisabled: disabled,
-			initialActiveIndex: selectedIndex >= 0 ? selectedIndex : 0,
-			overlayRef: listboxRef,
-			onScrollIntoView: (index) =>
-				scrollOptionIntoView(getOptionId(id, options[index].value)),
-		});
+	const {
+		isOpen,
+		activeIndex,
+		containerRef,
+		triggerRef,
+		open,
+		close,
+		setActiveIndex,
+		handleTriggerKeyDown,
+	} = useSelect<HTMLButtonElement>({
+		optionsCount: options.length,
+		isDisabled: disabled,
+		initialActiveIndex: selectedIndex >= 0 ? selectedIndex : 0,
+		overlayRef: listboxRef,
+		onScrollIntoView: (index) =>
+			scrollOptionIntoView(getOptionId(id, options[index].value)),
+	});
 
 	const { style, placement } = useFloatingPosition({
 		isOpen,
@@ -93,13 +102,13 @@ export const Select = ({
 	const describedBy = getDescribedBy([helperId, errorId]);
 
 	return (
-		<Stack
-			ref={containerRef}
-			gap="2"
-			className={styles['select__wrapper']}
-		>
+		<Stack ref={containerRef} gap="2" className={styles['select__wrapper']}>
 			{label && (
-				<label id={labelId} className={styles['select__label']} htmlFor={triggerId}>
+				<label
+					id={labelId}
+					className={styles['select__label']}
+					htmlFor={triggerId}
+				>
 					{label}
 				</label>
 			)}
@@ -114,7 +123,9 @@ export const Select = ({
 				aria-controls={listboxId}
 				aria-labelledby={label ? labelId : undefined}
 				aria-activedescendant={
-					isOpen ? getOptionId(id, options[activeIndex]?.value ?? '') : undefined
+					isOpen
+						? getOptionId(id, options[activeIndex]?.value ?? '')
+						: undefined
 				}
 				aria-invalid={error ? true : undefined}
 				aria-describedby={describedBy}
@@ -149,14 +160,14 @@ export const Select = ({
 					)}
 				</span>
 
-			<Icon
-				icon={ChevronDown}
-				size="sm"
-				className={cn(
-					styles['select__chevron'],
-					isOpen && styles['select__chevron--open']
-				)}
-			/>
+				<Icon
+					icon={ChevronDown}
+					size="sm"
+					className={cn(
+						styles['select__chevron'],
+						isOpen && styles['select__chevron--open']
+					)}
+				/>
 			</button>
 
 			<SelectListbox

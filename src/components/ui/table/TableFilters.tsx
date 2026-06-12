@@ -1,13 +1,13 @@
 'use client';
 
-import { memo, useMemo, useId } from 'react';
+import { memo, useId, useMemo } from 'react';
 
 import { Stack } from '@/components/layout/stack';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
 
-import type { TableFiltersProps } from './Table.types';
 import styles from './Table.module.scss';
+import type { TableFiltersProps } from './Table.types';
 
 const TableFiltersBase = ({ filters, values, onChange }: TableFiltersProps) => {
 	const idPrefix = useId();
@@ -19,7 +19,10 @@ const TableFiltersBase = ({ filters, values, onChange }: TableFiltersProps) => {
 			new Map(
 				filters
 					.filter((f) => f.type === 'select' && f.options?.length)
-					.map((f) => [f.key, [{ value: '', label: 'All' }, ...(f.options ?? [])]])
+					.map((f) => [
+						f.key,
+						[{ value: '', label: 'All' }, ...(f.options ?? [])],
+					])
 			),
 		[filters]
 	);

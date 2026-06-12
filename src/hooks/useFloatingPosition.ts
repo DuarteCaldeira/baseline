@@ -1,19 +1,19 @@
 'use client';
 
 import {
+	type CSSProperties,
+	type RefObject,
 	useCallback,
 	useEffect,
 	useLayoutEffect,
 	useState,
-	type CSSProperties,
-	type RefObject,
 } from 'react';
 
 import {
-	computeFloatingPosition,
 	type ComputedFloatingPosition,
 	type FloatingAlign,
 	type FloatingPlacement,
+	computeFloatingPosition,
 } from '@/utils/floatingPosition';
 
 type UseFloatingPositionOptions = {

@@ -5,7 +5,11 @@ import { describe, expect, it, vi } from 'vitest';
 import { Accordion } from './Accordion';
 
 const items = [
-	{ id: 'a', title: 'What is Baseline?', content: <p>A minimal React starter.</p> },
+	{
+		id: 'a',
+		title: 'What is Baseline?',
+		content: <p>A minimal React starter.</p>,
+	},
 	{ id: 'b', title: 'How do I install it?', content: <p>Run pnpm install.</p> },
 	{ id: 'c', title: 'Is it free?', content: <p>Yes, fully open source.</p> },
 ];
@@ -30,7 +34,9 @@ describe('Accordion', () => {
 
 	it('opens a panel when its trigger is clicked', async () => {
 		render(<Accordion items={items} />);
-		await userEvent.click(screen.getByRole('button', { name: /what is baseline/i }));
+		await userEvent.click(
+			screen.getByRole('button', { name: /what is baseline/i })
+		);
 		expect(screen.getByText('A minimal React starter.')).toBeInTheDocument();
 	});
 
@@ -96,7 +102,9 @@ describe('Accordion', () => {
 		});
 
 		it('accepts an array as defaultValue', () => {
-			render(<Accordion items={items} type="multiple" defaultValue={['a', 'c']} />);
+			render(
+				<Accordion items={items} type="multiple" defaultValue={['a', 'c']} />
+			);
 			expect(
 				screen.getByRole('button', { name: /what is baseline/i })
 			).toHaveAttribute('aria-expanded', 'true');

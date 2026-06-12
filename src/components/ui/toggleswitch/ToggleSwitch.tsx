@@ -44,10 +44,7 @@ export const ToggleSwitch = ({
 					type="checkbox"
 					role="switch"
 					id={id}
-					className={cn(
-						VISUALLY_HIDDEN_CLASS,
-						styles['toggle-switch__input']
-					)}
+					className={cn(VISUALLY_HIDDEN_CLASS, styles['toggle-switch__input'])}
 					disabled={disabled}
 					aria-invalid={error ? true : undefined}
 					aria-describedby={describedBy}

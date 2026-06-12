@@ -1,9 +1,9 @@
-import { render, screen, act } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { ToastProvider } from './ToastProvider';
 import { Toast } from './Toast';
+import { ToastProvider } from './ToastProvider';
 import { useToast } from './useToast';
 
 // ─── Toast visual component ───────────────────────────────────────────────────
@@ -44,7 +44,12 @@ describe('Toast', () => {
 
 	it('does not render a title element when title is omitted', () => {
 		render(
-			<Toast id="1" variant="info" message="Info message." onDismiss={vi.fn()} />
+			<Toast
+				id="1"
+				variant="info"
+				message="Info message."
+				onDismiss={vi.fn()}
+			/>
 		);
 		expect(screen.queryByText('Done')).not.toBeInTheDocument();
 	});
@@ -85,7 +90,12 @@ describe('Toast', () => {
 	it('auto-dismisses after 6 seconds', () => {
 		const onDismiss = vi.fn();
 		render(
-			<Toast id="1" variant="info" message="Auto-dismiss." onDismiss={onDismiss} />
+			<Toast
+				id="1"
+				variant="info"
+				message="Auto-dismiss."
+				onDismiss={onDismiss}
+			/>
 		);
 
 		act(() => vi.advanceTimersByTime(6000));
@@ -95,7 +105,12 @@ describe('Toast', () => {
 	it('does not call onDismiss before 6 seconds', () => {
 		const onDismiss = vi.fn();
 		render(
-			<Toast id="1" variant="info" message="Still here." onDismiss={onDismiss} />
+			<Toast
+				id="1"
+				variant="info"
+				message="Still here."
+				onDismiss={onDismiss}
+			/>
 		);
 
 		act(() => vi.advanceTimersByTime(5000));
@@ -134,7 +149,11 @@ const TestConsumer = () => {
 			</button>
 			<button
 				onClick={() =>
-					show({ variant: 'error', title: 'Oops', message: 'Something went wrong.' })
+					show({
+						variant: 'error',
+						title: 'Oops',
+						message: 'Something went wrong.',
+					})
 				}
 			>
 				show error

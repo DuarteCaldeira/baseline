@@ -1,9 +1,10 @@
-import { useState, type ReactNode } from 'react';
+import { type ReactNode, useState } from 'react';
+
 import { vi } from 'vitest';
 
 import { MENU_CONTENT_DEFAULTS } from './Menu.constants';
-import { MenuProvider } from './MenuContext';
 import type { MenuContextValue } from './Menu.types';
+import { MenuProvider } from './MenuContext';
 
 export const createMenuContext = (
 	overrides: Partial<MenuContextValue> = {}
@@ -51,7 +52,11 @@ export const StatefulMenuWrapper = ({
 
 	return (
 		<MenuProvider
-			value={createMenuContext({ highlightedId, setHighlightedId, ...overrides })}
+			value={createMenuContext({
+				highlightedId,
+				setHighlightedId,
+				...overrides,
+			})}
 		>
 			{children}
 		</MenuProvider>

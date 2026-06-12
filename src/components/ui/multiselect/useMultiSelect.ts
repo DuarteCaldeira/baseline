@@ -8,16 +8,20 @@ type UseMultiSelectOptions = {
 	onChange?: (value: string[]) => void;
 };
 
+const EMPTY_VALUES: string[] = [];
+
 export const useMultiSelect = ({
 	value,
 	defaultValue,
 	onChange,
 }: UseMultiSelectOptions) => {
-	const { value: selectedValues, setValue } = useControllableState<string[]>({
+	const { value: controlledValue, setValue } = useControllableState<string[]>({
 		value,
-		defaultValue: defaultValue ?? [],
+		defaultValue: defaultValue ?? EMPTY_VALUES,
 		onChange,
 	});
+
+	const selectedValues = controlledValue ?? EMPTY_VALUES;
 
 	const toggleValue = useCallback(
 		(optionValue: string) => {
@@ -37,5 +41,9 @@ export const useMultiSelect = ({
 		[selectedValues, setValue]
 	);
 
-	return { selectedValues, toggleValue, removeValue };
+	return {
+		selectedValues,
+		toggleValue,
+		removeValue,
+	};
 };

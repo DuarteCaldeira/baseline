@@ -28,9 +28,7 @@ describe('useToggleButton', () => {
 
 	it('calls onPressedChange when toggled', () => {
 		const onPressedChange = vi.fn();
-		const { result } = renderHook(() =>
-			useToggleButton({ onPressedChange })
-		);
+		const { result } = renderHook(() => useToggleButton({ onPressedChange }));
 
 		act(() => {
 			result.current.toggle();
@@ -54,9 +52,7 @@ describe('useToggleButton', () => {
 	});
 
 	it('uses the controlled pressed value', () => {
-		const { result } = renderHook(() =>
-			useToggleButton({ pressed: true })
-		);
+		const { result } = renderHook(() => useToggleButton({ pressed: true }));
 
 		expect(result.current.pressed).toBe(true);
 	});

@@ -4,10 +4,10 @@ import type { KeyboardEvent } from 'react';
 import { Stack } from '@/components/layout/stack';
 import { cn } from '@/utils/cn';
 
+import styles from './Tabs.module.scss';
 import type { TabItem } from './Tabs.types';
 import { useTabIndicator } from './useTabIndicator';
 import { useTabs } from './useTabs';
-import styles from './Tabs.module.scss';
 
 export type TabsProps = {
 	items: TabItem[];
@@ -16,16 +16,16 @@ export type TabsProps = {
 	onChange?: (id: string) => void;
 };
 
-export const Tabs = ({
-	items,
-	value,
-	defaultValue,
-	onChange,
-}: TabsProps) => {
+export const Tabs = ({ items, value, defaultValue, onChange }: TabsProps) => {
 	const listRef = useRef<HTMLElement>(null);
 	const tabRefs = useRef(new Map<string, HTMLButtonElement>());
 
-	const { activeId, select } = useTabs({ items, value, defaultValue, onChange });
+	const { activeId, select } = useTabs({
+		items,
+		value,
+		defaultValue,
+		onChange,
+	});
 
 	const indicator = useTabIndicator({ listRef, tabRefs, activeId });
 

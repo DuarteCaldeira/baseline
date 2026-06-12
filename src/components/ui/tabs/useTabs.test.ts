@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
 import type { TabItem } from './Tabs.types';
@@ -17,9 +17,7 @@ describe('useTabs', () => {
 	});
 
 	it('respects defaultValue', () => {
-		const { result } = renderHook(() =>
-			useTabs({ items, defaultValue: 'b' })
-		);
+		const { result } = renderHook(() => useTabs({ items, defaultValue: 'b' }));
 		expect(result.current.activeId).toBe('b');
 	});
 

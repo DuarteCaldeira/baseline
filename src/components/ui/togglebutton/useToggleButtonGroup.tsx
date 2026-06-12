@@ -1,9 +1,4 @@
-import {
-	createContext,
-	useCallback,
-	useContext,
-	type ReactNode,
-} from 'react';
+import { type ReactNode, createContext, useCallback, useContext } from 'react';
 
 import { useControllableState } from '@/hooks/useControllableState';
 
@@ -18,8 +13,7 @@ type ToggleButtonGroupContextValue = {
 const ToggleButtonGroupContext =
 	createContext<ToggleButtonGroupContextValue | null>(null);
 
-export const useToggleButtonGroup = () =>
-	useContext(ToggleButtonGroupContext);
+export const useToggleButtonGroup = () => useContext(ToggleButtonGroupContext);
 
 type ToggleButtonGroupProviderProps = {
 	type: ToggleButtonGroupType;

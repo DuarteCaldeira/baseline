@@ -2,9 +2,9 @@ import { useMemo } from 'react';
 
 import { Skeleton } from '@/components/patterns/skeleton';
 
+import styles from './Table.module.scss';
 import type { TableColumn } from './Table.types';
 import { getColumnLabel, getPrimaryColumnKey } from './Table.utils';
-import styles from './Table.module.scss';
 
 type TableCardSkeletonProps<T extends Record<string, unknown>> = {
 	columns: TableColumn<T>[];
@@ -18,9 +18,14 @@ export const TableCardSkeleton = <T extends Record<string, unknown>>({
 	columns,
 	rows = 5,
 }: TableCardSkeletonProps<T>) => {
-	const primaryColumnKey = useMemo(() => getPrimaryColumnKey(columns), [columns]);
+	const primaryColumnKey = useMemo(
+		() => getPrimaryColumnKey(columns),
+		[columns]
+	);
 	const primaryColumn = columns.find((col) => col.key === primaryColumnKey);
-	const secondaryColumns = columns.filter((col) => col.key !== primaryColumnKey);
+	const secondaryColumns = columns.filter(
+		(col) => col.key !== primaryColumnKey
+	);
 
 	return (
 		<div className={styles['table__cards']} aria-hidden="true">
