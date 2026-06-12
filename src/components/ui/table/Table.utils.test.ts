@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { filterData, getColumnLabel, getPrimaryColumnKey, resolvePageSize, sortData } from './Table.utils';
+import { filterData, getClickableRowLabel, getColumnLabel, getPrimaryColumnKey, getRowKey, resolvePageSize, sortData } from './Table.utils';
 import type { TableColumn, TableFilter } from './Table.types';
 
 // ─── getColumnLabel / getPrimaryColumnKey ─────────────────────────────────────
@@ -58,6 +58,40 @@ const DATA: Row[] = [
 
 const SEARCH_FILTER: TableFilter = { key: 'name', label: 'Name', type: 'search' };
 const SELECT_FILTER: TableFilter = { key: 'role', label: 'Role', type: 'select' };
+
+// ─── getRowKey / getClickableRowLabel ─────────────────────────────────────────
+
+describe('getRowKey', () => {
+	it('returns the row index by default', () => {
+		expect(getRowKey(DATA[0], 0)).toBe('0');
+	});
+
+	it('reads a property when rowKey is a keyof T', () => {
+		expect(getRowKey(DATA[0], 0, 'id')).toBe('1');
+	});
+
+	it('calls a resolver function when rowKey is a function', () => {
+		expect(getRowKey(DATA[0], 0, (row) => `user-${row.id}`)).toBe('user-1');
+	});
+});
+
+describe('getClickableRowLabel', () => {
+	const columns: TableColumn<Row>[] = [
+		{ key: 'name', header: 'Name' },
+		{ key: 'role', header: 'Role' },
+	];
+
+	it('uses the primary column value when available', () => {
+		expect(getClickableRowLabel(DATA[0], 0, columns, 'name')).toBe(
+			'Open row: Alice'
+		);
+	});
+
+	it('falls back to a numbered label when the primary value is empty', () => {
+		const row = { id: '9', name: '', role: 'Admin' };
+		expect(getClickableRowLabel(row, 2, columns, 'name')).toBe('Open row 3');
+	});
+});
 
 describe('filterData', () => {
 	it('returns all rows when no filter values are active', () => {

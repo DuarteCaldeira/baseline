@@ -20,14 +20,10 @@ const meta: Meta<typeof Tooltip> = {
 			control: 'select',
 			options: ['top', 'bottom', 'left', 'right'],
 		},
-		openDelay: { control: 'number' },
-		closeDelay: { control: 'number' },
 	},
 	args: {
 		content: 'Additional context for this control.',
 		placement: 'top',
-		openDelay: 200,
-		closeDelay: 0,
 	},
 };
 
@@ -87,16 +83,16 @@ export const Placements: Story = {
 				placeItems: 'center',
 			}}
 		>
-			<Tooltip content="Top placement" placement="top" openDelay={0}>
+			<Tooltip content="Top placement" placement="top">
 				<Button variant="secondary">Top</Button>
 			</Tooltip>
-			<Tooltip content="Bottom placement" placement="bottom" openDelay={0}>
+			<Tooltip content="Bottom placement" placement="bottom">
 				<Button variant="secondary">Bottom</Button>
 			</Tooltip>
-			<Tooltip content="Left placement" placement="left" openDelay={0}>
+			<Tooltip content="Left placement" placement="left">
 				<Button variant="secondary">Left</Button>
 			</Tooltip>
-			<Tooltip content="Right placement" placement="right" openDelay={0}>
+			<Tooltip content="Right placement" placement="right">
 				<Button variant="secondary">Right</Button>
 			</Tooltip>
 		</div>
@@ -116,17 +112,17 @@ export const Toolbar: Story = {
 				backgroundColor: 'var(--color-surface)',
 			}}
 		>
-			<Tooltip content="Workspace settings" openDelay={0}>
+			<Tooltip content="Workspace settings">
 				<Button variant="ghost" size="sm" iconOnly aria-label="Settings">
 					<Icon icon={Settings} size="sm" />
 				</Button>
 			</Tooltip>
-			<Tooltip content="View help articles" openDelay={0}>
+			<Tooltip content="View help articles">
 				<Button variant="ghost" size="sm" iconOnly aria-label="Help">
 					<Icon icon={HelpCircle} size="sm" />
 				</Button>
 			</Tooltip>
-			<Tooltip content="Remove selected rows" openDelay={0}>
+			<Tooltip content="Remove selected rows">
 				<Button variant="ghost" size="sm" iconOnly aria-label="Delete">
 					<Icon icon={Trash2} size="sm" />
 				</Button>

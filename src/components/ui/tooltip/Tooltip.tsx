@@ -19,25 +19,18 @@ export type TooltipProps = {
 	content: ReactNode;
 	children: ReactElement;
 	placement?: TooltipPlacement;
-	openDelay?: number;
-	closeDelay?: number;
 };
 
 export const Tooltip = ({
 	content,
 	children,
 	placement = 'top',
-	openDelay,
-	closeDelay,
 }: TooltipProps) => {
 	const triggerRef = useRef<HTMLSpanElement>(null);
 	const bubbleRef = useRef<HTMLSpanElement>(null);
 	const mounted = useMounted();
 
-	const { isOpen, tooltipId, getTriggerProps } = useTooltip({
-		openDelay,
-		closeDelay,
-	});
+	const { isOpen, tooltipId, getTriggerProps } = useTooltip();
 
 	const { position } = useTooltipPosition({
 		isOpen,

@@ -4,7 +4,7 @@ import type { KeyboardEvent, MouseEvent } from 'react';
 import { cn } from '@/utils/cn';
 
 import type { TableColumn } from './Table.types';
-import { getColumnLabel } from './Table.utils';
+import { getClickableRowLabel, getColumnLabel, getRowKey } from './Table.utils';
 import styles from './Table.module.scss';
 
 type TableCardListProps<T extends Record<string, unknown>> = {
@@ -12,6 +12,7 @@ type TableCardListProps<T extends Record<string, unknown>> = {
 	data: T[];
 	emptyMessage?: string;
 	onRowClick?: (row: T, rowIndex: number) => void;
+	rowKey?: keyof T | ((row: T, rowIndex: number) => string);
 	primaryColumnKey?: string;
 };
 
@@ -26,6 +27,7 @@ export const TableCardList = <T extends Record<string, unknown>>({
 	data,
 	emptyMessage = 'No data to display.',
 	onRowClick,
+	rowKey,
 	primaryColumnKey,
 }: TableCardListProps<T>) => {
 	const isClickable = !!onRowClick;
@@ -69,12 +71,20 @@ export const TableCardList = <T extends Record<string, unknown>>({
 			onKeyDown={isClickable ? handleKeyDown : undefined}
 		>
 			{data.map((row, rowIndex) => (
-				// Index key is intentional — rows have no guaranteed stable identity
-				// eslint-disable-next-line react/no-array-index-key
 				<article
-					key={rowIndex}
-					role="listitem"
+					key={getRowKey(row, rowIndex, rowKey)}
+					role={isClickable ? 'button' : 'listitem'}
 					data-row-index={rowIndex}
+					aria-label={
+						isClickable
+							? getClickableRowLabel(
+									row,
+									rowIndex,
+									columns,
+									primaryColumnKey
+								)
+							: undefined
+					}
 					className={cn(
 						styles['table__card'],
 						isClickable && styles['table__card--clickable']

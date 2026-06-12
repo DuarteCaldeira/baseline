@@ -48,7 +48,7 @@ describe('Menu', () => {
 						/>
 					</MenuTrigger>
 					<MenuContent>
-						<MenuItem icon={Pencil} onSelect={onEdit}>
+						<MenuItem icon={Pencil} onClick={onEdit}>
 							Edit
 						</MenuItem>
 						<MenuItem icon={Copy}>Duplicate</MenuItem>
@@ -76,7 +76,7 @@ describe('Menu', () => {
 					<MenuItem icon={Trash2} destructive>
 						Delete
 					</MenuItem>
-					<MenuItem disabled onSelect={onEdit}>
+					<MenuItem disabled onClick={onEdit}>
 						Disabled
 					</MenuItem>
 				</>
@@ -351,6 +351,18 @@ describe('Menu', () => {
 				'href',
 				'/widgets'
 			);
+		});
+
+		it('accepts a custom menubar aria-label', () => {
+			render(
+				<Menu variant="menubar" aria-label="Main navigation">
+					<MenuItem href="/">Home</MenuItem>
+				</Menu>
+			);
+
+			expect(
+				screen.getByRole('menubar', { name: 'Main navigation' })
+			).toBeInTheDocument();
 		});
 	});
 });

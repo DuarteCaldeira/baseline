@@ -12,9 +12,16 @@ describe('Badge', () => {
 
 	it('renders without text when text is omitted', () => {
 		const { container } = render(
-			<Badge variant="success" icon={CheckCircle} />
+			<Badge variant="success" icon={CheckCircle} aria-label="Approved" />
 		);
 		expect(container.querySelector('.badge')).toBeInTheDocument();
+	});
+
+	it('exposes an accessible name for icon-only badges', () => {
+		render(
+			<Badge variant="success" icon={CheckCircle} aria-label="Approved" />
+		);
+		expect(screen.getByRole('img', { name: 'Approved' })).toBeInTheDocument();
 	});
 
 	it('renders as an inline span', () => {

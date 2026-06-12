@@ -22,7 +22,7 @@ describe('DatePicker', () => {
 
 		it('uses the format string as default placeholder', () => {
 			render(<DatePicker format="DD-MM-YYYY" />);
-			expect(screen.getByText('DD-MM-AAAA')).toBeInTheDocument();
+			expect(screen.getByText('DD-MM-YYYY')).toBeInTheDocument();
 		});
 
 		it('shows the formatted date when a value is provided (default DD/MM/YYYY)', () => {
@@ -64,7 +64,7 @@ describe('DatePicker', () => {
 
 		it('uses the format string as placeholder when no date selected', () => {
 			render(<DatePicker format="YYYY-MM-DD" />);
-			expect(screen.getByText('AAAA-MM-DD')).toBeInTheDocument();
+			expect(screen.getByText('YYYY-MM-DD')).toBeInTheDocument();
 		});
 
 		it('respects an explicit placeholder over the format default', () => {
@@ -113,7 +113,7 @@ describe('DatePicker', () => {
 
 		it('closes the calendar when the trigger is clicked again', async () => {
 			render(<DatePicker />);
-			const trigger = screen.getByRole('button', { name: /DD\/MM\/AAAA/i });
+			const trigger = screen.getByRole('button', { name: /DD\/MM\/YYYY/i });
 			await userEvent.click(trigger);
 			await userEvent.click(trigger);
 			expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
@@ -129,7 +129,7 @@ describe('DatePicker', () => {
 		it('has aria-expanded="true" when open', async () => {
 			render(<DatePicker />);
 			await userEvent.click(screen.getByRole('button'));
-			expect(screen.getByRole('button', { name: /DD\/MM\/AAAA/i })).toHaveAttribute(
+			expect(screen.getByRole('button', { name: /DD\/MM\/YYYY/i })).toHaveAttribute(
 				'aria-expanded',
 				'true'
 			);
@@ -138,8 +138,22 @@ describe('DatePicker', () => {
 		it('has role="dialog" and aria-modal on the calendar', async () => {
 			render(<DatePicker />);
 			await userEvent.click(screen.getByRole('button'));
-			const dialog = screen.getByRole('dialog');
+			const dialog = screen.getByRole('dialog', { name: 'Choose date' });
 			expect(dialog).toHaveAttribute('aria-modal', 'true');
+		});
+
+		it('accepts custom calendar control labels', async () => {
+			render(
+				<DatePicker
+					calendarLabel="Pick a date"
+					previousMonthLabel="Go back"
+					nextMonthLabel="Go forward"
+				/>
+			);
+			await userEvent.click(screen.getByRole('button'));
+			expect(screen.getByRole('dialog', { name: 'Pick a date' })).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: 'Go back' })).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: 'Go forward' })).toBeInTheDocument();
 		});
 	});
 
@@ -194,18 +208,18 @@ describe('DatePicker', () => {
 			render(<DatePicker defaultValue={FIXED_TODAY} />);
 			await userEvent.click(screen.getByRole('button'));
 			await userEvent.click(
-				screen.getByRole('button', { name: /mês anterior/i })
+				screen.getByRole('button', { name: /previous month/i })
 			);
-			expect(screen.getByText(/janeiro/i)).toBeInTheDocument();
+			expect(screen.getByText(/january/i)).toBeInTheDocument();
 		});
 
 		it('navigates to the next month', async () => {
 			render(<DatePicker defaultValue={FIXED_TODAY} />);
 			await userEvent.click(screen.getByRole('button'));
 			await userEvent.click(
-				screen.getByRole('button', { name: /mês seguinte/i })
+				screen.getByRole('button', { name: /next month/i })
 			);
-			expect(screen.getByText(/março/i)).toBeInTheDocument();
+			expect(screen.getByText(/march/i)).toBeInTheDocument();
 		});
 	});
 
@@ -229,11 +243,11 @@ describe('DatePicker', () => {
 		});
 	});
 
-	describe('Portuguese calendar', () => {
-		it('renders Portuguese month name', async () => {
+	describe('calendar locale', () => {
+		it('renders an English month name', async () => {
 			render(<DatePicker defaultValue={new Date(2024, 1, 1)} />);
 			await userEvent.click(screen.getByRole('button'));
-			expect(screen.getByText(/fevereiro/i)).toBeInTheDocument();
+			expect(screen.getByText(/february/i)).toBeInTheDocument();
 		});
 
 		it('renders 7 weekday column headers', async () => {
@@ -242,11 +256,11 @@ describe('DatePicker', () => {
 			expect(screen.getAllByRole('columnheader')).toHaveLength(7);
 		});
 
-		it('first column header is Monday (Seg)', async () => {
+		it('first column header is Monday (Mon)', async () => {
 			render(<DatePicker />);
 			await userEvent.click(screen.getByRole('button'));
 			const headers = screen.getAllByRole('columnheader');
-			expect(headers[0].textContent).toMatch(/seg/i);
+			expect(headers[0].textContent).toMatch(/mon/i);
 		});
 	});
 

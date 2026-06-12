@@ -18,7 +18,7 @@ describe('useTooltip', () => {
 	});
 
 	it('opens after the open delay on show trigger', () => {
-		const { result } = renderHook(() => useTooltip({ openDelay: 200 }));
+		const { result } = renderHook(() => useTooltip());
 
 		act(() => {
 			result.current.getTriggerProps().onMouseEnter?.(
@@ -36,15 +36,13 @@ describe('useTooltip', () => {
 	});
 
 	it('closes after the close delay on hide trigger', () => {
-		const { result } = renderHook(() =>
-			useTooltip({ openDelay: 0, closeDelay: 100 })
-		);
+		const { result } = renderHook(() => useTooltip());
 
 		act(() => {
 			result.current.getTriggerProps().onFocus?.(
 				{} as React.FocusEvent<HTMLElement>
 			);
-			vi.runAllTimers();
+			vi.advanceTimersByTime(200);
 		});
 
 		expect(result.current.isOpen).toBe(true);
@@ -53,20 +51,20 @@ describe('useTooltip', () => {
 			result.current.getTriggerProps().onBlur?.(
 				{} as React.FocusEvent<HTMLElement>
 			);
-			vi.advanceTimersByTime(100);
+			vi.runAllTimers();
 		});
 
 		expect(result.current.isOpen).toBe(false);
 	});
 
 	it('sets aria-describedby when open', () => {
-		const { result } = renderHook(() => useTooltip({ openDelay: 0 }));
+		const { result } = renderHook(() => useTooltip());
 
 		act(() => {
 			result.current.getTriggerProps().onMouseEnter?.(
 				{} as React.MouseEvent<HTMLElement>
 			);
-			vi.runAllTimers();
+			vi.advanceTimersByTime(200);
 		});
 
 		expect(result.current.getTriggerProps()['aria-describedby']).toBe(
@@ -81,13 +79,13 @@ describe('useTooltip', () => {
 	});
 
 	it('preserves an existing aria-describedby when open', () => {
-		const { result } = renderHook(() => useTooltip({ openDelay: 0 }));
+		const { result } = renderHook(() => useTooltip());
 
 		act(() => {
 			result.current.getTriggerProps().onFocus?.(
 				{} as React.FocusEvent<HTMLElement>
 			);
-			vi.runAllTimers();
+			vi.advanceTimersByTime(200);
 		});
 
 		const triggerProps = result.current.getTriggerProps({
@@ -100,13 +98,13 @@ describe('useTooltip', () => {
 	});
 
 	it('closes on Escape when open', () => {
-		const { result } = renderHook(() => useTooltip({ openDelay: 0 }));
+		const { result } = renderHook(() => useTooltip());
 
 		act(() => {
 			result.current.getTriggerProps().onFocus?.(
 				{} as React.FocusEvent<HTMLElement>
 			);
-			vi.runAllTimers();
+			vi.advanceTimersByTime(200);
 		});
 
 		expect(result.current.isOpen).toBe(true);
@@ -122,13 +120,13 @@ describe('useTooltip', () => {
 
 	it('merges existing event handlers', () => {
 		const onMouseEnter = vi.fn();
-		const { result } = renderHook(() => useTooltip({ openDelay: 0 }));
+		const { result } = renderHook(() => useTooltip());
 
 		act(() => {
 			result.current
 				.getTriggerProps({ onMouseEnter })
 				.onMouseEnter?.({} as React.MouseEvent<HTMLElement>);
-			vi.runAllTimers();
+			vi.advanceTimersByTime(200);
 		});
 
 		expect(onMouseEnter).toHaveBeenCalledOnce();

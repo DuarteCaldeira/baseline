@@ -88,13 +88,13 @@ export const InButton: Story = {
 	name: 'In button',
 	render: () => (
 		<Stack direction="row" align="center" gap="3" wrap>
-			<Button variant="primary" loading>
+			<Button variant="primary" isLoading>
 				Saving…
 			</Button>
-			<Button variant="secondary" size="sm" loading>
+			<Button variant="secondary" size="sm" isLoading>
 				Loading
 			</Button>
-			<Button variant="ghost" size="lg" loading>
+			<Button variant="ghost" size="lg" isLoading>
 				Please wait
 			</Button>
 		</Stack>

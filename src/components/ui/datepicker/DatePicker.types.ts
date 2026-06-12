@@ -1,19 +1,25 @@
 export type DateFormat = 'DD/MM/YYYY' | 'DD-MM-YYYY' | 'YYYY-MM-DD';
 
+type DatePickerA11yProps = {
+	/** Accessible name for the calendar dialog. Defaults to `'Choose date'`. */
+	calendarLabel?: string;
+	/** Accessible name for the previous-month control. Defaults to `'Previous month'`. */
+	previousMonthLabel?: string;
+	/** Accessible name for the next-month control. Defaults to `'Next month'`. */
+	nextMonthLabel?: string;
+};
+
 export type DatePickerProps = {
 	id?: string;
 	value?: Date;
 	defaultValue?: Date;
 	onChange?: (date: Date) => void;
-	/** Controls how the selected date is displayed in the trigger.
-	 *  Also used as the default placeholder (e.g. `DD/MM/AAAA`). Defaults to `'DD/MM/YYYY'`. */
 	format?: DateFormat;
 	label?: string;
-	/** Overrides the auto-generated placeholder derived from `format`. */
 	placeholder?: string;
 	helperText?: string;
 	error?: string;
 	disabled?: boolean;
 	min?: Date;
 	max?: Date;
-};
+} & DatePickerA11yProps;

@@ -54,7 +54,11 @@ export type {
 	MenuVariant,
 } from './Menu.types';
 
-export const Menu = ({ variant = 'dropdown', children }: MenuProps) => {
+export const Menu = ({
+	variant = 'dropdown',
+	children,
+	'aria-label': ariaLabel = 'Menu',
+}: MenuProps) => {
 	const parent = useOptionalMenuContext();
 	const menuId = useId();
 	const inMenubar = parent?.variant === 'menubar' || parent?.inMenubar === true;
@@ -85,7 +89,7 @@ export const Menu = ({ variant = 'dropdown', children }: MenuProps) => {
 				<nav
 					ref={context.menubarRef}
 					role="menubar"
-					aria-label="Menu"
+					aria-label={ariaLabel}
 					className={styles['menu--menubar']}
 					onKeyDown={context.handleMenubarKeyDown}
 				>

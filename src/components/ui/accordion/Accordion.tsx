@@ -14,15 +14,20 @@ export type AccordionProps = {
 	type?: AccordionType;
 	/** Id(s) of items open on first render. */
 	defaultValue?: string | string[];
+	/** Controlled open state — mirrors Tabs `value`. */
+	value?: string | string[];
+	onChange?: (value: string | string[]) => void;
 };
 
 export const Accordion = ({
 	items,
 	type = 'single',
 	defaultValue,
+	value,
+	onChange,
 }: AccordionProps) => {
 	const containerRef = useRef<HTMLDivElement>(null);
-	const { isOpen, toggle } = useAccordion({ type, defaultValue });
+	const { isOpen, toggle } = useAccordion({ type, defaultValue, value, onChange });
 
 	const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
 		const triggers = Array.from(

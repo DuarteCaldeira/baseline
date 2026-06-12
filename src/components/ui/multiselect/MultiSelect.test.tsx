@@ -90,6 +90,25 @@ describe('MultiSelect', () => {
 		expect(onChange).toHaveBeenCalledWith(['typescript']);
 	});
 
+	it('removes the last selected value on Backspace when the listbox is closed', async () => {
+		const user = userEvent.setup();
+		const onChange = vi.fn();
+
+		render(
+			<MultiSelect
+				id="skills"
+				options={OPTIONS}
+				defaultValue={['react', 'typescript']}
+				onChange={onChange}
+			/>
+		);
+
+		screen.getByRole('combobox').focus();
+		await user.keyboard('{Backspace}');
+
+		expect(onChange).toHaveBeenCalledWith(['react']);
+	});
+
 	it('does not toggle the listbox when removing a tag', async () => {
 		const user = userEvent.setup();
 

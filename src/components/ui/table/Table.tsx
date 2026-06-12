@@ -26,6 +26,7 @@ export const Table = <T extends Record<string, unknown>>({
 	loading = false,
 	onRowClick,
 	className,
+	rowKey,
 }: TableProps<T>) => {
 	const resolvedPageSizeOptions = useMemo(
 		() =>
@@ -121,6 +122,7 @@ export const Table = <T extends Record<string, unknown>>({
 						data={paginatedData}
 						emptyMessage={emptyMessage}
 						onRowClick={onRowClick}
+						rowKey={rowKey}
 						sortState={sortState}
 						onSort={handleSort}
 						onSortChange={handleSortChange}

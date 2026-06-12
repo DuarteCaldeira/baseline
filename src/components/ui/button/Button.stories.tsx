@@ -19,7 +19,7 @@ const meta: Meta<typeof Button> = {
 			options: ['sm', 'md', 'lg'],
 		},
 		disabled: { control: 'boolean' },
-		loading: { control: 'boolean' },
+		isLoading: { control: 'boolean' },
 		children: { control: 'text' },
 		icon: { control: false },
 	},
@@ -52,11 +52,11 @@ export const Disabled: Story = {
 };
 
 export const Loading: Story = {
-	args: { loading: true, children: 'Saving…' },
+	args: { isLoading: true, children: 'Saving…' },
 };
 
 export const LoadingWithIcon: Story = {
-	args: { loading: true, icon: Plus, children: 'Adding item…' },
+	args: { isLoading: true, icon: Plus, children: 'Adding item…' },
 };
 
 export const Small: Story = {
@@ -84,7 +84,7 @@ export const AllVariants: Story = {
 			<Button variant="primary" disabled>
 				Disabled
 			</Button>
-			<Button variant="primary" loading>
+			<Button variant="primary" isLoading>
 				Loading
 			</Button>
 		</Stack>

@@ -5,7 +5,12 @@ import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { cn } from '@/utils/cn';
 
 import type { TableColumn, TableGridProps } from './Table.types';
-import { getPrimaryColumnKey, TABLE_MOBILE_MEDIA_QUERY } from './Table.utils';
+import {
+	getClickableRowLabel,
+	getPrimaryColumnKey,
+	getRowKey,
+	TABLE_MOBILE_MEDIA_QUERY,
+} from './Table.utils';
 import { TableCardList } from './TableCardList';
 import { TableHeaderCell } from './TableHeaderCell';
 import { TableMobileSort } from './TableMobileSort';
@@ -19,6 +24,7 @@ type RowProps<T extends Record<string, unknown>> = {
 	columns: TableColumn<T>[];
 	isClickable: boolean;
 	ariaRowIndex: number;
+	rowLabel?: string;
 };
 
 const TableRowInner = <T extends Record<string, unknown>>({
@@ -27,10 +33,13 @@ const TableRowInner = <T extends Record<string, unknown>>({
 	columns,
 	isClickable,
 	ariaRowIndex,
+	rowLabel,
 }: RowProps<T>): ReactElement => (
 	<tr
 		data-row-index={rowIndex}
 		aria-rowindex={ariaRowIndex}
+		role={isClickable ? 'button' : undefined}
+		aria-label={isClickable ? rowLabel : undefined}
 		className={cn(styles['table__tr'], isClickable && styles['table__tr--clickable'])}
 		tabIndex={isClickable ? 0 : undefined}
 	>
@@ -52,6 +61,7 @@ export const TableGrid = <T extends Record<string, unknown>>({
 	data,
 	emptyMessage = 'No data to display.',
 	onRowClick,
+	rowKey,
 	sortState,
 	onSort,
 	onSortChange,
@@ -100,6 +110,7 @@ export const TableGrid = <T extends Record<string, unknown>>({
 					data={data}
 					emptyMessage={emptyMessage}
 					onRowClick={onRowClick}
+					rowKey={rowKey}
 					primaryColumnKey={primaryColumnKey}
 				/>
 			</div>
@@ -140,14 +151,22 @@ export const TableGrid = <T extends Record<string, unknown>>({
 					</tr>
 				) : (
 					data.map((row, rowIndex) => (
-						// Index key is intentional — rows have no guaranteed stable identity
-						// eslint-disable-next-line react/no-array-index-key
 						<TableRow
-							key={rowIndex}
+							key={getRowKey(row, rowIndex, rowKey)}
 							row={row}
 							rowIndex={rowIndex}
 							columns={columns}
 							isClickable={isClickable}
+							rowLabel={
+								isClickable
+									? getClickableRowLabel(
+											row,
+											rowIndex,
+											columns,
+											primaryColumnKey
+										)
+									: undefined
+							}
 							// +2: +1 to convert 0-based to 1-based, +1 to skip the header row
 							ariaRowIndex={rowOffset + rowIndex + 2}
 						/>

@@ -1,4 +1,4 @@
-import { useRef, type MouseEvent, type RefObject } from 'react';
+import { useRef, type KeyboardEvent, type MouseEvent, type RefObject } from 'react';
 import { createPortal } from 'react-dom';
 import { Check, ChevronDown } from 'lucide-react';
 
@@ -153,7 +153,20 @@ export const MultiSelect = ({
 					isOpen && styles['multiselect__trigger--open']
 				)}
 				onClick={handleTriggerClick}
-				onKeyDown={handleTriggerKeyDown}
+				onKeyDown={(event) => {
+					if (
+						!isOpen &&
+						event.key === 'Backspace' &&
+						selectedValues.length > 0
+					) {
+						const lastValue = selectedValues[selectedValues.length - 1];
+						removeValue(lastValue);
+						event.preventDefault();
+						return;
+					}
+
+					handleTriggerKeyDown(event);
+				}}
 			>
 				<span className={styles['multiselect__values']}>
 					{selectedOptions.length === 0 ? (

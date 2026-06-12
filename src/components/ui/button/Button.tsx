@@ -1,5 +1,6 @@
 import { forwardRef } from 'react';
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
+
 import type { LucideIcon } from 'lucide-react';
 
 import { Icon } from '@/components/ui/icon';
@@ -24,10 +25,8 @@ type IconOnly = {
 type BaseProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> & {
 	variant?: 'primary' | 'secondary' | 'ghost';
 	size?: 'sm' | 'md' | 'lg';
-	/** Square padding for icon-only buttons rendered as children. */
 	iconOnly?: boolean;
-	/** Shows a spinner and prevents interaction while an action is in progress. */
-	loading?: boolean;
+	isLoading?: boolean;
 };
 
 export type ButtonProps = BaseProps & (WithChildren | IconOnly);
@@ -44,46 +43,51 @@ const SPINNER_SIZE: Record<NonNullable<BaseProps['size']>, SpinnerSize> = {
 	lg: 'lg',
 };
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
-	variant = 'primary',
-	size = 'md',
-	iconOnly,
-	loading = false,
-	disabled,
-	children,
-	icon: IconComponent,
-	...rest
-}, ref) => {
-	const isDisabled = disabled || loading;
-	const buttonProps = { ...rest } as ButtonHTMLAttributes<HTMLButtonElement>;
-	delete buttonProps.className;
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+	(
+		{
+			variant = 'primary',
+			size = 'md',
+			iconOnly,
+			isLoading = false,
+			disabled,
+			children,
+			icon: IconComponent,
+			...rest
+		},
+		ref
+	) => {
+		const isDisabled = disabled || isLoading;
+		const buttonProps = { ...rest } as ButtonHTMLAttributes<HTMLButtonElement>;
+		delete buttonProps.className;
 
-	return (
-		<button
-			ref={ref}
-			className={cn(
-				styles.button,
-				styles[`button--${variant}`],
-				styles[`button--${size}`],
-				(iconOnly || (!children && IconComponent)) &&
-					styles['button--icon-only'],
-				isDisabled && styles['button--disabled'],
-				loading && styles['button--loading']
-			)}
-			disabled={isDisabled}
-			aria-busy={loading || undefined}
-			{...buttonProps}
-		>
-			{loading ? (
-				<Spinner size={SPINNER_SIZE[size ?? 'md']} />
-			) : (
-				IconComponent && (
-					<Icon icon={IconComponent} size={ICON_SIZE[size ?? 'md']} />
-				)
-			)}
-			{children}
-		</button>
-	);
-});
+		return (
+			<button
+				ref={ref}
+				className={cn(
+					styles.button,
+					styles[`button--${variant}`],
+					styles[`button--${size}`],
+					(iconOnly || (!children && IconComponent)) &&
+						styles['button--icon-only'],
+					isDisabled && styles['button--disabled'],
+					isLoading && styles['button--loading']
+				)}
+				disabled={isDisabled}
+				aria-busy={isLoading || undefined}
+				{...buttonProps}
+			>
+				{isLoading ? (
+					<Spinner size={SPINNER_SIZE[size ?? 'md']} />
+				) : (
+					IconComponent && (
+						<Icon icon={IconComponent} size={ICON_SIZE[size ?? 'md']} />
+					)
+				)}
+				{children}
+			</button>
+		);
+	}
+);
 
 Button.displayName = 'Button';

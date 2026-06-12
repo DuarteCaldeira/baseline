@@ -39,6 +39,8 @@ export type TableProps<T extends Record<string, unknown>> = {
 	emptyMessage?: string;
 	loading?: boolean;
 	onRowClick?: (row: T, rowIndex: number) => void;
+	/** Stable React key for each row. Defaults to the row index. */
+	rowKey?: keyof T | ((row: T, rowIndex: number) => string);
 	className?: string;
 };
 
@@ -63,6 +65,7 @@ export type TableGridProps<T extends Record<string, unknown>> = {
 	data: T[];
 	emptyMessage?: string;
 	onRowClick?: (row: T, rowIndex: number) => void;
+	rowKey?: keyof T | ((row: T, rowIndex: number) => string);
 	sortState: SortState;
 	onSort: (key: string) => void;
 	onSortChange: (sort: SortState) => void;

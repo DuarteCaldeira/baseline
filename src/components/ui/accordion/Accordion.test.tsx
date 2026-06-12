@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { Accordion } from './Accordion';
 
@@ -181,6 +181,26 @@ describe('Accordion', () => {
 			triggers[0].focus();
 			await userEvent.keyboard('{End}');
 			expect(triggers[triggers.length - 1]).toHaveFocus();
+		});
+	});
+
+	describe('controlled mode', () => {
+		it('reflects the controlled value prop', () => {
+			render(<Accordion items={items} value="b" />);
+			expect(
+				screen.getByRole('button', { name: /how do i install/i })
+			).toHaveAttribute('aria-expanded', 'true');
+		});
+
+		it('calls onChange when a panel is toggled', async () => {
+			const onChange = vi.fn();
+			render(<Accordion items={items} value="" onChange={onChange} />);
+
+			await userEvent.click(
+				screen.getByRole('button', { name: /what is baseline/i })
+			);
+
+			expect(onChange).toHaveBeenCalledWith('a');
 		});
 	});
 });

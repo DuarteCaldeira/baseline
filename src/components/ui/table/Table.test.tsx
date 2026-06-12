@@ -425,36 +425,33 @@ describe('Table — select filter (immediate)', () => {
 // ─── Row interaction ──────────────────────────────────────────────────────────
 
 describe('Table — row interaction', () => {
-	it('calls onRowClick with the correct row data when a cell is clicked', async () => {
+	it('calls onRowClick with the correct row data when a row button is clicked', async () => {
 		const user = userEvent.setup();
 		const onRowClick = vi.fn();
 		render(<Table data={DATA} columns={COLUMNS} pageSize={10} onRowClick={onRowClick} />);
 
-		await user.click(screen.getByText('Alice'));
+		await user.click(screen.getByRole('button', { name: 'Open row: Alice' }));
 
 		expect(onRowClick).toHaveBeenCalledWith(DATA[0], 0);
 	});
 
-	it('calls onRowClick when Enter is pressed on a focused row', async () => {
+	it('calls onRowClick when Enter is pressed on a focused row button', async () => {
 		const user = userEvent.setup();
 		const onRowClick = vi.fn();
 		render(<Table data={DATA} columns={COLUMNS} pageSize={10} onRowClick={onRowClick} />);
 
-		// rows[0] = header, rows[1] = first data row
-		const rows = screen.getAllByRole('row');
-		rows[1].focus();
+		screen.getByRole('button', { name: 'Open row: Alice' }).focus();
 		await user.keyboard('{Enter}');
 
 		expect(onRowClick).toHaveBeenCalledWith(DATA[0], 0);
 	});
 
-	it('calls onRowClick when Space is pressed on a focused row', async () => {
+	it('calls onRowClick when Space is pressed on a focused row button', async () => {
 		const user = userEvent.setup();
 		const onRowClick = vi.fn();
 		render(<Table data={DATA} columns={COLUMNS} pageSize={10} onRowClick={onRowClick} />);
 
-		const rows = screen.getAllByRole('row');
-		rows[1].focus();
+		screen.getByRole('button', { name: 'Open row: Alice' }).focus();
 		await user.keyboard(' ');
 
 		expect(onRowClick).toHaveBeenCalledWith(DATA[0], 0);
@@ -465,6 +462,38 @@ describe('Table — row interaction', () => {
 		render(<Table data={DATA} columns={COLUMNS} pageSize={10} />);
 
 		await expect(user.click(screen.getByText('Alice'))).resolves.not.toThrow();
+	});
+});
+
+// ─── Row keys ─────────────────────────────────────────────────────────────────
+
+describe('Table — row keys', () => {
+	it('uses rowKey to stabilise row identity across reordered data', () => {
+		const onRowClick = vi.fn();
+		const { rerender } = render(
+			<Table
+				data={DATA}
+				columns={COLUMNS}
+				pageSize={10}
+				rowKey="id"
+				onRowClick={onRowClick}
+			/>
+		);
+
+		expect(screen.getByRole('button', { name: 'Open row: Alice' })).toBeInTheDocument();
+
+		const reordered = [DATA[1], DATA[0], ...DATA.slice(2)];
+		rerender(
+			<Table
+				data={reordered}
+				columns={COLUMNS}
+				pageSize={10}
+				rowKey="id"
+				onRowClick={onRowClick}
+			/>
+		);
+
+		expect(screen.getByRole('button', { name: 'Open row: Alice' })).toBeInTheDocument();
 	});
 });
 

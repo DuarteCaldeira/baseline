@@ -100,4 +100,16 @@ describe('Alert', () => {
 			screen.getByRole('button', { name: 'Close error' })
 		).toBeInTheDocument();
 	});
+
+	it('renders the title as a level-2 heading', () => {
+		render(
+			<Alert variant="success" title="Payment complete">
+				Funds will arrive within 2 business days.
+			</Alert>
+		);
+
+		expect(
+			screen.getByRole('heading', { level: 2, name: 'Payment complete' })
+		).toBeInTheDocument();
+	});
 });

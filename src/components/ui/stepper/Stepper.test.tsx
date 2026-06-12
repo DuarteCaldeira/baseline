@@ -78,20 +78,20 @@ describe('Stepper', () => {
 	it('disables the Previous button on the first step', () => {
 		render(<Stepper steps={STEPS} currentStep={0} />);
 
-		expect(screen.getByRole('button', { name: /anterior/i })).toBeDisabled();
+		expect(screen.getByRole('button', { name: /previous/i })).toBeDisabled();
 	});
 
 	it('disables the Next button on the last step', () => {
 		render(<Stepper steps={STEPS} currentStep={2} />);
 
-		expect(screen.getByRole('button', { name: /seguinte/i })).toBeDisabled();
+		expect(screen.getByRole('button', { name: /next/i })).toBeDisabled();
 	});
 
 	it('enables both buttons on a middle step', () => {
 		render(<Stepper steps={STEPS} currentStep={1} />);
 
-		expect(screen.getByRole('button', { name: /anterior/i })).toBeEnabled();
-		expect(screen.getByRole('button', { name: /seguinte/i })).toBeEnabled();
+		expect(screen.getByRole('button', { name: /previous/i })).toBeEnabled();
+		expect(screen.getByRole('button', { name: /next/i })).toBeEnabled();
 	});
 
 	// ── Uncontrolled navigation ──────────────────────────────────────────────
@@ -99,7 +99,7 @@ describe('Stepper', () => {
 	it('advances to the next step when Next is clicked', () => {
 		render(<Stepper steps={STEPS} />);
 
-		fireEvent.click(screen.getByRole('button', { name: /seguinte/i }));
+		fireEvent.click(screen.getByRole('button', { name: /next/i }));
 
 		const items = screen.getAllByRole('listitem');
 		expect(items[1]).toHaveAttribute('aria-current', 'step');
@@ -108,7 +108,7 @@ describe('Stepper', () => {
 	it('goes back to the previous step when Previous is clicked', () => {
 		render(<Stepper steps={STEPS} defaultStep={2} />);
 
-		fireEvent.click(screen.getByRole('button', { name: /anterior/i }));
+		fireEvent.click(screen.getByRole('button', { name: /previous/i }));
 
 		const items = screen.getAllByRole('listitem');
 		expect(items[1]).toHaveAttribute('aria-current', 'step');
@@ -118,9 +118,9 @@ describe('Stepper', () => {
 		render(<Stepper steps={STEPS} />);
 
 		// Previous is disabled at step 0, but verify internal clamping via Next/Previous
-		fireEvent.click(screen.getByRole('button', { name: /seguinte/i }));
-		fireEvent.click(screen.getByRole('button', { name: /anterior/i }));
-		fireEvent.click(screen.getByRole('button', { name: /anterior/i }));
+		fireEvent.click(screen.getByRole('button', { name: /next/i }));
+		fireEvent.click(screen.getByRole('button', { name: /previous/i }));
+		fireEvent.click(screen.getByRole('button', { name: /previous/i }));
 
 		const items = screen.getAllByRole('listitem');
 		expect(items[0]).toHaveAttribute('aria-current', 'step');
@@ -129,8 +129,8 @@ describe('Stepper', () => {
 	it('does not go above the last step', () => {
 		render(<Stepper steps={STEPS} defaultStep={2} />);
 
-		fireEvent.click(screen.getByRole('button', { name: /seguinte/i }));
-		fireEvent.click(screen.getByRole('button', { name: /seguinte/i }));
+		fireEvent.click(screen.getByRole('button', { name: /next/i }));
+		fireEvent.click(screen.getByRole('button', { name: /next/i }));
 
 		const items = screen.getAllByRole('listitem');
 		// last step (index 2) stays active
@@ -143,7 +143,7 @@ describe('Stepper', () => {
 		const onStepChange = vi.fn();
 		render(<Stepper steps={STEPS} defaultStep={0} onStepChange={onStepChange} />);
 
-		fireEvent.click(screen.getByRole('button', { name: /seguinte/i }));
+		fireEvent.click(screen.getByRole('button', { name: /next/i }));
 
 		expect(onStepChange).toHaveBeenCalledOnce();
 		expect(onStepChange).toHaveBeenCalledWith(1);
@@ -153,7 +153,7 @@ describe('Stepper', () => {
 		const onStepChange = vi.fn();
 		render(<Stepper steps={STEPS} defaultStep={2} onStepChange={onStepChange} />);
 
-		fireEvent.click(screen.getByRole('button', { name: /anterior/i }));
+		fireEvent.click(screen.getByRole('button', { name: /previous/i }));
 
 		expect(onStepChange).toHaveBeenCalledWith(1);
 	});
@@ -177,7 +177,7 @@ describe('Stepper', () => {
 	it('does not change step internally when controlled', () => {
 		render(<Stepper steps={STEPS} currentStep={0} />);
 
-		fireEvent.click(screen.getByRole('button', { name: /seguinte/i }));
+		fireEvent.click(screen.getByRole('button', { name: /next/i }));
 
 		// Still on step 0 — the consumer owns the state
 		const items = screen.getAllByRole('listitem');
@@ -211,9 +211,33 @@ describe('Stepper', () => {
 
 		expect(screen.getByText('Panel A')).toBeInTheDocument();
 
-		fireEvent.click(screen.getByRole('button', { name: /seguinte/i }));
+		fireEvent.click(screen.getByRole('button', { name: /next/i }));
 
 		expect(screen.queryByText('Panel A')).not.toBeInTheDocument();
 		expect(screen.getByText('Panel B')).toBeInTheDocument();
+	});
+
+	it('renders custom navigation labels', () => {
+		render(
+			<Stepper
+				steps={STEPS}
+				previousLabel="Back"
+				nextLabel="Continue"
+			/>
+		);
+
+		expect(screen.getByRole('button', { name: 'Back' })).toBeInTheDocument();
+		expect(screen.getByRole('button', { name: 'Continue' })).toBeInTheDocument();
+	});
+
+	it('renders duplicate labels when steps have distinct ids', () => {
+		const steps = [
+			{ id: 'account-step', label: 'Details' },
+			{ id: 'profile-step', label: 'Details' },
+		];
+
+		render(<Stepper steps={steps} currentStep={0} />);
+
+		expect(screen.getAllByText('Details')).toHaveLength(2);
 	});
 });

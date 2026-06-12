@@ -97,41 +97,33 @@ describe('Button', () => {
 	describe('icon-only', () => {
 		it('renders an accessible button with aria-label', () => {
 			render(<Button icon={X} aria-label="Close" />);
-			expect(
-				screen.getByRole('button', { name: 'Close' })
-			).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument();
 		});
 
 		it('applies the icon-only modifier class', () => {
-			const { container } = render(
-				<Button icon={X} aria-label="Close" />
-			);
-			expect(
-				container.querySelector('.button--icon-only')
-			).toBeInTheDocument();
+			const { container } = render(<Button icon={X} aria-label="Close" />);
+			expect(container.querySelector('.button--icon-only')).toBeInTheDocument();
 		});
 
 		it('renders the svg element', () => {
-			const { container } = render(
-				<Button icon={X} aria-label="Close" />
-			);
+			const { container } = render(<Button icon={X} aria-label="Close" />);
 			expect(container.querySelector('svg')).toBeInTheDocument();
 		});
 	});
 
 	describe('loading', () => {
 		it('applies the loading modifier class', () => {
-			const { container } = render(<Button loading>Saving</Button>);
+			const { container } = render(<Button isLoading>Saving</Button>);
 			expect(container.querySelector('.button--loading')).toBeInTheDocument();
 		});
 
 		it('disables the button while loading', () => {
-			render(<Button loading>Saving</Button>);
+			render(<Button isLoading>Saving</Button>);
 			expect(screen.getByRole('button', { name: /saving/i })).toBeDisabled();
 		});
 
 		it('sets aria-busy while loading', () => {
-			render(<Button loading>Saving</Button>);
+			render(<Button isLoading>Saving</Button>);
 			expect(screen.getByRole('button', { name: /saving/i })).toHaveAttribute(
 				'aria-busy',
 				'true'
@@ -141,7 +133,7 @@ describe('Button', () => {
 		it('does not call onClick while loading', async () => {
 			const handleClick = vi.fn();
 			render(
-				<Button loading onClick={handleClick}>
+				<Button isLoading onClick={handleClick}>
 					Saving
 				</Button>
 			);
@@ -152,7 +144,7 @@ describe('Button', () => {
 
 		it('renders a spinner instead of the icon', () => {
 			const { container } = render(
-				<Button loading icon={Star}>
+				<Button isLoading icon={Star}>
 					Saving
 				</Button>
 			);
@@ -162,19 +154,17 @@ describe('Button', () => {
 		});
 
 		it('keeps the label visible while loading', () => {
-			render(<Button loading>Saving</Button>);
+			render(<Button isLoading>Saving</Button>);
 			expect(screen.getByText('Saving')).toBeInTheDocument();
 		});
 
 		it('renders a spinner for icon-only buttons', () => {
 			const { container } = render(
-				<Button loading icon={X} aria-label="Close" />
+				<Button isLoading icon={X} aria-label="Close" />
 			);
 
 			expect(container.querySelector('.spinner')).toBeInTheDocument();
-			expect(
-				screen.getByRole('button', { name: 'Close' })
-			).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument();
 		});
 	});
 });

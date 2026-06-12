@@ -49,7 +49,7 @@ export const WithIcon: Story = {
 };
 
 export const IconOnly: Story = {
-	args: { icon: CheckCircle, text: undefined },
+	args: { icon: CheckCircle, text: undefined, 'aria-label': 'Approved' },
 };
 
 export const AllVariantsFilled: Story = {

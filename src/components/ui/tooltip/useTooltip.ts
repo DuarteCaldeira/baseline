@@ -7,10 +7,8 @@ import {
 	type HTMLAttributes,
 } from 'react';
 
-type UseTooltipOptions = {
-	openDelay?: number;
-	closeDelay?: number;
-};
+const OPEN_DELAY = 200;
+const CLOSE_DELAY = 0;
 
 type TriggerProps = Pick<
 	HTMLAttributes<HTMLElement>,
@@ -29,10 +27,7 @@ type UseTooltipReturn = {
 	) => TriggerProps;
 };
 
-export const useTooltip = ({
-	openDelay = 200,
-	closeDelay = 0,
-}: UseTooltipOptions = {}): UseTooltipReturn => {
+export const useTooltip = (): UseTooltipReturn => {
 	const tooltipId = useId();
 	const [isOpen, setIsOpen] = useState(false);
 	const openTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
@@ -53,15 +48,15 @@ export const useTooltip = ({
 		clearTimers();
 		openTimeoutRef.current = setTimeout(() => {
 			setIsOpen(true);
-		}, openDelay);
-	}, [clearTimers, openDelay]);
+		}, OPEN_DELAY);
+	}, [clearTimers]);
 
 	const hide = useCallback(() => {
 		clearTimers();
 		closeTimeoutRef.current = setTimeout(() => {
 			setIsOpen(false);
-		}, closeDelay);
-	}, [clearTimers, closeDelay]);
+		}, CLOSE_DELAY);
+	}, [clearTimers]);
 
 	useEffect(() => {
 		if (!isOpen) return;

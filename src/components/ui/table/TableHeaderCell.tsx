@@ -52,6 +52,11 @@ export const TableHeaderCell = ({
 					sortDirection && styles['table__sort-btn--active']
 				)}
 				onClick={onSort}
+				aria-label={
+					typeof header === 'string' || typeof header === 'number'
+						? `Sort by ${header}`
+						: 'Sort column'
+				}
 			>
 				<span>{header}</span>
 				<Icon

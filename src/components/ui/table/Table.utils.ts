@@ -17,6 +17,32 @@ export const getPrimaryColumnKey = <T extends Record<string, unknown>>(
 	columns: TableColumn<T>[]
 ): string | undefined => columns.find((col) => col.mobilePrimary)?.key ?? columns[0]?.key;
 
+export const getRowKey = <T extends Record<string, unknown>>(
+	row: T,
+	rowIndex: number,
+	rowKey?: keyof T | ((row: T, rowIndex: number) => string)
+): string => {
+	if (!rowKey) return String(rowIndex);
+	if (typeof rowKey === 'function') return rowKey(row, rowIndex);
+	return String(row[rowKey] ?? rowIndex);
+};
+
+export const getClickableRowLabel = <T extends Record<string, unknown>>(
+	row: T,
+	rowIndex: number,
+	columns: TableColumn<T>[],
+	primaryColumnKey?: string
+): string => {
+	const key = primaryColumnKey ?? columns[0]?.key;
+	const value = key ? row[key] : undefined;
+
+	if (value != null && String(value).trim()) {
+		return `Open row: ${value}`;
+	}
+
+	return `Open row ${rowIndex + 1}`;
+};
+
 export const resolvePageSize = (requested: number, options: number[]): number => {
 	if (options.includes(requested)) return requested;
 	return options[0] ?? requested;

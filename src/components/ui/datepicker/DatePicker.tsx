@@ -33,6 +33,9 @@ export const DatePicker = ({
 	disabled,
 	min,
 	max,
+	calendarLabel = 'Choose date',
+	previousMonthLabel = 'Previous month',
+	nextMonthLabel = 'Next month',
 }: DatePickerProps) => {
 	const mounted = useMounted();
 	const resolvedPlaceholder = placeholder ?? formatPlaceholder(format);
@@ -133,7 +136,7 @@ export const DatePicker = ({
 						ref={calendarRef}
 						role="dialog"
 						aria-modal="true"
-						aria-label="Escolher data"
+						aria-label={calendarLabel}
 						style={style}
 						className={cn(
 							styles['datepicker__calendar'],
@@ -154,7 +157,7 @@ export const DatePicker = ({
 							size="sm"
 							iconOnly
 							onClick={() => navigateMonth(-1)}
-							aria-label="Mês anterior"
+							aria-label={previousMonthLabel}
 						>
 							<Icon icon={ChevronLeft} size="sm" />
 						</Button>
@@ -170,7 +173,7 @@ export const DatePicker = ({
 							size="sm"
 							iconOnly
 							onClick={() => navigateMonth(1)}
-							aria-label="Mês seguinte"
+							aria-label={nextMonthLabel}
 						>
 							<Icon icon={ChevronRight} size="sm" />
 						</Button>

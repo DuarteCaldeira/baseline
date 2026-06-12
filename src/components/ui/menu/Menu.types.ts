@@ -14,6 +14,7 @@ export type MenuChildrenProps = {
 
 export type MenuProps = MenuChildrenProps & {
 	variant?: MenuVariant;
+	'aria-label'?: string;
 };
 
 export type MenuTriggerProps = MenuChildrenProps;

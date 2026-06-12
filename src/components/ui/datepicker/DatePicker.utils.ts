@@ -1,6 +1,6 @@
 import type { DateFormat } from './DatePicker.types';
 
-const LOCALE = 'pt-PT';
+const LOCALE = 'en-GB';
 
 /** Portugal uses Monday as the first day of the week (ISO 8601). */
 export const WEEK_STARTS_ON = 1 as const;
@@ -60,10 +60,10 @@ export const getCalendarDays = (
 	return days;
 };
 
-/** Portuguese weekday abbreviations (Monday-first). */
-const WEEKDAY_ABBR = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'] as const;
+/** English weekday abbreviations (Monday-first). */
+const WEEKDAY_ABBR = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as const;
 
-/** Returns 7 Portuguese weekday labels, ordered from Monday. */
+/** Returns 7 weekday labels, ordered from Monday. */
 export const getWeekdays = (): Array<{ abbr: string; label: string }> => {
 	const longFmt = new Intl.DateTimeFormat(LOCALE, { weekday: 'long' });
 
@@ -95,11 +95,11 @@ export const formatDisplay = (
 export const formatPlaceholder = (format: DateFormat): string => {
 	switch (format) {
 		case 'DD/MM/YYYY':
-			return 'DD/MM/AAAA';
+			return 'DD/MM/YYYY';
 		case 'DD-MM-YYYY':
-			return 'DD-MM-AAAA';
+			return 'DD-MM-YYYY';
 		case 'YYYY-MM-DD':
-			return 'AAAA-MM-DD';
+			return 'YYYY-MM-DD';
 	}
 };
 

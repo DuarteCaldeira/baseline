@@ -3,7 +3,7 @@ import type { KeyboardEvent } from 'react';
 import { act, renderHook } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
-import { useMenu } from '../useMenu';
+import { useMenu } from './useMenu';
 
 const keyDown = (
 	handler: (event: KeyboardEvent<HTMLElement>) => void,

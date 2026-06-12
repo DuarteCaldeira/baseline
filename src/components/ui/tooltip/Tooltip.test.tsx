@@ -26,7 +26,7 @@ describe('Tooltip', () => {
 
 	it('shows the tooltip on hover after the open delay', () => {
 		render(
-			<Tooltip content="Helpful hint" openDelay={200}>
+			<Tooltip content="Helpful hint">
 				<Button>Save</Button>
 			</Tooltip>
 		);
@@ -43,7 +43,7 @@ describe('Tooltip', () => {
 
 	it('shows the tooltip on focus', () => {
 		render(
-			<Tooltip content="Keyboard accessible" openDelay={0}>
+			<Tooltip content="Keyboard accessible">
 				<Button>Save</Button>
 			</Tooltip>
 		);
@@ -51,7 +51,7 @@ describe('Tooltip', () => {
 		fireEvent.focus(screen.getByRole('button', { name: 'Save' }));
 
 		act(() => {
-			vi.runAllTimers();
+			vi.advanceTimersByTime(200);
 		});
 
 		expect(screen.getByRole('tooltip')).toHaveTextContent(
@@ -61,7 +61,7 @@ describe('Tooltip', () => {
 
 	it('hides the tooltip on blur', () => {
 		render(
-			<Tooltip content="Temporary hint" openDelay={0} closeDelay={0}>
+			<Tooltip content="Temporary hint">
 				<Button>Save</Button>
 			</Tooltip>
 		);
@@ -71,7 +71,7 @@ describe('Tooltip', () => {
 		fireEvent.focus(trigger);
 
 		act(() => {
-			vi.runAllTimers();
+			vi.advanceTimersByTime(200);
 		});
 
 		expect(screen.getByRole('tooltip')).toBeInTheDocument();
@@ -87,7 +87,7 @@ describe('Tooltip', () => {
 
 	it('links the trigger with aria-describedby when open', () => {
 		render(
-			<Tooltip content="Described action" openDelay={0}>
+			<Tooltip content="Described action">
 				<Button>Save</Button>
 			</Tooltip>
 		);
@@ -96,7 +96,7 @@ describe('Tooltip', () => {
 		fireEvent.focus(trigger);
 
 		act(() => {
-			vi.runAllTimers();
+			vi.advanceTimersByTime(200);
 		});
 
 		const tooltip = screen.getByRole('tooltip');
@@ -105,7 +105,7 @@ describe('Tooltip', () => {
 
 	it('applies the arrow placement modifier class', () => {
 		render(
-			<Tooltip content="Below" placement="bottom" openDelay={0}>
+			<Tooltip content="Below" placement="bottom">
 				<Button>Save</Button>
 			</Tooltip>
 		);
@@ -113,7 +113,7 @@ describe('Tooltip', () => {
 		fireEvent.focus(screen.getByRole('button', { name: 'Save' }));
 
 		act(() => {
-			vi.runAllTimers();
+			vi.advanceTimersByTime(200);
 		});
 
 		const tooltip = screen.getByRole('tooltip');
@@ -124,7 +124,7 @@ describe('Tooltip', () => {
 
 	it('renders a visible arrow element aligned to the trigger', () => {
 		render(
-			<Tooltip content="With arrow" openDelay={0}>
+			<Tooltip content="With arrow">
 				<Button>Save</Button>
 			</Tooltip>
 		);
@@ -132,7 +132,7 @@ describe('Tooltip', () => {
 		fireEvent.focus(screen.getByRole('button', { name: 'Save' }));
 
 		act(() => {
-			vi.runAllTimers();
+			vi.advanceTimersByTime(200);
 		});
 
 		const tooltip = screen.getByRole('tooltip');

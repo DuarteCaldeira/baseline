@@ -39,7 +39,11 @@ export const Alert = ({
 				<Icon icon={IconComponent} variant={variant} size="sm" label={variant} />
 			</span>
 			<div className={styles['alert__body']}>
-				{title && <p className={styles['alert__title']}>{title}</p>}
+				{title && (
+					<h2 className={styles['alert__title']}>
+						{title}
+					</h2>
+				)}
 				{hasDescription && (
 					<div className={styles['alert__message']}>{children}</div>
 				)}

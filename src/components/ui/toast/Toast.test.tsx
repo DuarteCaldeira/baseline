@@ -56,6 +56,18 @@ describe('Toast', () => {
 		expect(container.querySelector('.toast--error')).toBeInTheDocument();
 	});
 
+	it.each([
+		['error', 'alert'],
+		['warning', 'alert'],
+		['success', 'status'],
+		['info', 'status'],
+	] as const)('uses role="%s" for %s variant', (variant, role) => {
+		render(
+			<Toast id="1" variant={variant} message="Message." onDismiss={vi.fn()} />
+		);
+		expect(screen.getByRole(role)).toBeInTheDocument();
+	});
+
 	it('calls onDismiss when the close button is clicked', async () => {
 		const onDismiss = vi.fn();
 		render(

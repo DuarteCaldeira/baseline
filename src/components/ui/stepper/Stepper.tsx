@@ -18,6 +18,8 @@ export type StepperProps = {
 	currentStep?: number;
 	defaultStep?: number;
 	onStepChange?: (step: number) => void;
+	previousLabel?: string;
+	nextLabel?: string;
 };
 
 const getStepStatus = (index: number, currentStep: number): StepStatus => {
@@ -40,6 +42,8 @@ export const Stepper = ({
 	currentStep: controlledStep,
 	defaultStep = 0,
 	onStepChange,
+	previousLabel = 'Previous',
+	nextLabel = 'Next',
 }: StepperProps) => {
 	const [internalStep, setInternalStep] = useState(defaultStep);
 	const isControlled = controlledStep !== undefined;
@@ -62,7 +66,7 @@ export const Stepper = ({
 
 					return (
 						<li
-							key={step.label}
+							key={step.id ?? `${step.label}-${index}`}
 							className={cn(styles.step, styles[`step--${status}`])}
 							aria-current={status === 'current' ? 'step' : undefined}
 						>
@@ -88,13 +92,13 @@ export const Stepper = ({
 					onClick={() => updateStep(activeStep - 1)}
 					disabled={activeStep === 0}
 				>
-					Anterior
+					{previousLabel}
 				</Button>
 				<Button
 					onClick={() => updateStep(activeStep + 1)}
 					disabled={activeStep === steps.length - 1}
 				>
-					Seguinte
+					{nextLabel}
 				</Button>
 			</Stack>
 		</Stack>
