@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { Stack } from '@/components/layout/stack';
 import { Icon } from '@/components/ui/icon';
 
-import type { MenuItemProps } from './Menu.types';
+import type { MenuItemProps } from '../Menu.types';
 
 type MenuItemContentProps = {
 	icon?: MenuItemProps['icon'];

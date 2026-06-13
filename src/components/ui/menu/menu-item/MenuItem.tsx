@@ -4,12 +4,12 @@ import type { KeyboardEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/components/ui/link';
 
-import { isActivationKey } from './Menu.keyboard.utils';
-import type { MenuItemProps } from './Menu.types';
-import { getMenuItemDataAttrs } from './Menu.utils';
-import { useMenuContext } from './MenuContext';
+import { isActivationKey } from '../Menu.keyboard.utils';
+import type { MenuItemProps } from '../Menu.types';
+import { getMenuItemDataAttrs } from '../Menu.utils';
+import { useMenuContext } from '../MenuContext';
+import { useMenuItemHighlight } from '../hooks/useMenuItemHighlight';
 import { MenuItemContent } from './MenuItemContent';
-import { useMenuItemHighlight } from './hooks/useMenuItemHighlight';
 
 const MenuItemInner = ({
 	children,

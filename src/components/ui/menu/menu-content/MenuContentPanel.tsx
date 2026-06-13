@@ -1,15 +1,16 @@
 import { useLayoutEffect } from 'react';
 import type { ReactNode } from 'react';
+
 import { FloatingPortal } from '@/components/patterns/floating-portal';
 import { useFloatingPosition } from '@/hooks/useFloatingPosition';
 import { useMounted } from '@/hooks/useMounted';
 import { cn } from '@/utils/cn';
 
-import styles from './Menu.module.scss';
-import type { MenuAlign, MenuContextValue } from './Menu.types';
-import { hasOpenChildSubmenu, setFloatingPositionVars } from './Menu.utils';
-import { MenuProvider, useMenuContext } from './MenuContext';
-import { useMenuContentState } from './hooks/useMenuContentState';
+import styles from '../Menu.module.scss';
+import type { MenuAlign, MenuContextValue } from '../Menu.types';
+import { hasOpenChildSubmenu, setFloatingPositionVars } from '../Menu.utils';
+import { MenuProvider, useMenuContext } from '../MenuContext';
+import { useMenuContentState } from '../hooks/useMenuContentState';
 
 type MenuContentPanelProps = {
 	children: ReactNode;
@@ -90,7 +91,11 @@ export const MenuContentPanel = ({
 	);
 
 	if (isPortaled && mounted) {
-		return <FloatingPortal mounted={mounted} isOpen={isOpen}>{panel}</FloatingPortal>;
+		return (
+			<FloatingPortal mounted={mounted} isOpen={isOpen}>
+				{panel}
+			</FloatingPortal>
+		);
 	}
 
 	return panel;

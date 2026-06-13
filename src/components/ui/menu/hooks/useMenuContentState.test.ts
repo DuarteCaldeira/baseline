@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
-import { createMenuContext } from '../menu.test-utils';
+import { createMenuContext } from '../menu.testutils';
 import { useMenuContentState } from './useMenuContentState';
 
 describe('useMenuContentState', () => {

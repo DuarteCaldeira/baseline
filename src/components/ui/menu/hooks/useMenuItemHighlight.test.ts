@@ -5,7 +5,7 @@ import {
 	StatefulMenuWrapper,
 	createMenuContext,
 	createMenuWrapper,
-} from '../menu.test-utils';
+} from '../menu.testutils';
 import { useMenuItemHighlight } from './useMenuItemHighlight';
 
 describe('useMenuItemHighlight', () => {
