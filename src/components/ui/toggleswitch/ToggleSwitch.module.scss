@@ -1,27 +1,23 @@
+@use '@/styles/mixins/control-field' as *;
 @use '@/styles/tokens/spacing' as *;
 @use '@/styles/tokens/radius' as *;
 @use '@/styles/tokens/shadows' as *;
+@use '@/styles/tokens/motion' as *;
 
 .toggle-switch {
 	&--disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
+		@include control-field-wrapper-disabled;
 	}
 
 	&__label {
-		display: inline-flex;
-		align-items: center;
-		gap: $spacing-3;
-		cursor: pointer;
-		user-select: none;
+		@include control-field-inline-label($spacing-3);
 
 		.toggle-switch--disabled & {
 			cursor: not-allowed;
 		}
 
 		&:has(.toggle-switch__input:focus-visible) .toggle-switch__track {
-			outline: 2px solid var(--color-primary);
-			outline-offset: 2px;
+			@include control-field-toggle-track-focus;
 		}
 
 		&:has(.toggle-switch__input:checked) .toggle-switch__track {
@@ -36,8 +32,7 @@
 		.toggle-switch--error
 			&:has(.toggle-switch__input:focus-visible)
 			.toggle-switch__track {
-			outline-color: var(--color-error);
-			box-shadow: 0 0 0 3px var(--color-error-ring);
+			@include control-field-toggle-track-error-focus;
 		}
 	}
 
@@ -51,15 +46,15 @@
 		background-color: var(--color-bg-muted);
 		cursor: pointer;
 		transition:
-			background-color 150ms ease,
-			border-color 150ms ease;
+			background-color $duration-base $ease-default,
+			border-color $duration-base $ease-default;
 
 		.toggle-switch--disabled & {
 			cursor: not-allowed;
 		}
 
 		.toggle-switch--error & {
-			border-color: var(--color-error);
+			@include control-field-error;
 		}
 	}
 
@@ -73,11 +68,10 @@
 		background-color: var(--color-surface);
 		box-shadow: $shadow-sm;
 		transform: translateY(-50%);
-		transition: transform 200ms ease;
+		transition: transform $duration-moderate $ease-default;
 	}
 
 	&__text {
-		font: var(--font-sm);
-		color: var(--color-text);
+		@include control-field-inline-text;
 	}
 }

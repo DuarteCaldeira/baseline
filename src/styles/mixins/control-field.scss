@@ -158,3 +158,102 @@
 		}
 	}
 }
+
+// Checkbox, Radio, ToggleSwitch — wrapper + inline label row
+@mixin control-field-wrapper-disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+@mixin control-field-inline-label($gap: $control-field-gap) {
+	display: inline-flex;
+	align-items: center;
+	gap: $gap;
+	cursor: pointer;
+	user-select: none;
+}
+
+@mixin control-field-inline-text {
+	font: var(--font-sm);
+	color: var(--color-text);
+}
+
+@mixin control-field-choice-input {
+	appearance: none;
+	flex-shrink: 0;
+	width: 1.125rem;
+	height: 1.125rem;
+	border: 1.5px solid var(--color-border);
+	background-color: var(--color-surface);
+	cursor: pointer;
+	transition:
+		background-color $duration-base $ease-default,
+		border-color $duration-base $ease-default,
+		box-shadow $duration-base $ease-default;
+
+	&:focus-visible {
+		outline: 2px solid var(--color-primary);
+		outline-offset: 2px;
+	}
+
+	&:disabled {
+		cursor: not-allowed;
+	}
+}
+
+@mixin control-field-choice-input-error {
+	border-color: var(--color-error);
+
+	&:focus-visible {
+		outline-color: var(--color-error);
+		@include control-field-error-ring;
+	}
+}
+
+@mixin control-field-toggle-track-focus {
+	outline: 2px solid var(--color-primary);
+	outline-offset: 2px;
+}
+
+@mixin control-field-toggle-track-error-focus {
+	outline-color: var(--color-error);
+	@include control-field-error-ring;
+}
+
+// FileUpload drop zone
+@mixin control-field-dropzone {
+	border: 1px dashed var(--color-border-strong);
+	border-radius: $radius-md;
+	background-color: var(--color-surface);
+	transition:
+		border-color $duration-base $ease-default,
+		background-color $duration-base $ease-default,
+		box-shadow $duration-base $ease-default;
+}
+
+@mixin control-field-dropzone-active {
+	border-color: var(--color-primary);
+	background-color: var(--color-primary-subtle);
+}
+
+@mixin control-field-dropzone-focus {
+	border-color: var(--color-primary);
+	@include control-field-open-ring;
+}
+
+@mixin control-field-dropzone-disabled {
+	@include control-field-disabled;
+}
+
+@mixin control-field-dropzone-error($disabled-modifier: '&--disabled') {
+	@include control-field-error;
+
+	&:focus-within:not(#{$disabled-modifier}) {
+		@include control-field-error-ring;
+	}
+}
+
+@mixin control-field-file-item {
+	@include control-field-shell;
+	padding: $spacing-2 $spacing-3;
+}

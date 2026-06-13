@@ -1,48 +1,33 @@
+@use '@/styles/mixins/control-field' as *;
 @use '@/styles/tokens/spacing' as *;
-@use '@/styles/tokens/radius' as *;
 
 .file-upload {
 	&__zone {
 		position: relative;
 		min-height: 7rem;
 		padding: $spacing-6 $spacing-4;
-		border: 1px dashed var(--color-border-strong);
-		border-radius: $radius-md;
-		background-color: var(--color-surface);
 		color: var(--color-text-muted);
 		text-align: center;
-		transition:
-			border-color 150ms ease,
-			background-color 150ms ease,
-			box-shadow 150ms ease;
+		@include control-field-dropzone;
 
-		&:hover:not(.fileupload__zone--disabled) {
-			border-color: var(--color-primary);
-			background-color: var(--color-primary-subtle);
+		&:hover:not(.file-upload__zone--disabled) {
+			@include control-field-dropzone-active;
 		}
 
-		&:focus-within:not(.fileupload__zone--disabled) {
-			border-color: var(--color-primary);
-			box-shadow: 0 0 0 3px var(--color-primary-subtle);
+		&:focus-within:not(.file-upload__zone--disabled) {
+			@include control-field-dropzone-focus;
 		}
 
-		&--dragover:not(.fileupload__zone--disabled) {
-			border-color: var(--color-primary);
-			background-color: var(--color-primary-subtle);
+		&--dragover:not(.file-upload__zone--disabled) {
+			@include control-field-dropzone-active;
 		}
 
 		&--disabled {
-			opacity: 0.5;
-			cursor: not-allowed;
-			background-color: var(--color-bg-subtle);
+			@include control-field-dropzone-disabled;
 		}
 
 		&--error {
-			border-color: var(--color-error);
-
-			&:focus-within:not(.fileupload__zone--disabled) {
-				box-shadow: 0 0 0 3px var(--color-error-ring);
-			}
+			@include control-field-dropzone-error('.file-upload__zone--disabled');
 		}
 	}
 
@@ -69,8 +54,7 @@
 	}
 
 	&__accept {
-		font: var(--font-caption);
-		color: var(--color-text-subtle);
+		@include control-field-helper;
 	}
 
 	&__list {
@@ -80,10 +64,7 @@
 	}
 
 	&__file {
-		padding: $spacing-2 $spacing-3;
-		border: 1px solid var(--color-border);
-		border-radius: $radius-md;
-		background-color: var(--color-surface);
+		@include control-field-file-item;
 	}
 
 	&__file-inner {
@@ -96,16 +77,14 @@
 	}
 
 	&__file-name {
-		font: var(--font-sm);
-		color: var(--color-text);
+		@include control-field-inline-text;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
 
 	&__file-size {
-		font: var(--font-caption);
-		color: var(--color-text-subtle);
+		@include control-field-helper;
 	}
 
 	&__remove {

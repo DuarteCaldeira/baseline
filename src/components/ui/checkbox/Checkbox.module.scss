@@ -1,20 +1,15 @@
-@use '@/styles/tokens/spacing' as *;
+@use '@/styles/mixins/control-field' as *;
 @use '@/styles/tokens/radius' as *;
 
 .checkbox {
 	display: inline-flex;
 
 	&--disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
+		@include control-field-wrapper-disabled;
 	}
 
 	&__label {
-		display: inline-flex;
-		align-items: center;
-		gap: $spacing-2;
-		cursor: pointer;
-		user-select: none;
+		@include control-field-inline-label;
 
 		.checkbox--disabled & {
 			cursor: not-allowed;
@@ -22,23 +17,8 @@
 	}
 
 	&__input {
-		appearance: none;
-		flex-shrink: 0;
-		width: 1.125rem;
-		height: 1.125rem;
-		border: 1.5px solid var(--color-border);
+		@include control-field-choice-input;
 		border-radius: $radius-base;
-		background-color: var(--color-surface);
-		cursor: pointer;
-		transition:
-			background-color 150ms ease,
-			border-color 150ms ease,
-			box-shadow 150ms ease;
-
-		&:focus-visible {
-			outline: 2px solid var(--color-primary);
-			outline-offset: 2px;
-		}
 
 		&:checked {
 			background-color: var(--color-primary);
@@ -50,22 +30,12 @@
 			background-size: 0.75rem;
 		}
 
-		&:disabled {
-			cursor: not-allowed;
-		}
-
 		.checkbox--error & {
-			border-color: var(--color-error);
-
-			&:focus-visible {
-				outline-color: var(--color-error);
-				box-shadow: 0 0 0 3px var(--color-error-ring);
-			}
+			@include control-field-choice-input-error;
 		}
 	}
 
 	&__text {
-		font: var(--font-sm);
-		color: var(--color-text);
+		@include control-field-inline-text;
 	}
 }

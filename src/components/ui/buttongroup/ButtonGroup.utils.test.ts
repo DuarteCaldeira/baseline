@@ -1,5 +1,5 @@
 import { createElement } from 'react';
-import type { ReactElement } from 'react';
+import type { ComponentProps, ReactElement } from 'react';
 
 import { describe, expect, it } from 'vitest';
 
@@ -11,7 +11,11 @@ describe('ButtonGroup.utils', () => {
 	it('assigns group item attributes to valid element children', () => {
 		const children = assignGroupItemAttributes(
 			[
-				createElement(Button, { variant: 'secondary' }, 'One'),
+				// eslint-disable-next-line react/no-children-prop -- typed props for Button union in createElement
+				createElement(Button, {
+					variant: 'secondary',
+					children: 'One',
+				} satisfies ComponentProps<typeof Button>),
 				'ignored',
 			],
 			'vertical'
