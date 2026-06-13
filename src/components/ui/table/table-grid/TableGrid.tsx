@@ -5,16 +5,16 @@ import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { TABLE_MOBILE_MEDIA_QUERY } from '@/utils/breakpoints';
 import { cn } from '@/utils/cn';
 
-import styles from './Table.module.scss';
-import type { TableColumn, TableGridProps } from './Table.types';
+import styles from '../Table.module.scss';
+import type { TableColumn, TableGridProps } from '../Table.types';
 import {
 	getClickableRowLabel,
 	getPrimaryColumnKey,
 	getRowKey,
-} from './Table.utils';
-import { TableCardList } from './TableCardList';
+} from '../Table.utils';
+import { TableCardList } from '../table-cards';
+import { TableMobileSort } from '../table-mobile-sort';
 import { TableHeaderCell } from './TableHeaderCell';
-import { TableMobileSort } from './TableMobileSort';
 
 // ── Memoised row ──────────────────────────────────────────────────────────────
 

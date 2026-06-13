@@ -1,10 +1,11 @@
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 
 import { Stack } from '@/components/layout/stack';
-import type { StackProps } from '@/components/layout/stack';
 import { getLabelId, resolveFieldIds } from '@/utils/fieldIds';
 
 import styles from './FormField.module.scss';
+
+type StackProps = ComponentProps<typeof Stack>;
 
 type FormFieldProps = Omit<StackProps, 'children' | 'className'> & {
 	fieldId?: string;

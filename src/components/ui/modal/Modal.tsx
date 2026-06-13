@@ -15,7 +15,7 @@ import { cn } from '@/utils/cn';
 import styles from './Modal.module.scss';
 import { useModal } from './useModal';
 
-export type ModalProps = {
+type ModalProps = {
 	isOpen: boolean;
 	onClose: () => void;
 	title?: string;

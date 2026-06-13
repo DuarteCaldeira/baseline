@@ -1,12 +1,12 @@
 import type { TextareaHTMLAttributes } from 'react';
 
 import { FormField } from '@/components/patterns/form-field';
-import { resolveFieldIds } from '@/utils/fieldIds';
 import { cn } from '@/utils/cn';
+import { resolveFieldIds } from '@/utils/fieldIds';
 
 import styles from './Textarea.module.scss';
 
-export type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
+type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
 	label?: string;
 	helperText?: string;
 	error?: string;

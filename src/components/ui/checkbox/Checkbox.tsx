@@ -1,15 +1,12 @@
 import type { InputHTMLAttributes } from 'react';
 
 import { FormField } from '@/components/patterns/form-field';
-import { resolveFieldIds } from '@/utils/fieldIds';
 import { cn } from '@/utils/cn';
+import { resolveFieldIds } from '@/utils/fieldIds';
 
 import styles from './Checkbox.module.scss';
 
-export type CheckboxProps = Omit<
-	InputHTMLAttributes<HTMLInputElement>,
-	'type'
-> & {
+type CheckboxProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> & {
 	label?: string;
 	helperText?: string;
 	error?: string;
@@ -37,17 +34,17 @@ export const Checkbox = ({
 		>
 			<FormField fieldId={id} helperText={helperText} error={error} gap="1">
 				<label className={styles['checkbox__label']} htmlFor={id}>
-				<input
-					type="checkbox"
-					id={id}
-					className={styles['checkbox__input']}
-					disabled={disabled}
-					aria-invalid={error ? true : undefined}
-					aria-describedby={describedBy}
-					{...rest}
-				/>
-				{label && <span className={styles['checkbox__text']}>{label}</span>}
-			</label>
+					<input
+						type="checkbox"
+						id={id}
+						className={styles['checkbox__input']}
+						disabled={disabled}
+						aria-invalid={error ? true : undefined}
+						aria-describedby={describedBy}
+						{...rest}
+					/>
+					{label && <span className={styles['checkbox__text']}>{label}</span>}
+				</label>
 			</FormField>
 		</div>
 	);

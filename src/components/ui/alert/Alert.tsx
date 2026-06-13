@@ -13,7 +13,7 @@ import {
 	hasAlertDescription,
 } from './Alert.utils';
 
-export type { AlertProps, AlertVariant } from './Alert.types';
+export type { AlertVariant } from './Alert.types';
 
 export const Alert = ({
 	variant,

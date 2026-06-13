@@ -15,10 +15,7 @@ export type IconVariant =
 	| 'error'
 	| 'info';
 
-export type IconProps = Pick<
-	LucideProps,
-	'strokeWidth' | 'absoluteStrokeWidth'
-> & {
+type IconProps = Pick<LucideProps, 'strokeWidth' | 'absoluteStrokeWidth'> & {
 	icon: LucideIcon;
 	size?: Size;
 	variant?: IconVariant;

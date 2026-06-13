@@ -6,8 +6,8 @@ import { Stack } from '@/components/layout/stack';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
 
-import styles from './Table.module.scss';
-import type { TableFiltersProps } from './Table.types';
+import styles from '../Table.module.scss';
+import type { TableFiltersProps } from '../Table.types';
 
 const TableFiltersBase = ({ filters, values, onChange }: TableFiltersProps) => {
 	const idPrefix = useId();

@@ -5,8 +5,8 @@ import { ArrowDown, ArrowUp, ArrowUpDown } from 'lucide-react';
 import { Icon } from '@/components/ui/icon';
 import { cn } from '@/utils/cn';
 
-import styles from './Table.module.scss';
-import type { SortDirection } from './Table.types';
+import styles from '../Table.module.scss';
+import type { SortDirection } from '../Table.types';
 
 type TableHeaderCellProps = {
 	header: ReactNode;

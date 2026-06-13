@@ -1,7 +1,10 @@
-import type { ReactElement } from 'react';
+import type { ComponentProps, ReactElement } from 'react';
 
-import type { ButtonProps } from '@/components/ui/button';
-import type { ButtonGroupProps } from '@/components/ui/buttongroup';
+import type { Button } from '@/components/ui/button';
+import type { ButtonGroup } from '@/components/ui/buttongroup';
+
+type ButtonProps = ComponentProps<typeof Button>;
+type ButtonGroupProps = ComponentProps<typeof ButtonGroup>;
 
 export type ToggleButtonProps = Omit<ButtonProps, 'variant'> & {
 	variant?: 'secondary' | 'ghost';

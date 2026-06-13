@@ -19,7 +19,7 @@ export type StackAs =
 	| 'form'
 	| 'fieldset';
 
-export type StackProps = HTMLAttributes<HTMLElement> & {
+type StackProps = HTMLAttributes<HTMLElement> & {
 	as?: StackAs;
 	children: ReactNode;
 	direction?: 'row' | 'column';

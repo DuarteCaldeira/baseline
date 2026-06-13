@@ -10,7 +10,7 @@ import styles from './Accordion.module.scss';
 import type { AccordionItem, AccordionType } from './Accordion.types';
 import { useAccordion } from './useAccordion';
 
-export type AccordionProps = {
+type AccordionProps = {
 	items: AccordionItem[];
 	type?: AccordionType;
 	/** Id(s) of items open on first render. */

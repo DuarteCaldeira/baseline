@@ -1,2 +1,2 @@
-export { Stack } from './Stack';
-export type { StackAs, StackProps } from './Stack';
+export * from './Stack';
+export type { StackAs } from './Stack';

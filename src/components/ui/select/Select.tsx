@@ -14,7 +14,7 @@ import type { SelectOption } from './Select.types';
 import { Listbox, getListboxId, getOptionId, scrollOptionIntoView } from '@/components/ui/listbox';
 import { useSelect } from './useSelect';
 
-export type SelectProps = {
+type SelectProps = {
 	id: string;
 	label?: string;
 	options: SelectOption[];

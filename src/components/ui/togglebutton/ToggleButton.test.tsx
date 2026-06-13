@@ -47,7 +47,7 @@ describe('ToggleButton', () => {
 		expect(handleChange).toHaveBeenCalledWith(true);
 	});
 
-	it('marks pressed buttons with a data attribute', () => {
+	it('marks toggle buttons with a data attribute', () => {
 		render(<ToggleButton pressed>Bold</ToggleButton>);
 
 		expect(screen.getByRole('button', { name: 'Bold' })).toHaveAttribute(

@@ -10,7 +10,7 @@ import styles from './Tooltip.module.scss';
 import type { TooltipPlacement } from './Tooltip.types';
 import { useTooltip } from './useTooltip';
 
-export type TooltipProps = {
+type TooltipProps = {
 	content: ReactNode;
 	children: ReactElement<HTMLAttributes<HTMLElement>>;
 	placement?: TooltipPlacement;

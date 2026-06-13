@@ -3,9 +3,9 @@ import { useId, useMemo } from 'react';
 import { Select } from '@/components/ui/select';
 import type { SelectOption } from '@/components/ui/select';
 
-import styles from './Table.module.scss';
-import type { SortDirection, SortState, TableColumn } from './Table.types';
-import { getColumnLabel } from './Table.utils';
+import styles from '../Table.module.scss';
+import type { SortDirection, SortState, TableColumn } from '../Table.types';
+import { getColumnLabel } from '../Table.utils';
 
 const SORT_VALUE_SEP = ':';
 

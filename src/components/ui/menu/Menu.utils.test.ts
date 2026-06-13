@@ -6,7 +6,7 @@ import {
 	getMenubarItems,
 	isActivationKey,
 	moveFocus,
-} from './Menu.utils';
+} from './Menu.keyboard.utils';
 
 describe('Menu.utils', () => {
 	it('collects enabled menu and menubar items', () => {

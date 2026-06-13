@@ -6,7 +6,7 @@ import { cn } from '@/utils/cn';
 
 import styles from './Link.module.scss';
 
-export type LinkProps = Omit<
+type LinkProps = Omit<
 	ComponentPropsWithoutRef<typeof NextLink>,
 	'className'
 > & {

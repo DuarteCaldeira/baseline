@@ -9,7 +9,7 @@ import type { TabItem } from './Tabs.types';
 import { useTabIndicator } from './useTabIndicator';
 import { useTabs } from './useTabs';
 
-export type TabsProps = {
+type TabsProps = {
 	items: TabItem[];
 	value?: string;
 	defaultValue?: string;

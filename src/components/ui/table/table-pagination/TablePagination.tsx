@@ -8,8 +8,8 @@ import { Stack } from '@/components/layout/stack';
 import { Button } from '@/components/ui/button';
 import { Select } from '@/components/ui/select';
 
-import styles from './Table.module.scss';
-import type { TablePaginationProps } from './Table.types';
+import styles from '../Table.module.scss';
+import type { TablePaginationProps } from '../Table.types';
 
 const TablePaginationBase = ({
 	currentPage,

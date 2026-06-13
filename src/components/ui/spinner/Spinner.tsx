@@ -16,7 +16,7 @@ export type SpinnerVariant =
 	| 'error'
 	| 'info';
 
-export type SpinnerProps = {
+type SpinnerProps = {
 	size?: SpinnerSize;
 	variant?: SpinnerVariant;
 	/** Announced by screen readers when provided. Omit inside controls that set aria-busy. */

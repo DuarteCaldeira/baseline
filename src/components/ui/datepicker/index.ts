@@ -1,2 +1,2 @@
-export { DatePicker } from './DatePicker';
-export type { DatePickerProps, DateFormat } from './DatePicker.types';
+export * from './DatePicker';
+export type { DateFormat } from './DatePicker.types';

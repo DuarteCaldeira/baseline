@@ -6,7 +6,7 @@ import { cn } from '@/utils/cn';
 
 import styles from './Input.module.scss';
 
-export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
+type InputProps = InputHTMLAttributes<HTMLInputElement> & {
 	label?: string;
 	helperText?: string;
 	error?: string;

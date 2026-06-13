@@ -1,0 +1,80 @@
+@use '@/styles/tokens/radius' as *;
+
+@mixin group-item-styles {
+	&[data-button-group-item] {
+		position: relative;
+		z-index: 0;
+		margin: 0;
+		transform: none;
+		box-shadow: none;
+
+		&:hover:not(:disabled),
+		&:focus-visible {
+			z-index: 1;
+			transform: none;
+			outline-offset: -2px;
+			box-shadow: none;
+		}
+
+		&:active:not(:disabled) {
+			transform: none;
+			box-shadow: none;
+		}
+
+		&[aria-pressed='true'] {
+			z-index: 2;
+		}
+
+		&:only-child {
+			border-radius: $radius-md;
+		}
+
+		&:not(:first-child):not(:last-child) {
+			border-radius: 0;
+		}
+	}
+
+	&[data-button-group-item='horizontal'] {
+		&:not(:only-child):first-child {
+			border-radius: $radius-md 0 0 $radius-md;
+		}
+
+		&:not(:only-child):last-child {
+			border-radius: 0 $radius-md $radius-md 0;
+		}
+
+		&[data-variant='secondary']:not(:first-child) {
+			margin-left: -1px;
+		}
+
+		&:not(:first-child)[aria-pressed='true'] {
+			margin-left: -1px;
+			border-left: 1px solid;
+		}
+	}
+
+	&[data-button-group-item='vertical'] {
+		&:not(:only-child):first-child {
+			border-radius: $radius-md $radius-md 0 0;
+		}
+
+		&:not(:only-child):last-child {
+			border-radius: 0 0 $radius-md $radius-md;
+		}
+
+		&[data-variant='secondary']:not(:first-child) {
+			margin-top: -1px;
+			border-top-width: 0;
+
+			&:hover:not(:disabled),
+			&:active:not(:disabled) {
+				border-top-width: 0;
+			}
+		}
+
+		&:not(:first-child)[aria-pressed='true'] {
+			margin-top: -1px;
+			border-top: 1px solid;
+		}
+	}
+}

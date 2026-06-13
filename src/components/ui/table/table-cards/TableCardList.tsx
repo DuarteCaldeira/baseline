@@ -3,9 +3,9 @@ import type { KeyboardEvent, MouseEvent } from 'react';
 
 import { cn } from '@/utils/cn';
 
-import styles from './Table.module.scss';
-import type { TableColumn } from './Table.types';
-import { getClickableRowLabel, getColumnLabel, getRowKey } from './Table.utils';
+import styles from '../Table.module.scss';
+import type { TableColumn } from '../Table.types';
+import { getClickableRowLabel, getColumnLabel, getRowKey } from '../Table.utils';
 
 type TableCardListProps<T extends Record<string, unknown>> = {
 	columns: TableColumn<T>[];

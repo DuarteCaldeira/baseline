@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import {
 	ToggleButtonGroupContext,
 	useToggleButtonGroupState,
-} from './useToggleButtonGroup';
+} from './hooks/useToggleButtonGroup';
 import type { ToggleButtonGroupType } from './ToggleButton.types';
 
 type ToggleButtonGroupProviderProps = {

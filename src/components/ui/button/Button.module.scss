@@ -3,6 +3,8 @@
 @use '@/styles/tokens/radius' as *;
 @use '@/styles/tokens/shadows' as *;
 @use '@/styles/tokens/motion' as *;
+@use '../buttongroup/ButtonGroup.partial' as button-group;
+@use '../togglebutton/ToggleButton.partial' as toggle-button;
 
 $button-transition:
 	background-color $duration-base $ease-default,
@@ -108,16 +110,6 @@ $button-transition:
 			box-shadow: $shadow-button-primary-active;
 			transform: translateY(0);
 		}
-
-		&[data-button-group-item] {
-			box-shadow: none;
-
-			&:hover:not(:disabled),
-			&:active:not(:disabled) {
-				box-shadow: none;
-				transform: none;
-			}
-		}
 	}
 
 	&--secondary {
@@ -138,16 +130,6 @@ $button-transition:
 			box-shadow: none;
 			transform: translateY(0);
 		}
-
-		&[data-button-group-item] {
-			box-shadow: none;
-
-			&:hover:not(:disabled),
-			&:active:not(:disabled) {
-				box-shadow: none;
-				transform: none;
-			}
-		}
 	}
 
 	&--ghost {
@@ -162,86 +144,8 @@ $button-transition:
 		&:active:not(:disabled) {
 			background-color: var(--color-bg-muted);
 		}
-
-		&[data-button-group-item] {
-			&:hover:not(:disabled),
-			&:active:not(:disabled) {
-				transform: none;
-			}
-		}
 	}
 
-	&[data-button-group-item] {
-		position: relative;
-		z-index: 0;
-		margin: 0;
-		transform: none;
-
-		&:hover:not(:disabled),
-		&:focus-visible {
-			z-index: 1;
-			transform: none;
-			outline-offset: -2px;
-		}
-
-		&:active:not(:disabled) {
-			transform: none;
-		}
-
-		&[aria-pressed='true'] {
-			z-index: 2;
-		}
-
-		&:only-child {
-			border-radius: $radius-md;
-		}
-
-		&:not(:first-child):not(:last-child) {
-			border-radius: 0;
-		}
-	}
-
-	&[data-button-group-item='horizontal'] {
-		&:not(:only-child):first-child {
-			border-radius: $radius-md 0 0 $radius-md;
-		}
-
-		&:not(:only-child):last-child {
-			border-radius: 0 $radius-md $radius-md 0;
-		}
-
-		&.button--secondary:not(:first-child) {
-			margin-left: -1px;
-		}
-
-		&:not(:first-child)[aria-pressed='true'] {
-			margin-left: -1px;
-			border-left: 1px solid;
-		}
-	}
-
-	&[data-button-group-item='vertical'] {
-		&:not(:only-child):first-child {
-			border-radius: $radius-md $radius-md 0 0;
-		}
-
-		&:not(:only-child):last-child {
-			border-radius: 0 0 $radius-md $radius-md;
-		}
-
-		&.button--secondary:not(:first-child) {
-			margin-top: -1px;
-			border-top-width: 0;
-
-			&:hover:not(:disabled),
-			&:active:not(:disabled) {
-				border-top-width: 0;
-			}
-		}
-
-		&:not(:first-child)[aria-pressed='true'] {
-			margin-top: -1px;
-			border-top: 1px solid;
-		}
-	}
+	@include button-group.group-item-styles;
+	@include toggle-button.styles;
 }

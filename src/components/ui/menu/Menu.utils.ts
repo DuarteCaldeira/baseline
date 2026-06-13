@@ -1,4 +1,4 @@
-import type { KeyboardEvent, MouseEvent, MutableRefObject, Ref } from 'react';
+import type { MouseEvent, MutableRefObject, Ref } from 'react';
 
 import type { ComputedFloatingPosition } from '@/utils/floatingPosition';
 
@@ -80,62 +80,6 @@ export const pickInheritedContentState = (
 	closePeerSubmenus: parent.closePeerSubmenus,
 });
 
-export const getMenuItems = (container: HTMLElement | null): HTMLElement[] =>
-	Array.from(
-		container?.querySelectorAll<HTMLElement>(
-			'[data-menu-item]:not([data-disabled="true"])'
-		) ?? []
-	);
-
-export const getMenubarItems = (container: HTMLElement | null): HTMLElement[] =>
-	Array.from(
-		container?.querySelectorAll<HTMLElement>(
-			'[data-menu-menubar-item]:not([data-disabled="true"])'
-		) ?? []
-	);
-
-const resolveFocusIndex = (
-	items: HTMLElement[],
-	index: number | 'first' | 'last'
-): number => {
-	if (index === 'first') return 0;
-	if (index === 'last') return items.length - 1;
-	return Math.max(0, Math.min(index, items.length - 1));
-};
-
-export const focusMenuItem = (
-	container: HTMLElement | null,
-	index: number | 'first' | 'last'
-): void => {
-	const items = getMenuItems(container);
-	if (items.length === 0) return;
-	items[resolveFocusIndex(items, index)]?.focus();
-};
-
-export const focusMenubarItem = (
-	container: HTMLElement | null,
-	index: number | 'first' | 'last'
-): void => {
-	const items = getMenubarItems(container);
-	if (items.length === 0) return;
-	items[resolveFocusIndex(items, index)]?.focus();
-};
-
-export const moveFocus = (
-	items: HTMLElement[],
-	current: HTMLElement,
-	direction: 1 | -1
-): void => {
-	const currentIndex = items.indexOf(current);
-	if (currentIndex === -1) {
-		items[direction === 1 ? 0 : items.length - 1]?.focus();
-		return;
-	}
-
-	const nextIndex = (currentIndex + direction + items.length) % items.length;
-	items[nextIndex]?.focus();
-};
-
 export const mergeRefs = <T>(
 	...refs: Array<Ref<T> | undefined>
 ): ((node: T | null) => void) => {
@@ -149,58 +93,6 @@ export const mergeRefs = <T>(
 			(ref as MutableRefObject<T | null>).current = node;
 		});
 	};
-};
-
-export const isActivationKey = (
-	event: Pick<KeyboardEvent<Element>, 'key'>
-): boolean => event.key === 'Enter' || event.key === ' ';
-
-export type MenuKeyboardContext = {
-	event: KeyboardEvent<HTMLElement>;
-	items: HTMLElement[];
-	current: HTMLElement;
-	contentElement: HTMLDivElement | null;
-	close: () => void;
-};
-
-export const runMenuKeyHandler = (
-	event: KeyboardEvent<HTMLElement>,
-	handlers: Partial<Record<string, () => void>>
-): void => {
-	handlers[event.key]?.();
-};
-
-export const handleMenuListNavigation = (
-	ctx: MenuKeyboardContext,
-	direction: 1 | -1
-): void => {
-	ctx.event.preventDefault();
-	moveFocus(ctx.items, ctx.current, direction);
-};
-
-export const handleMenuBoundaryFocus = (
-	ctx: MenuKeyboardContext,
-	boundary: 'first' | 'last'
-): void => {
-	ctx.event.preventDefault();
-	focusMenuItem(ctx.contentElement, boundary);
-};
-
-export const handleMenuClose = (
-	ctx: MenuKeyboardContext,
-	options?: { stopPropagation?: boolean }
-): void => {
-	ctx.event.preventDefault();
-	if (options?.stopPropagation) ctx.event.stopPropagation();
-	ctx.close();
-};
-
-export const openSubmenuFromKeyboard = (current: HTMLElement): boolean => {
-	if (!current.hasAttribute('data-menu-submenu-trigger')) return false;
-	current.dispatchEvent(
-		new MouseEvent('mouseenter', { bubbles: true, cancelable: true })
-	);
-	return true;
 };
 
 const FLOATING_STYLE_VARS = [

@@ -11,7 +11,7 @@ import { cn } from '@/utils/cn';
 import styles from './Stepper.module.scss';
 import type { Step, StepStatus } from './Stepper.types';
 
-export type StepperProps = {
+type StepperProps = {
 	steps: Step[];
 	/** One child per step — the active step's panel is rendered between the progress bar and the navigation buttons. */
 	children?: ReactNode;

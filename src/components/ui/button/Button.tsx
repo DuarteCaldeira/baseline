@@ -29,7 +29,7 @@ type BaseProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> & {
 	isLoading?: boolean;
 };
 
-export type ButtonProps = BaseProps & (WithChildren | IconOnly);
+type ButtonProps = BaseProps & (WithChildren | IconOnly);
 
 const ICON_SIZE: Record<NonNullable<BaseProps['size']>, 'sm' | 'md' | 'lg'> = {
 	sm: 'sm',
@@ -64,6 +64,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 		return (
 			<button
 				ref={ref}
+				data-variant={variant}
 				className={cn(
 					styles.button,
 					styles[`button--${variant}`],

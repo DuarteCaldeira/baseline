@@ -10,7 +10,7 @@ import { cn } from '@/utils/cn';
 import styles from './Tag.module.scss';
 import type { TagSize, TagVariant } from './Tag.types';
 
-export type TagProps = Omit<HTMLAttributes<HTMLSpanElement>, 'className'> & {
+type TagProps = Omit<HTMLAttributes<HTMLSpanElement>, 'className'> & {
 	children: ReactNode;
 	variant?: TagVariant;
 	size?: TagSize;

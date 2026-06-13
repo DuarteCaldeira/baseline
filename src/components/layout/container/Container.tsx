@@ -4,7 +4,7 @@ import { cn } from '@/utils/cn';
 
 import styles from './Container.module.scss';
 
-export type ContainerProps = HTMLAttributes<HTMLDivElement> & {
+type ContainerProps = HTMLAttributes<HTMLDivElement> & {
 	children: ReactNode;
 	size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
 };

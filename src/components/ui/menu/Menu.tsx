@@ -23,10 +23,10 @@ import type {
 	MenuTriggerChildProps,
 	MenuTriggerProps,
 } from './Menu.types';
+import { isActivationKey } from './Menu.keyboard.utils';
 import {
 	buildTriggerProps,
 	getMenuItemDataAttrs,
-	isActivationKey,
 	mergeRefs,
 	pickInheritedContentState,
 } from './Menu.utils';
@@ -40,19 +40,7 @@ import { MenuItemContent } from './MenuItemContent';
 import { useMenu } from './hooks/useMenu';
 import { useMenuItemHighlight } from './hooks/useMenuItemHighlight';
 
-export type {
-	MenuAlign,
-	MenuChildrenProps,
-	MenuContentProps,
-	MenuItemProps,
-	MenuLabelProps,
-	MenuProps,
-	MenuSubContentProps,
-	MenuSubProps,
-	MenuSubTriggerProps,
-	MenuTriggerProps,
-	MenuVariant,
-} from './Menu.types';
+export type { MenuAlign, MenuVariant } from './Menu.types';
 
 export const Menu = ({
 	variant = 'dropdown',

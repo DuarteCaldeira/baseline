@@ -8,10 +8,10 @@ import { cn } from '@/utils/cn';
 import styles from './Table.module.scss';
 import type { SortState, TableFilterValues, TableProps } from './Table.types';
 import { filterData, resolvePageSize, sortData } from './Table.utils';
-import { TableFilters } from './TableFilters';
-import { TableGrid } from './TableGrid';
-import { TablePagination } from './TablePagination';
-import { TableSkeleton } from './TableSkeleton';
+import { TableFilters } from './table-filters';
+import { TableGrid } from './table-grid';
+import { TablePagination } from './table-pagination';
+import { TableSkeleton } from './table-skeleton';
 
 const DEFAULT_PAGE_SIZE_OPTIONS = [10, 25, 50];
 const SEARCH_DEBOUNCE_MS = 300;

@@ -1,8 +1,7 @@
 import { Button } from '@/components/ui/button';
 
-import './ToggleButton.module.scss';
 import type { ToggleButtonProps } from './ToggleButton.types';
-import { useToggleButton } from './useToggleButton';
+import { useToggleButton } from './hooks/useToggleButton';
 
 export const ToggleButton = ({
 	value,
@@ -27,8 +26,8 @@ export const ToggleButton = ({
 			{...rest}
 			variant={variant}
 			disabled={disabled}
-			aria-pressed={pressed}
 			data-toggle-button=""
+			aria-pressed={pressed}
 			onClick={(event) => {
 				toggle();
 				onClick?.(event);

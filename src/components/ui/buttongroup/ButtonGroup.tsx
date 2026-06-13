@@ -6,7 +6,7 @@ import styles from './ButtonGroup.module.scss';
 import type { ButtonGroupOrientation } from './ButtonGroup.types';
 import { assignGroupItemAttributes } from './ButtonGroup.utils';
 
-export type ButtonGroupProps = Omit<
+type ButtonGroupProps = Omit<
 	HTMLAttributes<HTMLDivElement>,
 	'className'
 > & {

@@ -1,8 +1,8 @@
-import type { KeyboardEvent, ReactNode, RefObject } from 'react';
+import type { ComponentProps, KeyboardEvent, ReactNode, RefObject } from 'react';
 
 import type { LucideIcon } from 'lucide-react';
 
-import type { LinkProps } from '@/components/ui/link';
+import type { Link } from '@/components/ui/link';
 
 export type MenuVariant = 'dropdown' | 'menubar' | 'submenu';
 
@@ -37,7 +37,7 @@ export type MenuItemProps = MenuChildrenProps & {
 	disabled?: boolean;
 	destructive?: boolean;
 	onClick?: () => void;
-	href?: LinkProps['href'];
+	href?: ComponentProps<typeof Link>['href'];
 	external?: boolean;
 };
 

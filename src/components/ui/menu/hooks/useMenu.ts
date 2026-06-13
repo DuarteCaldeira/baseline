@@ -12,13 +12,11 @@ import {
 	focusMenubarItem,
 	getMenuItems,
 	getMenubarItems,
-	handleMenuBoundaryFocus,
-	handleMenuClose,
-	handleMenuListNavigation,
 	isActivationKey,
+	moveFocus,
 	openSubmenuFromKeyboard,
 	runMenuKeyHandler,
-} from '../Menu.utils';
+} from '../Menu.keyboard.utils';
 
 const SUBMENU_CLOSE_DELAY_MS = 120;
 
@@ -152,35 +150,47 @@ export const useMenu = ({
 
 	const handleContentKeyDown = useCallback(
 		(event: KeyboardEvent<HTMLElement>) => {
-			const ctx = {
-				event,
-				items: getMenuItems(contentRef.current),
-				current: document.activeElement as HTMLElement,
-				contentElement: contentRef.current,
-				close,
+			const items = getMenuItems(contentRef.current);
+			const current = document.activeElement as HTMLElement;
+
+			const navigate = (direction: 1 | -1) => {
+				event.preventDefault();
+				moveFocus(items, current, direction);
+			};
+
+			const closeMenu = (options?: { stopPropagation?: boolean }) => {
+				event.preventDefault();
+				if (options?.stopPropagation) event.stopPropagation();
+				close();
 			};
 
 			if (variant === 'submenu') {
 				runMenuKeyHandler(event, {
-					ArrowDown: () => handleMenuListNavigation(ctx, 1),
-					ArrowUp: () => handleMenuListNavigation(ctx, -1),
-					ArrowLeft: () => handleMenuClose(ctx, { stopPropagation: true }),
-					Escape: () => handleMenuClose(ctx, { stopPropagation: true }),
+					ArrowDown: () => navigate(1),
+					ArrowUp: () => navigate(-1),
+					ArrowLeft: () => closeMenu({ stopPropagation: true }),
+					Escape: () => closeMenu({ stopPropagation: true }),
 				});
 				return;
 			}
 
 			runMenuKeyHandler(event, {
-				ArrowDown: () => handleMenuListNavigation(ctx, 1),
-				ArrowUp: () => handleMenuListNavigation(ctx, -1),
+				ArrowDown: () => navigate(1),
+				ArrowUp: () => navigate(-1),
 				ArrowRight: () => {
-					if (!openSubmenuFromKeyboard(ctx.current)) return;
+					if (!openSubmenuFromKeyboard(current)) return;
 					event.preventDefault();
 				},
-				Home: () => handleMenuBoundaryFocus(ctx, 'first'),
-				End: () => handleMenuBoundaryFocus(ctx, 'last'),
-				Escape: () => handleMenuClose(ctx),
-				Tab: () => handleMenuClose(ctx),
+				Home: () => {
+					event.preventDefault();
+					focusMenuItem(contentRef.current, 'first');
+				},
+				End: () => {
+					event.preventDefault();
+					focusMenuItem(contentRef.current, 'last');
+				},
+				Escape: () => closeMenu(),
+				Tab: () => closeMenu(),
 			});
 		},
 		[close, variant]
@@ -192,16 +202,14 @@ export const useMenu = ({
 			const current = document.activeElement as HTMLElement;
 
 			runMenuKeyHandler(event, {
-				ArrowRight: () =>
-					handleMenuListNavigation(
-						{ event, items, current, contentElement: null, close },
-						1
-					),
-				ArrowLeft: () =>
-					handleMenuListNavigation(
-						{ event, items, current, contentElement: null, close },
-						-1
-					),
+				ArrowRight: () => {
+					event.preventDefault();
+					moveFocus(items, current, 1);
+				},
+				ArrowLeft: () => {
+					event.preventDefault();
+					moveFocus(items, current, -1);
+				},
 				Home: () => {
 					event.preventDefault();
 					focusMenubarItem(menubarRef.current, 'first');
@@ -212,7 +220,7 @@ export const useMenu = ({
 				},
 			});
 		},
-		[close]
+		[]
 	);
 
 	return {

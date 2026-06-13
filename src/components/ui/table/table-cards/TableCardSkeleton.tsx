@@ -2,9 +2,9 @@ import { useMemo } from 'react';
 
 import { Skeleton } from '@/components/patterns/skeleton';
 
-import styles from './Table.module.scss';
-import type { TableColumn } from './Table.types';
-import { getColumnLabel, getPrimaryColumnKey } from './Table.utils';
+import styles from '../Table.module.scss';
+import type { TableColumn } from '../Table.types';
+import { getColumnLabel, getPrimaryColumnKey } from '../Table.utils';
 
 type TableCardSkeletonProps<T extends Record<string, unknown>> = {
 	columns: TableColumn<T>[];

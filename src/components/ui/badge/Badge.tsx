@@ -26,7 +26,7 @@ type BadgeIconOnly = BadgeBaseProps & {
 	'aria-label': string;
 };
 
-export type BadgeProps = BadgeWithText | BadgeIconOnly;
+type BadgeProps = BadgeWithText | BadgeIconOnly;
 
 const ICON_VARIANT: Record<BadgeVariant, IconVariant> = {
 	success: 'success',

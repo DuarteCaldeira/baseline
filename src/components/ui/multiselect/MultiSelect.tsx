@@ -16,7 +16,7 @@ import { getLabelId, resolveFieldIds } from '@/utils/fieldIds';
 import styles from './MultiSelect.module.scss';
 import { useMultiSelect } from './useMultiSelect';
 
-export type MultiSelectProps = {
+type MultiSelectProps = {
 	id: string;
 	label?: string;
 	options: SelectOption[];

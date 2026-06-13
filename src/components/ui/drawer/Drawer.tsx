@@ -14,7 +14,7 @@ import styles from './Drawer.module.scss';
 import type { DrawerProps } from './Drawer.types';
 import { useDrawer } from './useDrawer';
 
-export type { DrawerProps, DrawerSide } from './Drawer.types';
+export type { DrawerSide } from './Drawer.types';
 
 export const Drawer = ({
 	isOpen,

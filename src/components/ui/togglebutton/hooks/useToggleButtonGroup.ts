@@ -2,7 +2,7 @@ import { createContext, useCallback, useContext } from 'react';
 
 import { useControllableState } from '@/hooks/useControllableState';
 
-import type { ToggleButtonGroupType } from './ToggleButton.types';
+import type { ToggleButtonGroupType } from '../ToggleButton.types';
 
 type ToggleButtonGroupContextValue = {
 	type: ToggleButtonGroupType;

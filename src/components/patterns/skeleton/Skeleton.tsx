@@ -110,5 +110,3 @@ export const Skeleton = ({
 		/>
 	);
 };
-
-export type { SkeletonVariant, SkeletonWidth } from './Skeleton.types';

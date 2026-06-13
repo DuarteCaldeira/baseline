@@ -2,7 +2,7 @@ import type { HTMLAttributes, ReactNode } from 'react';
 
 import { VISUALLY_HIDDEN_CLASS } from '@/styles/utilities/visuallyHidden';
 
-export type VisuallyHiddenProps = Omit<
+type VisuallyHiddenProps = Omit<
 	HTMLAttributes<HTMLElement>,
 	'className'
 > & {

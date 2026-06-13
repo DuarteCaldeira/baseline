@@ -1,12 +1,12 @@
 import type { InputHTMLAttributes } from 'react';
 
 import { FormField } from '@/components/patterns/form-field';
-import { resolveFieldIds } from '@/utils/fieldIds';
 import { cn } from '@/utils/cn';
+import { resolveFieldIds } from '@/utils/fieldIds';
 
 import styles from './Radio.module.scss';
 
-export type RadioProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> & {
+type RadioProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> & {
 	label?: string;
 	helperText?: string;
 	error?: string;
@@ -34,16 +34,16 @@ export const Radio = ({
 		>
 			<FormField fieldId={id} helperText={helperText} error={error} gap="1">
 				<label className={styles['radio__label']} htmlFor={id}>
-				<input
-					type="radio"
-					id={id}
-					className={styles['radio__input']}
-					disabled={disabled}
-					aria-describedby={describedBy}
-					{...rest}
-				/>
-				{label && <span className={styles['radio__text']}>{label}</span>}
-			</label>
+					<input
+						type="radio"
+						id={id}
+						className={styles['radio__input']}
+						disabled={disabled}
+						aria-describedby={describedBy}
+						{...rest}
+					/>
+					{label && <span className={styles['radio__text']}>{label}</span>}
+				</label>
 			</FormField>
 		</div>
 	);
