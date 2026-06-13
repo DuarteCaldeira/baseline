@@ -6,7 +6,6 @@ import { ChevronRight } from 'lucide-react';
 import { Stack } from '@/components/layout/stack';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
-import { Link } from '@/components/ui/link';
 import { cn } from '@/utils/cn';
 
 import { MENU_CONTENT_DEFAULTS } from './Menu.constants';
@@ -14,7 +13,6 @@ import styles from './Menu.module.scss';
 import type {
 	MenuContentProps,
 	MenuContextValue,
-	MenuItemProps,
 	MenuLabelProps,
 	MenuProps,
 	MenuSubContentProps,
@@ -23,10 +21,8 @@ import type {
 	MenuTriggerChildProps,
 	MenuTriggerProps,
 } from './Menu.types';
-import { isActivationKey } from './Menu.keyboard.utils';
 import {
 	buildTriggerProps,
-	getMenuItemDataAttrs,
 	mergeRefs,
 	pickInheritedContentState,
 } from './Menu.utils';
@@ -257,76 +253,7 @@ export const MenuSubContent = ({ children }: MenuSubContentProps) => (
 	</MenuContentPanel>
 );
 
-export const MenuItem = ({
-	children,
-	icon,
-	disabled,
-	destructive,
-	onClick,
-	href,
-	external,
-}: MenuItemProps) => {
-	const { inContent, inMenubar, closeAll } = useMenuContext();
-	const { highlightData, onMouseEnter, onMouseLeave } =
-		useMenuItemHighlight(disabled);
-
-	const itemAttrs = getMenuItemDataAttrs({
-		inContent,
-		inMenubar,
-		disabled,
-		destructive,
-		highlighted: highlightData === 'true',
-		tabIndex: inContent ? -1 : 0,
-	});
-
-	const handleSelect = () => {
-		if (disabled) return;
-		onClick?.();
-		if (inContent) closeAll();
-	};
-
-	const content = (
-		<MenuItemContent icon={icon} destructive={destructive}>
-			{children}
-		</MenuItemContent>
-	);
-
-	if (href) {
-		return (
-			<Link
-				href={href}
-				external={external}
-				variant="inherit"
-				{...itemAttrs}
-				onClick={handleSelect}
-				onMouseEnter={onMouseEnter}
-				onMouseLeave={onMouseLeave}
-			>
-				{content}
-			</Link>
-		);
-	}
-
-	return (
-		<Button
-			type="button"
-			variant="ghost"
-			size="sm"
-			{...itemAttrs}
-			disabled={disabled}
-			onClick={handleSelect}
-			onMouseEnter={onMouseEnter}
-			onMouseLeave={onMouseLeave}
-			onKeyDown={(event) => {
-				if (!isActivationKey(event)) return;
-				event.preventDefault();
-				handleSelect();
-			}}
-		>
-			{content}
-		</Button>
-	);
-};
+export { MenuItem } from './MenuItem';
 
 export const MenuLabel = ({ children }: MenuLabelProps) => (
 	<p role="presentation" className={styles['menu__label']}>

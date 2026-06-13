@@ -1,15 +1,8 @@
 import { Skeleton } from '@/components/patterns/skeleton';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { TABLE_MOBILE_MEDIA_QUERY } from '@/utils/breakpoints';
 
 import styles from '../Table.module.scss';
-import type { TableColumn } from '../Table.types';
+import type { TableSkeletonProps } from '../Table.types';
 import { TableCardSkeleton } from '../table-cards/TableCardSkeleton';
-
-type TableSkeletonProps<T extends Record<string, unknown>> = {
-	columns: TableColumn<T>[];
-	rows?: number;
-};
 
 // Staggered widths so adjacent cells look naturally varied
 const WIDTHS = ['3/4', '2/3', 'full', '1/2', '3/4', '2/3'] as const;
@@ -20,9 +13,8 @@ const ROW_DELAY_MS = 60;
 export const TableSkeleton = <T extends Record<string, unknown>>({
 	columns,
 	rows = 5,
+	isMobile,
 }: TableSkeletonProps<T>) => {
-	const isMobile = useMediaQuery(TABLE_MOBILE_MEDIA_QUERY);
-
 	if (isMobile) {
 		return <TableCardSkeleton columns={columns} rows={rows} />;
 	}

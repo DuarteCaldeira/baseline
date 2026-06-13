@@ -47,12 +47,12 @@ export const moveFocus = (
 	direction: 1 | -1
 ): void => {
 	const currentIndex = items.indexOf(current);
-	const nextIndex =
-		currentIndex === -1
-			? direction === 1
-				? 0
-				: items.length - 1
-			: (currentIndex + direction + items.length) % items.length;
+	let nextIndex: number;
+	if (currentIndex === -1) {
+		nextIndex = direction === 1 ? 0 : items.length - 1;
+	} else {
+		nextIndex = (currentIndex + direction + items.length) % items.length;
+	}
 
 	items[nextIndex]?.focus();
 };

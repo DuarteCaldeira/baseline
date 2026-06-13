@@ -22,6 +22,16 @@ const meta = {
 	title: 'UI/Table',
 	component: Table,
 	tags: ['autodocs'],
+	parameters: {
+		docs: {
+			description: {
+				component:
+					'Data table with filtering, sorting, pagination, and a responsive card layout on small screens. ' +
+					'Rows are memoised — keep the `columns` array and each `render` callback stable with `useMemo` ' +
+					'so row cells do not re-render on unrelated parent updates. Use `rowKey` when row order can change.',
+			},
+		},
+	},
 	argTypes: {
 		data: { control: false },
 		columns: { control: false },

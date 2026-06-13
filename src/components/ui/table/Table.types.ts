@@ -14,9 +14,7 @@ export type TableColumn<T extends Record<string, unknown>> = {
 	header: ReactNode;
 	render?: (row: T, rowIndex: number) => ReactNode;
 	width?: string;
-	/** Enables click-to-sort. Compares by `row[key]` using numeric-aware locale comparison. */
 	sortable?: boolean;
-	/** Renders as the card title on mobile. Defaults to the first column. */
 	mobilePrimary?: boolean;
 };
 
@@ -71,6 +69,12 @@ export type TableGridProps<T extends Record<string, unknown>> = {
 	onSortChange: (sort: SortState) => void;
 	/** 0-based index of the first row on the current page — used for aria-rowindex. */
 	rowOffset: number;
-	/** Total filtered row count across all pages — used for aria-rowcount. */
 	totalRows: number;
+	isMobile: boolean;
+};
+
+export type TableSkeletonProps<T extends Record<string, unknown>> = {
+	columns: TableColumn<T>[];
+	rows?: number;
+	isMobile: boolean;
 };

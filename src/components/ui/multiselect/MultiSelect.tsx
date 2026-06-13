@@ -1,4 +1,4 @@
-import { type MouseEvent, useRef } from 'react';
+import { type MouseEvent, useMemo, useRef } from 'react';
 
 import { ChevronDown } from 'lucide-react';
 
@@ -52,12 +52,17 @@ export const MultiSelect = ({
 		onChange,
 	});
 
+	const selectedValueSet = useMemo(
+		() => new Set(selectedValues),
+		[selectedValues]
+	);
+
 	const selectedOptions = options.filter((option) =>
-		selectedValues.includes(option.value)
+		selectedValueSet.has(option.value)
 	);
 
 	const firstSelectedIndex = options.findIndex((option) =>
-		selectedValues.includes(option.value)
+		selectedValueSet.has(option.value)
 	);
 
 	const {
@@ -201,7 +206,7 @@ export const MultiSelect = ({
 				style={style}
 				placement={placement}
 				multi
-				isSelected={(optionValue) => selectedValues.includes(optionValue)}
+				isSelected={(optionValue) => selectedValueSet.has(optionValue)}
 				onSelect={handleOptionSelect}
 				onHighlight={setActiveIndex}
 				mounted={mounted}

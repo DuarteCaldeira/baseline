@@ -3,6 +3,8 @@
 import { useCallback, useMemo, useState } from 'react';
 
 import { useDebounce } from '@/hooks/useDebounce';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { TABLE_MOBILE_MEDIA_QUERY } from '@/utils/breakpoints';
 import { cn } from '@/utils/cn';
 
 import styles from './Table.module.scss';
@@ -44,6 +46,7 @@ export const Table = <T extends Record<string, unknown>>({
 		resolvePageSize(initialPageSize, resolvedPageSizeOptions)
 	);
 	const [sortState, setSortState] = useState<SortState>(null);
+	const isMobile = useMediaQuery(TABLE_MOBILE_MEDIA_QUERY);
 
 	const debouncedFilterValues = useDebounce(filterValues, SEARCH_DEBOUNCE_MS);
 
@@ -113,7 +116,11 @@ export const Table = <T extends Record<string, unknown>>({
 
 			<div className={styles['table__scroll']} aria-busy={loading || undefined}>
 				{loading ? (
-					<TableSkeleton columns={columns} rows={pageSize} />
+					<TableSkeleton
+						columns={columns}
+						rows={pageSize}
+						isMobile={isMobile}
+					/>
 				) : (
 					<TableGrid
 						columns={columns}
@@ -126,6 +133,7 @@ export const Table = <T extends Record<string, unknown>>({
 						onSortChange={handleSortChange}
 						rowOffset={rowOffset}
 						totalRows={sortedData.length}
+						isMobile={isMobile}
 					/>
 				)}
 			</div>

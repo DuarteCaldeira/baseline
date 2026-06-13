@@ -1,8 +1,6 @@
 import { memo, useCallback, useMemo } from 'react';
 import type { KeyboardEvent, MouseEvent, ReactElement } from 'react';
 
-import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { TABLE_MOBILE_MEDIA_QUERY } from '@/utils/breakpoints';
 import { cn } from '@/utils/cn';
 
 import styles from '../Table.module.scss';
@@ -70,9 +68,9 @@ export const TableGrid = <T extends Record<string, unknown>>({
 	onSortChange,
 	rowOffset,
 	totalRows,
+	isMobile,
 }: TableGridProps<T>) => {
 	const isClickable = !!onRowClick;
-	const isMobile = useMediaQuery(TABLE_MOBILE_MEDIA_QUERY);
 	const primaryColumnKey = useMemo(
 		() => getPrimaryColumnKey(columns),
 		[columns]
