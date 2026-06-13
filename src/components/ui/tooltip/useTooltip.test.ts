@@ -1,17 +1,13 @@
 import { act, renderHook } from '@testing-library/react';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+
+import { setupFakeTimers } from '@/test-utils/setupFakeTimers';
 
 import { useTooltip } from './useTooltip';
 
+setupFakeTimers();
+
 describe('useTooltip', () => {
-	beforeEach(() => {
-		vi.useFakeTimers();
-	});
-
-	afterEach(() => {
-		vi.useRealTimers();
-	});
-
 	it('starts closed', () => {
 		const { result } = renderHook(() => useTooltip());
 		expect(result.current.isOpen).toBe(false);

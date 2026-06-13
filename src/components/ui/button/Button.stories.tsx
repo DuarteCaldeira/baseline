@@ -76,15 +76,23 @@ export const IconOnly: Story = {
 };
 
 export const AllVariants: Story = {
-	render: () => (
+	name: 'All Variants',
+	args: { children: 'Button' },
+	render: (args) => (
 		<Stack direction="row" gap="3" wrap align="center">
-			<Button variant="primary">Primary</Button>
-			<Button variant="secondary">Secondary</Button>
-			<Button variant="ghost">Ghost</Button>
-			<Button variant="primary" disabled>
+			<Button {...args} variant="primary">
+				Primary
+			</Button>
+			<Button {...args} variant="secondary">
+				Secondary
+			</Button>
+			<Button {...args} variant="ghost">
+				Ghost
+			</Button>
+			<Button {...args} variant="primary" disabled>
 				Disabled
 			</Button>
-			<Button variant="primary" isLoading>
+			<Button {...args} variant="primary" isLoading>
 				Loading
 			</Button>
 		</Stack>
@@ -92,27 +100,31 @@ export const AllVariants: Story = {
 };
 
 export const AllSizes: Story = {
-	render: () => (
+	name: 'All Sizes',
+	args: { children: 'Button' },
+	render: (args) => (
 		<Stack direction="row" gap="3" align="center">
-			<Button size="sm">Small</Button>
-			<Button size="md">Medium</Button>
-			<Button size="lg">Large</Button>
+			<Button {...args} size="sm">
+				Small
+			</Button>
+			<Button {...args} size="md">
+				Medium
+			</Button>
+			<Button {...args} size="lg">
+				Large
+			</Button>
 		</Stack>
 	),
 };
 
 export const AllSizesWithIcon: Story = {
-	render: () => (
+	name: 'All Sizes — With Icon',
+	args: { icon: Plus, children: 'Add item' },
+	render: (args) => (
 		<Stack direction="row" gap="3" align="center">
-			<Button size="sm" icon={Plus}>
-				Add item
-			</Button>
-			<Button size="md" icon={Plus}>
-				Add item
-			</Button>
-			<Button size="lg" icon={Plus}>
-				Add item
-			</Button>
+			<Button {...args} size="sm" />
+			<Button {...args} size="md" />
+			<Button {...args} size="lg" />
 		</Stack>
 	),
 };

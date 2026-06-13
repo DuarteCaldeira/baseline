@@ -1,6 +1,8 @@
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+
+import { setupFakeTimers } from '@/test-utils/setupFakeTimers';
 
 import { Table } from './Table';
 import type { TableColumn, TableFilter } from './Table.types';
@@ -375,12 +377,7 @@ describe('Table — pagination', () => {
 // ─── Filtering ────────────────────────────────────────────────────────────────
 
 describe('Table — search filter (debounced)', () => {
-	beforeEach(() => {
-		vi.useFakeTimers();
-	});
-	afterEach(() => {
-		vi.useRealTimers();
-	});
+	setupFakeTimers();
 
 	it('shows only matching rows after the debounce delay', () => {
 		render(

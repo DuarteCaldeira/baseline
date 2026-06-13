@@ -1,17 +1,13 @@
 import { act, renderHook } from '@testing-library/react';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+
+import { setupFakeTimers } from '@/test-utils/setupFakeTimers';
 
 import { useDebounce } from './useDebounce';
 
+setupFakeTimers();
+
 describe('useDebounce', () => {
-	beforeEach(() => {
-		vi.useFakeTimers();
-	});
-
-	afterEach(() => {
-		vi.useRealTimers();
-	});
-
 	it('returns the initial value immediately', () => {
 		const { result } = renderHook(() => useDebounce('hello', 300));
 

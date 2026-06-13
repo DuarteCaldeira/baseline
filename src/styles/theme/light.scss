@@ -2,10 +2,10 @@
 
 :root,
 [data-theme='light'] {
-	// Layering
-	--z-index-floating: 9000;
-	--z-index-overlay: 9998;
-	--z-index-toast: 9999;
+	// Layering — overlay first, then floating panels inside overlays, then toasts
+	--z-index-overlay: 9000;
+	--z-index-floating: 9100;
+	--z-index-toast: 9200;
 
 	// Backgrounds — off-white page so white surfaces float above it
 	--color-bg: #{$color-neutral-50};

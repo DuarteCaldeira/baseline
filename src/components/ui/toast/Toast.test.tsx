@@ -1,6 +1,8 @@
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+import { setupFakeTimers } from '@/test-utils/setupFakeTimers';
 
 import { Toast } from './Toast';
 import { ToastProvider } from './ToastProvider';
@@ -8,13 +10,10 @@ import { useToast } from './useToast';
 
 let user: ReturnType<typeof userEvent.setup>;
 
-beforeEach(() => {
-	vi.useFakeTimers();
-	user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
-});
+setupFakeTimers();
 
-afterEach(() => {
-	vi.useRealTimers();
+beforeEach(() => {
+	user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
 });
 
 // ─── Toast visual component ───────────────────────────────────────────────────

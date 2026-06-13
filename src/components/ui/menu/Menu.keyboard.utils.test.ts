@@ -8,7 +8,7 @@ import {
 	moveFocus,
 } from './Menu.keyboard.utils';
 
-describe('Menu.utils', () => {
+describe('Menu.keyboard.utils', () => {
 	it('collects enabled menu and menubar items', () => {
 		const container = document.createElement('div');
 		const enabled = document.createElement('button');

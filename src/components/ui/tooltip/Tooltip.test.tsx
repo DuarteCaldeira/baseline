@@ -1,19 +1,14 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
+import { setupFakeTimers } from '@/test-utils/setupFakeTimers';
 import { Button } from '@/components/ui/button';
 
 import { Tooltip } from './Tooltip';
 
+setupFakeTimers();
+
 describe('Tooltip', () => {
-	beforeEach(() => {
-		vi.useFakeTimers();
-	});
-
-	afterEach(() => {
-		vi.useRealTimers();
-	});
-
 	it('renders the trigger child', () => {
 		render(
 			<Tooltip content="Helpful hint">

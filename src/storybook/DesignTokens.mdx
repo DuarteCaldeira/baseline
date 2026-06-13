@@ -52,7 +52,7 @@ Use for **colors and semantic values that must respond to light/dark theme** or 
 | Text | `--color-text`, `--color-text-muted` | Foreground copy and labels |
 | Borders | `--color-border`, `--color-border-strong` | Dividers, outlines, control shells |
 | Brand / semantic | `--color-primary`, `--color-error` | Interactive states, alerts, badges |
-| Layering | `--z-index-overlay`, `--z-index-floating` | Stacking context for overlays |
+| Layering | `--z-index-overlay`, `--z-index-floating`, `--z-index-toast` | Stacking order: overlay (modal/drawer) → floating (menu/select/datepicker) → toast |
 
 **Rule of thumb:** if the value is a **color** or must **switch with theme**, use `var(--color-*)` — never a raw `$color-*` in component SCSS.
 
