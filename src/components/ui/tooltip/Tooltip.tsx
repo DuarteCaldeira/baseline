@@ -1,19 +1,14 @@
 import { Children, cloneElement, isValidElement, useRef } from 'react';
-import type {
-	CSSProperties,
-	HTMLAttributes,
-	ReactElement,
-	ReactNode,
-} from 'react';
-import { createPortal } from 'react-dom';
+import type { HTMLAttributes, ReactElement, ReactNode } from 'react';
 
+import { FloatingPortal } from '@/components/patterns/floating-portal';
+import { useFloatingPosition } from '@/hooks/useFloatingPosition';
 import { useMounted } from '@/hooks/useMounted';
 import { cn } from '@/utils/cn';
 
 import styles from './Tooltip.module.scss';
 import type { TooltipPlacement } from './Tooltip.types';
 import { useTooltip } from './useTooltip';
-import { useTooltipPosition } from './useTooltipPosition';
 
 export type TooltipProps = {
 	content: ReactNode;
@@ -32,11 +27,12 @@ export const Tooltip = ({
 
 	const { isOpen, tooltipId, getTriggerProps } = useTooltip();
 
-	const { position } = useTooltipPosition({
+	const { style, placement: resolvedPlacement, position } = useFloatingPosition({
 		isOpen,
 		triggerRef,
-		bubbleRef,
+		floatingRef: bubbleRef,
 		preferredPlacement: placement,
+		variant: 'tooltip',
 	});
 
 	if (!isValidElement(children)) {
@@ -48,41 +44,30 @@ export const Tooltip = ({
 	const child = Children.only(children);
 	const triggerProps = getTriggerProps(child.props);
 
-	const bubbleStyle = {
-		top: position?.top ?? 0,
-		left: position?.left ?? 0,
-		'--tooltip-arrow-offset': `${position?.arrowOffset ?? 0}px`,
-	} as CSSProperties;
-
-	const resolvedPlacement = position?.placement ?? placement;
-
 	return (
 		<span ref={triggerRef} className={styles.tooltip}>
 			{cloneElement(child, triggerProps)}
-			{mounted &&
-				isOpen &&
-				createPortal(
+			<FloatingPortal mounted={mounted} isOpen={isOpen}>
+				<span
+					ref={bubbleRef}
+					role="tooltip"
+					id={tooltipId}
+					className={cn(
+						styles['tooltip__bubble'],
+						!position && styles['tooltip__bubble--measuring']
+					)}
+					style={style}
+				>
 					<span
-						ref={bubbleRef}
-						role="tooltip"
-						id={tooltipId}
 						className={cn(
-							styles['tooltip__bubble'],
-							!position && styles['tooltip__bubble--measuring']
+							styles['tooltip__arrow'],
+							styles[`tooltip__arrow--${resolvedPlacement}`]
 						)}
-						style={bubbleStyle}
-					>
-						<span
-							className={cn(
-								styles['tooltip__arrow'],
-								styles[`tooltip__arrow--${resolvedPlacement}`]
-							)}
-							aria-hidden="true"
-						/>
-						{content}
-					</span>,
-					document.body
-				)}
+						aria-hidden="true"
+					/>
+					{content}
+				</span>
+			</FloatingPortal>
 		</span>
 	);
 };

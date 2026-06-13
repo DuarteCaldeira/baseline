@@ -1,7 +1,6 @@
 import { useLayoutEffect } from 'react';
 import type { ReactNode } from 'react';
-import { createPortal } from 'react-dom';
-
+import { FloatingPortal } from '@/components/patterns/floating-portal';
 import { useFloatingPosition } from '@/hooks/useFloatingPosition';
 import { useMounted } from '@/hooks/useMounted';
 import { cn } from '@/utils/cn';
@@ -91,7 +90,7 @@ export const MenuContentPanel = ({
 	);
 
 	if (isPortaled && mounted) {
-		return createPortal(panel, document.body);
+		return <FloatingPortal mounted={mounted} isOpen={isOpen}>{panel}</FloatingPortal>;
 	}
 
 	return panel;

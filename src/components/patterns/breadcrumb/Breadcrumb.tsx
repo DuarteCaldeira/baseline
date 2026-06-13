@@ -9,7 +9,7 @@ import { Link } from '@/components/ui/link';
 import styles from './Breadcrumb.module.scss';
 import type { BreadcrumbItem } from './Breadcrumb.types';
 
-export type BreadcrumbProps = Omit<HTMLAttributes<HTMLElement>, 'className'> & {
+type BreadcrumbProps = Omit<HTMLAttributes<HTMLElement>, 'className'> & {
 	items: BreadcrumbItem[];
 };
 

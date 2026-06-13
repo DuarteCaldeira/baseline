@@ -5,12 +5,7 @@ import { ChevronDown } from 'lucide-react';
 import { FormField } from '@/components/patterns/form-field';
 import { Icon } from '@/components/ui/icon';
 import type { SelectOption } from '@/components/ui/select';
-import {
-	getListboxId,
-	getOptionId,
-	scrollOptionIntoView,
-} from '@/components/ui/select/Select.utils';
-import { SelectListbox } from '@/components/ui/select/SelectListbox';
+import { Listbox, getListboxId, getOptionId, scrollOptionIntoView } from '@/components/ui/listbox';
 import { useSelect } from '@/components/ui/select/useSelect';
 import { Tag } from '@/components/ui/tag';
 import { useFloatingPosition } from '@/hooks/useFloatingPosition';
@@ -197,7 +192,7 @@ export const MultiSelect = ({
 				/>
 			</div>
 
-			<SelectListbox
+			<Listbox
 				id={id}
 				labelId={label ? labelId : undefined}
 				options={options}

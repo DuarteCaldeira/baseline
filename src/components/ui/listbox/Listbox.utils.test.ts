@@ -1,8 +1,8 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import { getListboxId, getOptionId, scrollOptionIntoView } from './Select.utils';
+import { getListboxId, getOptionId, scrollOptionIntoView } from './Listbox.utils';
 
-describe('Select.utils', () => {
+describe('Listbox.utils', () => {
 	describe('getListboxId', () => {
 		it('appends -listbox to the field id', () => {
 			expect(getListboxId('fruit')).toBe('fruit-listbox');

@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 
 import { X } from 'lucide-react';
 
+import { Overlay } from '@/components/patterns/overlay';
 import { Stack } from '@/components/layout/stack';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
@@ -41,13 +42,7 @@ export const Drawer = ({
 	if (!mounted || !present) return null;
 
 	return createPortal(
-		<div
-			className={cn(
-				styles['drawer-overlay'],
-				closing && styles['drawer-overlay--closing']
-			)}
-			onClick={handleOverlayClick}
-		>
+		<Overlay blur slowEnter closing={closing} onClick={handleOverlayClick}>
 			<div
 				ref={dialogRef}
 				role="dialog"
@@ -103,7 +98,7 @@ export const Drawer = ({
 					</Stack>
 				)}
 			</div>
-		</div>,
+		</Overlay>,
 		document.body
 	);
 };

@@ -1,15 +1,7 @@
-@use '@/styles/mixins/overlay' as *;
 @use '@/styles/tokens/spacing' as *;
 @use '@/styles/tokens/radius' as *;
 @use '@/styles/tokens/shadows' as *;
 @use '@/styles/tokens/motion' as *;
-
-.modal-overlay {
-	@include overlay-backdrop;
-	padding: $spacing-4;
-	overflow-y: auto;
-	@include overlay-enter;
-}
 
 .modal {
 	position: relative;

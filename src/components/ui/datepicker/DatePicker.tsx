@@ -1,7 +1,6 @@
-import { createPortal } from 'react-dom';
-
 import { Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 
+import { FloatingPortal } from '@/components/patterns/floating-portal';
 import { FormField } from '@/components/patterns/form-field';
 import { Stack } from '@/components/layout/stack';
 import { Button } from '@/components/ui/button';
@@ -127,9 +126,7 @@ export const DatePicker = ({
 				/>
 			</button>
 
-			{mounted &&
-				isOpen &&
-				createPortal(
+			<FloatingPortal mounted={mounted} isOpen={isOpen}>
 					<div
 						ref={calendarRef}
 						role="dialog"
@@ -247,9 +244,8 @@ export const DatePicker = ({
 								</div>
 							))}
 						</div>
-					</div>,
-					document.body
-				)}
+					</div>
+			</FloatingPortal>
 			</FormField>
 		</div>
 	);

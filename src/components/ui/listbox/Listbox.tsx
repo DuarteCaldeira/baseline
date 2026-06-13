@@ -1,17 +1,17 @@
 import type { CSSProperties, RefObject } from 'react';
-import { createPortal } from 'react-dom';
 
 import { Check } from 'lucide-react';
 
+import { FloatingPortal } from '@/components/patterns/floating-portal';
 import { Icon } from '@/components/ui/icon';
+import type { SelectOption } from '@/components/ui/select';
 import { cn } from '@/utils/cn';
 import type { FloatingPlacement } from '@/utils/floatingPosition';
 
-import type { SelectOption } from './Select.types';
-import { getListboxId, getOptionId } from './Select.utils';
-import styles from './SelectListbox.module.scss';
+import styles from './Listbox.module.scss';
+import { getListboxId, getOptionId } from './Listbox.utils';
 
-export type SelectListboxProps = {
+type ListboxProps = {
 	id: string;
 	labelId?: string;
 	options: SelectOption[];
@@ -27,7 +27,7 @@ export type SelectListboxProps = {
 	isOpen: boolean;
 };
 
-export const SelectListbox = ({
+export const Listbox = ({
 	id,
 	labelId,
 	options,
@@ -41,10 +41,8 @@ export const SelectListbox = ({
 	onHighlight,
 	mounted,
 	isOpen,
-}: SelectListboxProps) => {
-	if (!mounted || !isOpen) return null;
-
-	return createPortal(
+}: ListboxProps) => (
+	<FloatingPortal mounted={mounted} isOpen={isOpen}>
 		<ul
 			ref={listboxRef}
 			id={getListboxId(id)}
@@ -52,10 +50,7 @@ export const SelectListbox = ({
 			aria-labelledby={labelId}
 			aria-multiselectable={multi || undefined}
 			style={style}
-			className={cn(
-				styles['select-listbox'],
-				styles[`select-listbox--placement-${placement}`]
-			)}
+			className={cn(styles.listbox, styles[`listbox--placement-${placement}`])}
 		>
 			{options.map((option, index) => {
 				const selected = isSelected(option.value);
@@ -68,10 +63,10 @@ export const SelectListbox = ({
 						aria-selected={selected}
 						aria-disabled={option.disabled}
 						className={cn(
-							styles['select-listbox__option'],
-							selected && styles['select-listbox__option--selected'],
-							index === activeIndex && styles['select-listbox__option--active'],
-							option.disabled && styles['select-listbox__option--disabled']
+							styles['listbox__option'],
+							selected && styles['listbox__option--selected'],
+							index === activeIndex && styles['listbox__option--active'],
+							option.disabled && styles['listbox__option--disabled']
 						)}
 						onPointerDown={(event) => event.preventDefault()}
 						onClick={() => onSelect(option)}
@@ -79,7 +74,7 @@ export const SelectListbox = ({
 					>
 						{option.icon && (
 							<span
-								className={styles['select-listbox__option-icon']}
+								className={styles['listbox__option-icon']}
 								aria-hidden="true"
 							>
 								<Icon
@@ -89,12 +84,12 @@ export const SelectListbox = ({
 								/>
 							</span>
 						)}
-						<span className={styles['select-listbox__option-content']}>
-							<span className={styles['select-listbox__option-label']}>
+						<span className={styles['listbox__option-content']}>
+							<span className={styles['listbox__option-label']}>
 								{option.label}
 							</span>
 							{option.description && (
-								<span className={styles['select-listbox__option-description']}>
+								<span className={styles['listbox__option-description']}>
 									{option.description}
 								</span>
 							)}
@@ -103,13 +98,12 @@ export const SelectListbox = ({
 							<Icon
 								icon={Check}
 								size="sm"
-								className={styles['select-listbox__option-check']}
+								className={styles['listbox__option-check']}
 							/>
 						)}
 					</li>
 				);
 			})}
-		</ul>,
-		document.body
-	);
-};
+		</ul>
+	</FloatingPortal>
+);

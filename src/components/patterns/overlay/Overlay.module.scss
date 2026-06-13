@@ -1,0 +1,28 @@
+@use '@/styles/mixins/overlay' as *;
+@use '@/styles/tokens/spacing' as *;
+@use '@/styles/tokens/motion' as *;
+
+.overlay {
+	@include overlay-backdrop;
+	@include overlay-enter;
+
+	&--slow-enter {
+		animation-duration: $duration-slow;
+	}
+
+	&--center {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: $spacing-4;
+		overflow-y: auto;
+	}
+
+	&--blur {
+		backdrop-filter: blur(2px);
+	}
+
+	&--closing {
+		@include overlay-exit;
+	}
+}

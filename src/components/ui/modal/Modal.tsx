@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 
 import { X } from 'lucide-react';
 
+import { Overlay } from '@/components/patterns/overlay';
 import { Stack } from '@/components/layout/stack';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
@@ -46,12 +47,7 @@ export const Modal = ({
 	if (!mounted || !isOpen) return null;
 
 	return createPortal(
-		<Stack
-			align="center"
-			justify="center"
-			className={styles['modal-overlay']}
-			onClick={handleOverlayClick}
-		>
+		<Overlay center onClick={handleOverlayClick}>
 			<Stack
 				ref={dialogRef}
 				role="dialog"
@@ -102,7 +98,7 @@ export const Modal = ({
 					</Stack>
 				)}
 			</Stack>
-		</Stack>,
+		</Overlay>,
 		document.body
 	);
 };

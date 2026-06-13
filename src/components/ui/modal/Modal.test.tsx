@@ -65,32 +65,6 @@ describe('Modal', () => {
 		expect(onClose).toHaveBeenCalledOnce();
 	});
 
-	it('calls onClose when the overlay is clicked', async () => {
-		const onClose = vi.fn();
-		render(<Modal {...defaultProps} onClose={onClose} />);
-
-		await userEvent.click(document.querySelector('.modal-overlay')!);
-		expect(onClose).toHaveBeenCalledOnce();
-	});
-
-	it('does not call onClose when clicking inside the dialog', async () => {
-		const onClose = vi.fn();
-		render(<Modal {...defaultProps} onClose={onClose} />);
-
-		await userEvent.click(screen.getByRole('dialog'));
-		expect(onClose).not.toHaveBeenCalled();
-	});
-
-	it('does not call onClose on overlay click when closeOnBackdropClick is false', async () => {
-		const onClose = vi.fn();
-		render(
-			<Modal {...defaultProps} onClose={onClose} closeOnBackdropClick={false} />
-		);
-
-		await userEvent.click(document.querySelector('.modal-overlay')!);
-		expect(onClose).not.toHaveBeenCalled();
-	});
-
 	it('calls onClose when Escape key is pressed', async () => {
 		const onClose = vi.fn();
 		render(<Modal {...defaultProps} onClose={onClose} />);

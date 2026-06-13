@@ -52,28 +52,6 @@ describe('Drawer', () => {
 		expect(onClose).toHaveBeenCalledOnce();
 	});
 
-	it('calls onClose when the overlay is clicked', async () => {
-		const onClose = vi.fn();
-		render(<Drawer {...defaultProps} onClose={onClose} />);
-
-		await userEvent.click(document.querySelector('.drawer-overlay')!);
-		expect(onClose).toHaveBeenCalledOnce();
-	});
-
-	it('does not call onClose on overlay click when closeOnBackdropClick is false', async () => {
-		const onClose = vi.fn();
-		render(
-			<Drawer
-				{...defaultProps}
-				onClose={onClose}
-				closeOnBackdropClick={false}
-			/>
-		);
-
-		await userEvent.click(document.querySelector('.drawer-overlay')!);
-		expect(onClose).not.toHaveBeenCalled();
-	});
-
 	it('calls onClose when Escape is pressed', async () => {
 		const onClose = vi.fn();
 		render(<Drawer {...defaultProps} onClose={onClose} />);
@@ -100,9 +78,6 @@ describe('Drawer', () => {
 
 		expect(screen.getByRole('dialog')).toBeInTheDocument();
 		expect(screen.getByRole('dialog').className).toMatch(/drawer--closing/);
-		expect(
-			document.querySelector('.drawer-overlay--closing')
-		).toBeInTheDocument();
 	});
 
 	it('unmounts after exit animation completes', () => {

@@ -1,4 +1,3 @@
-@use '@/styles/mixins/overlay' as *;
 @use '@/styles/tokens/spacing' as *;
 @use '@/styles/tokens/shadows' as *;
 @use '@/styles/tokens/motion' as *;
@@ -16,15 +15,6 @@
 	animation-duration: $duration-drawer;
 	animation-timing-function: $ease-drawer;
 	animation-fill-mode: forwards;
-
-	&-overlay {
-		@include overlay-backdrop(2px);
-		@include overlay-enter($duration-slow);
-
-		&--closing {
-			@include overlay-exit;
-		}
-	}
 
 	&--right {
 		right: 0;

@@ -11,8 +11,7 @@ import { getLabelId, resolveFieldIds } from '@/utils/fieldIds';
 
 import styles from './Select.module.scss';
 import type { SelectOption } from './Select.types';
-import { getListboxId, getOptionId, scrollOptionIntoView } from './Select.utils';
-import { SelectListbox } from './SelectListbox';
+import { Listbox, getListboxId, getOptionId, scrollOptionIntoView } from '@/components/ui/listbox';
 import { useSelect } from './useSelect';
 
 export type SelectProps = {
@@ -155,7 +154,7 @@ export const Select = ({
 				/>
 			</button>
 
-			<SelectListbox
+			<Listbox
 				id={id}
 				labelId={label ? labelId : undefined}
 				options={options}

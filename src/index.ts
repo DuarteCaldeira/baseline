@@ -167,6 +167,11 @@ export type {
 
 export { FormField } from './components/patterns/form-field';
 
+export { FloatingPortal } from './components/patterns/floating-portal';
+
+export { Overlay } from './components/patterns/overlay';
+export type { OverlayProps } from './components/patterns/overlay';
+
 // Hooks
 export { useDebounce } from './hooks/useDebounce';
 export { useDisclosure } from './hooks/useDisclosure';

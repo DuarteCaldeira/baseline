@@ -7,7 +7,7 @@ import { cn } from '@/utils/cn';
 import styles from './Skeleton.module.scss';
 import type { SkeletonVariant, SkeletonWidth } from './Skeleton.types';
 
-export type SkeletonProps = Omit<HTMLAttributes<HTMLElement>, 'className'> & {
+type SkeletonProps = Omit<HTMLAttributes<HTMLElement>, 'className'> & {
 	variant?: SkeletonVariant;
 	size?: Size;
 	width?: SkeletonWidth;

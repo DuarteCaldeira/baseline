@@ -11,15 +11,20 @@ import {
 
 import {
 	type ComputedFloatingPosition,
+	type ComputedTooltipPosition,
 	type FloatingAlign,
 	type FloatingPlacement,
 	computeFloatingPosition,
+	computeTooltipPosition,
 } from '@/utils/floatingPosition';
+
+type FloatingVariant = 'panel' | 'tooltip';
 
 type UseFloatingPositionOptions = {
 	isOpen: boolean;
 	triggerRef: RefObject<HTMLElement | null>;
 	floatingRef: RefObject<HTMLElement | null>;
+	variant?: FloatingVariant;
 	preferredPlacement?: FloatingPlacement;
 	align?: FloatingAlign;
 	gap?: number;
@@ -28,9 +33,10 @@ type UseFloatingPositionOptions = {
 };
 
 type UseFloatingPositionReturn = {
-	position: ComputedFloatingPosition | null;
+	position: ComputedFloatingPosition | ComputedTooltipPosition | null;
 	style: CSSProperties;
 	placement: FloatingPlacement;
+	arrowOffset?: number;
 };
 
 const getMeasuredRect = (element: HTMLElement) => {
@@ -48,15 +54,16 @@ export const useFloatingPosition = ({
 	isOpen,
 	triggerRef,
 	floatingRef,
+	variant = 'panel',
 	preferredPlacement = 'bottom',
 	align = 'start',
 	gap,
 	matchTriggerWidth = false,
 	maxHeightLimit,
 }: UseFloatingPositionOptions): UseFloatingPositionReturn => {
-	const [position, setPosition] = useState<ComputedFloatingPosition | null>(
-		null
-	);
+	const [position, setPosition] = useState<
+		ComputedFloatingPosition | ComputedTooltipPosition | null
+	>(null);
 
 	const updatePosition = useCallback(() => {
 		const trigger = triggerRef.current;
@@ -66,6 +73,34 @@ export const useFloatingPosition = ({
 
 		const triggerRect = getMeasuredRect(trigger);
 		const floatingRect = getMeasuredRect(floating);
+		const viewport = {
+			width: window.innerWidth,
+			height: window.innerHeight,
+		};
+
+		if (variant === 'tooltip') {
+			if (floatingRect.width === 0 || floatingRect.height === 0) return;
+
+			setPosition(
+				computeTooltipPosition({
+					triggerRect: {
+						top: triggerRect.top,
+						left: triggerRect.left,
+						width: triggerRect.width,
+						height: triggerRect.height,
+					},
+					bubbleRect: {
+						top: floatingRect.top,
+						left: floatingRect.left,
+						width: floatingRect.width,
+						height: floatingRect.height,
+					},
+					preferredPlacement,
+					viewport,
+				})
+			);
+			return;
+		}
 
 		setPosition(
 			computeFloatingPosition({
@@ -96,10 +131,7 @@ export const useFloatingPosition = ({
 				gap,
 				matchTriggerWidth,
 				maxHeightLimit,
-				viewport: {
-					width: window.innerWidth,
-					height: window.innerHeight,
-				},
+				viewport,
 			})
 		);
 	}, [
@@ -110,6 +142,7 @@ export const useFloatingPosition = ({
 		maxHeightLimit,
 		preferredPlacement,
 		triggerRef,
+		variant,
 	]);
 
 	useLayoutEffect(() => {
@@ -120,10 +153,11 @@ export const useFloatingPosition = ({
 
 		updatePosition();
 
-		const frame = window.requestAnimationFrame(updatePosition);
-
-		return () => window.cancelAnimationFrame(frame);
-	}, [isOpen, preferredPlacement, align, matchTriggerWidth, updatePosition]);
+		if (variant === 'panel') {
+			const frame = window.requestAnimationFrame(updatePosition);
+			return () => window.cancelAnimationFrame(frame);
+		}
+	}, [isOpen, preferredPlacement, align, matchTriggerWidth, updatePosition, variant]);
 
 	useEffect(() => {
 		if (!isOpen) return;
@@ -150,13 +184,31 @@ export const useFloatingPosition = ({
 
 	const placement = position?.placement ?? preferredPlacement;
 
-	const style: CSSProperties = position
+	if (variant === 'tooltip') {
+		const tooltipPosition = position as ComputedTooltipPosition | null;
+
+		return {
+			position: tooltipPosition,
+			placement,
+			arrowOffset: tooltipPosition?.arrowOffset,
+			style: {
+				position: 'fixed',
+				top: tooltipPosition?.top ?? 0,
+				left: tooltipPosition?.left ?? 0,
+				'--tooltip-arrow-offset': `${tooltipPosition?.arrowOffset ?? 0}px`,
+			} as CSSProperties,
+		};
+	}
+
+	const panelPosition = position as ComputedFloatingPosition | null;
+
+	const style: CSSProperties = panelPosition
 		? {
 				position: 'fixed',
-				top: position.top,
-				left: position.left,
-				width: position.width,
-				maxHeight: position.maxHeight,
+				top: panelPosition.top,
+				left: panelPosition.left,
+				width: panelPosition.width,
+				maxHeight: panelPosition.maxHeight,
 			}
 		: {
 				position: 'fixed',
@@ -164,5 +216,5 @@ export const useFloatingPosition = ({
 				left: 0,
 			};
 
-	return { position, style, placement };
+	return { position: panelPosition, style, placement };
 };

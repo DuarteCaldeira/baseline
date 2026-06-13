@@ -4,7 +4,7 @@
 @use '@/styles/tokens/motion' as *;
 @use '@/styles/tokens/typography' as *;
 
-.select-listbox {
+.listbox {
 	@include floating-panel-surface;
 	overflow-y: auto;
 	padding: $spacing-1;
