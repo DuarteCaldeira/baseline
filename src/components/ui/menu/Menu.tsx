@@ -71,4 +71,4 @@ export { MenuSub, MenuSubTrigger, MenuSubContent } from './menu-sub';
 export { MenuTrigger } from './menu-trigger';
 export { MenuContent } from './menu-content';
 export { MenuItem } from './menu-item';
-export { MenuLabel, MenuSeparator } from './menu-chrome';
+export { MenuLabel, MenuSeparator } from './menu-section';

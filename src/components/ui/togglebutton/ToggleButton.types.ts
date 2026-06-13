@@ -1,13 +1,21 @@
-import type { ComponentProps, ReactElement } from 'react';
+import type { ButtonHTMLAttributes, ComponentProps, ReactElement, ReactNode } from 'react';
 
-import type { Button } from '@/components/ui/button';
+import type { LucideIcon } from 'lucide-react';
+
 import type { ButtonGroup } from '@/components/ui/buttongroup';
 
-type ButtonProps = ComponentProps<typeof Button>;
 type ButtonGroupProps = ComponentProps<typeof ButtonGroup>;
 
-export type ToggleButtonProps = Omit<ButtonProps, 'variant'> & {
+export type ToggleButtonProps = Omit<
+	ButtonHTMLAttributes<HTMLButtonElement>,
+	'className'
+> & {
 	variant?: 'secondary' | 'ghost';
+	size?: 'sm' | 'md' | 'lg';
+	iconOnly?: boolean;
+	isLoading?: boolean;
+	icon?: LucideIcon;
+	children?: ReactNode;
 	value?: string;
 	pressed?: boolean;
 	defaultPressed?: boolean;

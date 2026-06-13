@@ -111,4 +111,5 @@ const renderItemContent = (item: BreadcrumbItem, isLast: boolean) => {
 | Dev server | `pnpm dev` |
 | Tests | `pnpm test` |
 | Lint | `pnpm lint` |
+| Typecheck | `pnpm typecheck` |
 | Format | `pnpm format` |
