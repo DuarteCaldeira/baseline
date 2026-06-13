@@ -26,6 +26,19 @@ const meta: Meta<typeof Menu> = {
 	title: 'UI/Menu',
 	component: Menu,
 	tags: ['autodocs'],
+	parameters: {
+		docs: {
+			description: {
+				component:
+					'Compound menu with dropdown, menubar, and submenu variants. Items support icons, links, and destructive actions.\n\n' +
+					'**Keyboard — dropdown trigger:** `Enter` / `Space` toggle; `ArrowDown` / `ArrowUp` open and focus first/last item; `Escape` closes.\n\n' +
+					'**Keyboard — menu panel:** `ArrowDown` / `ArrowUp` move between items; `Home` / `End` jump to ends; `ArrowRight` opens a submenu; `Escape` or `Tab` closes and returns focus to the trigger.\n\n' +
+					'**Keyboard — submenu trigger:** `ArrowRight`, `Enter`, or `Space` opens; `ArrowLeft` closes.\n\n' +
+					'**Keyboard — submenu panel:** `ArrowDown` / `ArrowUp` navigate; `ArrowLeft` or `Escape` closes the submenu.\n\n' +
+					'**Keyboard — menubar:** `ArrowLeft` / `ArrowRight` move between top-level triggers; `Home` / `End` jump to ends; each trigger follows the dropdown trigger pattern when activated.',
+			},
+		},
+	},
 };
 
 export default meta;

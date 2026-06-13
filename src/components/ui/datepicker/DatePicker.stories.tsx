@@ -6,7 +6,17 @@ const meta: Meta<typeof DatePicker> = {
 	title: 'UI/DatePicker',
 	component: DatePicker,
 	tags: ['autodocs'],
-
+	parameters: {
+		docs: {
+			description: {
+				component:
+					'Date field with a popover calendar. Supports controlled and uncontrolled value, min/max bounds, and multiple display formats.\n\n' +
+					'**Keyboard — trigger (closed):** `Enter`, `Space`, or `ArrowDown` opens the calendar; `Escape` closes when open.\n\n' +
+					'**Keyboard — calendar grid:** arrow keys move by day; `ArrowUp` / `ArrowDown` move by week; `Home` / `End` jump to the start/end of the current week; `PageUp` / `PageDown` change month; `Enter` or `Space` selects the focused day; `Escape` or `Tab` closes the calendar.\n\n' +
+					'**Pointer:** click a day to select; use the month navigation buttons for paging.',
+			},
+		},
+	},
 	argTypes: {
 		format: {
 			control: 'select',

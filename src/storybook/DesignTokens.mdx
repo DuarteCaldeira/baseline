@@ -1,0 +1,68 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Guides/Design Tokens" />
+
+# Design Tokens
+
+Baseline uses two token layers. Pick the right one for the job.
+
+## SCSS tokens (`$…`)
+
+**Location:** `src/styles/tokens/`
+
+Use in **`.module.scss` files** for layout, spacing, radii, shadows, and compile-time values.
+
+```scss
+@use '@/styles/tokens/spacing' as *;
+
+.field {
+  padding: $spacing-3 $spacing-4;
+  gap: $spacing-2;
+}
+```
+
+| Token file | Examples | When to use |
+|---|---|---|
+| `spacing.scss` | `$spacing-2`, `$spacing-4` | Padding, gap, margin in component SCSS |
+| `radius.scss` | `$radius-sm`, `$radius-md` | Border radius on surfaces and controls |
+| `shadows.scss` | `$shadow-sm`, `$shadow-md` | Elevation in SCSS (prefer theme vars when color must follow theme) |
+| `breakpoints.scss` | `$breakpoint-sm` | Media queries in SCSS |
+| `motion.scss` | `$duration-fast`, `$ease-out` | Transitions and animations in SCSS |
+| `colors.scss` | `$color-primary-600` | **Only** when defining theme custom properties — not in component styles |
+
+**Rule of thumb:** if it is structural (size, space, motion) and lives in a module stylesheet, use `$spacing-*`, `$radius-*`, etc.
+
+## Theme custom properties (`var(--…)`)
+
+**Location:** `src/styles/theme/`
+
+Use for **colors and semantic values that must respond to light/dark theme** or be shared between SCSS and runtime CSS.
+
+```scss
+.card {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+```
+
+| Category | Examples | When to use |
+|---|---|---|
+| Backgrounds | `--color-bg`, `--color-surface` | Surfaces, panels, page chrome |
+| Text | `--color-text`, `--color-text-muted` | Foreground copy and labels |
+| Borders | `--color-border`, `--color-border-strong` | Dividers, outlines, control shells |
+| Brand / semantic | `--color-primary`, `--color-error` | Interactive states, alerts, badges |
+| Layering | `--z-index-overlay`, `--z-index-floating` | Stacking context for overlays |
+
+**Rule of thumb:** if the value is a **color** or must **switch with theme**, use `var(--color-*)` — never a raw `$color-*` in component SCSS.
+
+## Layout components vs tokens
+
+Prefer **`Stack`** and **`Container`** gap/size props over hand-rolled flex + `$spacing-*` in JSX wrappers. Reserve SCSS spacing for borders, internal padding, and non-flex positioning.
+
+## Quick decision tree
+
+1. **Component SCSS, non-color layout value?** → `$spacing-*`, `$radius-*`, `$shadow-*`
+2. **Color or theme-sensitive?** → `var(--color-*)`
+3. **Defining a new theme variable?** → map from `$color-*` in `src/styles/theme/`
+4. **Flex gap in JSX?** → `Stack gap="…"` prop

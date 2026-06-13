@@ -72,6 +72,17 @@ const meta: Meta<typeof MultiSelect> = {
 	title: 'UI/MultiSelect',
 	component: MultiSelect,
 	tags: ['autodocs'],
+	parameters: {
+		docs: {
+			description: {
+				component:
+					'Multi-value combobox built on the shared listbox pattern. Selected values render as removable tags in the trigger.\n\n' +
+					'**Keyboard — trigger (closed):** `Enter`, `Space`, or `ArrowDown` opens the list; `ArrowUp` opens focused on the last option.\n\n' +
+					'**Keyboard — listbox (open):** `ArrowDown` / `ArrowUp` move the active option; `Enter` or `Space` toggles selection without closing; `Escape` or `Tab` closes and returns focus to the trigger.\n\n' +
+					'**Pointer:** click an option to toggle it; click a tag remove button to deselect that value.',
+			},
+		},
+	},
 };
 
 export default meta;
