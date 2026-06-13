@@ -1,7 +1,12 @@
 {
-	"name": "baseline",
-	"version": "0.1.0",
-	"private": true,
+	"name": "@dlcaldeira/design-system",
+	"version": "1.0.0",
+	"main": "./dist/index.js",
+	"module": "./dist/index.es.js",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist"
+	],
 	"packageManager": "pnpm@9.15.4",
 	"scripts": {
 		"dev": "next dev",
