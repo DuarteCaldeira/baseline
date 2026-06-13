@@ -1,3 +1,5 @@
+import './styles/consumer-theme.scss';
+
 // UI Components
 export * from './components/ui/button';
 export * from './components/ui/buttongroup';

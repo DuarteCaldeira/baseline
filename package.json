@@ -2,7 +2,19 @@
 	"name": "@dlcaldeira/design-system",
 	"version": "1.0.0",
 	"main": "./dist/index.js",
+	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
+	"sideEffects": [
+		"**/*.css"
+	],
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.js"
+		},
+		"./style.css": "./dist/style.css"
+	},
 	"files": [
 		"dist"
 	],
@@ -51,6 +63,7 @@
 		"storybook": "^8.6.14",
 		"typescript": "^5.4.5",
 		"vite": "^5",
+		"vite-plugin-dts": "^5.0.2",
 		"vitest": "^1.6.0"
 	},
 	"peerDependencies": {

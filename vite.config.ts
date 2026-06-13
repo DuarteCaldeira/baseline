@@ -1,9 +1,18 @@
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
 
 export default defineConfig({
-	plugins: [react()],
+	plugins: [
+		react(),
+		dts({
+			include: ['src/**/*.ts', 'src/**/*.tsx'],
+			exclude: ['**/*.test.tsx', '**/*.stories.tsx', 'src/app/**'],
+			rollupTypes: true,
+			insertTypesEntry: true,
+		}),
+	],
 	resolve: {
 		alias: {
 			'@': resolve(__dirname, './src'),
@@ -12,14 +21,14 @@ export default defineConfig({
 	build: {
 		lib: {
 			entry: resolve(__dirname, 'src/index.ts'),
-			name: 'design-system',
+			name: 'DesignSystem',
 			formats: ['es', 'cjs'],
+			fileName: (format) => (format === 'es' ? 'index.mjs' : 'index.js'),
 		},
 		rollupOptions: {
-			external: ['react', 'react-dom'],
+			external: ['react', 'react-dom', 'react/jsx-runtime', 'next', 'next/link', 'lucide-react'],
 
 			onwarn(warning, warn) {
-				// ajuda a evitar falsos positivos
 				if (warning.code === 'UNRESOLVED_IMPORT') return;
 				warn(warning);
 			},
