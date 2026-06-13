@@ -8,6 +8,14 @@ import { DatePicker } from './DatePicker';
 const FIXED_TODAY = new Date(2024, 1, 15); // 15 Feb 2024
 const INITIAL_VALUE = new Date(2024, 1, 20); // 20 Feb 2024
 
+const isEnabledDayButton = (
+	element: HTMLElement,
+	day: string
+): element is HTMLButtonElement =>
+	element instanceof HTMLButtonElement &&
+	element.textContent === day &&
+	!element.disabled;
+
 describe('DatePicker', () => {
 	describe('trigger', () => {
 		it('renders a button', () => {
@@ -170,7 +178,7 @@ describe('DatePicker', () => {
 
 			const day10 = screen
 				.getAllByRole('button')
-				.find((btn) => btn.textContent === '10' && !btn.disabled)!;
+				.find((btn) => isEnabledDayButton(btn, '10'))!;
 			await userEvent.click(day10);
 
 			expect(handleChange).toHaveBeenCalledOnce();
@@ -184,7 +192,7 @@ describe('DatePicker', () => {
 
 			const day10 = screen
 				.getAllByRole('button')
-				.find((btn) => btn.textContent === '10' && !btn.disabled)!;
+				.find((btn) => isEnabledDayButton(btn, '10'))!;
 			await userEvent.click(day10);
 
 			expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
@@ -196,7 +204,7 @@ describe('DatePicker', () => {
 
 			const day5 = screen
 				.getAllByRole('button')
-				.find((btn) => btn.textContent === '5' && !btn.disabled)!;
+				.find((btn) => isEnabledDayButton(btn, '5'))!;
 			await userEvent.click(day5);
 
 			expect(screen.getByText('05/02/2024')).toBeInTheDocument();

@@ -118,11 +118,18 @@ export const AllSizesWithIcon: Story = {
 };
 
 export const AllSizesIconOnly: Story = {
-	render: () => (
+	name: 'All Sizes — Icon Only',
+	args: {
+		icon: Trash2,
+		'aria-label': 'Delete',
+		variant: 'ghost',
+		children: undefined,
+	},
+	render: (args) => (
 		<Stack direction="row" gap="3" align="center">
-			<Button size="sm" icon={Trash2} aria-label="Delete" variant="ghost" />
-			<Button size="md" icon={Trash2} aria-label="Delete" variant="ghost" />
-			<Button size="lg" icon={Trash2} aria-label="Delete" variant="ghost" />
+			<Button {...args} size="sm" />
+			<Button {...args} size="md" />
+			<Button {...args} size="lg" />
 		</Stack>
 	),
 };

@@ -24,11 +24,12 @@ export type ComputedFloatingPosition = {
 export const FLOATING_GAP = 4;
 export const FLOATING_VIEWPORT_PADDING = 8;
 
-const OPPOSITE_VERTICAL_PLACEMENT: Record<'top' | 'bottom', 'top' | 'bottom'> =
-	{
-		top: 'bottom',
-		bottom: 'top',
-	};
+const OPPOSITE_PLACEMENT: Record<FloatingPlacement, FloatingPlacement> = {
+	top: 'bottom',
+	bottom: 'top',
+	left: 'right',
+	right: 'left',
+};
 
 const isSidePlacement = (
 	placement: FloatingPlacement
@@ -126,7 +127,7 @@ const pickPlacement = (
 ): { placement: FloatingPlacement; maxHeight: number } => {
 	const candidates = [
 		preferredPlacement,
-		OPPOSITE_VERTICAL_PLACEMENT[preferredPlacement],
+		OPPOSITE_PLACEMENT[preferredPlacement],
 	];
 
 	for (const placement of candidates) {
@@ -269,13 +270,6 @@ export type ComputedTooltipPosition = {
 export const TOOLTIP_GAP = 8;
 export const TOOLTIP_ARROW_SIZE = 4;
 export const TOOLTIP_ARROW_EDGE_PADDING = 10;
-
-const OPPOSITE_PLACEMENT: Record<FloatingPlacement, FloatingPlacement> = {
-	top: 'bottom',
-	bottom: 'top',
-	left: 'right',
-	right: 'left',
-};
 
 const getTriggerCenter = (trigger: FloatingRect) => ({
 	x: trigger.left + trigger.width / 2,

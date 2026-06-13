@@ -97,39 +97,3 @@ export const AllVariants: Story = {
 		</Stack>
 	),
 };
-
-export const InFormContext: Story = {
-	name: 'In form context',
-	render: () => (
-		<Stack
-			gap="4"
-			style={{
-				maxWidth: '28rem',
-				padding: '1.5rem',
-				border: '1px solid var(--color-border)',
-				borderRadius: '0.75rem',
-				background: 'var(--color-surface)',
-			}}
-		>
-			<Stack gap="1">
-				<label htmlFor="alert-email" style={{ font: 'var(--font-strong-sm)' }}>
-					Email
-				</label>
-				<input
-					id="alert-email"
-					type="email"
-					defaultValue="not-an-email"
-					style={{
-						padding: '0.5rem 0.75rem',
-						border: '1px solid var(--color-border)',
-						borderRadius: '0.375rem',
-					}}
-				/>
-			</Stack>
-			<Alert variant="error">
-				Enter a valid email address before continuing.
-			</Alert>
-			<Button variant="primary">Continue</Button>
-		</Stack>
-	),
-};

@@ -19,7 +19,7 @@ class DataTransferMock {
 }
 
 if (typeof globalThis.DataTransfer === 'undefined') {
-	globalThis.DataTransfer = DataTransferMock as typeof DataTransfer;
+	globalThis.DataTransfer = DataTransferMock as unknown as typeof DataTransfer;
 }
 
 class ResizeObserverMock {

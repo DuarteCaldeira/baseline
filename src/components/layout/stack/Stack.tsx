@@ -23,7 +23,7 @@ type StackProps = HTMLAttributes<HTMLElement> & {
 	as?: StackAs;
 	children: ReactNode;
 	direction?: 'row' | 'column';
-	gap?: '1' | '2' | '3' | '4' | '6' | '8';
+	gap?: '1' | '2' | '3' | '4' | '6' | '8' | '10';
 	align?: 'start' | 'center' | 'end' | 'stretch';
 	justify?: 'start' | 'center' | 'end' | 'between' | 'around';
 	wrap?: boolean;

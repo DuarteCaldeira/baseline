@@ -1,7 +1,9 @@
-import { type KeyboardEvent, type MouseEvent, createRef } from 'react';
+import { type KeyboardEvent, type MouseEvent } from 'react';
 
 import { act, renderHook } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
+import { assignRefCurrent } from '@/test-utils/assignRefCurrent';
 
 import { useModal } from './useModal';
 
@@ -113,8 +115,6 @@ describe('useModal', () => {
 		dialog.append(first, last);
 		document.body.append(dialog);
 
-		const dialogRef = createRef<HTMLDivElement>();
-		dialogRef.current = dialog;
 		last.focus();
 
 		const { result } = renderHook(() =>
@@ -126,7 +126,7 @@ describe('useModal', () => {
 		);
 
 		act(() => {
-			result.current.dialogRef.current = dialog;
+			assignRefCurrent(result.current.dialogRef, dialog);
 		});
 
 		const event = {

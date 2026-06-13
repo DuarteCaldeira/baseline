@@ -1,6 +1,8 @@
 import { act, renderHook } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
+import { assignRefCurrent } from '@/test-utils/assignRefCurrent';
+
 import { startOfDay } from './DatePicker.utils';
 import { useDatePicker } from './useDatePicker';
 
@@ -20,7 +22,7 @@ describe('useDatePicker', () => {
 		const { result } = renderHook(() => useDatePicker({}));
 
 		act(() => {
-			result.current.triggerRef.current = trigger;
+			assignRefCurrent(result.current.triggerRef, trigger);
 			result.current.open();
 		});
 

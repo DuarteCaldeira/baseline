@@ -49,7 +49,7 @@ export const MenuContentPanel = ({
 
 	useLayoutEffect(() => {
 		const element = contentRef.current;
-		if (!element || !isPortaled) return;
+		if (!element || !isPortaled || !position || !('width' in position)) return;
 		setFloatingPositionVars(element, position);
 	}, [contentRef, isPortaled, position]);
 

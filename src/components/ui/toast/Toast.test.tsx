@@ -6,17 +6,20 @@ import { Toast } from './Toast';
 import { ToastProvider } from './ToastProvider';
 import { useToast } from './useToast';
 
+let user: ReturnType<typeof userEvent.setup>;
+
+beforeEach(() => {
+	vi.useFakeTimers();
+	user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+});
+
+afterEach(() => {
+	vi.useRealTimers();
+});
+
 // ─── Toast visual component ───────────────────────────────────────────────────
 
 describe('Toast', () => {
-	let user: ReturnType<typeof userEvent.setup>;
-
-	beforeEach(() => {
-		vi.useFakeTimers();
-		user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
-	});
-	afterEach(() => vi.useRealTimers());
-
 	it('renders the message', () => {
 		render(
 			<Toast
@@ -164,14 +167,6 @@ const TestConsumer = () => {
 };
 
 describe('ToastProvider', () => {
-	let user: ReturnType<typeof userEvent.setup>;
-
-	beforeEach(() => {
-		vi.useFakeTimers();
-		user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
-	});
-	afterEach(() => vi.useRealTimers());
-
 	it('renders children', () => {
 		render(
 			<ToastProvider>

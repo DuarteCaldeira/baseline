@@ -36,14 +36,37 @@ const ICON_VARIANT: Record<BadgeVariant, IconVariant> = {
 	neutral: 'muted',
 };
 
-export const Badge = ({
-	variant,
-	type = 'filled',
-	text,
-	icon,
-	...props
-}: BadgeProps) => {
-	const isIconOnly = text == null;
+export const Badge = (props: BadgeProps) => {
+	if (props.text == null) {
+		const {
+			variant,
+			type = 'filled',
+			icon,
+			'aria-label': ariaLabel,
+		} = props;
+
+		return (
+			<span
+				className={cn(
+					styles.badge,
+					styles[`badge--${variant}`],
+					type === 'outlined' && styles['badge--outlined']
+				)}
+				role="img"
+				aria-label={ariaLabel}
+			>
+				{icon && (
+					<Icon
+						icon={icon}
+						size="sm"
+						variant={ICON_VARIANT[variant]}
+					/>
+				)}
+			</span>
+		);
+	}
+
+	const { variant, type = 'filled', text, icon } = props;
 
 	return (
 		<span
@@ -52,15 +75,13 @@ export const Badge = ({
 				styles[`badge--${variant}`],
 				type === 'outlined' && styles['badge--outlined']
 			)}
-			role={isIconOnly ? 'img' : undefined}
-			aria-label={isIconOnly ? props['aria-label'] : undefined}
 		>
 			{icon && (
 				<Icon
 					icon={icon}
 					size="sm"
 					variant={ICON_VARIANT[variant]}
-					aria-hidden={!isIconOnly ? true : undefined}
+					aria-hidden
 				/>
 			)}
 			{text}
