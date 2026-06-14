@@ -9,7 +9,7 @@ export default defineConfig({
 		dts({
 			include: ['src/**/*.ts', 'src/**/*.tsx'],
 			exclude: ['**/*.test.tsx', '**/*.stories.tsx', 'src/app/**'],
-			rollupTypes: true,
+			bundleTypes: true,
 			insertTypesEntry: true,
 		}),
 	],

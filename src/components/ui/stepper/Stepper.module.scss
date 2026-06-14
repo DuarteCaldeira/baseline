@@ -75,7 +75,9 @@
 		color: var(--color-text-subtle);
 		text-align: center;
 	}
+}
 
+.stepper {
 	&__content {
 		height: 24rem;
 		max-height: 100%;

@@ -51,6 +51,28 @@ describe('Stepper', () => {
 
 	// ── ARIA ─────────────────────────────────────────────────────────────────
 
+	it('associates the content region with the active step via aria-labelledby', () => {
+		render(<Stepper steps={STEPS} currentStep={1} />);
+
+		const items = screen.getAllByRole('listitem');
+		const activeStepId = items[1].getAttribute('id');
+
+		const region = screen.getByRole('region');
+		expect(region).toHaveAttribute('aria-labelledby', activeStepId);
+	});
+
+	it('updates aria-labelledby when the active step changes', () => {
+		render(<Stepper steps={STEPS} />);
+
+		fireEvent.click(screen.getByRole('button', { name: /next/i }));
+
+		const items = screen.getAllByRole('listitem');
+		const activeStepId = items[1].getAttribute('id');
+
+		const region = screen.getByRole('region');
+		expect(region).toHaveAttribute('aria-labelledby', activeStepId);
+	});
+
 	it('marks only the current step with aria-current="step"', () => {
 		render(<Stepper steps={STEPS} currentStep={1} />);
 
@@ -182,30 +204,30 @@ describe('Stepper', () => {
 		expect(items[0]).toHaveAttribute('aria-current', 'step');
 	});
 
-	// ── Children / step content ──────────────────────────────────────────────
+	// ── Step content ─────────────────────────────────────────────────────────
 
 	it('renders the content for the active step', () => {
-		render(
-			<Stepper steps={STEPS} currentStep={1}>
-				<div>Panel A</div>
-				<div>Panel B</div>
-				<div>Panel C</div>
-			</Stepper>
-		);
+		const steps = [
+			{ label: 'A', content: <div>Panel A</div> },
+			{ label: 'B', content: <div>Panel B</div> },
+			{ label: 'C', content: <div>Panel C</div> },
+		];
+
+		render(<Stepper steps={steps} currentStep={1} />);
 
 		expect(screen.getByText('Panel B')).toBeInTheDocument();
 		expect(screen.queryByText('Panel A')).not.toBeInTheDocument();
 		expect(screen.queryByText('Panel C')).not.toBeInTheDocument();
 	});
 
-	it('switches the displayed panel when navigating', () => {
-		render(
-			<Stepper steps={STEPS}>
-				<div>Panel A</div>
-				<div>Panel B</div>
-				<div>Panel C</div>
-			</Stepper>
-		);
+	it('switches the displayed content when navigating', () => {
+		const steps = [
+			{ label: 'A', content: <div>Panel A</div> },
+			{ label: 'B', content: <div>Panel B</div> },
+			{ label: 'C', content: <div>Panel C</div> },
+		];
+
+		render(<Stepper steps={steps} />);
 
 		expect(screen.getByText('Panel A')).toBeInTheDocument();
 
@@ -213,6 +235,13 @@ describe('Stepper', () => {
 
 		expect(screen.queryByText('Panel A')).not.toBeInTheDocument();
 		expect(screen.getByText('Panel B')).toBeInTheDocument();
+	});
+
+	it('renders nothing in the content area when a step has no content', () => {
+		render(<Stepper steps={STEPS} currentStep={0} />);
+
+		const region = screen.getByRole('region');
+		expect(region).toBeEmptyDOMElement();
 	});
 
 	it('renders custom navigation labels', () => {

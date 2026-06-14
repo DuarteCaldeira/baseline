@@ -1,20 +1,16 @@
-import { Children, useState } from 'react';
-import type { ReactNode } from 'react';
-
-import { Check } from 'lucide-react';
+import { useId } from 'react';
 
 import { Stack } from '@/components/layout/stack';
 import { Button } from '@/components/ui/button';
-import { Icon } from '@/components/ui/icon';
-import { cn } from '@/utils/cn';
+import { useControllableState } from '@/hooks/useControllableState';
 
+import { StepItem } from './StepItem';
 import styles from './Stepper.module.scss';
-import type { Step, StepStatus } from './Stepper.types';
+import type { Step } from './Stepper.types';
+import { getStepStatus } from './Stepper.utils';
 
-type StepperProps = {
+export type StepperProps = {
 	steps: Step[];
-	/** One child per step — the active step's panel is rendered between the progress bar and the navigation buttons. */
-	children?: ReactNode;
 	currentStep?: number;
 	defaultStep?: number;
 	onStepChange?: (step: number) => void;
@@ -22,69 +18,48 @@ type StepperProps = {
 	nextLabel?: string;
 };
 
-const getStepStatus = (index: number, currentStep: number): StepStatus => {
-	if (index < currentStep) return 'complete';
-	if (index === currentStep) return 'current';
-	return 'upcoming';
-};
-
-const renderStepIndicator = (status: StepStatus, index: number) => {
-	if (status === 'complete') {
-		return <Icon icon={Check} size="sm" aria-hidden />;
-	}
-
-	return index + 1;
-};
-
 export const Stepper = ({
 	steps,
-	children,
 	currentStep: controlledStep,
 	defaultStep = 0,
 	onStepChange,
 	previousLabel = 'Previous',
 	nextLabel = 'Next',
 }: StepperProps) => {
-	const [internalStep, setInternalStep] = useState(defaultStep);
-	const isControlled = controlledStep !== undefined;
-	const activeStep = isControlled ? controlledStep : internalStep;
+	const baseId = useId();
 
-	const updateStep = (nextStep: number) => {
-		const clampedStep = Math.min(Math.max(nextStep, 0), steps.length - 1);
-		if (!isControlled) setInternalStep(clampedStep);
-		onStepChange?.(clampedStep);
+	const { value: activeStep = 0, setValue } = useControllableState({
+		value: controlledStep,
+		defaultValue: defaultStep,
+		onChange: onStepChange,
+	});
+
+	const updateStep = (next: number) => {
+		setValue(Math.min(Math.max(next, 0), steps.length - 1));
 	};
-
-	const stepPanels = Children.toArray(children);
-	const activePanel = stepPanels[activeStep] ?? null;
 
 	return (
 		<Stack gap="6">
 			<Stack as="ol" direction="row" align="start" aria-label="Progress">
-				{steps.map((step, index) => {
-					const status = getStepStatus(index, activeStep);
-
-					return (
-						<li
-							key={step.id ?? `${step.label}-${index}`}
-							className={cn(styles.step, styles[`step--${status}`])}
-							aria-current={status === 'current' ? 'step' : undefined}
-						>
-							<span className={styles['step__indicator']} aria-hidden="true">
-								{renderStepIndicator(status, index)}
-							</span>
-							<span className={styles['step__label']}>{step.label}</span>
-							{step.description && (
-								<span className={styles['step__description']}>
-									{step.description}
-								</span>
-							)}
-						</li>
-					);
-				})}
+				{steps.map((step, index) => (
+					<StepItem
+						key={step.id ?? `${step.label}-${index}`}
+						step={step}
+						index={index}
+						id={`${baseId}-step-${index}`}
+						status={getStepStatus(index, activeStep)}
+					/>
+				))}
 			</Stack>
 
-			<div className={styles['step__content']}>{activePanel}</div>
+			<div
+				id={`${baseId}-panel`}
+				role="region"
+				aria-labelledby={`${baseId}-step-${activeStep}`}
+				className={styles['stepper__content']}
+			>
+				{steps[activeStep]?.content ?? null}
+			</div>
 
 			<Stack direction="row" justify="end" gap="3">
 				<Button

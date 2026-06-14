@@ -1,5 +1,4 @@
 import type { StorybookConfig } from '@storybook/react-vite';
-import react from '@vitejs/plugin-react';
 import path from 'path';
 
 const config: StorybookConfig = {
@@ -17,17 +16,6 @@ const config: StorybookConfig = {
 		autodocs: 'tag',
 	},
 	viteFinal: (viteConfig) => {
-		// Replace any existing React plugins with one that uses the automatic runtime
-		viteConfig.plugins = [
-			...(viteConfig.plugins ?? []).filter(
-				(p) =>
-					!p ||
-					!('name' in (p as object)) ||
-					!(p as { name: string }).name?.startsWith('vite:react')
-			),
-			react({ jsxRuntime: 'automatic' }),
-		];
-
 		if (!viteConfig.resolve) viteConfig.resolve = {};
 		viteConfig.resolve.alias = {
 			...viteConfig.resolve.alias,

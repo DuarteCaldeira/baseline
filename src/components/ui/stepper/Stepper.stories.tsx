@@ -10,10 +10,46 @@ import storyStyles from '@/storybook/storyHelpers.module.scss';
 import { Stepper } from './Stepper';
 
 const STEPS = [
-	{ label: 'Account', description: 'Create your account' },
-	{ label: 'Profile', description: 'Add your details' },
-	{ label: 'Review', description: 'Confirm everything' },
-	{ label: 'Done', description: 'All set!' },
+	{
+		label: 'Account',
+		description: 'Create your account',
+		content: (
+			<Stack gap="2" className={storyStyles.item}>
+				<strong>Create your account</strong>
+				<p>Enter your email address and choose a secure password to get started.</p>
+			</Stack>
+		),
+	},
+	{
+		label: 'Profile',
+		description: 'Add your details',
+		content: (
+			<Stack gap="2" className={storyStyles.item}>
+				<strong>Add your details</strong>
+				<p>Tell us your name and upload a profile photo so others can recognise you.</p>
+			</Stack>
+		),
+	},
+	{
+		label: 'Review',
+		description: 'Confirm everything',
+		content: (
+			<Stack gap="2" className={storyStyles.item}>
+				<strong>Confirm everything</strong>
+				<p>Review your information before submitting. You can go back to make changes.</p>
+			</Stack>
+		),
+	},
+	{
+		label: 'Done',
+		description: 'All set!',
+		content: (
+			<Stack gap="2" className={storyStyles.item}>
+				<strong>You are all set!</strong>
+				<p>Your account has been created. Welcome aboard!</p>
+			</Stack>
+		),
+	},
 ];
 
 const SIMPLE_STEPS = [
@@ -21,30 +57,6 @@ const SIMPLE_STEPS = [
 	{ label: 'Shipping' },
 	{ label: 'Payment' },
 	{ label: 'Confirm' },
-];
-
-const PANELS = [
-	<Stack key="account" gap="2" className={storyStyles.item}>
-		<strong>Create your account</strong>
-		<p>Enter your email address and choose a secure password to get started.</p>
-	</Stack>,
-	<Stack key="profile" gap="2" className={storyStyles.item}>
-		<strong>Add your details</strong>
-		<p>
-			Tell us your name and upload a profile photo so others can recognise you.
-		</p>
-	</Stack>,
-	<Stack key="review" gap="2" className={storyStyles.item}>
-		<strong>Confirm everything</strong>
-		<p>
-			Review your information before submitting. You can go back to make
-			changes.
-		</p>
-	</Stack>,
-	<Stack key="done" gap="2" className={storyStyles.item}>
-		<strong>You are all set!</strong>
-		<p>Your account has been created. Welcome aboard!</p>
-	</Stack>,
 ];
 
 const meta: Meta<typeof Stepper> = {
@@ -55,7 +67,6 @@ const meta: Meta<typeof Stepper> = {
 		currentStep: {
 			control: { type: 'range', min: 0, max: 4, step: 1 },
 		},
-		children: { control: false },
 	},
 	args: {
 		steps: STEPS,
@@ -85,13 +96,8 @@ export const WithoutDescriptions: Story = {
 	args: { steps: SIMPLE_STEPS },
 };
 
-export const WithContent: Story = {
-	args: { currentStep: 1 },
-	render: (args) => <Stepper {...args}>{PANELS}</Stepper>,
-};
-
 export const Interactive: Story = {
-	render: () => <Stepper steps={STEPS}>{PANELS}</Stepper>,
+	render: () => <Stepper steps={STEPS} />,
 };
 
 const StepperInModal = () => {
@@ -106,7 +112,7 @@ const StepperInModal = () => {
 				title="Account Setup"
 				size="lg"
 			>
-				<Stepper steps={STEPS}>{PANELS}</Stepper>
+				<Stepper steps={STEPS} />
 			</Modal>
 		</>
 	);
