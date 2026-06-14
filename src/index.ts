@@ -33,6 +33,9 @@ export * from './components/ui/table';
 export * from './components/layout/container';
 export * from './components/layout/stack';
 
+// Providers
+export * from './components/providers';
+
 // Accessibility
 export * from './components/a11y/visually-hidden';
 

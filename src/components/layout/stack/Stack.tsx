@@ -13,6 +13,8 @@ export type StackAs =
 	| 'li'
 	| 'nav'
 	| 'section'
+	| 'article'
+	| 'aside'
 	| 'header'
 	| 'footer'
 	| 'main'
