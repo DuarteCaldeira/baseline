@@ -9,6 +9,9 @@
 	width: var(--stack-width);
 	height: var(--stack-height);
 
+	&--gap-0 {
+		gap: 0;
+	}
 	&--gap-1 {
 		gap: $spacing-1;
 	}

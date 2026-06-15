@@ -21,7 +21,7 @@ export type StackAs =
 	| 'form'
 	| 'fieldset';
 
-export type StackSize =
+export type StackHeight =
 	| 'full'
 	| 'screen'
 	| 'auto'
@@ -29,16 +29,29 @@ export type StackSize =
 	| 'min-content'
 	| 'max-content';
 
+export type StackWidth =
+	| 'full'
+	| 'screen'
+	| 'auto'
+	| 'fit-content'
+	| 'min-content'
+	| 'max-content'
+	| '1/2'
+	| '1/3'
+	| '1/4'
+	| '2/3'
+	| '3/4';
+
 type StackProps = HTMLAttributes<HTMLElement> & {
 	as?: StackAs;
 	children: ReactNode;
 	direction?: 'row' | 'column';
-	gap?: '1' | '2' | '3' | '4' | '6' | '8' | '10';
+	gap?: '0' | '1' | '2' | '3' | '4' | '6' | '8' | '10';
 	align?: 'start' | 'center' | 'end' | 'stretch';
 	justify?: 'start' | 'center' | 'end' | 'between' | 'around';
 	wrap?: boolean;
-	width?: StackSize;
-	height?: StackSize;
+	width?: StackWidth;
+	height?: StackHeight;
 };
 
 const resolveJustify = (justify: StackProps['justify']): string | undefined => {
@@ -47,13 +60,23 @@ const resolveJustify = (justify: StackProps['justify']): string | undefined => {
 	return justify;
 };
 
-const resolveWidth = (value: StackSize): string => {
-	if (value === 'full') return '100%';
-	if (value === 'screen') return '100vw';
-	return value;
+const widthValues: Record<StackWidth, string> = {
+	full: '100%',
+	screen: '100vw',
+	auto: 'auto',
+	'fit-content': 'fit-content',
+	'min-content': 'min-content',
+	'max-content': 'max-content',
+	'1/2': '50%',
+	'1/3': '33.333%',
+	'2/3': '66.667%',
+	'1/4': '25%',
+	'3/4': '75%',
 };
 
-const resolveHeight = (value: StackSize): string => {
+const resolveWidth = (value: StackWidth): string => widthValues[value];
+
+const resolveHeight = (value: StackHeight): string => {
 	if (value === 'full') return '100%';
 	if (value === 'screen') return '100vh';
 	return value;
