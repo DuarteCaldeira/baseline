@@ -1,2 +1,2 @@
 export * from './Stack';
-export type { StackAs } from './Stack';
+export type { StackAs, StackSize } from './Stack';

@@ -6,6 +6,8 @@
 	align-items: var(--stack-align, stretch);
 	justify-content: var(--stack-justify, flex-start);
 	flex-wrap: var(--stack-wrap, nowrap);
+	width: var(--stack-width);
+	height: var(--stack-height);
 
 	&--gap-1 {
 		gap: $spacing-1;

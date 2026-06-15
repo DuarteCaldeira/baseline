@@ -21,6 +21,14 @@ export type StackAs =
 	| 'form'
 	| 'fieldset';
 
+export type StackSize =
+	| 'full'
+	| 'screen'
+	| 'auto'
+	| 'fit-content'
+	| 'min-content'
+	| 'max-content';
+
 type StackProps = HTMLAttributes<HTMLElement> & {
 	as?: StackAs;
 	children: ReactNode;
@@ -29,12 +37,26 @@ type StackProps = HTMLAttributes<HTMLElement> & {
 	align?: 'start' | 'center' | 'end' | 'stretch';
 	justify?: 'start' | 'center' | 'end' | 'between' | 'around';
 	wrap?: boolean;
+	width?: StackSize;
+	height?: StackSize;
 };
 
 const resolveJustify = (justify: StackProps['justify']): string | undefined => {
 	if (justify === 'between') return 'space-between';
 	if (justify === 'around') return 'space-around';
 	return justify;
+};
+
+const resolveWidth = (value: StackSize): string => {
+	if (value === 'full') return '100%';
+	if (value === 'screen') return '100vw';
+	return value;
+};
+
+const resolveHeight = (value: StackSize): string => {
+	if (value === 'full') return '100%';
+	if (value === 'screen') return '100vh';
+	return value;
 };
 
 export const Stack = forwardRef<HTMLElement, StackProps>(
@@ -47,6 +69,8 @@ export const Stack = forwardRef<HTMLElement, StackProps>(
 			align,
 			justify,
 			wrap,
+			width,
+			height,
 			className,
 			style,
 			...rest
@@ -58,6 +82,8 @@ export const Stack = forwardRef<HTMLElement, StackProps>(
 			'--stack-align': align,
 			'--stack-justify': resolveJustify(justify),
 			'--stack-wrap': wrap ? 'wrap' : 'nowrap',
+			...(width && { '--stack-width': resolveWidth(width) }),
+			...(height && { '--stack-height': resolveHeight(height) }),
 			...style,
 		} as CSSProperties;
 
