@@ -1,5 +1,5 @@
 import { createElement, forwardRef } from 'react';
-import type { CSSProperties, HTMLAttributes, ReactNode } from 'react';
+import type { HTMLAttributes, ReactNode } from 'react';
 
 import { cn } from '@/utils/cn';
 
@@ -54,34 +54,6 @@ type StackProps = HTMLAttributes<HTMLElement> & {
 	height?: StackHeight;
 };
 
-const resolveJustify = (justify: StackProps['justify']): string | undefined => {
-	if (justify === 'between') return 'space-between';
-	if (justify === 'around') return 'space-around';
-	return justify;
-};
-
-const widthValues: Record<StackWidth, string> = {
-	full: '100%',
-	screen: '100vw',
-	auto: 'auto',
-	'fit-content': 'fit-content',
-	'min-content': 'min-content',
-	'max-content': 'max-content',
-	'1/2': '50%',
-	'1/3': '33.333%',
-	'2/3': '66.667%',
-	'1/4': '25%',
-	'3/4': '75%',
-};
-
-const resolveWidth = (value: StackWidth): string => widthValues[value];
-
-const resolveHeight = (value: StackHeight): string => {
-	if (value === 'full') return '100%';
-	if (value === 'screen') return '100vh';
-	return value;
-};
-
 export const Stack = forwardRef<HTMLElement, StackProps>(
 	(
 		{
@@ -92,30 +64,30 @@ export const Stack = forwardRef<HTMLElement, StackProps>(
 			align,
 			justify,
 			wrap,
-			width,
+			width = 'full',
 			height,
 			className,
-			style,
 			...rest
 		},
 		ref
 	) => {
-		const inlineStyle: CSSProperties = {
-			'--stack-direction': direction,
-			'--stack-align': align,
-			'--stack-justify': resolveJustify(justify),
-			'--stack-wrap': wrap ? 'wrap' : 'nowrap',
-			...(width && { '--stack-width': resolveWidth(width) }),
-			...(height && { '--stack-height': resolveHeight(height) }),
-			...style,
-		} as CSSProperties;
+		const widthKey = width?.replace('/', '_');
 
 		return createElement(
 			Component,
 			{
 				ref,
-				className: cn(styles.stack, styles[`stack--gap-${gap}`], className),
-				style: inlineStyle,
+				className: cn(
+					styles.stack,
+					styles[`stack--direction-${direction}`],
+					styles[`stack--gap-${gap}`],
+					align && styles[`stack--align-${align}`],
+					justify && styles[`stack--justify-${justify}`],
+					wrap ? styles['stack--wrap'] : styles['stack--nowrap'],
+					width && styles[`stack--width-${widthKey}`],
+					height && styles[`stack--height-${height}`],
+					className
+				),
 				...rest,
 			},
 			children

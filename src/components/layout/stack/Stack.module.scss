@@ -2,35 +2,56 @@
 
 .stack {
 	display: flex;
-	flex-direction: var(--stack-direction, column);
-	align-items: var(--stack-align, stretch);
-	justify-content: var(--stack-justify, flex-start);
-	flex-wrap: var(--stack-wrap, nowrap);
-	width: var(--stack-width);
-	height: var(--stack-height);
 
-	&--gap-0 {
-		gap: 0;
-	}
-	&--gap-1 {
-		gap: $spacing-1;
-	}
-	&--gap-2 {
-		gap: $spacing-2;
-	}
-	&--gap-3 {
-		gap: $spacing-3;
-	}
-	&--gap-4 {
-		gap: $spacing-4;
-	}
-	&--gap-6 {
-		gap: $spacing-6;
-	}
-	&--gap-8 {
-		gap: $spacing-8;
-	}
-	&--gap-10 {
-		gap: $spacing-10;
-	}
+	// direction
+	&--direction-row { flex-direction: row; }
+	&--direction-column { flex-direction: column; }
+
+	// align
+	&--align-start { align-items: flex-start; }
+	&--align-center { align-items: center; }
+	&--align-end { align-items: flex-end; }
+	&--align-stretch { align-items: stretch; }
+
+	// justify
+	&--justify-start { justify-content: flex-start; }
+	&--justify-center { justify-content: center; }
+	&--justify-end { justify-content: flex-end; }
+	&--justify-between { justify-content: space-between; }
+	&--justify-around { justify-content: space-around; }
+
+	// wrap
+	&--wrap { flex-wrap: wrap; }
+	&--nowrap { flex-wrap: nowrap; }
+
+	// gap
+	&--gap-0 { gap: 0; }
+	&--gap-1 { gap: $spacing-1; }
+	&--gap-2 { gap: $spacing-2; }
+	&--gap-3 { gap: $spacing-3; }
+	&--gap-4 { gap: $spacing-4; }
+	&--gap-6 { gap: $spacing-6; }
+	&--gap-8 { gap: $spacing-8; }
+	&--gap-10 { gap: $spacing-10; }
+
+	// width
+	&--width-full { width: 100%; }
+	&--width-screen { width: 100vw; }
+	&--width-auto { width: auto; }
+	&--width-fit-content { width: fit-content; }
+	&--width-min-content { width: min-content; }
+	&--width-max-content { width: max-content; }
+	&--width-1_2 { width: 50%; }
+	&--width-1_3 { width: 33.333%; }
+	&--width-2_3 { width: 66.667%; }
+	&--width-1_4 { width: 25%; }
+	&--width-3_4 { width: 75%; }
+
+	// height
+	&--height-full { height: 100%; }
+	&--height-screen { height: 100vh; }
+	&--height-auto { height: auto; }
+	&--height-fit-content { height: fit-content; }
+	&--height-min-content { height: min-content; }
+	&--height-max-content { height: max-content; }
 }
