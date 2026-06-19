@@ -78,7 +78,7 @@ export const Static: Story = {
 
 export const WidthPresets: Story = {
 	render: () => (
-		<Stack gap="3" style={{ width: '20rem' }}>
+		<Stack gap="md" style={{ width: '20rem' }}>
 			{(['full', '3/4', '2/3', '1/2', '1/3', '1/4'] as const).map((width) => (
 				<Skeleton key={width} variant="text" width={width} />
 			))}
@@ -96,17 +96,17 @@ export const CardPlaceholder: Story = {
 				borderRadius: '0.75rem',
 			}}
 		>
-			<Stack gap="4">
-				<Stack direction="row" gap="3" align="center">
+			<Stack gap="lg">
+				<Stack direction="row" gap="md" align="center">
 					<Skeleton variant="circular" size="md" width="auto" />
-					<Stack gap="2" style={{ flex: 1 }}>
+					<Stack gap="sm" style={{ flex: 1 }}>
 						<Skeleton variant="text" width="1/2" />
 						<Skeleton variant="text" width="1/3" />
 					</Stack>
 				</Stack>
 				<Skeleton variant="rectangular" size="sm" />
 				<Skeleton variant="paragraph" lines={3} />
-				<Stack direction="row" gap="2" justify="end">
+				<Stack direction="row" gap="sm" justify="end">
 					<Skeleton variant="button" size="sm" width="auto" />
 					<Skeleton variant="button" size="sm" width="auto" />
 				</Stack>
@@ -125,12 +125,12 @@ export const InlineText: Story = {
 
 export const AllVariants: Story = {
 	render: () => (
-		<Stack gap="4" style={{ width: '18rem' }}>
+		<Stack gap="lg" style={{ width: '18rem' }}>
 			<Skeleton variant="heading" width="2/3" />
 			<Skeleton variant="text" />
 			<Skeleton variant="text" width="3/4" />
 			<Skeleton variant="paragraph" lines={3} />
-			<Stack direction="row" gap="3" align="center">
+			<Stack direction="row" gap="md" align="center">
 				<Skeleton variant="circular" size="sm" width="auto" />
 				<Skeleton variant="circular" size="md" width="auto" />
 				<Skeleton variant="circular" size="lg" width="auto" />

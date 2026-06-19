@@ -81,7 +81,7 @@ export const Dismissible: Story = {
 
 export const AllVariants: Story = {
 	render: () => (
-		<Stack gap="3" style={{ maxWidth: '32rem' }}>
+		<Stack gap="md" style={{ maxWidth: '32rem' }}>
 			<Alert variant="success" title="Payment received">
 				Your invoice has been paid. A receipt was sent to your email.
 			</Alert>

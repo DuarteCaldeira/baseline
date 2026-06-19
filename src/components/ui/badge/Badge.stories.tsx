@@ -54,7 +54,7 @@ export const IconOnly: Story = {
 
 export const AllVariantsFilled: Story = {
 	render: () => (
-		<Stack direction="row" gap="2" wrap align="center">
+		<Stack direction="row" gap="sm" wrap align="center">
 			<Badge variant="success" text="Approved" />
 			<Badge variant="error" text="Failed" />
 			<Badge variant="warning" text="Pending" />
@@ -66,7 +66,7 @@ export const AllVariantsFilled: Story = {
 
 export const AllVariantsOutlined: Story = {
 	render: () => (
-		<Stack direction="row" gap="2" wrap align="center">
+		<Stack direction="row" gap="sm" wrap align="center">
 			<Badge variant="success" type="outlined" text="Approved" />
 			<Badge variant="error" type="outlined" text="Failed" />
 			<Badge variant="warning" type="outlined" text="Pending" />
@@ -78,15 +78,15 @@ export const AllVariantsOutlined: Story = {
 
 export const AllVariantsWithIcons: Story = {
 	render: () => (
-		<Stack direction="column" gap="3">
-			<Stack direction="row" gap="2" wrap align="center">
+		<Stack direction="column" gap="md">
+			<Stack direction="row" gap="sm" wrap align="center">
 				<Badge variant="success" icon={CheckCircle} text="Approved" />
 				<Badge variant="error" icon={AlertCircle} text="Failed" />
 				<Badge variant="warning" icon={AlertTriangle} text="Pending" />
 				<Badge variant="info" icon={Info} text="In review" />
 				<Badge variant="neutral" icon={Tag} text="Draft" />
 			</Stack>
-			<Stack direction="row" gap="2" wrap align="center">
+			<Stack direction="row" gap="sm" wrap align="center">
 				<Badge
 					variant="success"
 					type="outlined"
@@ -114,7 +114,7 @@ export const AllVariantsWithIcons: Story = {
 
 export const InlineUsage: Story = {
 	render: () => (
-		<Stack direction="column" gap="3" style={{ maxWidth: '26rem' }}>
+		<Stack direction="column" gap="md" style={{ maxWidth: '26rem' }}>
 			{[
 				{
 					label: 'Payment processed',
@@ -150,7 +150,7 @@ export const InlineUsage: Story = {
 				<Stack
 					key={variant}
 					direction="row"
-					gap="4"
+					gap="lg"
 					justify="between"
 					align="center"
 					style={{

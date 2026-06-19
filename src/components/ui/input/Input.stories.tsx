@@ -75,7 +75,7 @@ export const Password: Story = {
 
 export const AllStates: Story = {
 	render: () => (
-		<Stack direction="column" gap="6" style={{ maxWidth: '400px' }}>
+		<Stack direction="column" gap="xl" style={{ maxWidth: '400px' }}>
 			<Input id="s1" label="Default" placeholder="Placeholder..." />
 			<Input
 				id="s2"

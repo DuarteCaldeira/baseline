@@ -55,7 +55,7 @@ export const External: Story = {
 
 export const AllVariants: Story = {
 	render: () => (
-		<Stack direction="column" gap="3">
+		<Stack direction="column" gap="md">
 			<Link href="#" variant="default">
 				Default link
 			</Link>

@@ -55,7 +55,7 @@ export const SmallRemovable: Story = {
 
 export const AllVariants: Story = {
 	render: () => (
-		<Stack direction="row" gap="2" wrap>
+		<Stack direction="row" gap="sm" wrap>
 			<Tag>Default</Tag>
 			<Tag variant="primary">Primary</Tag>
 			<Tag icon={TagIcon}>With icon</Tag>
@@ -86,7 +86,7 @@ export const RemovableGroup: Story = {
 			}
 
 			return (
-				<Stack direction="row" gap="2" wrap>
+				<Stack direction="row" gap="sm" wrap>
 					{tags.map((tag) => (
 						<Tag
 							key={tag}
@@ -108,7 +108,7 @@ export const RemovableGroup: Story = {
 
 export const FilterBar: Story = {
 	render: () => (
-		<Stack direction="row" gap="2" wrap align="center">
+		<Stack direction="row" gap="sm" wrap align="center">
 			<span
 				style={{ font: 'var(--font-sm)', color: 'var(--color-text-muted)' }}
 			>

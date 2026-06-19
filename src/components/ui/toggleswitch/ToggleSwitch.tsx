@@ -36,7 +36,7 @@ export const ToggleSwitch = ({
 				className
 			)}
 		>
-			<FormField fieldId={id} helperText={helperText} error={error} gap="1">
+			<FormField fieldId={id} helperText={helperText} error={error} gap="xs">
 				<label className={styles['toggle-switch__label']} htmlFor={id}>
 					<input
 						type="checkbox"

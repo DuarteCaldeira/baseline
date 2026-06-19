@@ -48,7 +48,7 @@ export const WithLabel: Story = {
 
 export const Sizes: Story = {
 	render: () => (
-		<Stack direction="row" align="center" gap="4">
+		<Stack direction="row" align="center" gap="lg">
 			<Spinner size="sm" variant="primary" />
 			<Spinner size="md" variant="primary" />
 			<Spinner size="lg" variant="primary" />
@@ -59,7 +59,7 @@ export const Sizes: Story = {
 
 export const Variants: Story = {
 	render: () => (
-		<Stack direction="row" align="center" gap="4" wrap>
+		<Stack direction="row" align="center" gap="lg" wrap>
 			<Spinner variant="primary" />
 			<Spinner variant="muted" />
 			<Spinner variant="success" />
@@ -73,7 +73,7 @@ export const Variants: Story = {
 export const InlineWithText: Story = {
 	name: 'Inline with text',
 	render: () => (
-		<Stack direction="row" align="center" gap="2">
+		<Stack direction="row" align="center" gap="sm">
 			<Spinner size="sm" variant="muted" />
 			<span
 				style={{ font: 'var(--font-sm)', color: 'var(--color-text-muted)' }}
@@ -87,7 +87,7 @@ export const InlineWithText: Story = {
 export const InButton: Story = {
 	name: 'In button',
 	render: () => (
-		<Stack direction="row" align="center" gap="3" wrap>
+		<Stack direction="row" align="center" gap="md" wrap>
 			<Button variant="primary" isLoading>
 				Saving…
 			</Button>

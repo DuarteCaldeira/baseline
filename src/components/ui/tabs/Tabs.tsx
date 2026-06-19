@@ -78,7 +78,7 @@ export const Tabs = ({ items, value, defaultValue, onChange }: TabsProps) => {
 				ref={listRef}
 				as="div"
 				direction="row"
-				gap="1"
+				gap="xs"
 				role="tablist"
 				aria-orientation="horizontal"
 				className={styles['tabs__list']}

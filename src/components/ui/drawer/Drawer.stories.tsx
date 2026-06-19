@@ -130,7 +130,7 @@ export const WithForm: Story = {
 							</>
 						}
 					>
-						<Stack gap="4">
+						<Stack gap="lg">
 							<Input id="drawer-name" label="Name" placeholder="Jane Smith" />
 							<Input
 								id="drawer-email"

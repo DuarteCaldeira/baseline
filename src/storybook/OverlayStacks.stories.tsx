@@ -52,7 +52,7 @@ const ModalWithFloatingControlsDemo = () => {
 				onClose={close}
 				title="Edit member"
 				footer={
-					<Stack direction="row" gap="2" justify="end">
+					<Stack direction="row" gap="sm" justify="end">
 						<Button variant="secondary" onClick={close}>
 							Cancel
 						</Button>
@@ -60,7 +60,7 @@ const ModalWithFloatingControlsDemo = () => {
 					</Stack>
 				}
 			>
-				<Stack gap="4">
+				<Stack gap="lg">
 					<Input
 						id="overlay-name"
 						label="Name"
@@ -74,7 +74,7 @@ const ModalWithFloatingControlsDemo = () => {
 						value={role}
 						onChange={setRole}
 					/>
-					<Stack direction="row" gap="2" align="center">
+					<Stack direction="row" gap="sm" align="center">
 						<Menu>
 							<MenuTrigger>
 								<Button

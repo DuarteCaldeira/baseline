@@ -28,7 +28,7 @@ const TableFiltersBase = ({ filters, values, onChange }: TableFiltersProps) => {
 	);
 
 	return (
-		<Stack direction="row" wrap gap="3" className={styles['table__filters']}>
+		<Stack direction="row" wrap gap="md" className={styles['table__filters']}>
 			{filters.map((filter) => {
 				const id = `${idPrefix}-${filter.key}`;
 

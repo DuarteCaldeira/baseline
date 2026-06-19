@@ -42,7 +42,7 @@ export const Breadcrumb = ({
 		<Stack
 			as="ol"
 			direction="row"
-			gap="1"
+			gap="xs"
 			align="center"
 			wrap
 			className={styles['breadcrumb__list']}

@@ -75,7 +75,7 @@ export const WithoutTitle: Story = {
 
 export const AllVariants: Story = {
 	render: () => (
-		<Stack direction="column" gap="3" style={{ width: '20rem' }}>
+		<Stack direction="column" gap="md" style={{ width: '20rem' }}>
 			<Toast
 				id="1"
 				variant="success"
@@ -113,7 +113,7 @@ export const AllVariants: Story = {
 const LiveDemo = () => {
 	const { show } = useToast();
 	return (
-		<Stack direction="row" gap="3" wrap>
+		<Stack direction="row" gap="md" wrap>
 			<Button
 				variant="primary"
 				size="sm"

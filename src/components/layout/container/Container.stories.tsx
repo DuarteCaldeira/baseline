@@ -54,34 +54,34 @@ export const AllSizes: Story = {
 	render: () => (
 		<Stack
 			direction="column"
-			gap="6"
+			gap="xl"
 			style={{ background: 'var(--color-bg-muted)', padding: '1rem' }}
 		>
-			<Stack gap="2">
+			<Stack gap="sm">
 				<strong>Small</strong>
 				<Container size="sm" className={styles.container}>
 					Small container (max-width: 640px).
 				</Container>
 			</Stack>
-			<Stack gap="2">
+			<Stack gap="sm">
 				<strong>Medium</strong>
 				<Container size="md" className={styles.container}>
 					Medium container (max-width: 768px).
 				</Container>
 			</Stack>
-			<Stack gap="2">
+			<Stack gap="sm">
 				<strong>Large</strong>
 				<Container size="lg" className={styles.container}>
 					Large container (max-width: 1024px).
 				</Container>
 			</Stack>
-			<Stack gap="2">
+			<Stack gap="sm">
 				<strong>XLarge</strong>
 				<Container size="xl" className={styles.container}>
 					XLarge container (max-width: 1280px).
 				</Container>
 			</Stack>
-			<Stack gap="2">
+			<Stack gap="sm">
 				<strong>Full width</strong>
 				<Container size="full" className={styles.container}>
 					Full width container (max-width: 100%).

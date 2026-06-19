@@ -59,7 +59,7 @@ export const MenuSubTrigger = ({
 		>
 			<Stack
 				direction="row"
-				gap="2"
+				gap="sm"
 				align="center"
 				justify="between"
 				className={styles['menu__submenu-trigger-inner']}

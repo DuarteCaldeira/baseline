@@ -57,7 +57,7 @@ export const WithLabel: Story = {
 
 export const Sizes: Story = {
 	render: () => (
-		<Stack direction="row" gap="4" align="center">
+		<Stack direction="row" gap="lg" align="center">
 			<Icon icon={Star} size="sm" label="Small" />
 			<Icon icon={Star} size="md" label="Medium" />
 			<Icon icon={Star} size="lg" label="Large" />
@@ -67,7 +67,7 @@ export const Sizes: Story = {
 
 export const Variants: Story = {
 	render: () => (
-		<Stack direction="row" gap="4" wrap align="center">
+		<Stack direction="row" gap="lg" wrap align="center">
 			<Icon icon={Star} variant="default" label="Default" />
 			<Icon icon={Star} variant="muted" label="Muted" />
 			<Icon icon={Star} variant="subtle" label="Subtle" />
@@ -82,24 +82,24 @@ export const Variants: Story = {
 
 export const SemanticUsage: Story = {
 	render: () => (
-		<Stack direction="column" gap="3">
-			<Stack direction="row" gap="2" align="center">
+		<Stack direction="column" gap="md">
+			<Stack direction="row" gap="sm" align="center">
 				<Icon icon={CheckCircle} variant="success" label="Success" />
 				<span>Changes saved successfully.</span>
 			</Stack>
-			<Stack direction="row" gap="2" align="center">
+			<Stack direction="row" gap="sm" align="center">
 				<Icon icon={AlertTriangle} variant="warning" label="Warning" />
 				<span>This action cannot be undone.</span>
 			</Stack>
-			<Stack direction="row" gap="2" align="center">
+			<Stack direction="row" gap="sm" align="center">
 				<Icon icon={AlertCircle} variant="error" label="Error" />
 				<span>Something went wrong.</span>
 			</Stack>
-			<Stack direction="row" gap="2" align="center">
+			<Stack direction="row" gap="sm" align="center">
 				<Icon icon={Info} variant="info" label="Info" />
 				<span>Your session expires in 5 minutes.</span>
 			</Stack>
-			<Stack direction="row" gap="2" align="center">
+			<Stack direction="row" gap="sm" align="center">
 				<Icon icon={X} variant="muted" />
 				<span>Decorative icon (no label, aria-hidden).</span>
 			</Stack>

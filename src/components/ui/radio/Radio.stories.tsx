@@ -66,7 +66,7 @@ export const WithHelperTextAndError: Story = {
 
 export const Group: Story = {
 	render: () => (
-		<Stack direction="column" gap="2">
+		<Stack direction="column" gap="sm">
 			<Radio id="opt-a" name="demo" label="Option A" defaultChecked />
 			<Radio id="opt-b" name="demo" label="Option B" />
 			<Radio id="opt-c" name="demo" label="Option C" />
@@ -76,7 +76,7 @@ export const Group: Story = {
 
 export const AllStates: Story = {
 	render: () => (
-		<Stack direction="column" gap="4">
+		<Stack direction="column" gap="lg">
 			<Radio label="Default" />
 			<Radio label="Checked" defaultChecked />
 			<Radio

@@ -107,7 +107,7 @@ export const FileUpload = ({
 				error={error}
 			>
 				<Stack
-					gap="2"
+					gap="sm"
 					align="center"
 					justify="center"
 					className={cn(
@@ -149,7 +149,7 @@ export const FileUpload = ({
 				{selectedFiles.length > 0 && (
 					<Stack
 						as="ul"
-						gap="1"
+						gap="xs"
 						className={styles['file-upload__list']}
 						aria-live="polite"
 					>
@@ -161,11 +161,11 @@ export const FileUpload = ({
 							>
 								<Stack
 									direction="row"
-									gap="2"
+									gap="sm"
 									align="center"
 									className={styles['file-upload__file-inner']}
 								>
-									<Stack gap="1" className={styles['file-upload__file-info']}>
+									<Stack gap="xs" className={styles['file-upload__file-info']}>
 										<span className={styles['file-upload__file-name']}>
 											{file.name}
 										</span>

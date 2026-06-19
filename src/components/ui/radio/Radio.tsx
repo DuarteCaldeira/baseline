@@ -32,7 +32,7 @@ export const Radio = ({
 				className
 			)}
 		>
-			<FormField fieldId={id} helperText={helperText} error={error} gap="1">
+			<FormField fieldId={id} helperText={helperText} error={error} gap="xs">
 				<label className={styles['radio__label']} htmlFor={id}>
 					<input
 						type="radio"

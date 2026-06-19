@@ -37,7 +37,7 @@ export const ToastProvider = ({ children }: ToastProviderProps) => {
 		<ToastContext.Provider value={{ show, dismiss }}>
 			{children}
 			<Stack
-				gap="3"
+				gap="md"
 				className={styles['toast-container']}
 				aria-label="Notifications"
 				aria-live="polite"

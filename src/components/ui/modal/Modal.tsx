@@ -91,7 +91,7 @@ export const Modal = ({
 						as="footer"
 						direction="row"
 						justify="end"
-						gap="2"
+						gap="sm"
 						className={styles['modal__footer']}
 					>
 						{footer}

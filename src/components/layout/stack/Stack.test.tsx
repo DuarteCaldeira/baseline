@@ -22,15 +22,40 @@ describe('Stack', () => {
 
 	it('applies gap and direction styles', () => {
 		const { container } = render(
-			<Stack direction="row" gap="2">
+			<Stack direction="row" gap="sm">
 				Content
 			</Stack>
 		);
-		expect(container.firstChild).toHaveClass('stack--gap-2');
+		expect(container.firstChild).toHaveClass('stack--gap-sm');
 	});
 
 	it('merges custom className', () => {
 		const { container } = render(<Stack className="custom">Content</Stack>);
 		expect(container.querySelector('.custom')).toBeInTheDocument();
+	});
+
+	it('applies padding and margin classes', () => {
+		const { container } = render(
+			<Stack padding="lg" margin="xl">
+				Content
+			</Stack>
+		);
+		const stack = container.firstChild;
+
+		expect(stack).toHaveClass('stack--padding-lg');
+		expect(stack).toHaveClass('stack--margin-xl');
+	});
+
+	it('applies axis padding and margin classes', () => {
+		const { container } = render(
+			<Stack padding={{ x: 'sm', y: 'lg' }} margin={{ y: 'xl' }}>
+				Content
+			</Stack>
+		);
+		const stack = container.firstChild;
+
+		expect(stack).toHaveClass('stack--padding-x-sm');
+		expect(stack).toHaveClass('stack--padding-y-lg');
+		expect(stack).toHaveClass('stack--margin-y-xl');
 	});
 });

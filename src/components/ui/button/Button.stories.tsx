@@ -79,7 +79,7 @@ export const AllVariants: Story = {
 	name: 'All Variants',
 	args: { children: 'Button' },
 	render: (args) => (
-		<Stack direction="row" gap="3" wrap align="center">
+		<Stack direction="row" gap="md" wrap align="center">
 			<Button {...args} variant="primary">
 				Primary
 			</Button>
@@ -103,7 +103,7 @@ export const AllSizes: Story = {
 	name: 'All Sizes',
 	args: { children: 'Button' },
 	render: (args) => (
-		<Stack direction="row" gap="3" align="center">
+		<Stack direction="row" gap="md" align="center">
 			<Button {...args} size="sm">
 				Small
 			</Button>
@@ -121,7 +121,7 @@ export const AllSizesWithIcon: Story = {
 	name: 'All Sizes — With Icon',
 	args: { icon: Plus, children: 'Add item' },
 	render: (args) => (
-		<Stack direction="row" gap="3" align="center">
+		<Stack direction="row" gap="md" align="center">
 			<Button {...args} size="sm" />
 			<Button {...args} size="md" />
 			<Button {...args} size="lg" />
@@ -138,7 +138,7 @@ export const AllSizesIconOnly: Story = {
 		children: undefined,
 	},
 	render: (args) => (
-		<Stack direction="row" gap="3" align="center">
+		<Stack direction="row" gap="md" align="center">
 			<Button {...args} size="sm" />
 			<Button {...args} size="md" />
 			<Button {...args} size="lg" />

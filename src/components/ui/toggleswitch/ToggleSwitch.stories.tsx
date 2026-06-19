@@ -66,7 +66,7 @@ export const WithError: Story = {
 
 export const AllStates: Story = {
 	render: () => (
-		<Stack direction="column" gap="4">
+		<Stack direction="column" gap="lg">
 			<ToggleSwitch id="all-off" label="Off" />
 			<ToggleSwitch id="all-on" label="On" defaultChecked />
 			<ToggleSwitch
@@ -92,7 +92,7 @@ export const AllStates: Story = {
 
 export const SettingsList: Story = {
 	render: () => (
-		<Stack direction="column" gap="4" style={{ width: '22rem' }}>
+		<Stack direction="column" gap="lg" style={{ width: '22rem' }}>
 			<ToggleSwitch
 				id="email-notifications"
 				label="Email notifications"

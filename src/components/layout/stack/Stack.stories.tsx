@@ -2,7 +2,19 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import styles from '@/storybook/storyHelpers.module.scss';
 
+import type { StackSpacing } from './Stack.types';
 import { Stack } from './Stack';
+
+const spacingOptions: StackSpacing[] = [
+	'none',
+	'xs',
+	'sm',
+	'md',
+	'lg',
+	'xl',
+	'2xl',
+	'3xl',
+];
 
 const Item = ({ label }: { label: string }) => (
 	<div className={styles.item}>{label}</div>
@@ -44,7 +56,15 @@ const meta: Meta<typeof Stack> = {
 		},
 		gap: {
 			control: 'select',
-			options: ['1', '2', '3', '4', '6', '8'],
+			options: spacingOptions,
+		},
+		padding: {
+			control: 'select',
+			options: [undefined, ...spacingOptions],
+		},
+		margin: {
+			control: 'select',
+			options: [undefined, ...spacingOptions],
 		},
 		align: {
 			control: 'select',
@@ -59,7 +79,7 @@ const meta: Meta<typeof Stack> = {
 	},
 	args: {
 		direction: 'column',
-		gap: '4',
+		gap: 'lg',
 		align: 'stretch',
 		justify: 'start',
 		wrap: false,
@@ -81,7 +101,7 @@ export const Wrap: Story = {
 	render: () => (
 		<Stack
 			direction="row"
-			gap="4"
+			gap="lg"
 			wrap
 			className={styles.exampleStack}
 			style={{ width: '19.5rem' }}
@@ -104,11 +124,30 @@ export const Between: Story = {
 	args: { direction: 'row', justify: 'between' },
 };
 
+export const Spacing: Story = {
+	args: {
+		padding: 'lg',
+		margin: 'xl',
+	},
+};
+
+export const AxisSpacing: Story = {
+	render: () => (
+		<Stack
+			padding={{ x: 'xl', y: 'sm' }}
+			margin={{ y: 'lg' }}
+			className={styles.exampleStack}
+		>
+			{defaultChildren}
+		</Stack>
+	),
+};
+
 export const AllGaps: Story = {
 	render: () => (
-		<Stack direction="column" gap="4">
-			{(['1', '2', '3', '4', '6', '8'] as const).map((gap) => (
-				<Stack key={gap} direction="column" gap="2">
+		<Stack direction="column" gap="lg">
+			{(['xs', 'sm', 'md', 'lg', 'xl', '2xl'] as const).map((gap) => (
+				<Stack key={gap} direction="column" gap="sm">
 					<strong>Gap {gap}</strong>
 					<Stack direction="row" gap={gap} className={styles.exampleStack}>
 						<Item label="One" />

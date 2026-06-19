@@ -4,6 +4,8 @@ import type { HTMLAttributes, ReactNode } from 'react';
 import { cn } from '@/utils/cn';
 
 import styles from './Stack.module.scss';
+import type { StackSpacing, StackSpacingValue } from './Stack.types';
+import { resolveSpacingClasses } from './Stack.utils';
 
 export type StackAs =
 	| 'div'
@@ -46,12 +48,14 @@ type StackProps = HTMLAttributes<HTMLElement> & {
 	as?: StackAs;
 	children: ReactNode;
 	direction?: 'row' | 'column';
-	gap?: '0' | '1' | '2' | '3' | '4' | '6' | '8' | '10';
+	gap?: StackSpacing;
 	align?: 'start' | 'center' | 'end' | 'stretch';
 	justify?: 'start' | 'center' | 'end' | 'between' | 'around';
 	wrap?: boolean;
 	width?: StackWidth;
 	height?: StackHeight;
+	padding?: StackSpacingValue;
+	margin?: StackSpacingValue;
 };
 
 export const Stack = forwardRef<HTMLElement, StackProps>(
@@ -60,12 +64,14 @@ export const Stack = forwardRef<HTMLElement, StackProps>(
 			as: Component = 'div',
 			children,
 			direction = 'column',
-			gap = '4',
+			gap = 'lg',
 			align,
 			justify,
 			wrap,
 			width = 'full',
 			height,
+			padding,
+			margin,
 			className,
 			...rest
 		},
@@ -86,6 +92,8 @@ export const Stack = forwardRef<HTMLElement, StackProps>(
 					wrap ? styles['stack--wrap'] : styles['stack--nowrap'],
 					width && styles[`stack--width-${widthKey}`],
 					height && styles[`stack--height-${height}`],
+					...resolveSpacingClasses('padding', padding, styles),
+					...resolveSpacingClasses('margin', margin, styles),
 					className
 				),
 				...rest,

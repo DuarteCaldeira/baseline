@@ -104,7 +104,7 @@ export const Toolbar: Story = {
 		<Stack
 			direction="row"
 			align="center"
-			gap="2"
+			gap="sm"
 			style={{
 				padding: '0.75rem',
 				border: '1px solid var(--color-border)',

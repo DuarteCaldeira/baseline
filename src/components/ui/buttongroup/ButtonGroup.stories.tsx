@@ -116,7 +116,7 @@ export const FullWidth: Story = {
 
 export const MixedVariants: Story = {
 	render: () => (
-		<Stack direction="column" gap="4">
+		<Stack direction="column" gap="lg">
 			<ButtonGroup aria-label="Secondary group">
 				<Button variant="secondary">One</Button>
 				<Button variant="secondary">Two</Button>

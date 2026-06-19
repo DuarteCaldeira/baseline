@@ -65,7 +65,7 @@ export const Toast = ({
 	return (
 		<Stack
 			direction="row"
-			gap="3"
+			gap="md"
 			align="start"
 			role={ROLE_MAP[variant]}
 			aria-atomic="true"

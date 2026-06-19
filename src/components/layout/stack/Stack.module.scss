@@ -24,16 +24,6 @@
 	&--wrap { flex-wrap: wrap; }
 	&--nowrap { flex-wrap: nowrap; }
 
-	// gap
-	&--gap-0 { gap: 0; }
-	&--gap-1 { gap: $spacing-1; }
-	&--gap-2 { gap: $spacing-2; }
-	&--gap-3 { gap: $spacing-3; }
-	&--gap-4 { gap: $spacing-4; }
-	&--gap-6 { gap: $spacing-6; }
-	&--gap-8 { gap: $spacing-8; }
-	&--gap-10 { gap: $spacing-10; }
-
 	// width
 	&--width-full { width: 100%; }
 	&--width-screen { width: 100vw; }
@@ -54,4 +44,26 @@
 	&--height-fit-content { height: fit-content; }
 	&--height-min-content { height: min-content; }
 	&--height-max-content { height: max-content; }
+
+	// gap, padding & margin
+	$stack-spacing-scale: (
+		'none': $spacing-0,
+		'xs': $spacing-1,
+		'sm': $spacing-2,
+		'md': $spacing-3,
+		'lg': $spacing-4,
+		'xl': $spacing-6,
+		'2xl': $spacing-8,
+		'3xl': $spacing-10,
+	);
+
+	@each $name, $value in $stack-spacing-scale {
+		&--gap-#{$name} { gap: $value; }
+		&--padding-#{$name} { padding: $value; }
+		&--padding-x-#{$name} { padding-inline: $value; }
+		&--padding-y-#{$name} { padding-block: $value; }
+		&--margin-#{$name} { margin: $value; }
+		&--margin-x-#{$name} { margin-inline: $value; }
+		&--margin-y-#{$name} { margin-block: $value; }
+	}
 }

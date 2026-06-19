@@ -39,7 +39,7 @@ export const Stepper = ({
 	};
 
 	return (
-		<Stack gap="6">
+		<Stack gap="xl">
 			<Stack as="ol" direction="row" align="start" aria-label="Progress">
 				{steps.map((step, index) => (
 					<StepItem
@@ -61,7 +61,7 @@ export const Stepper = ({
 				{steps[activeStep]?.content ?? null}
 			</div>
 
-			<Stack direction="row" justify="end" gap="3">
+			<Stack direction="row" justify="end" gap="md">
 				<Button
 					variant="secondary"
 					onClick={() => updateStep(activeStep - 1)}

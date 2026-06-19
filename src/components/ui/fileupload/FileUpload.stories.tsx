@@ -72,7 +72,7 @@ export const CustomPlaceholder: Story = {
 
 export const AllStates: Story = {
 	render: () => (
-		<Stack direction="column" gap="6" style={{ maxWidth: '28rem' }}>
+		<Stack direction="column" gap="xl" style={{ maxWidth: '28rem' }}>
 			<FileUpload id="fu-1" label="Default" />
 			<FileUpload
 				id="fu-2"

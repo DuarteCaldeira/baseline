@@ -16,7 +16,7 @@ export const MenuItemContent = ({
 	destructive,
 	children,
 }: MenuItemContentProps) => (
-	<Stack direction="row" gap="2" align="center">
+	<Stack direction="row" gap="sm" align="center">
 		{icon && (
 			<Icon
 				icon={icon}

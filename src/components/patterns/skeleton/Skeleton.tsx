@@ -75,7 +75,7 @@ export const Skeleton = ({
 	if (variant === 'paragraph' && lines > 1) {
 		return (
 			<Stack
-				gap="2"
+				gap="sm"
 				className={styles['skeleton__lines']}
 				aria-hidden="true"
 				{...(rest as HTMLAttributes<HTMLDivElement>)}

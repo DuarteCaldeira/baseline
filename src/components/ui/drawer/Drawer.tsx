@@ -91,7 +91,7 @@ export const Drawer = ({
 						as="footer"
 						direction="row"
 						justify="end"
-						gap="2"
+						gap="sm"
 						className={styles['drawer__footer']}
 					>
 						{footer}

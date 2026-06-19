@@ -14,7 +14,7 @@ const STEPS = [
 		label: 'Account',
 		description: 'Create your account',
 		content: (
-			<Stack gap="2" className={storyStyles.item}>
+			<Stack gap="sm" className={storyStyles.item}>
 				<strong>Create your account</strong>
 				<p>Enter your email address and choose a secure password to get started.</p>
 			</Stack>
@@ -24,7 +24,7 @@ const STEPS = [
 		label: 'Profile',
 		description: 'Add your details',
 		content: (
-			<Stack gap="2" className={storyStyles.item}>
+			<Stack gap="sm" className={storyStyles.item}>
 				<strong>Add your details</strong>
 				<p>Tell us your name and upload a profile photo so others can recognise you.</p>
 			</Stack>
@@ -34,7 +34,7 @@ const STEPS = [
 		label: 'Review',
 		description: 'Confirm everything',
 		content: (
-			<Stack gap="2" className={storyStyles.item}>
+			<Stack gap="sm" className={storyStyles.item}>
 				<strong>Confirm everything</strong>
 				<p>Review your information before submitting. You can go back to make changes.</p>
 			</Stack>
@@ -44,7 +44,7 @@ const STEPS = [
 		label: 'Done',
 		description: 'All set!',
 		content: (
-			<Stack gap="2" className={storyStyles.item}>
+			<Stack gap="sm" className={storyStyles.item}>
 				<strong>You are all set!</strong>
 				<p>Your account has been created. Welcome aboard!</p>
 			</Stack>

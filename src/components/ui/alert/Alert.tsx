@@ -30,7 +30,7 @@ export const Alert = ({
 	return (
 		<Stack
 			direction="row"
-			gap="3"
+			gap="md"
 			align={hasTitleAndDescription ? 'start' : 'center'}
 			role={ALERT_ROLE_MAP[variant]}
 			className={cn(

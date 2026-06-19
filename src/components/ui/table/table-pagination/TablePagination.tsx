@@ -52,42 +52,52 @@ const TablePaginationBase = ({
 				Showing {from}–{to} of {totalItems}
 			</span>
 
-			<Stack direction="row" align="center" gap="3">
-				<Stack direction="row" align="center" gap="2">
-					<label htmlFor={sizeId} className={styles['table__pagination-label']}>
-						Rows per page
-					</label>
-					<div className={styles['table__pagination-select']}>
-						<Select
-							id={sizeId}
-							options={sizeOptions}
-							value={String(pageSize)}
-							onChange={handleSizeChange}
-						/>
-					</div>
-				</Stack>
+			<Stack
+				direction="row"
+				align="center"
+				gap="xs"
+				width="auto"
+				className={styles['table__pagination-nav']}
+			>
+				<Button
+					variant="ghost"
+					size="sm"
+					icon={ChevronLeft}
+					aria-label="Previous page"
+					disabled={currentPage <= 1}
+					onClick={handlePrev}
+				/>
+				<span className={styles['table__pagination-pages']}>
+					{currentPage} / {totalPages}
+				</span>
+				<Button
+					variant="ghost"
+					size="sm"
+					icon={ChevronRight}
+					aria-label="Next page"
+					disabled={currentPage >= totalPages}
+					onClick={handleNext}
+				/>
+			</Stack>
 
-				<Stack direction="row" align="center" gap="1">
-					<Button
-						variant="ghost"
-						size="sm"
-						icon={ChevronLeft}
-						aria-label="Previous page"
-						disabled={currentPage <= 1}
-						onClick={handlePrev}
+			<Stack
+				direction="row"
+				align="center"
+				gap="sm"
+				width="auto"
+				className={styles['table__pagination-size']}
+			>
+				<label htmlFor={sizeId} className={styles['table__pagination-label']}>
+					Rows per page
+				</label>
+				<div className={styles['table__pagination-select']}>
+					<Select
+						id={sizeId}
+						options={sizeOptions}
+						value={String(pageSize)}
+						onChange={handleSizeChange}
 					/>
-					<span className={styles['table__pagination-pages']}>
-						{currentPage} / {totalPages}
-					</span>
-					<Button
-						variant="ghost"
-						size="sm"
-						icon={ChevronRight}
-						aria-label="Next page"
-						disabled={currentPage >= totalPages}
-						onClick={handleNext}
-					/>
-				</Stack>
+				</div>
 			</Stack>
 		</nav>
 	);

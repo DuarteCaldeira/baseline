@@ -38,7 +38,7 @@ export const FormField = ({
 	label,
 	helperText,
 	error,
-	gap = '2',
+	gap = 'sm',
 	children,
 	...rest
 }: FormFieldProps) => {

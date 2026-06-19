@@ -27,7 +27,7 @@ type Story = StoryObj;
 export const FieldStates: Story = {
 	name: 'Field States',
 	render: () => (
-		<Stack gap="6" style={{ maxWidth: '28rem' }}>
+		<Stack gap="xl" style={{ maxWidth: '28rem' }}>
 			<Input id="field-default" label="Default" placeholder="Placeholder…" />
 			<Input
 				id="field-helper"

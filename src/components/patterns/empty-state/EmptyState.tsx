@@ -26,7 +26,7 @@ export const EmptyState = ({
 	return (
 		<Stack
 			as="section"
-			gap="4"
+			gap="lg"
 			align="center"
 			className={styles['empty-state']}
 			aria-labelledby={titleId}
@@ -38,7 +38,7 @@ export const EmptyState = ({
 				</div>
 			)}
 
-			<Stack gap="2" align="center">
+			<Stack gap="sm" align="center">
 				<h3 id={titleId} className={styles['empty-state__title']}>
 					{title}
 				</h3>

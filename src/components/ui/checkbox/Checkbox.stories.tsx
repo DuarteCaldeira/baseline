@@ -67,7 +67,7 @@ export const WithHelperTextAndError: Story = {
 
 export const AllStates: Story = {
 	render: () => (
-		<Stack direction="column" gap="4">
+		<Stack direction="column" gap="lg">
 			<Checkbox label="Default" />
 			<Checkbox label="Checked" defaultChecked />
 			<Checkbox

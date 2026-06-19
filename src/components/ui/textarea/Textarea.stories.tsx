@@ -75,7 +75,7 @@ export const WithoutLabel: Story = {
 
 export const AllStates: Story = {
 	render: () => (
-		<Stack direction="column" gap="6" style={{ maxWidth: '480px' }}>
+		<Stack direction="column" gap="xl" style={{ maxWidth: '480px' }}>
 			<Textarea
 				id="s1"
 				label="Default"
