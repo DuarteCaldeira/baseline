@@ -24,8 +24,12 @@ type UseTooltipReturn = {
 export const useTooltip = (): UseTooltipReturn => {
 	const tooltipId = useId();
 	const [isOpen, setIsOpen] = useState(false);
-	const openTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
-	const closeTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
+	const openTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(
+		undefined
+	);
+	const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(
+		undefined
+	);
 
 	const clearTimers = useCallback(() => {
 		if (openTimeoutRef.current) {

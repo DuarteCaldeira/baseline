@@ -28,7 +28,10 @@ const meta = {
 				component:
 					'Data table with filtering, sorting, pagination, and a responsive card layout on small screens. ' +
 					'Rows are memoised — keep the `columns` array and each `render` callback stable with `useMemo` ' +
-					'so row cells do not re-render on unrelated parent updates. Use `rowKey` when row order can change.',
+					'so row cells do not re-render on unrelated parent updates. Use `rowKey` when row order can change. ' +
+					'Cell padding and typography are not set on body cells — use `render` to control ' +
+					'how each column looks (e.g. wrap content in `Stack` with `padding`). ' +
+					'Header padding and label styling are handled by the table.',
 			},
 		},
 	},
@@ -103,14 +106,12 @@ export const Mobile: Story = {
 		viewport: { defaultViewport: 'mobile1' },
 	},
 	render: () => (
-		<div style={{ padding: '1rem' }}>
-			<Table<StoryUser>
-				data={STORY_USERS.slice(0, 6)}
-				columns={SORTABLE_COLUMNS}
-				filters={STORY_FILTERS}
-				pageSize={4}
-			/>
-		</div>
+		<Table<StoryUser>
+			data={STORY_USERS.slice(0, 6)}
+			columns={SORTABLE_COLUMNS}
+			filters={STORY_FILTERS}
+			pageSize={4}
+		/>
 	),
 };
 

@@ -1,7 +1,7 @@
-@use '@/styles/tokens/spacing' as *;
 @use '@/styles/tokens/radius' as *;
 @use '@/styles/tokens/shadows' as *;
 @use '@/styles/tokens/motion' as *;
+@use '@/styles/tokens/spacing' as *;
 
 .accordion {
 	width: 100%;
@@ -20,19 +20,22 @@
 		&--disabled {
 			opacity: 0.5;
 		}
+	}
 
-		&--open > h3 > .accordion__trigger {
-			background-color: var(--color-bg-subtle);
-		}
+	&__heading {
+		flex: 1;
+		min-width: 0;
+		margin: 0;
+	}
+
+	&__actions {
+		flex-shrink: 0;
+		background-color: var(--color-surface);
+		border-left: 1px solid var(--color-border);
 	}
 
 	&__trigger {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
 		width: 100%;
-		gap: $spacing-3;
-		padding: $spacing-6 $spacing-4;
 		background-color: var(--color-surface);
 		color: var(--color-text);
 		text-align: left;
@@ -50,10 +53,11 @@
 		&:disabled {
 			cursor: not-allowed;
 		}
+	}
 
-		&-label {
-			font: var(--font-control);
-		}
+	&__trigger-label {
+		min-width: 0;
+		font: var(--font-control);
 	}
 
 	&__icon {
@@ -85,6 +89,7 @@
 		&--open {
 			grid-template-rows: 1fr;
 			padding-block: $spacing-4;
+			background-color: var(--color-bg-muted);
 			visibility: visible;
 			transition:
 				grid-template-rows $duration-accordion-content $ease-default,
@@ -96,7 +101,6 @@
 	&__content {
 		min-height: 0;
 		overflow: hidden;
-		padding-inline: $spacing-4;
 		font: var(--font-sm-relaxed);
 		color: var(--color-text-muted);
 	}

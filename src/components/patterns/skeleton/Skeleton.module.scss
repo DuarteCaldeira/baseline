@@ -1,5 +1,6 @@
 @use '@/styles/tokens/spacing' as *;
 @use '@/styles/tokens/radius' as *;
+@use '@/styles/tokens/typography' as *;
 
 .skeleton {
 	display: block;
@@ -21,13 +22,31 @@
 	// ── Variants ───────────────────────────────────────────────────────────────
 
 	&--text {
-		height: 0.875rem;
 		border-radius: $radius-sm;
+
+		&.skeleton--sm {
+			height: $font-size-xs;
+		}
+		&.skeleton--md {
+			height: $font-size-sm;
+		}
+		&.skeleton--lg {
+			height: $font-size-base;
+		}
 	}
 
 	&--heading {
-		height: 1.125rem;
 		border-radius: $radius-sm;
+
+		&.skeleton--sm {
+			height: $font-size-sm;
+		}
+		&.skeleton--md {
+			height: $font-size-lg;
+		}
+		&.skeleton--lg {
+			height: $font-size-xl;
+		}
 	}
 
 	&--circular {

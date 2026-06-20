@@ -8,6 +8,7 @@
 	box-sizing: border-box;
 	height: $control-height;
 	min-height: $control-height;
+	min-width: 7.5rem; //120px
 	padding-inline: $control-padding-inline;
 	padding-block: 0;
 }

@@ -23,7 +23,7 @@ type UseModalOptions = {
 };
 
 type UseModalReturn = {
-	dialogRef: RefObject<HTMLDivElement>;
+	dialogRef: RefObject<HTMLDivElement | null>;
 	handleOverlayClick: () => void;
 	handleDialogClick: (e: MouseEvent) => void;
 	handleDialogKeyDown: (e: KeyboardEvent) => void;

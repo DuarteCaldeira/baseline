@@ -19,6 +19,7 @@ export * from './components/ui/tabs';
 export * from './components/ui/alert';
 export * from './components/ui/menu';
 export * from './components/ui/badge';
+export * from './components/ui/divider';
 export * from './components/ui/tag';
 export * from './components/ui/tooltip';
 export * from './components/ui/datepicker';

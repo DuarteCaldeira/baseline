@@ -11,6 +11,6 @@ export type StackSpacing =
 export type StackSpacingValue =
 	| StackSpacing
 	| {
-			x?: StackSpacing;
-			y?: StackSpacing;
-	  };
+		x?: StackSpacing;
+		y?: StackSpacing;
+	};

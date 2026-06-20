@@ -38,7 +38,6 @@ export const TableSkeleton = <T extends Record<string, unknown>>({
 			{/* aria-busy is set on the scroll wrapper by Table.tsx, not here */}
 			<tbody>
 				{Array.from({ length: rows }, (_, rowIndex) => (
-					// eslint-disable-next-line react/no-array-index-key
 					<tr key={rowIndex} className={styles['table__tr']}>
 						{columns.map((col, colIndex) => (
 							<td key={col.key} className={styles['table__td']}>

@@ -7,6 +7,7 @@ import styles from './Overlay.module.scss';
 type OverlayProps = Omit<HTMLAttributes<HTMLDivElement>, 'className'> & {
 	center?: boolean;
 	blur?: boolean;
+	subtle?: boolean;
 	slowEnter?: boolean;
 	closing?: boolean;
 	children?: ReactNode;
@@ -15,6 +16,7 @@ type OverlayProps = Omit<HTMLAttributes<HTMLDivElement>, 'className'> & {
 export const Overlay = ({
 	center,
 	blur,
+	subtle,
 	slowEnter,
 	closing,
 	children,
@@ -25,6 +27,7 @@ export const Overlay = ({
 			styles.overlay,
 			center && styles['overlay--center'],
 			blur && styles['overlay--blur'],
+			subtle && styles['overlay--subtle'],
 			slowEnter && styles['overlay--slow-enter'],
 			closing && styles['overlay--closing']
 		)}

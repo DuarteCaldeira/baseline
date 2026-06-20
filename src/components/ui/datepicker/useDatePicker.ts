@@ -33,9 +33,9 @@ export type UseDatePickerReturn = {
 	viewDate: Date;
 	focusedDate: Date | null;
 	days: Date[];
-	containerRef: RefObject<HTMLDivElement>;
-	triggerRef: RefObject<HTMLButtonElement>;
-	calendarRef: RefObject<HTMLDivElement>;
+	containerRef: RefObject<HTMLDivElement | null>;
+	triggerRef: RefObject<HTMLButtonElement | null>;
+	calendarRef: RefObject<HTMLDivElement | null>;
 	open: () => void;
 	close: () => void;
 	selectDate: (date: Date) => void;
@@ -106,7 +106,7 @@ export const useDatePicker = ({
 		};
 		document.addEventListener('pointerdown', handlePointerDown);
 		return () => document.removeEventListener('pointerdown', handlePointerDown);
-	}, [isOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [isOpen]);
 
 	const isDisabled = useCallback(
 		(date: Date): boolean => {

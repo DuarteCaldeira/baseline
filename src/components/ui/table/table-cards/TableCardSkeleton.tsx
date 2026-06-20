@@ -30,7 +30,6 @@ export const TableCardSkeleton = <T extends Record<string, unknown>>({
 	return (
 		<div className={styles['table__cards']} aria-hidden="true">
 			{Array.from({ length: rows }, (_, rowIndex) => (
-				// eslint-disable-next-line react/no-array-index-key
 				<article key={rowIndex} className={styles['table__card']}>
 					{primaryColumn && (
 						<header className={styles['table__card-header']}>

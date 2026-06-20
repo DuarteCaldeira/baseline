@@ -14,8 +14,8 @@ type IndicatorStyle = {
 };
 
 type UseTabIndicatorOptions = {
-	listRef: RefObject<HTMLElement>;
-	tabRefs: RefObject<Map<string, HTMLButtonElement>>;
+	listRef: RefObject<HTMLElement | null>;
+	tabRefs: RefObject<Map<string, HTMLButtonElement> | null>;
 	activeId: string;
 };
 

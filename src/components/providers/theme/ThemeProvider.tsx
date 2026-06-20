@@ -82,8 +82,13 @@ export const ThemeProvider = ({
 }: ThemeProviderProps) => {
 	const prefersDark = useMediaQuery('(prefers-color-scheme: dark)');
 
-	const resolvedMode: ResolvedMode =
-		mode === 'system' ? (prefersDark ? 'dark' : 'light') : mode;
+	const resolvedMode: ResolvedMode = (() => {
+		if (mode === 'system') {
+			if (prefersDark) return 'dark';
+			return 'light';
+		}
+		return mode;
+	})();
 
 	const cssVars = useMemo(() => themeToCSSVars(theme), [theme]);
 

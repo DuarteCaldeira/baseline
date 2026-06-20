@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import styles from '@/storybook/storyHelpers.module.scss';
 
+import { Stack, type StackWidth } from './Stack';
 import type { StackSpacing } from './Stack.types';
-import { Stack } from './Stack';
 
 const spacingOptions: StackSpacing[] = [
 	'none',
@@ -27,6 +27,21 @@ const defaultChildren = (
 		<Item label="Three" />
 	</>
 );
+
+type WidthRow = {
+	label: string;
+	widths: StackWidth[];
+};
+
+const WIDTH_ROWS: WidthRow[] = [
+	{ label: '1/2 + 1/2', widths: ['1/2', '1/2'] },
+	{ label: '1/3 + 2/3', widths: ['1/3', '2/3'] },
+	{ label: '1/4 + 3/4', widths: ['1/4', '3/4'] },
+	{ label: '1/4 + 1/3', widths: ['1/4', '1/3'] },
+	{ label: '1/3 + 1/3 + 1/3', widths: ['1/3', '1/3', '1/3'] },
+	{ label: '1/4 + 1/4 + 1/2', widths: ['1/4', '1/4', '1/2'] },
+	{ label: '1/4 + 1/3 + 1/4', widths: ['1/4', '1/3', '1/4'] },
+];
 
 const meta: Meta<typeof Stack> = {
 	title: 'Layout/Stack',
@@ -153,6 +168,25 @@ export const AllGaps: Story = {
 						<Item label="One" />
 						<Item label="Two" />
 						<Item label="Three" />
+					</Stack>
+				</Stack>
+			))}
+		</Stack>
+	),
+};
+
+export const FractionalWidths: Story = {
+	render: () => (
+		<Stack direction="column" gap="lg" className={styles.exampleStack}>
+			{WIDTH_ROWS.map(({ label, widths }) => (
+				<Stack key={label} direction="column" gap="sm">
+					<strong>{label}</strong>
+					<Stack direction="row" gap="md" width="full">
+						{widths.map((width, index) => (
+							<Stack key={`${label}-${index}`} width={width}>
+								<Item label={width} />
+							</Stack>
+						))}
 					</Stack>
 				</Stack>
 			))}

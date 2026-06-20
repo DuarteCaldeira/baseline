@@ -47,7 +47,7 @@ export const Modal = ({
 	if (!mounted || !isOpen) return null;
 
 	return createPortal(
-		<Overlay center onClick={handleOverlayClick}>
+		<Overlay center subtle blur onClick={handleOverlayClick}>
 			<Stack
 				ref={dialogRef}
 				role="dialog"

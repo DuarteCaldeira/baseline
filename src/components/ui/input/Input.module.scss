@@ -1,30 +1,105 @@
 @use '@/styles/mixins/control-field' as *;
-@use '@/styles/tokens/spacing' as *;
+@use '@/styles/tokens/controls' as *;
+@use '@/styles/tokens/radius' as *;
 
 .input {
 	width: 100%;
-	@include control-field-size;
+	box-sizing: border-box;
 	font: var(--font-sm);
-	@include control-field-shell;
-	@include control-field-hover;
 
 	&::placeholder {
 		color: var(--color-text-subtle);
 	}
 
-	&:focus {
-		@include control-field-focus-ring;
+	&:not(&--embedded) {
+		@include control-field-size;
+		@include control-field-shell;
+		@include control-field-hover;
+
+		&:focus {
+			@include control-field-focus-ring;
+		}
+
+		&:disabled {
+			@include control-field-disabled;
+		}
 	}
 
-	&:disabled {
-		@include control-field-disabled;
-	}
-
-	&--error {
+	&--error:not(&--embedded) {
 		@include control-field-error;
 
 		&:focus {
 			@include control-field-error-ring;
+		}
+	}
+
+	&--embedded {
+		flex: 1;
+		min-width: 0;
+		width: auto;
+		height: 100%;
+		padding-inline: $control-padding-inline;
+		border: none;
+		box-shadow: none;
+		background-color: transparent;
+		outline: none;
+	}
+
+	&[type='number'] {
+		appearance: textfield;
+		-moz-appearance: textfield;
+
+		&::-webkit-outer-spin-button,
+		&::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+	}
+
+	&__wrapper {
+		box-sizing: border-box;
+		height: $control-height;
+		min-height: $control-height;
+		overflow: hidden;
+		@include control-field-shell;
+
+		&:hover:not(:has(.input:disabled)):not(:focus-within) {
+			border-color: var(--color-border-strong);
+		}
+
+		&:focus-within {
+			@include control-field-focus-ring;
+		}
+
+		&:has(.input:disabled) {
+			@include control-field-disabled;
+		}
+
+		&--error {
+			@include control-field-error;
+
+			&:focus-within {
+				@include control-field-error-ring;
+			}
+		}
+	}
+
+	&__affix {
+		flex-shrink: 0;
+		background-color: var(--color-bg-muted);
+		color: var(--color-text-subtle);
+		font: var(--font-sm);
+		line-height: 1;
+		user-select: none;
+
+		&--left {
+			border-right: 1.5px solid var(--color-border);
+			border-radius: $radius-md 0 0 $radius-md;
+		}
+
+		&--right {
+			border-left: 1.5px solid var(--color-border);
+			border-radius: 0 $radius-md $radius-md 0;
 		}
 	}
 }

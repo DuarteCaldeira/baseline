@@ -47,7 +47,7 @@
 	&__body {
 		flex: 1;
 		overflow-y: auto;
-		padding: $spacing-4;
+		padding: $spacing-3 $spacing-4 $spacing-4;
 		font: var(--font-base);
 		color: var(--color-text-muted);
 	}

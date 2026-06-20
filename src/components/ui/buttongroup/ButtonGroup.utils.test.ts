@@ -11,7 +11,6 @@ describe('ButtonGroup.utils', () => {
 	it('assigns group item attributes to valid element children', () => {
 		const children = assignGroupItemAttributes(
 			[
-				// eslint-disable-next-line react/no-children-prop -- typed props for Button union in createElement
 				createElement(Button, {
 					variant: 'secondary',
 					children: 'One',

@@ -1,3 +1,6 @@
+import type { ReactNode } from 'react';
+
+import { Stack } from '@/components/layout/stack';
 import { Badge } from '@/components/ui/badge';
 
 import type { TableColumn, TableFilter } from './Table.types';
@@ -23,6 +26,14 @@ const ROLE_VARIANT = {
 	Editor: 'info',
 	Viewer: 'neutral',
 } as const satisfies Record<StoryUser['role'], string>;
+
+export const tableHeader = (label: string) => label;
+
+export const tableCell = (content: ReactNode) => (
+	<Stack padding="lg" width="full" style={{ font: 'var(--font-sm)' }}>
+		{content}
+	</Stack>
+);
 
 export const STORY_USERS: StoryUser[] = [
 	{
@@ -208,86 +219,119 @@ export const STORY_USERS: StoryUser[] = [
 ];
 
 export const PLAIN_COLUMNS: TableColumn<StoryUser>[] = [
-	{ key: 'name', header: 'Name' },
-	{ key: 'email', header: 'Email' },
-	{ key: 'role', header: 'Role' },
-	{ key: 'status', header: 'Status' },
-	{ key: 'department', header: 'Department' },
-	{ key: 'joined', header: 'Joined' },
+	{ key: 'name', header: tableHeader('Name'), render: (row) => tableCell(row.name) },
+	{
+		key: 'email',
+		header: tableHeader('Email'),
+		render: (row) => tableCell(row.email),
+	},
+	{ key: 'role', header: tableHeader('Role'), render: (row) => tableCell(row.role) },
+	{
+		key: 'status',
+		header: tableHeader('Status'),
+		render: (row) => tableCell(row.status),
+	},
+	{
+		key: 'department',
+		header: tableHeader('Department'),
+		render: (row) => tableCell(row.department),
+	},
+	{
+		key: 'joined',
+		header: tableHeader('Joined'),
+		render: (row) => tableCell(row.joined),
+	},
 ];
 
 export const RICH_COLUMNS: TableColumn<StoryUser>[] = [
 	{
 		key: 'name',
-		header: 'Name',
+		header: tableHeader('Name'),
 		mobilePrimary: true,
-		render: (row) => <strong>{row.name}</strong>,
+		render: (row) => tableCell(<strong>{row.name}</strong>),
 	},
 	{
 		key: 'email',
-		header: 'Email',
-		render: (row) => (
-			<span style={{ color: 'var(--color-text-muted)' }}>{row.email}</span>
-		),
+		header: tableHeader('Email'),
+		render: (row) =>
+			tableCell(
+				<span style={{ color: 'var(--color-text-muted)' }}>{row.email}</span>
+			),
 	},
 	{
 		key: 'role',
-		header: 'Role',
-		render: (row) => <Badge variant={ROLE_VARIANT[row.role]} text={row.role} />,
+		header: tableHeader('Role'),
+		render: (row) =>
+			tableCell(<Badge variant={ROLE_VARIANT[row.role]} text={row.role} />),
 	},
 	{
 		key: 'status',
-		header: 'Status',
-		render: (row) => (
-			<Badge variant={STATUS_VARIANT[row.status]} text={row.status} />
-		),
+		header: tableHeader('Status'),
+		render: (row) =>
+			tableCell(
+				<Badge variant={STATUS_VARIANT[row.status]} text={row.status} />
+			),
 	},
-	{ key: 'department', header: 'Department' },
+	{
+		key: 'department',
+		header: tableHeader('Department'),
+		render: (row) => tableCell(row.department),
+	},
 	{
 		key: 'joined',
-		header: 'Joined',
-		render: (row) => (
-			<span style={{ color: 'var(--color-text-muted)' }}>{row.joined}</span>
-		),
+		header: tableHeader('Joined'),
+		render: (row) =>
+			tableCell(
+				<span style={{ color: 'var(--color-text-muted)' }}>{row.joined}</span>
+			),
 	},
 ];
 
 export const SORTABLE_COLUMNS: TableColumn<StoryUser>[] = [
 	{
 		key: 'name',
-		header: 'Name',
+		header: tableHeader('Name'),
 		sortable: true,
 		mobilePrimary: true,
-		render: (row) => <strong>{row.name}</strong>,
+		render: (row) => tableCell(<strong>{row.name}</strong>),
 	},
 	{
 		key: 'email',
-		header: 'Email',
-		render: (row) => (
-			<span style={{ color: 'var(--color-text-muted)' }}>{row.email}</span>
-		),
+		header: tableHeader('Email'),
+		render: (row) =>
+			tableCell(
+				<span style={{ color: 'var(--color-text-muted)' }}>{row.email}</span>
+			),
 	},
 	{
 		key: 'role',
-		header: 'Role',
+		header: tableHeader('Role'),
 		sortable: true,
-		render: (row) => <Badge variant={ROLE_VARIANT[row.role]} text={row.role} />,
+		render: (row) =>
+			tableCell(<Badge variant={ROLE_VARIANT[row.role]} text={row.role} />),
 	},
 	{
 		key: 'status',
-		header: 'Status',
+		header: tableHeader('Status'),
 		sortable: true,
-		render: (row) => (
-			<Badge variant={STATUS_VARIANT[row.status]} text={row.status} />
-		),
+		render: (row) =>
+			tableCell(
+				<Badge variant={STATUS_VARIANT[row.status]} text={row.status} />
+			),
 	},
-	{ key: 'department', header: 'Department', sortable: true },
+	{
+		key: 'department',
+		header: tableHeader('Department'),
+		sortable: true,
+		render: (row) => tableCell(row.department),
+	},
 	{
 		key: 'joined',
-		header: 'Joined',
-		render: (row) => (
-			<span style={{ color: 'var(--color-text-muted)' }}>{row.joined}</span>
-		),
+		header: tableHeader('Joined'),
+		render: (row) =>
+			tableCell(
+				<span style={{ color: 'var(--color-text-muted)' }}>{row.joined}</span>
+			),
 	},
 ];
 
@@ -351,20 +395,24 @@ export const LARGE_STORY_DATA: StoryUser[] = Array.from(
 );
 
 export const FEW_COLUMNS: TableColumn<StoryUser>[] = [
-	{ key: 'name', header: 'Name' },
+	{
+		key: 'name',
+		header: tableHeader('Name'),
+		render: (row) => tableCell(row.name),
+	},
 	{
 		key: 'role',
-		header: 'Role',
-		render: (row) => (
-			<Badge variant={ROLE_VARIANT[row.role]} text={row.role} />
-		),
+		header: tableHeader('Role'),
+		render: (row) =>
+			tableCell(<Badge variant={ROLE_VARIANT[row.role]} text={row.role} />),
 	},
 	{
 		key: 'status',
-		header: 'Status',
-		render: (row) => (
-			<Badge variant={STATUS_VARIANT[row.status]} text={row.status} />
-		),
+		header: tableHeader('Status'),
+		render: (row) =>
+			tableCell(
+				<Badge variant={STATUS_VARIANT[row.status]} text={row.status} />
+			),
 	},
 ];
 

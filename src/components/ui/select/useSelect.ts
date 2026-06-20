@@ -20,8 +20,8 @@ type UseSelectOptions = {
 export type UseSelectReturn<T extends HTMLElement = HTMLElement> = {
 	isOpen: boolean;
 	activeIndex: number;
-	containerRef: RefObject<HTMLDivElement>;
-	triggerRef: RefObject<T>;
+	containerRef: RefObject<HTMLDivElement | null>;
+	triggerRef: RefObject<T | null>;
 	open: (startIndex?: number) => void;
 	close: () => void;
 	setActiveIndex: (index: number) => void;

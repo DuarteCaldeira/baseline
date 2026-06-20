@@ -16,7 +16,7 @@ type ListboxProps = {
 	labelId?: string;
 	options: SelectOption[];
 	activeIndex: number;
-	listboxRef: RefObject<HTMLUListElement>;
+	listboxRef: RefObject<HTMLUListElement | null>;
 	style: CSSProperties;
 	placement: FloatingPlacement;
 	multi?: boolean;

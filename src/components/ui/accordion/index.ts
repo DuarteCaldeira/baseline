@@ -1,2 +1,7 @@
 export * from './Accordion';
-export type { AccordionItem, AccordionType } from './Accordion.types';
+export type {
+	AccordionItem,
+	AccordionItemProps,
+	AccordionProps,
+	AccordionType,
+} from './Accordion.types';

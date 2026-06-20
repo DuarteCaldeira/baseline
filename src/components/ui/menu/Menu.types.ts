@@ -63,10 +63,10 @@ export type MenuContextValue = {
 	setActiveSubmenu: (submenu: ActiveSubmenu | null) => void;
 	scheduleSubmenuClose: () => void;
 	cancelSubmenuClose: () => void;
-	containerRef: RefObject<HTMLDivElement>;
-	triggerRef: RefObject<HTMLElement>;
-	contentRef: RefObject<HTMLDivElement>;
-	menubarRef: RefObject<HTMLDivElement>;
+	containerRef: RefObject<HTMLDivElement | null>;
+	triggerRef: RefObject<HTMLElement | null>;
+	contentRef: RefObject<HTMLDivElement | null>;
+	menubarRef: RefObject<HTMLDivElement | null>;
 	handleTriggerKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
 	handleContentKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
 	handleMenubarKeyDown: (event: KeyboardEvent<HTMLElement>) => void;

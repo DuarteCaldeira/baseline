@@ -32,7 +32,9 @@ export const useMenu = ({
 	const triggerRef = useRef<HTMLElement>(null);
 	const contentRef = useRef<HTMLDivElement>(null);
 	const menubarRef = useRef<HTMLDivElement>(null);
-	const closeTimerRef = useRef<ReturnType<typeof setTimeout>>();
+	const closeTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(
+		undefined
+	);
 
 	const cancelSubmenuClose = useCallback(() => {
 		if (!closeTimerRef.current) return;

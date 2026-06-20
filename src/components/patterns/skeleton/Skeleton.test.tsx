@@ -32,10 +32,13 @@ describe('Skeleton', () => {
 		}
 	);
 
-	it.each(['sm', 'md', 'lg'] as const)('applies the %s size class', (size) => {
-		const { container } = render(<Skeleton size={size} variant="circular" />);
-		expect(container.querySelector(`.skeleton--${size}`)).toBeInTheDocument();
-	});
+	it.each(['text', 'heading', 'circular', 'rectangular', 'button'] as const)(
+		'applies the %s variant with size class',
+		(variant) => {
+			const { container } = render(<Skeleton variant={variant} size="lg" />);
+			expect(container.firstChild).toHaveClass('skeleton--lg');
+		}
+	);
 
 	it.each([
 		['full', 'skeleton--width-full'],

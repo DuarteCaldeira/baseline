@@ -52,6 +52,22 @@ export const Text: Story = {
 	args: { variant: 'text', width: '3/4' },
 };
 
+export const Sizes: Story = {
+	render: () => (
+		<Stack gap="md" style={{ width: '20rem' }}>
+			{(['sm', 'md', 'lg'] as const).map((size) => (
+				<Stack key={size} gap="xs">
+					<span style={{ font: 'var(--font-caption)', color: 'var(--color-text-subtle)' }}>
+						{size}
+					</span>
+					<Skeleton variant="text" size={size} />
+					<Skeleton variant="heading" size={size} width="2/3" />
+				</Stack>
+			))}
+		</Stack>
+	),
+};
+
 export const Heading: Story = {
 	args: { variant: 'heading', width: '1/2' },
 };

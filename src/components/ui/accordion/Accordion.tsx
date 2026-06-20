@@ -1,24 +1,10 @@
 import { useRef } from 'react';
 import type { KeyboardEvent } from 'react';
 
-import { ChevronDown } from 'lucide-react';
-
-import { Icon } from '@/components/ui/icon';
-import { cn } from '@/utils/cn';
-
 import styles from './Accordion.module.scss';
-import type { AccordionItem, AccordionType } from './Accordion.types';
+import { AccordionItem } from './AccordionItem';
+import type { AccordionProps } from './Accordion.types';
 import { useAccordion } from './useAccordion';
-
-type AccordionProps = {
-	items: AccordionItem[];
-	type?: AccordionType;
-	/** Id(s) of items open on first render. */
-	defaultValue?: string | string[];
-	/** Controlled open state — mirrors Tabs `value`. */
-	value?: string | string[];
-	onChange?: (value: string | string[]) => void;
-};
 
 export const Accordion = ({
 	items,
@@ -69,57 +55,15 @@ export const Accordion = ({
 
 	return (
 		<div ref={containerRef} className={styles.accordion}>
-			{items.map((item) => {
-				const open = isOpen(item.id);
-				const triggerId = `accordion-trigger-${item.id}`;
-				const panelId = `accordion-panel-${item.id}`;
-
-				return (
-					<div
-						key={item.id}
-						className={cn(
-							styles['accordion__item'],
-							open && styles['accordion__item--open'],
-							item.disabled && styles['accordion__item--disabled']
-						)}
-					>
-						<h3>
-							<button
-								id={triggerId}
-								type="button"
-								data-accordion-trigger
-								disabled={item.disabled}
-								aria-expanded={open}
-								aria-controls={panelId}
-								className={styles['accordion__trigger']}
-								onClick={() => toggle(item.id)}
-								onKeyDown={handleKeyDown}
-							>
-								<span className={styles['accordion__trigger-label']}>
-									{item.title}
-								</span>
-								<Icon
-									icon={ChevronDown}
-									size="sm"
-									className={styles['accordion__icon']}
-								/>
-							</button>
-						</h3>
-						<div
-							id={panelId}
-							role="region"
-							aria-labelledby={triggerId}
-							aria-hidden={!open}
-							className={cn(
-								styles['accordion__panel'],
-								open && styles['accordion__panel--open']
-							)}
-						>
-							<div className={styles['accordion__content']}>{item.content}</div>
-						</div>
-					</div>
-				);
-			})}
+			{items.map((item) => (
+				<AccordionItem
+					key={item.id}
+					item={item}
+					open={isOpen(item.id)}
+					onToggle={toggle}
+					onKeyDown={handleKeyDown}
+				/>
+			))}
 		</div>
 	);
 };

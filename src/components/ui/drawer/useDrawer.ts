@@ -19,7 +19,7 @@ type UseDrawerOptions = {
 };
 
 type UseDrawerReturn = {
-	dialogRef: RefObject<HTMLDivElement>;
+	dialogRef: RefObject<HTMLDivElement | null>;
 	present: boolean;
 	closing: boolean;
 	handleOverlayClick: () => void;

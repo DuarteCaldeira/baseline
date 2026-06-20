@@ -22,6 +22,10 @@
 		backdrop-filter: blur(2px);
 	}
 
+	&--subtle {
+		background-color: var(--color-overlay-subtle);
+	}
+
 	&--closing {
 		@include overlay-exit;
 	}

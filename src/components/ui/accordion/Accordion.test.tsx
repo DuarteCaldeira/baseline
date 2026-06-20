@@ -7,11 +7,15 @@ import { Accordion } from './Accordion';
 const items = [
 	{
 		id: 'a',
-		title: 'What is Baseline?',
+		header: 'What is Baseline?',
 		content: <p>A minimal React starter.</p>,
 	},
-	{ id: 'b', title: 'How do I install it?', content: <p>Run pnpm install.</p> },
-	{ id: 'c', title: 'Is it free?', content: <p>Yes, fully open source.</p> },
+	{
+		id: 'b',
+		header: 'How do I install it?',
+		content: <p>Run pnpm install.</p>,
+	},
+	{ id: 'c', header: 'Is it free?', content: <p>Yes, fully open source.</p> },
 ];
 
 describe('Accordion', () => {
@@ -209,6 +213,32 @@ describe('Accordion', () => {
 			);
 
 			expect(onChange).toHaveBeenCalledWith('a');
+		});
+	});
+
+	describe('item actions', () => {
+		it('renders actions in the header without toggling the panel', async () => {
+			const onAction = vi.fn();
+			const itemsWithActions = [
+				{
+					...items[0],
+					actions: (
+						<button type="button" onClick={onAction}>
+							Edit
+						</button>
+					),
+				},
+				...items.slice(1),
+			];
+
+			render(<Accordion items={itemsWithActions} />);
+
+			await userEvent.click(screen.getByRole('button', { name: 'Edit' }));
+
+			expect(onAction).toHaveBeenCalledTimes(1);
+			expect(
+				screen.getByRole('button', { name: /what is baseline/i })
+			).toHaveAttribute('aria-expanded', 'false');
 		});
 	});
 });

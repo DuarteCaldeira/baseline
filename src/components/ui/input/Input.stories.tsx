@@ -33,6 +33,13 @@ type Story = StoryObj<typeof Input>;
 
 export const Default: Story = {};
 
+export const WithDefaultValue: Story = {
+	args: {
+		label: 'Full name',
+		defaultValue: 'Jane Smith',
+	},
+};
+
 export const WithoutLabel: Story = {
 	args: { label: undefined },
 };
@@ -73,9 +80,41 @@ export const Password: Story = {
 	},
 };
 
+export const WithLeftAffix: Story = {
+	args: {
+		type: 'tel',
+		label: 'Phone number',
+		leftAffix: '+351',
+		placeholder: '912 345 678',
+	},
+};
+
+export const WithRightAffix: Story = {
+	args: {
+		type: 'number',
+		label: 'Discount',
+		rightAffix: '%',
+		placeholder: '0',
+		min: 0,
+		max: 100,
+	},
+};
+
+export const WithBothAffixes: Story = {
+	args: {
+		type: 'number',
+		label: 'Amount',
+		leftAffix: '€',
+		rightAffix: 'EUR',
+		placeholder: '0.00',
+		min: 0,
+		step: 0.01,
+	},
+};
+
 export const AllStates: Story = {
 	render: () => (
-		<Stack direction="column" gap="xl" style={{ maxWidth: '400px' }}>
+		<Stack direction="column" gap="xl" style={{ maxWidth: '480px' }}>
 			<Input id="s1" label="Default" placeholder="Placeholder..." />
 			<Input
 				id="s2"
@@ -83,7 +122,12 @@ export const AllStates: Story = {
 				placeholder="Placeholder..."
 				helperText="This is some helpful context."
 			/>
-			<Input id="s3" label="Filled" value="Some value" onChange={() => {}} />
+			<Input
+				id="s3"
+				label="Filled"
+				defaultValue="Some value"
+				placeholder="Placeholder..."
+			/>
 			<Input
 				id="s4"
 				label="Error"
@@ -91,7 +135,51 @@ export const AllStates: Story = {
 				value=""
 				onChange={() => {}}
 			/>
-			<Input id="s5" label="Disabled" disabled value="Disabled value" />
+			<Input
+				id="s5"
+				label="Helper text and error"
+				helperText="This is some helpful context."
+				error="This field is required."
+				value=""
+				onChange={() => {}}
+			/>
+			<Input id="s6" label="Disabled" disabled value="Disabled value" />
+			<Input
+				id="s7"
+				type="tel"
+				label="Left affix"
+				leftAffix="+351"
+				placeholder="912 345 678"
+			/>
+			<Input
+				id="s8"
+				type="number"
+				label="Right affix"
+				rightAffix="%"
+				placeholder="0"
+				min={0}
+				max={100}
+			/>
+			<Input
+				id="s9"
+				type="number"
+				label="Both affixes"
+				leftAffix="€"
+				rightAffix="EUR"
+				placeholder="0.00"
+				min={0}
+				step={0.01}
+			/>
+			<Input
+				id="s10"
+				type="tel"
+				label="Affix with error"
+				leftAffix="+351"
+				placeholder="912 345 678"
+				error="Enter a valid phone number."
+				value=""
+				onChange={() => {}}
+			/>
 		</Stack>
 	),
 };

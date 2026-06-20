@@ -1,6 +1,5 @@
-import { act, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { act, fireEvent, render, screen } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 
 import { setupFakeTimers } from '@/test-utils/setupFakeTimers';
 
@@ -8,13 +7,7 @@ import { Toast } from './Toast';
 import { ToastProvider } from './ToastProvider';
 import { useToast } from './useToast';
 
-let user: ReturnType<typeof userEvent.setup>;
-
 setupFakeTimers();
-
-beforeEach(() => {
-	user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
-});
 
 // ─── Toast visual component ───────────────────────────────────────────────────
 
@@ -75,13 +68,13 @@ describe('Toast', () => {
 		expect(screen.getByRole(role)).toBeInTheDocument();
 	});
 
-	it('calls onDismiss when the close button is clicked', async () => {
+	it('calls onDismiss when the close button is clicked', () => {
 		const onDismiss = vi.fn();
 		render(
 			<Toast id="1" variant="success" message="Done." onDismiss={onDismiss} />
 		);
 
-		await user.click(
+		fireEvent.click(
 			screen.getByRole('button', { name: /dismiss notification/i })
 		);
 
@@ -175,37 +168,37 @@ describe('ToastProvider', () => {
 		expect(screen.getByText('Content')).toBeInTheDocument();
 	});
 
-	it('shows a toast when show() is called', async () => {
+	it('shows a toast when show() is called', () => {
 		render(
 			<ToastProvider>
 				<TestConsumer />
 			</ToastProvider>
 		);
 
-		await user.click(screen.getByRole('button', { name: /show success/i }));
+		fireEvent.click(screen.getByRole('button', { name: /show success/i }));
 		expect(screen.getByText('Saved!')).toBeInTheDocument();
 	});
 
-	it('shows a toast with a title', async () => {
+	it('shows a toast with a title', () => {
 		render(
 			<ToastProvider>
 				<TestConsumer />
 			</ToastProvider>
 		);
 
-		await user.click(screen.getByRole('button', { name: /show error/i }));
+		fireEvent.click(screen.getByRole('button', { name: /show error/i }));
 		expect(screen.getByText('Oops')).toBeInTheDocument();
 		expect(screen.getByText('Something went wrong.')).toBeInTheDocument();
 	});
 
-	it('removes a toast after 6 seconds', async () => {
+	it('removes a toast after 6 seconds', () => {
 		render(
 			<ToastProvider>
 				<TestConsumer />
 			</ToastProvider>
 		);
 
-		await user.click(screen.getByRole('button', { name: /show success/i }));
+		fireEvent.click(screen.getByRole('button', { name: /show success/i }));
 		expect(screen.getByText('Saved!')).toBeInTheDocument();
 
 		act(() => vi.advanceTimersByTime(6000));

@@ -13,7 +13,6 @@
 
 	&__th {
 		padding: $spacing-3 $spacing-5;
-		font-family: var(--font-family-sans);
 		font: var(--font-sm);
 		text-align: left;
 		color: var(--color-text-subtle);
@@ -31,11 +30,6 @@
 		gap: $spacing-2;
 		width: 100%;
 		padding: $spacing-3 $spacing-5;
-		background: none;
-		border: none;
-		cursor: pointer;
-		font: inherit;
-		letter-spacing: inherit;
 		color: inherit;
 		transition: color 120ms ease;
 
@@ -95,9 +89,6 @@
 	}
 
 	&__td {
-		padding: $spacing-4 $spacing-5;
-		font: var(--font-sm);
-		color: var(--color-text);
 		vertical-align: middle;
 		overflow: hidden;
 		text-overflow: ellipsis;

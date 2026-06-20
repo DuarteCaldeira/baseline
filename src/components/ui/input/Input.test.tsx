@@ -112,4 +112,38 @@ describe('Input', () => {
 		const { container } = render(<Input error="Required" />);
 		expect(container.querySelector('.input--error')).toBeInTheDocument();
 	});
+
+	it('renders left affix when leftAffix prop is provided', () => {
+		render(<Input leftAffix="+351" placeholder="912 345 678" />);
+		expect(screen.getByText('+351')).toBeInTheDocument();
+	});
+
+	it('renders right affix when rightAffix prop is provided', () => {
+		render(<Input rightAffix="%" type="number" />);
+		expect(screen.getByText('%')).toBeInTheDocument();
+	});
+
+	it('wraps input in affix container when affixes are provided', () => {
+		const { container } = render(<Input leftAffix="+351" />);
+		expect(container.querySelector('.input__wrapper')).toBeInTheDocument();
+	});
+
+	it('applies embedded modifier to input when affixes are provided', () => {
+		const { container } = render(<Input leftAffix="+351" />);
+		expect(container.querySelector('.input--embedded')).toBeInTheDocument();
+		expect(container.querySelector('.input--error')).not.toBeInTheDocument();
+	});
+
+	it('applies error modifier to wrapper when affixes and error are provided', () => {
+		const { container } = render(
+			<Input leftAffix="+351" error="Required" />
+		);
+		expect(container.querySelector('.input__wrapper--error')).toBeInTheDocument();
+		expect(container.querySelector('.input--error')).not.toBeInTheDocument();
+	});
+
+	it('does not wrap input when no affixes are provided', () => {
+		const { container } = render(<Input />);
+		expect(container.querySelector('.input__wrapper')).not.toBeInTheDocument();
+	});
 });
