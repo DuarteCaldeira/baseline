@@ -1,5 +1,9 @@
 import '@testing-library/jest-dom';
 
+import { setTableDesktopViewport } from '@/test-utils/tableViewport';
+
+setTableDesktopViewport();
+
 class DataTransferMock {
 	private readonly _files: File[] = [];
 

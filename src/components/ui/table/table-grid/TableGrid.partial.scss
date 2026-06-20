@@ -1,6 +1,10 @@
 @use '@/styles/tokens/spacing' as *;
 
 @mixin styles {
+	&__mobile {
+		display: none;
+	}
+
 	&__grid {
 		width: 100%;
 		border-collapse: collapse;

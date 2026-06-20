@@ -1,0 +1,21 @@
+.illustration {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+
+	svg {
+		height: 11.25rem;
+		width: 11.25rem;
+	}
+
+	&--sm svg {
+		height: 8.75rem;
+		width: 8.75rem;
+	}
+
+	&--lg svg {
+		height: 13.75rem;
+		width: 13.75rem;
+	}
+}

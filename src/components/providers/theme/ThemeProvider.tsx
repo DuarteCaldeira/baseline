@@ -1,9 +1,7 @@
 'use client';
 
-import { createContext, useContext, useEffect, useMemo } from 'react';
+import { createContext, useContext, useEffect, useMemo, useSyncExternalStore } from 'react';
 import type { CSSProperties, ReactNode } from 'react';
-
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 import type {
 	ResolvedMode,
@@ -18,6 +16,21 @@ export const ThemeContext = createContext<ThemeContextValue>({
 	resolvedMode: 'light',
 	theme: {},
 });
+
+const PREFERS_DARK_QUERY = '(prefers-color-scheme: dark)';
+
+const getPrefersDarkSnapshot = (): boolean => {
+	if (typeof window === 'undefined' || !window.matchMedia) return false;
+	return window.matchMedia(PREFERS_DARK_QUERY).matches;
+};
+
+const subscribeToPrefersDark = (onStoreChange: () => void) => {
+	if (typeof window === 'undefined' || !window.matchMedia) return () => {};
+
+	const media = window.matchMedia(PREFERS_DARK_QUERY);
+	media.addEventListener('change', onStoreChange);
+	return () => media.removeEventListener('change', onStoreChange);
+};
 
 type ThemeProviderProps = {
 	/**
@@ -80,7 +93,11 @@ export const ThemeProvider = ({
 	applyToRoot = false,
 	children,
 }: ThemeProviderProps) => {
-	const prefersDark = useMediaQuery('(prefers-color-scheme: dark)');
+	const prefersDark = useSyncExternalStore(
+		subscribeToPrefersDark,
+		getPrefersDarkSnapshot,
+		() => false
+	);
 
 	const resolvedMode: ResolvedMode = (() => {
 		if (mode === 'system') {

@@ -6,6 +6,7 @@
 	width: 100%;
 	box-sizing: border-box;
 	font: var(--font-sm);
+	color: inherit;
 
 	&::placeholder {
 		color: var(--color-text-subtle);

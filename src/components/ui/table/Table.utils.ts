@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
 
+import type { SkeletonVariant, SkeletonWidth } from '@/components/patterns/skeleton';
+
 import type {
 	SortState,
 	TableColumn,
@@ -7,11 +9,55 @@ import type {
 	TableFilterValues,
 } from './Table.types';
 
+const BADGE_LIKE_KEY_PARTS = ['role', 'status', 'type', 'badge', 'tag'];
+const SHORT_KEY_PARTS = ['id', 'code', 'qty', 'count'];
+const DATE_KEY_PARTS = ['date', 'joined', 'created', 'updated', 'time'];
+const LONG_KEY_PARTS = ['email', 'description', 'url', 'address', 'notes'];
+
+const includesKeyPart = (key: string, parts: string[]) =>
+	parts.some((part) => key.includes(part));
+
 /** String label for mobile card rows — falls back to the column key. */
 export const getColumnLabel = (header: ReactNode, key: string): string => {
 	if (typeof header === 'string') return header;
 	if (typeof header === 'number') return String(header);
 	return key;
+};
+
+/** Skeleton shape for a column's loading placeholder. */
+export const getColumnSkeletonVariant = <T extends Record<string, unknown>>(
+	col: TableColumn<T>
+): SkeletonVariant => {
+	if (col.skeletonVariant) return col.skeletonVariant;
+
+	const key = col.key.toLowerCase();
+	if (includesKeyPart(key, BADGE_LIKE_KEY_PARTS)) return 'button';
+
+	return 'text';
+};
+
+/** Skeleton width for a column's loading placeholder. */
+export const getColumnSkeletonWidth = <T extends Record<string, unknown>>(
+	col: TableColumn<T>
+): SkeletonWidth => {
+	if (col.skeletonWidth) return col.skeletonWidth;
+
+	const variant = getColumnSkeletonVariant(col);
+	if (variant === 'button') return 'auto';
+
+	const key = col.key.toLowerCase();
+	if (includesKeyPart(key, LONG_KEY_PARTS)) return '3/4';
+	if (includesKeyPart(key, DATE_KEY_PARTS)) return '1/2';
+	if (includesKeyPart(key, SHORT_KEY_PARTS)) return '1/3';
+	if (includesKeyPart(key, BADGE_LIKE_KEY_PARTS)) return '1/3';
+	if (key.includes('name') || key.includes('title')) return '2/3';
+	if (key.includes('department') || key.includes('category')) return '2/3';
+
+	const label = getColumnLabel(col.header, col.key);
+	if (label.length <= 5) return '1/2';
+	if (label.length <= 8) return '2/3';
+
+	return '3/4';
 };
 
 /** Which column becomes the card title on mobile. */

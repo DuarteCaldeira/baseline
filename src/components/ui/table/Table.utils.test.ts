@@ -5,6 +5,8 @@ import {
 	filterData,
 	getClickableRowLabel,
 	getColumnLabel,
+	getColumnSkeletonVariant,
+	getColumnSkeletonWidth,
 	getPrimaryColumnKey,
 	getRowKey,
 	resolvePageSize,
@@ -35,6 +37,58 @@ describe('getPrimaryColumnKey', () => {
 
 	it('defaults to the first column when none is marked', () => {
 		expect(getPrimaryColumnKey([{ key: 'name', header: 'Name' }])).toBe('name');
+	});
+});
+
+describe('getColumnSkeletonVariant', () => {
+	it('returns button for badge-like column keys', () => {
+		expect(getColumnSkeletonVariant({ key: 'status', header: 'Status' })).toBe(
+			'button'
+		);
+		expect(getColumnSkeletonVariant({ key: 'role', header: 'Role' })).toBe(
+			'button'
+		);
+	});
+
+	it('returns text for typical columns', () => {
+		expect(getColumnSkeletonVariant({ key: 'name', header: 'Name' })).toBe('text');
+	});
+
+	it('prefers an explicit skeletonVariant', () => {
+		expect(
+			getColumnSkeletonVariant({
+				key: 'name',
+				header: 'Name',
+				skeletonVariant: 'heading',
+			})
+		).toBe('heading');
+	});
+});
+
+describe('getColumnSkeletonWidth', () => {
+	it('maps column keys to fitting widths', () => {
+		expect(getColumnSkeletonWidth({ key: 'name', header: 'Name' })).toBe('2/3');
+		expect(getColumnSkeletonWidth({ key: 'email', header: 'Email' })).toBe('3/4');
+		expect(getColumnSkeletonWidth({ key: 'role', header: 'Role' })).toBe('auto');
+		expect(getColumnSkeletonWidth({ key: 'status', header: 'Status' })).toBe(
+			'auto'
+		);
+		expect(getColumnSkeletonWidth({ key: 'joined', header: 'Joined' })).toBe(
+			'1/2'
+		);
+		expect(getColumnSkeletonWidth({ key: 'department', header: 'Department' })).toBe(
+			'2/3'
+		);
+	});
+
+	it('prefers an explicit skeletonWidth', () => {
+		expect(
+			getColumnSkeletonWidth({
+				key: 'name',
+				header: 'Name',
+				skeletonWidth: '1/4',
+			})
+		).toBe('1/4');
 	});
 });
 

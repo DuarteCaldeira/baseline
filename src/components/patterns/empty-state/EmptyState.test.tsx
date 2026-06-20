@@ -3,6 +3,7 @@ import { Inbox, Plus } from 'lucide-react';
 import { describe, expect, it } from 'vitest';
 
 import { Button } from '@/components/ui/button';
+import { Icon } from '@/components/ui/icon';
 
 import { EmptyState } from './EmptyState';
 
@@ -33,7 +34,10 @@ describe('EmptyState', () => {
 
 	it('renders an icon when provided', () => {
 		const { container } = render(
-			<EmptyState title="No items yet" icon={Inbox} />
+			<EmptyState
+				title="No items yet"
+				icon={<Icon icon={Inbox} size="lg" variant="subtle" />}
+			/>
 		);
 		expect(container.querySelector('svg')).toBeInTheDocument();
 		expect(container.querySelector('.empty-state__icon')).toBeInTheDocument();

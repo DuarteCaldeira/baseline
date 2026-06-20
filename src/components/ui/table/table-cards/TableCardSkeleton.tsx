@@ -4,14 +4,18 @@ import { Skeleton } from '@/components/patterns/skeleton';
 
 import styles from '../Table.module.scss';
 import type { TableColumn } from '../Table.types';
-import { getColumnLabel, getPrimaryColumnKey } from '../Table.utils';
+import {
+	getColumnLabel,
+	getColumnSkeletonVariant,
+	getColumnSkeletonWidth,
+	getPrimaryColumnKey,
+} from '../Table.utils';
 
 type TableCardSkeletonProps<T extends Record<string, unknown>> = {
 	columns: TableColumn<T>[];
 	rows?: number;
 };
 
-const WIDTHS = ['3/4', '2/3', 'full', '1/2'] as const;
 const ROW_DELAY_MS = 60;
 
 export const TableCardSkeleton = <T extends Record<string, unknown>>({
@@ -34,8 +38,8 @@ export const TableCardSkeleton = <T extends Record<string, unknown>>({
 					{primaryColumn && (
 						<header className={styles['table__card-header']}>
 							<Skeleton
-								variant="text"
-								width="2/3"
+								variant={getColumnSkeletonVariant(primaryColumn)}
+								width={getColumnSkeletonWidth(primaryColumn)}
 								style={{ animationDelay: `${rowIndex * ROW_DELAY_MS}ms` }}
 							/>
 						</header>
@@ -50,8 +54,8 @@ export const TableCardSkeleton = <T extends Record<string, unknown>>({
 									</dt>
 									<dd className={styles['table__card-value']}>
 										<Skeleton
-											variant="text"
-											width={WIDTHS[(rowIndex + colIndex) % WIDTHS.length]}
+											variant={getColumnSkeletonVariant(col)}
+											width={getColumnSkeletonWidth(col)}
 											style={{
 												animationDelay: `${rowIndex * ROW_DELAY_MS + colIndex * 30}ms`,
 											}}

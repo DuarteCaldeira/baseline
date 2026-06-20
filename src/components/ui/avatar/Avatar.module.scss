@@ -1,0 +1,42 @@
+@use '@/styles/tokens/radius' as *;
+
+.avatar {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	overflow: hidden;
+	border-radius: $radius-full;
+	background-color: var(--color-primary-subtle);
+	color: var(--color-primary);
+	font-weight: var(--font-weight-medium);
+	user-select: none;
+
+	&--sm {
+		width: 2rem;
+		height: 2rem;
+		font: var(--font-caption);
+	}
+
+	&--md {
+		width: 2.5rem;
+		height: 2.5rem;
+		font: var(--font-sm);
+	}
+
+	&--lg {
+		width: 3rem;
+		height: 3rem;
+		font: var(--font-sm);
+	}
+
+	&__image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	&__initials {
+		line-height: 1;
+	}
+}

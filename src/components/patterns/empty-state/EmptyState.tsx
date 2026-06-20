@@ -1,21 +1,18 @@
-import { type ReactNode, useId } from 'react';
-
-import type { LucideIcon } from 'lucide-react';
+import { useId, type ReactNode } from 'react';
 
 import { Stack } from '@/components/layout/stack';
-import { Icon } from '@/components/ui/icon';
 
 import styles from './EmptyState.module.scss';
 
 type EmptyStateProps = {
-	icon?: LucideIcon;
+	icon?: ReactNode;
 	title: string;
 	description?: string;
 	action?: ReactNode;
 };
 
 export const EmptyState = ({
-	icon: IconComponent,
+	icon,
 	title,
 	description,
 	action,
@@ -32,9 +29,9 @@ export const EmptyState = ({
 			aria-labelledby={titleId}
 			aria-describedby={description ? descriptionId : undefined}
 		>
-			{IconComponent && (
+			{icon && (
 				<div className={styles['empty-state__icon']} aria-hidden="true">
-					<Icon icon={IconComponent} size="lg" variant="subtle" />
+					{icon}
 				</div>
 			)}
 

@@ -1,8 +1,12 @@
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { setupFakeTimers } from '@/test-utils/setupFakeTimers';
+import {
+	setTableDesktopViewport,
+	setTableMobileViewport,
+} from '@/test-utils/tableViewport';
 
 import { Table } from './Table';
 import type { TableColumn, TableFilter } from './Table.types';
@@ -50,9 +54,15 @@ const clickColumnSort = async (
 	await user.click(within(header).getByRole('button'));
 };
 
+const withinTable = () => within(screen.getByRole('table'));
+
 // ─── Rendering ────────────────────────────────────────────────────────────────
 
 describe('Table — rendering', () => {
+	beforeEach(() => {
+		setTableDesktopViewport();
+	});
+
 	it('renders column headers', () => {
 		render(<Table data={DATA} columns={COLUMNS} />);
 
@@ -68,16 +78,16 @@ describe('Table — rendering', () => {
 		render(<Table data={DATA} columns={COLUMNS} pageSize={10} />);
 
 		for (const row of DATA) {
-			expect(screen.getByText(row.name)).toBeInTheDocument();
+			expect(withinTable().getByText(row.name)).toBeInTheDocument();
 		}
 	});
 
 	it('limits visible rows to the page size', () => {
 		render(<Table data={DATA} columns={COLUMNS} pageSize={2} />);
 
-		expect(screen.getByText('Alice')).toBeInTheDocument();
-		expect(screen.getByText('Bob')).toBeInTheDocument();
-		expect(screen.queryByText('Charlie')).not.toBeInTheDocument();
+		expect(withinTable().getByText('Alice')).toBeInTheDocument();
+		expect(withinTable().getByText('Bob')).toBeInTheDocument();
+		expect(withinTable().queryByText('Charlie')).not.toBeInTheDocument();
 	});
 
 	it('uses a custom render function for cells', () => {
@@ -92,16 +102,7 @@ describe('Table — rendering', () => {
 	});
 
 	it('renders stacked cards on small screens', () => {
-		vi.stubGlobal(
-			'matchMedia',
-			vi.fn().mockImplementation((query: string) => ({
-				matches: query === '(max-width: 40rem)',
-				media: query,
-				addEventListener: vi.fn(),
-				removeEventListener: vi.fn(),
-				dispatchEvent: vi.fn(),
-			}))
-		);
+		setTableMobileViewport();
 
 		try {
 			const { container } = render(
@@ -118,21 +119,12 @@ describe('Table — rendering', () => {
 				container.querySelector('.table__card-fields')
 			).toBeInTheDocument();
 		} finally {
-			vi.unstubAllGlobals();
+			setTableDesktopViewport();
 		}
 	});
 
 	it('renders a mobile sort select on small screens', () => {
-		vi.stubGlobal(
-			'matchMedia',
-			vi.fn().mockImplementation((query: string) => ({
-				matches: query === '(max-width: 40rem)',
-				media: query,
-				addEventListener: vi.fn(),
-				removeEventListener: vi.fn(),
-				dispatchEvent: vi.fn(),
-			}))
-		);
+		setTableMobileViewport();
 
 		try {
 			render(<Table data={DATA} columns={COLUMNS} pageSize={10} />);
@@ -141,7 +133,7 @@ describe('Table — rendering', () => {
 				screen.getByRole('combobox', { name: 'Sort by' })
 			).toBeInTheDocument();
 		} finally {
-			vi.unstubAllGlobals();
+			setTableDesktopViewport();
 		}
 	});
 });
@@ -149,26 +141,34 @@ describe('Table — rendering', () => {
 // ─── Empty state ──────────────────────────────────────────────────────────────
 
 describe('Table — empty state', () => {
+	beforeEach(() => {
+		setTableDesktopViewport();
+	});
+
 	it('shows the default message when data is empty', () => {
 		render(<Table data={[]} columns={COLUMNS} />);
 
-		expect(screen.getByText('No data to display.')).toBeInTheDocument();
+		expect(withinTable().getByText('No data to display.')).toBeInTheDocument();
 	});
 
 	it('shows a custom empty message', () => {
 		render(<Table data={[]} columns={COLUMNS} emptyMessage="Nothing here." />);
 
-		expect(screen.getByText('Nothing here.')).toBeInTheDocument();
+		expect(withinTable().getByText('Nothing here.')).toBeInTheDocument();
 	});
 });
 
 // ─── Loading ──────────────────────────────────────────────────────────────────
 
 describe('Table — loading', () => {
+	beforeEach(() => {
+		setTableDesktopViewport();
+	});
+
 	it('hides data rows when loading', () => {
 		render(<Table data={DATA} columns={COLUMNS} loading />);
 
-		expect(screen.queryByText('Alice')).not.toBeInTheDocument();
+		expect(withinTable().queryByText('Alice')).not.toBeInTheDocument();
 	});
 
 	it('still renders column headers while loading', () => {
@@ -194,11 +194,30 @@ describe('Table — loading', () => {
 			container.querySelector('[aria-busy="true"]')
 		).not.toBeInTheDocument();
 	});
+
+	it('renders per-column skeleton widths while loading', () => {
+		const columns: TableColumn<Row>[] = [
+			{ key: 'name', header: 'Name' },
+			{ key: 'role', header: 'Role' },
+		];
+
+		const { container } = render(
+			<Table data={DATA} columns={columns} loading />
+		);
+
+		const skeletons = container.querySelectorAll('.skeleton');
+		expect(skeletons[0]).toHaveClass('skeleton--width-2/3');
+		expect(skeletons[1]).toHaveClass('skeleton--button');
+	});
 });
 
 // ─── Sorting ──────────────────────────────────────────────────────────────────
 
 describe('Table — sorting', () => {
+	beforeEach(() => {
+		setTableDesktopViewport();
+	});
+
 	it('renders a sort button only for sortable columns', () => {
 		render(<Table data={DATA} columns={COLUMNS} />);
 
@@ -293,24 +312,28 @@ describe('Table — sorting', () => {
 
 		// Navigate to page 2 to confirm we move back
 		await user.click(screen.getByRole('button', { name: 'Next page' }));
-		expect(screen.getByText('Charlie')).toBeInTheDocument();
+		expect(withinTable().getByText('Charlie')).toBeInTheDocument();
 
 		await clickColumnSort(user, 'Name');
 
 		// Back on page 1 after sort
-		expect(screen.getByText('Alice')).toBeInTheDocument();
-		expect(screen.queryByText('Charlie')).not.toBeInTheDocument();
+		expect(withinTable().getByText('Alice')).toBeInTheDocument();
+		expect(withinTable().queryByText('Charlie')).not.toBeInTheDocument();
 	});
 });
 
 // ─── Pagination ───────────────────────────────────────────────────────────────
 
 describe('Table — pagination', () => {
+	beforeEach(() => {
+		setTableDesktopViewport();
+	});
+
 	it('shows the first page initially', () => {
 		render(<Table data={DATA} columns={COLUMNS} pageSize={2} />);
 
-		expect(screen.getByText('Alice')).toBeInTheDocument();
-		expect(screen.queryByText('Charlie')).not.toBeInTheDocument();
+		expect(withinTable().getByText('Alice')).toBeInTheDocument();
+		expect(withinTable().queryByText('Charlie')).not.toBeInTheDocument();
 	});
 
 	it('navigates to the next page when next is clicked', async () => {
@@ -319,8 +342,8 @@ describe('Table — pagination', () => {
 
 		await user.click(screen.getByRole('button', { name: 'Next page' }));
 
-		expect(screen.queryByText('Alice')).not.toBeInTheDocument();
-		expect(screen.getByText('Charlie')).toBeInTheDocument();
+		expect(withinTable().queryByText('Alice')).not.toBeInTheDocument();
+		expect(withinTable().getByText('Charlie')).toBeInTheDocument();
 	});
 
 	it('navigates back with the previous button', async () => {
@@ -330,7 +353,7 @@ describe('Table — pagination', () => {
 		await user.click(screen.getByRole('button', { name: 'Next page' }));
 		await user.click(screen.getByRole('button', { name: 'Previous page' }));
 
-		expect(screen.getByText('Alice')).toBeInTheDocument();
+		expect(withinTable().getByText('Alice')).toBeInTheDocument();
 	});
 
 	it('disables the previous button on the first page', () => {
@@ -379,6 +402,10 @@ describe('Table — pagination', () => {
 describe('Table — search filter (debounced)', () => {
 	setupFakeTimers();
 
+	beforeEach(() => {
+		setTableDesktopViewport();
+	});
+
 	it('shows only matching rows after the debounce delay', () => {
 		render(
 			<Table
@@ -398,8 +425,8 @@ describe('Table — search filter (debounced)', () => {
 			vi.advanceTimersByTime(300);
 		});
 
-		expect(screen.getByText('Alice')).toBeInTheDocument();
-		expect(screen.queryByText('Bob')).not.toBeInTheDocument();
+		expect(withinTable().getByText('Alice')).toBeInTheDocument();
+		expect(withinTable().queryByText('Bob')).not.toBeInTheDocument();
 	});
 
 	it('restores all rows when the search input is cleared', () => {
@@ -427,7 +454,7 @@ describe('Table — search filter (debounced)', () => {
 			vi.advanceTimersByTime(300);
 		});
 
-		expect(screen.getByText('Bob')).toBeInTheDocument();
+		expect(withinTable().getByText('Bob')).toBeInTheDocument();
 	});
 
 	it('resets to page 1 when the filter changes', () => {
@@ -453,11 +480,15 @@ describe('Table — search filter (debounced)', () => {
 			vi.advanceTimersByTime(300);
 		});
 
-		expect(screen.getByText('Alice')).toBeInTheDocument();
+		expect(withinTable().getByText('Alice')).toBeInTheDocument();
 	});
 });
 
 describe('Table — select filter (immediate)', () => {
+	beforeEach(() => {
+		setTableDesktopViewport();
+	});
+
 	it('shows only matching rows immediately when a select option is chosen', async () => {
 		const user = userEvent.setup();
 		render(
@@ -472,15 +503,19 @@ describe('Table — select filter (immediate)', () => {
 		await user.click(screen.getByRole('combobox', { name: 'Role' }));
 		await user.click(screen.getByRole('option', { name: 'Viewer' }));
 
-		expect(screen.getByText('Charlie')).toBeInTheDocument();
-		expect(screen.queryByText('Alice')).not.toBeInTheDocument();
-		expect(screen.queryByText('Bob')).not.toBeInTheDocument();
+		expect(withinTable().getByText('Charlie')).toBeInTheDocument();
+		expect(withinTable().queryByText('Alice')).not.toBeInTheDocument();
+		expect(withinTable().queryByText('Bob')).not.toBeInTheDocument();
 	});
 });
 
 // ─── Row interaction ──────────────────────────────────────────────────────────
 
 describe('Table — row interaction', () => {
+	beforeEach(() => {
+		setTableDesktopViewport();
+	});
+
 	it('calls onRowClick with the correct row data when a row button is clicked', async () => {
 		const user = userEvent.setup();
 		const onRowClick = vi.fn();
@@ -538,13 +573,19 @@ describe('Table — row interaction', () => {
 		const user = userEvent.setup();
 		render(<Table data={DATA} columns={COLUMNS} pageSize={10} />);
 
-		await expect(user.click(screen.getByText('Alice'))).resolves.not.toThrow();
+		await expect(
+			user.click(withinTable().getByText('Alice'))
+		).resolves.not.toThrow();
 	});
 });
 
 // ─── Row keys ─────────────────────────────────────────────────────────────────
 
 describe('Table — row keys', () => {
+	beforeEach(() => {
+		setTableDesktopViewport();
+	});
+
 	it('uses rowKey to stabilise row identity across reordered data', () => {
 		const onRowClick = vi.fn();
 		const { rerender } = render(
@@ -581,6 +622,10 @@ describe('Table — row keys', () => {
 // ─── Accessibility ────────────────────────────────────────────────────────────
 
 describe('Table — accessibility', () => {
+	beforeEach(() => {
+		setTableDesktopViewport();
+	});
+
 	it('sets aria-rowcount equal to total data rows plus the header row', () => {
 		render(<Table data={DATA} columns={COLUMNS} pageSize={2} />);
 

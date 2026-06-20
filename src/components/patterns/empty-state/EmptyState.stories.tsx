@@ -2,8 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { FileSearch, Inbox, Plus, Search } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+import { Icon } from '@/components/ui/icon';
 
 import { EmptyState } from './EmptyState';
+
+const emptyStateIcon = (icon: typeof Inbox) => (
+	<Icon icon={icon} size="lg" variant="subtle" />
+);
 
 const meta: Meta<typeof EmptyState> = {
 	title: 'Patterns/EmptyState',
@@ -16,7 +21,7 @@ const meta: Meta<typeof EmptyState> = {
 	args: {
 		title: 'No items yet',
 		description: 'Get started by creating your first item.',
-		icon: Inbox,
+		icon: emptyStateIcon(Inbox),
 	},
 };
 
@@ -45,7 +50,7 @@ export const TitleOnly: Story = {
 
 export const NoResults: Story = {
 	args: {
-		icon: Search,
+		icon: emptyStateIcon(Search),
 		title: 'No results found',
 		description: 'Try a different search term or clear your filters.',
 		action: <Button variant="secondary">Clear filters</Button>,
@@ -54,7 +59,7 @@ export const NoResults: Story = {
 
 export const NoFiles: Story = {
 	args: {
-		icon: FileSearch,
+		icon: emptyStateIcon(FileSearch),
 		title: 'No files uploaded',
 		description: 'Drag and drop files here, or browse to upload.',
 		action: (
@@ -67,7 +72,7 @@ export const NoFiles: Story = {
 
 export const InCard: Story = {
 	args: {
-		icon: Inbox,
+		icon: emptyStateIcon(Inbox),
 		title: 'Your inbox is empty',
 		description: 'New messages will appear here.',
 	},

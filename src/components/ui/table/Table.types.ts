@@ -1,5 +1,9 @@
 import type { ReactNode } from 'react';
 
+import type {
+	SkeletonVariant,
+	SkeletonWidth,
+} from '@/components/patterns/skeleton';
 import type { SelectOption } from '@/components/ui/select';
 
 export type SortDirection = 'asc' | 'desc';
@@ -16,6 +20,8 @@ export type TableColumn<T extends Record<string, unknown>> = {
 	width?: string;
 	sortable?: boolean;
 	mobilePrimary?: boolean;
+	skeletonWidth?: SkeletonWidth;
+	skeletonVariant?: SkeletonVariant;
 };
 
 export type TableFilter = {
@@ -70,11 +76,9 @@ export type TableGridProps<T extends Record<string, unknown>> = {
 	/** 0-based index of the first row on the current page — used for aria-rowindex. */
 	rowOffset: number;
 	totalRows: number;
-	isMobile: boolean;
 };
 
 export type TableSkeletonProps<T extends Record<string, unknown>> = {
 	columns: TableColumn<T>[];
 	rows?: number;
-	isMobile: boolean;
 };

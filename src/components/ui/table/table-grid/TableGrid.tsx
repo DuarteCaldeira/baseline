@@ -68,7 +68,6 @@ export const TableGrid = <T extends Record<string, unknown>>({
 	onSortChange,
 	rowOffset,
 	totalRows,
-	isMobile,
 }: TableGridProps<T>) => {
 	const isClickable = !!onRowClick;
 	const primaryColumnKey = useMemo(
@@ -101,8 +100,8 @@ export const TableGrid = <T extends Record<string, unknown>>({
 		[onRowClick, data]
 	);
 
-	if (isMobile) {
-		return (
+	return (
+		<>
 			<div className={styles['table__mobile']}>
 				<TableMobileSort
 					columns={columns}
@@ -118,67 +117,65 @@ export const TableGrid = <T extends Record<string, unknown>>({
 					primaryColumnKey={primaryColumnKey}
 				/>
 			</div>
-		);
-	}
 
-	return (
-		<table
-			className={styles['table__grid']}
-			// aria-rowcount tells AT the real total rows even when only a page is shown.
-			// +1 accounts for the header row.
-			aria-rowcount={totalRows + 1}
-		>
-			<thead className={styles['table__head']}>
-				{/* aria-rowindex=1 is required when body rows carry aria-rowindex */}
-				<tr aria-rowindex={1}>
-					{columns.map((col) => (
-						<TableHeaderCell
-							key={col.key}
-							header={col.header}
-							sortable={col.sortable}
-							sortDirection={
-								sortState?.key === col.key ? sortState.direction : null
-							}
-							onSort={col.sortable ? () => onSort(col.key) : undefined}
-							width={col.width}
-						/>
-					))}
-				</tr>
-			</thead>
-			<tbody
-				onClick={isClickable ? handleBodyClick : undefined}
-				onKeyDown={isClickable ? handleBodyKeyDown : undefined}
+			<table
+				className={styles['table__grid']}
+				// aria-rowcount tells AT the real total rows even when only a page is shown.
+				// +1 accounts for the header row.
+				aria-rowcount={totalRows + 1}
 			>
-				{data.length === 0 ? (
-					<tr className={styles['table__tr--empty']}>
-						<td colSpan={columns.length} className={styles['table__empty']}>
-							{emptyMessage}
-						</td>
+				<thead className={styles['table__head']}>
+					{/* aria-rowindex=1 is required when body rows carry aria-rowindex */}
+					<tr aria-rowindex={1}>
+						{columns.map((col) => (
+							<TableHeaderCell
+								key={col.key}
+								header={col.header}
+								sortable={col.sortable}
+								sortDirection={
+									sortState?.key === col.key ? sortState.direction : null
+								}
+								onSort={col.sortable ? () => onSort(col.key) : undefined}
+								width={col.width}
+							/>
+						))}
 					</tr>
-				) : (
-					data.map((row, rowIndex) => (
-						<TableRow
-							key={getRowKey(row, rowIndex, rowKey)}
-							row={row}
-							rowIndex={rowIndex}
-							columns={columns}
-							isClickable={isClickable}
-							rowLabel={
-								isClickable
-									? getClickableRowLabel(
-											row,
-											rowIndex,
-											columns,
-											primaryColumnKey
-										)
-									: undefined
-							}
-							// +2: +1 to convert 0-based to 1-based, +1 to skip the header row
-							ariaRowIndex={rowOffset + rowIndex + 2}
-						/>
-					))
-				)}
-			</tbody>
-		</table>
+				</thead>
+				<tbody
+					onClick={isClickable ? handleBodyClick : undefined}
+					onKeyDown={isClickable ? handleBodyKeyDown : undefined}
+				>
+					{data.length === 0 ? (
+						<tr className={styles['table__tr--empty']}>
+							<td colSpan={columns.length} className={styles['table__empty']}>
+								{emptyMessage}
+							</td>
+						</tr>
+					) : (
+						data.map((row, rowIndex) => (
+							<TableRow
+								key={getRowKey(row, rowIndex, rowKey)}
+								row={row}
+								rowIndex={rowIndex}
+								columns={columns}
+								isClickable={isClickable}
+								rowLabel={
+									isClickable
+										? getClickableRowLabel(
+												row,
+												rowIndex,
+												columns,
+												primaryColumnKey
+											)
+										: undefined
+								}
+								// +2: +1 to convert 0-based to 1-based, +1 to skip the header row
+								ariaRowIndex={rowOffset + rowIndex + 2}
+							/>
+						))
+					)}
+				</tbody>
+			</table>
+		</>
 	);
 };

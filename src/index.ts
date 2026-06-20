@@ -10,6 +10,7 @@ export * from './components/ui/link';
 export * from './components/ui/textarea';
 export * from './components/ui/toggleswitch';
 export * from './components/ui/icon';
+export * from './components/ui/illustration';
 export * from './components/ui/spinner';
 export * from './components/ui/toast';
 export * from './components/ui/modal';
@@ -19,6 +20,7 @@ export * from './components/ui/tabs';
 export * from './components/ui/alert';
 export * from './components/ui/menu';
 export * from './components/ui/badge';
+export * from './components/ui/avatar';
 export * from './components/ui/divider';
 export * from './components/ui/tag';
 export * from './components/ui/tooltip';
@@ -47,7 +49,6 @@ export * from './components/patterns';
 export * from './hooks/useDebounce';
 export * from './hooks/useDisclosure';
 export * from './hooks/useFloatingPosition';
-export * from './hooks/useMediaQuery';
 export * from './hooks/useMounted';
 
 // Utils

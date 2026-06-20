@@ -6,6 +6,10 @@
 @mixin mobile-styles {
 	@include breakpoint-down {
 		.table {
+			&__grid {
+				display: none;
+			}
+
 			border: none;
 			border-radius: 0;
 			background: var(--color-bg-subtle);
