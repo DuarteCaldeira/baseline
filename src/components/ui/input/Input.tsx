@@ -44,6 +44,7 @@ export const Input = ({
 	id,
 	leftAffix,
 	rightAffix,
+	required,
 	...rest
 }: InputProps) => {
 	const { describedBy } = resolveFieldIds(id, { helperText, error });
@@ -60,17 +61,23 @@ export const Input = ({
 			)}
 			aria-invalid={error ? true : undefined}
 			aria-describedby={describedBy}
+			required={required}
 			{...rest}
 		/>
 	);
 
 	return (
-		<FormField fieldId={id} label={label} helperText={helperText} error={error}>
+		<FormField
+			fieldId={id}
+			label={label}
+			required={required}
+			helperText={helperText}
+			error={error}
+		>
 			{hasAffixes ? (
 				<Stack
 					direction="row"
 					align="stretch"
-					gap="none"
 					className={cn(
 						styles['input__wrapper'],
 						error && styles['input__wrapper--error']

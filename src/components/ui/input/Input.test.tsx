@@ -11,12 +11,12 @@ describe('Input', () => {
 	});
 
 	it('renders label text when label prop is provided', () => {
-		render(<Input label="Email address" />);
+		render(<Input label="Email address" required />);
 		expect(screen.getByText('Email address')).toBeInTheDocument();
 	});
 
 	it('associates label with input via htmlFor and id', () => {
-		render(<Input id="email" label="Email address" />);
+		render(<Input id="email" label="Email address" required />);
 		expect(screen.getByLabelText('Email address')).toBeInTheDocument();
 	});
 
@@ -96,6 +96,16 @@ describe('Input', () => {
 	it('does not set aria-describedby when neither helperText nor error is provided', () => {
 		render(<Input id="email" />);
 		expect(screen.getByRole('textbox')).not.toHaveAttribute('aria-describedby');
+	});
+
+	it('shows the optional label for optional fields', () => {
+		render(<Input id="email" label="Email address" />);
+		expect(screen.getByText('(opcional)')).toBeInTheDocument();
+	});
+
+	it('hides the optional label for required fields', () => {
+		render(<Input id="email" label="Email address" required />);
+		expect(screen.queryByText('(opcional)')).not.toBeInTheDocument();
 	});
 
 	it('forwards additional HTML attributes', () => {

@@ -39,6 +39,7 @@ export const FileUpload = ({
 	disabled,
 	multiple,
 	accept,
+	required,
 	onChange,
 	...rest
 }: FileUploadProps) => {
@@ -103,6 +104,7 @@ export const FileUpload = ({
 			<FormField
 				fieldId={inputId}
 				label={label}
+				required={required}
 				helperText={helperText}
 				error={error}
 			>
@@ -128,6 +130,7 @@ export const FileUpload = ({
 						disabled={disabled}
 						multiple={multiple}
 						accept={accept}
+						required={required}
 						aria-label={label ? undefined : placeholder}
 						aria-invalid={error ? true : undefined}
 						aria-describedby={describedBy}

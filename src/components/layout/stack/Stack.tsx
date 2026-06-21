@@ -64,7 +64,7 @@ export const Stack = forwardRef<HTMLElement, StackProps>(
 			as: Component = 'div',
 			children,
 			direction = 'column',
-			gap = 'lg',
+			gap,
 			align,
 			justify,
 			wrap,

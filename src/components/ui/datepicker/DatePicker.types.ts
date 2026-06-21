@@ -20,6 +20,7 @@ export type DatePickerProps = {
 	helperText?: string;
 	error?: string;
 	disabled?: boolean;
+	required?: boolean;
 	min?: Date;
 	max?: Date;
 } & DatePickerA11yProps;

@@ -30,6 +30,12 @@ export const FieldStates: Story = {
 		<Stack gap="xl" style={{ maxWidth: '28rem' }}>
 			<Input id="field-default" label="Default" placeholder="Placeholder…" />
 			<Input
+				id="field-required"
+				label="Required"
+				placeholder="Placeholder…"
+				required
+			/>
+			<Input
 				id="field-helper"
 				label="With helper"
 				placeholder="Placeholder…"

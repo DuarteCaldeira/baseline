@@ -33,6 +33,7 @@ export const DatePicker = ({
 	helperText,
 	error,
 	disabled,
+	required,
 	min,
 	max,
 	calendarLabel = 'Choose date',
@@ -88,6 +89,7 @@ export const DatePicker = ({
 			<FormField
 				fieldId={id}
 				label={label}
+				required={required}
 				helperText={helperText}
 				error={error}
 			>

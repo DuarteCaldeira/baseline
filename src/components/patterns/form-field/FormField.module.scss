@@ -1,8 +1,17 @@
 @use '@/styles/mixins/control-field' as *;
+@use '@/styles/tokens/spacing' as *;
 
 .form-field {
 	&__label {
+		display: inline-flex;
+		align-items: baseline;
+		gap: $spacing-1;
 		@include control-field-label;
+	}
+
+	&__optional {
+		color: var(--color-text-subtle);
+		font-weight: var(--font-weight-regular);
 	}
 
 	&__helper {

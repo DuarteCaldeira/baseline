@@ -15,7 +15,7 @@ describe('FormField', () => {
 	});
 
 	it('renders label, helper, and error messages', () => {
-		render(
+		const { container } = render(
 			<FormField
 				fieldId="email"
 				label="Email"
@@ -26,7 +26,7 @@ describe('FormField', () => {
 			</FormField>
 		);
 
-		const label = screen.getByText('Email');
+		const label = container.querySelector('.form-field__label');
 
 		expect(label).toHaveAttribute('for', 'email');
 		expect(label).toHaveAttribute('id', 'email-label');
@@ -49,5 +49,35 @@ describe('FormField', () => {
 		);
 
 		expect(screen.queryByRole('label')).not.toBeInTheDocument();
+	});
+
+	it('shows the optional label for optional fields', () => {
+		render(
+			<FormField fieldId="email" label="Email">
+				<input id="email" />
+			</FormField>
+		);
+
+		expect(screen.getByText('(opcional)')).toBeInTheDocument();
+	});
+
+	it('hides the optional label for required fields', () => {
+		render(
+			<FormField fieldId="email" label="Email" required>
+				<input id="email" />
+			</FormField>
+		);
+
+		expect(screen.queryByText('(opcional)')).not.toBeInTheDocument();
+	});
+
+	it('allows overriding optional visibility explicitly', () => {
+		render(
+			<FormField fieldId="email" label="Email" required optional>
+				<input id="email" />
+			</FormField>
+		);
+
+		expect(screen.getByText('(opcional)')).toBeInTheDocument();
 	});
 });

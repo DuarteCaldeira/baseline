@@ -25,7 +25,6 @@ export const AccordionItem = memo(
 				<Stack
 					direction="row"
 					align="stretch"
-					gap="none"
 					width="full"
 					className={styles['accordion__header']}
 				>

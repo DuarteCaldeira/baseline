@@ -20,12 +20,19 @@ export const Textarea = ({
 	resize = 'vertical',
 	className,
 	id,
+	required,
 	...rest
 }: TextareaProps) => {
 	const { describedBy } = resolveFieldIds(id, { helperText, error });
 
 	return (
-		<FormField fieldId={id} label={label} helperText={helperText} error={error}>
+		<FormField
+			fieldId={id}
+			label={label}
+			required={required}
+			helperText={helperText}
+			error={error}
+		>
 			<textarea
 				id={id}
 				className={cn(
@@ -36,6 +43,7 @@ export const Textarea = ({
 				)}
 				aria-invalid={error ? true : undefined}
 				aria-describedby={describedBy}
+				required={required}
 				{...rest}
 			/>
 		</FormField>

@@ -27,6 +27,7 @@ type MultiSelectProps = {
 	helperText?: string;
 	error?: string;
 	disabled?: boolean;
+	required?: boolean;
 };
 
 const isRemoveButton = (target: EventTarget | null) =>
@@ -43,6 +44,7 @@ export const MultiSelect = ({
 	helperText,
 	error,
 	disabled,
+	required,
 }: MultiSelectProps) => {
 	const listboxRef = useRef<HTMLUListElement>(null);
 	const mounted = useMounted();
@@ -127,6 +129,7 @@ export const MultiSelect = ({
 			<FormField
 				fieldId={id}
 				label={label}
+				required={required}
 				helperText={helperText}
 				error={error}
 			>

@@ -24,6 +24,7 @@ type SelectProps = {
 	helperText?: string;
 	error?: string;
 	disabled?: boolean;
+	required?: boolean;
 };
 
 export const Select = ({
@@ -36,6 +37,7 @@ export const Select = ({
 	helperText,
 	error,
 	disabled,
+	required,
 }: SelectProps) => {
 	const listboxRef = useRef<HTMLUListElement>(null);
 	const mounted = useMounted();
@@ -94,6 +96,7 @@ export const Select = ({
 			<FormField
 				fieldId={id}
 				label={label}
+				required={required}
 				helperText={helperText}
 				error={error}
 			>
