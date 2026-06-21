@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Stack } from '@/components/layout/stack';
+
 import { Container } from './Container';
 
 const meta: Meta<typeof Container> = {
@@ -72,7 +73,9 @@ export const AllSizes: Story = {
 			</Stack>
 			<Stack gap="sm">
 				<strong>Full width</strong>
-				<Container size="full">Full width container (max-width: 100%).</Container>
+				<Container size="full">
+					Full width container (max-width: 100%).
+				</Container>
 			</Stack>
 		</Stack>
 	),

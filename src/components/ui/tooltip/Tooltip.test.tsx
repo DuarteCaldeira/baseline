@@ -1,8 +1,8 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
-import { setupFakeTimers } from '@/test-utils/setupFakeTimers';
 import { Button } from '@/components/ui/button';
+import { setupFakeTimers } from '@/test-utils/setupFakeTimers';
 
 import { Tooltip } from './Tooltip';
 

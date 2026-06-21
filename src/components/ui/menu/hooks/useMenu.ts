@@ -6,7 +6,6 @@ import {
 	useState,
 } from 'react';
 
-import type { UseMenuOptions, UseMenuReturn } from '../Menu.types';
 import {
 	focusMenuItem,
 	focusMenubarItem,
@@ -17,6 +16,7 @@ import {
 	openSubmenuFromKeyboard,
 	runMenuKeyHandler,
 } from '../Menu.keyboard.utils';
+import type { UseMenuOptions, UseMenuReturn } from '../Menu.types';
 
 const SUBMENU_CLOSE_DELAY_MS = 120;
 

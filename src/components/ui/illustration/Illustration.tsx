@@ -20,7 +20,11 @@ export const Illustration = ({
 	className,
 }: IllustrationProps) => (
 	<span
-		className={cn(styles.illustration, styles[`illustration--${size}`], className)}
+		className={cn(
+			styles.illustration,
+			styles[`illustration--${size}`],
+			className
+		)}
 		data-illustration=""
 		role={label ? 'img' : undefined}
 		aria-label={label}

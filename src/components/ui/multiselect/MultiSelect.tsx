@@ -4,8 +4,13 @@ import { ChevronDown } from 'lucide-react';
 
 import { FormField } from '@/components/patterns/form-field';
 import { Icon } from '@/components/ui/icon';
+import {
+	Listbox,
+	getListboxId,
+	getOptionId,
+	scrollOptionIntoView,
+} from '@/components/ui/listbox';
 import type { SelectOption } from '@/components/ui/select';
-import { Listbox, getListboxId, getOptionId, scrollOptionIntoView } from '@/components/ui/listbox';
 import { useSelect } from '@/components/ui/select/useSelect';
 import { Tag } from '@/components/ui/tag';
 import { useFloatingPosition } from '@/hooks/useFloatingPosition';
@@ -133,88 +138,88 @@ export const MultiSelect = ({
 				helperText={helperText}
 				error={error}
 			>
-			<div
-				ref={triggerRef}
-				id={id}
-				role="combobox"
-				tabIndex={disabled ? -1 : 0}
-				aria-haspopup="listbox"
-				aria-expanded={isOpen}
-				aria-controls={listboxId}
-				aria-labelledby={label ? labelId : undefined}
-				aria-activedescendant={
-					isOpen
-						? getOptionId(id, options[activeIndex]?.value ?? '')
-						: undefined
-				}
-				aria-invalid={error ? true : undefined}
-				aria-describedby={describedBy}
-				aria-disabled={disabled || undefined}
-				className={cn(
-					styles['multiselect__trigger'],
-					error && styles['multiselect__trigger--error'],
-					isOpen && styles['multiselect__trigger--open']
-				)}
-				onClick={handleTriggerClick}
-				onKeyDown={(event) => {
-					if (
-						!isOpen &&
-						event.key === 'Backspace' &&
-						selectedValues.length > 0
-					) {
-						const lastValue = selectedValues[selectedValues.length - 1];
-						removeValue(lastValue);
-						event.preventDefault();
-						return;
+				<div
+					ref={triggerRef}
+					id={id}
+					role="combobox"
+					tabIndex={disabled ? -1 : 0}
+					aria-haspopup="listbox"
+					aria-expanded={isOpen}
+					aria-controls={listboxId}
+					aria-labelledby={label ? labelId : undefined}
+					aria-activedescendant={
+						isOpen
+							? getOptionId(id, options[activeIndex]?.value ?? '')
+							: undefined
 					}
-
-					handleTriggerKeyDown(event);
-				}}
-			>
-				<span className={styles['multiselect__values']}>
-					{selectedOptions.length === 0 ? (
-						<span className={styles['multiselect__placeholder']}>
-							{placeholder}
-						</span>
-					) : (
-						selectedOptions.map((option) => (
-							<Tag
-								key={option.value}
-								size="sm"
-								onRemove={() => removeValue(option.value)}
-								removeLabel={`Remove ${option.label}`}
-							>
-								{option.label}
-							</Tag>
-						))
-					)}
-				</span>
-
-				<Icon
-					icon={ChevronDown}
-					size="sm"
+					aria-invalid={error ? true : undefined}
+					aria-describedby={describedBy}
+					aria-disabled={disabled || undefined}
 					className={cn(
-						styles['multiselect__chevron'],
-						isOpen && styles['multiselect__chevron--open']
+						styles['multiselect__trigger'],
+						error && styles['multiselect__trigger--error'],
+						isOpen && styles['multiselect__trigger--open']
 					)}
-				/>
-			</div>
+					onClick={handleTriggerClick}
+					onKeyDown={(event) => {
+						if (
+							!isOpen &&
+							event.key === 'Backspace' &&
+							selectedValues.length > 0
+						) {
+							const lastValue = selectedValues[selectedValues.length - 1];
+							removeValue(lastValue);
+							event.preventDefault();
+							return;
+						}
 
-			<Listbox
-				id={id}
-				labelId={label ? labelId : undefined}
-				options={options}
-				activeIndex={activeIndex}
-				listboxRef={listboxRef}
-				style={style}
-				placement={placement}
-				multi
-				isSelected={(optionValue) => selectedValueSet.has(optionValue)}
-				onSelect={handleOptionSelect}
-				onHighlight={setActiveIndex}
-				mounted={mounted}
-				isOpen={isOpen}
-			/>
+						handleTriggerKeyDown(event);
+					}}
+				>
+					<span className={styles['multiselect__values']}>
+						{selectedOptions.length === 0 ? (
+							<span className={styles['multiselect__placeholder']}>
+								{placeholder}
+							</span>
+						) : (
+							selectedOptions.map((option) => (
+								<Tag
+									key={option.value}
+									size="sm"
+									onRemove={() => removeValue(option.value)}
+									removeLabel={`Remove ${option.label}`}
+								>
+									{option.label}
+								</Tag>
+							))
+						)}
+					</span>
+
+					<Icon
+						icon={ChevronDown}
+						size="sm"
+						className={cn(
+							styles['multiselect__chevron'],
+							isOpen && styles['multiselect__chevron--open']
+						)}
+					/>
+				</div>
+
+				<Listbox
+					id={id}
+					labelId={label ? labelId : undefined}
+					options={options}
+					activeIndex={activeIndex}
+					listboxRef={listboxRef}
+					style={style}
+					placement={placement}
+					multi
+					isSelected={(optionValue) => selectedValueSet.has(optionValue)}
+					onSelect={handleOptionSelect}
+					onHighlight={setActiveIndex}
+					mounted={mounted}
+					isOpen={isOpen}
+				/>
 			</FormField>
 		</div>
 	);

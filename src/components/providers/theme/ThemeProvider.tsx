@@ -1,6 +1,12 @@
 'use client';
 
-import { createContext, useContext, useEffect, useMemo, useSyncExternalStore } from 'react';
+import {
+	createContext,
+	useContext,
+	useEffect,
+	useMemo,
+	useSyncExternalStore,
+} from 'react';
 import type { CSSProperties, ReactNode } from 'react';
 
 import type {
@@ -111,7 +117,7 @@ export const ThemeProvider = ({
 
 	const contextValue = useMemo<ThemeContextValue>(
 		() => ({ mode, resolvedMode, theme }),
-		[mode, resolvedMode, theme],
+		[mode, resolvedMode, theme]
 	);
 
 	useEffect(() => {

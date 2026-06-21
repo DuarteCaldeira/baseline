@@ -1,4 +1,9 @@
-import type { ButtonHTMLAttributes, ComponentProps, ReactElement, ReactNode } from 'react';
+import type {
+	ButtonHTMLAttributes,
+	ComponentProps,
+	ReactElement,
+	ReactNode,
+} from 'react';
 
 import type { LucideIcon } from 'lucide-react';
 

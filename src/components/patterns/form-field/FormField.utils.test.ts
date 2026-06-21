@@ -1,9 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import {
-	OPTIONAL_FIELD_LABEL,
-	isOptionalFieldLabel,
-} from './FormField.utils';
+import { OPTIONAL_FIELD_LABEL, isOptionalFieldLabel } from './FormField.utils';
 
 describe('isOptionalFieldLabel', () => {
 	it('returns true when a label exists and the field is not required', () => {

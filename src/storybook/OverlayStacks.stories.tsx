@@ -1,16 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+
+import type { Meta, StoryObj } from '@storybook/react';
 import { MoreHorizontal, Pencil, Trash2 } from 'lucide-react';
 
 import { Stack } from '@/components/layout/stack';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import {
-	Menu,
-	MenuContent,
-	MenuItem,
-	MenuTrigger,
-} from '@/components/ui/menu';
+import { Menu, MenuContent, MenuItem, MenuTrigger } from '@/components/ui/menu';
 import { Modal } from '@/components/ui/modal';
 import { Select } from '@/components/ui/select';
 import { Tooltip } from '@/components/ui/tooltip';

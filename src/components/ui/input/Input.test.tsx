@@ -145,10 +145,10 @@ describe('Input', () => {
 	});
 
 	it('applies error modifier to wrapper when affixes and error are provided', () => {
-		const { container } = render(
-			<Input leftAffix="+351" error="Required" />
-		);
-		expect(container.querySelector('.input__wrapper--error')).toBeInTheDocument();
+		const { container } = render(<Input leftAffix="+351" error="Required" />);
+		expect(
+			container.querySelector('.input__wrapper--error')
+		).toBeInTheDocument();
 		expect(container.querySelector('.input--error')).not.toBeInTheDocument();
 	});
 

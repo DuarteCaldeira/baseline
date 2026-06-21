@@ -27,7 +27,11 @@ export const Tooltip = ({
 
 	const { isOpen, tooltipId, getTriggerProps } = useTooltip();
 
-	const { style, placement: resolvedPlacement, position } = useFloatingPosition({
+	const {
+		style,
+		placement: resolvedPlacement,
+		position,
+	} = useFloatingPosition({
 		isOpen,
 		triggerRef,
 		floatingRef: bubbleRef,

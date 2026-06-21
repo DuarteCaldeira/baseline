@@ -5,10 +5,9 @@ import type { Meta, StoryObj } from '@storybook/react';
 import styles from '@/storybook/storyHelpers.module.scss';
 
 import { Table } from './Table';
-import type { TableProps } from './Table.types';
 import {
-	FEW_COLUMN_FILTERS,
 	FEW_COLUMNS,
+	FEW_COLUMN_FILTERS,
 	LARGE_STORY_DATA,
 	PLAIN_COLUMNS,
 	RICH_COLUMNS,
@@ -17,6 +16,7 @@ import {
 	STORY_USERS,
 	type StoryUser,
 } from './Table.stories.data';
+import type { TableProps } from './Table.types';
 
 const meta = {
 	title: 'UI/Table',
@@ -96,7 +96,11 @@ export const Paginated: Story = {
 export const Sortable: Story = {
 	name: 'Sortable Headers',
 	render: () => (
-		<Table<StoryUser> data={STORY_USERS} columns={SORTABLE_COLUMNS} pageSize={8} />
+		<Table<StoryUser>
+			data={STORY_USERS}
+			columns={SORTABLE_COLUMNS}
+			pageSize={8}
+		/>
 	),
 };
 

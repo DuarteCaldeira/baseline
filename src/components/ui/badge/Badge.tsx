@@ -38,12 +38,7 @@ const ICON_VARIANT: Record<BadgeVariant, IconVariant> = {
 
 export const Badge = (props: BadgeProps) => {
 	if (props.text == null) {
-		const {
-			variant,
-			type = 'filled',
-			icon,
-			'aria-label': ariaLabel,
-		} = props;
+		const { variant, type = 'filled', icon, 'aria-label': ariaLabel } = props;
 
 		return (
 			<span
@@ -55,13 +50,7 @@ export const Badge = (props: BadgeProps) => {
 				role="img"
 				aria-label={ariaLabel}
 			>
-				{icon && (
-					<Icon
-						icon={icon}
-						size="sm"
-						variant={ICON_VARIANT[variant]}
-					/>
-				)}
+				{icon && <Icon icon={icon} size="sm" variant={ICON_VARIANT[variant]} />}
 			</span>
 		);
 	}

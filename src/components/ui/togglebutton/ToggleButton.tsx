@@ -47,13 +47,7 @@ export const ToggleButton = ({
 	} as const;
 
 	if (icon != null && children == null) {
-		return (
-			<Button
-				{...toggleProps}
-				icon={icon}
-				aria-label={ariaLabel ?? ''}
-			/>
-		);
+		return <Button {...toggleProps} icon={icon} aria-label={ariaLabel ?? ''} />;
 	}
 
 	return (

@@ -35,7 +35,11 @@ const HomePage = () => (
 					className={styles['page__showcase']}
 				>
 					<p className={styles['page__showcase-label']}>Components</p>
-					<Stack direction="row" gap="md" className={styles['page__button-row']}>
+					<Stack
+						direction="row"
+						gap="md"
+						className={styles['page__button-row']}
+					>
 						<Button variant="primary">Primary</Button>
 						<Button variant="secondary">Secondary</Button>
 						<Button variant="ghost">Ghost</Button>

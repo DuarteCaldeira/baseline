@@ -4,10 +4,7 @@ import { Stack } from '@/components/layout/stack';
 import { getLabelId, resolveFieldIds } from '@/utils/fieldIds';
 
 import styles from './FormField.module.scss';
-import {
-	OPTIONAL_FIELD_LABEL,
-	isOptionalFieldLabel,
-} from './FormField.utils';
+import { OPTIONAL_FIELD_LABEL, isOptionalFieldLabel } from './FormField.utils';
 
 type StackProps = ComponentProps<typeof Stack>;
 
@@ -56,8 +53,7 @@ export const FormField = ({
 		helperText,
 		error,
 	});
-	const showOptional =
-		optional ?? isOptionalFieldLabel(label, required);
+	const showOptional = optional ?? isOptionalFieldLabel(label, required);
 
 	return (
 		<Stack gap={gap} className={styles['form-field']} {...rest}>

@@ -219,13 +219,21 @@ export const STORY_USERS: StoryUser[] = [
 ];
 
 export const PLAIN_COLUMNS: TableColumn<StoryUser>[] = [
-	{ key: 'name', header: tableHeader('Name'), render: (row) => tableCell(row.name) },
+	{
+		key: 'name',
+		header: tableHeader('Name'),
+		render: (row) => tableCell(row.name),
+	},
 	{
 		key: 'email',
 		header: tableHeader('Email'),
 		render: (row) => tableCell(row.email),
 	},
-	{ key: 'role', header: tableHeader('Role'), render: (row) => tableCell(row.role) },
+	{
+		key: 'role',
+		header: tableHeader('Role'),
+		render: (row) => tableCell(row.role),
+	},
 	{
 		key: 'status',
 		header: tableHeader('Status'),

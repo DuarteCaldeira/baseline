@@ -6,10 +6,7 @@ import styles from './ButtonGroup.module.scss';
 import type { ButtonGroupOrientation } from './ButtonGroup.types';
 import { assignGroupItemAttributes } from './ButtonGroup.utils';
 
-type ButtonGroupProps = Omit<
-	HTMLAttributes<HTMLDivElement>,
-	'className'
-> & {
+type ButtonGroupProps = Omit<HTMLAttributes<HTMLDivElement>, 'className'> & {
 	children: ReactNode;
 	orientation?: ButtonGroupOrientation;
 	fullWidth?: boolean;

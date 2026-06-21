@@ -2,10 +2,7 @@ import type { HTMLAttributes, ReactNode } from 'react';
 
 import { VISUALLY_HIDDEN_CLASS } from '@/styles/utilities/visuallyHidden';
 
-type VisuallyHiddenProps = Omit<
-	HTMLAttributes<HTMLElement>,
-	'className'
-> & {
+type VisuallyHiddenProps = Omit<HTMLAttributes<HTMLElement>, 'className'> & {
 	children: ReactNode;
 	as?: 'span' | 'div';
 };

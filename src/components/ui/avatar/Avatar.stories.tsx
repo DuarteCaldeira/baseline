@@ -13,7 +13,7 @@ const meta: Meta<typeof Avatar> = {
 	argTypes: {
 		size: {
 			control: 'select',
-			options: ['sm', 'md', 'lg'],
+			options: ['xs', 'sm', 'md', 'lg'],
 		},
 	},
 	args: {
@@ -53,6 +53,7 @@ export const ImageErrorFallback: Story = {
 export const AllSizes: Story = {
 	render: () => (
 		<Stack direction="row" gap="lg" align="center">
+			<Avatar name="Alice Martin" src={SAMPLE_SRC} size="xs" />
 			<Avatar name="Alice Martin" src={SAMPLE_SRC} size="sm" />
 			<Avatar name="Alice Martin" src={SAMPLE_SRC} size="md" />
 			<Avatar name="Alice Martin" src={SAMPLE_SRC} size="lg" />
@@ -63,6 +64,7 @@ export const AllSizes: Story = {
 export const InitialsAllSizes: Story = {
 	render: () => (
 		<Stack direction="row" gap="lg" align="center">
+			<Avatar name="Alice Martin" size="xs" />
 			<Avatar name="Alice Martin" size="sm" />
 			<Avatar name="Alice Martin" size="md" />
 			<Avatar name="Alice Martin" size="lg" />

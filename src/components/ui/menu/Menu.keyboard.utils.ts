@@ -3,7 +3,10 @@ import type { KeyboardEvent } from 'react';
 const MENU_ITEMS = '[data-menu-item]:not([data-disabled="true"])';
 const MENUBAR_ITEMS = '[data-menu-menubar-item]:not([data-disabled="true"])';
 
-const queryItems = (container: HTMLElement | null, selector: string): HTMLElement[] =>
+const queryItems = (
+	container: HTMLElement | null,
+	selector: string
+): HTMLElement[] =>
 	Array.from(container?.querySelectorAll<HTMLElement>(selector) ?? []);
 
 const resolveFocusIndex = (

@@ -8,9 +8,9 @@ export type StackSpacing =
 	| '2xl'
 	| '3xl';
 
-export type StackSpacingValue =
-	| StackSpacing
-	| {
-		x?: StackSpacing;
-		y?: StackSpacing;
-	};
+export type StackSpacingSides = {
+	x?: StackSpacing;
+	y?: StackSpacing;
+};
+
+export type StackSpacingValue = StackSpacing | StackSpacingSides;

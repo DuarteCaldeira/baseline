@@ -2,8 +2,8 @@ import { useRef } from 'react';
 import type { KeyboardEvent } from 'react';
 
 import styles from './Accordion.module.scss';
-import { AccordionItem } from './AccordionItem';
 import type { AccordionProps } from './Accordion.types';
+import { AccordionItem } from './AccordionItem';
 import { useAccordion } from './useAccordion';
 
 export const Accordion = ({

@@ -1,6 +1,6 @@
 import type { MenuContentProps } from '../Menu.types';
-import { MenuContentPanel } from './MenuContentPanel';
 import { useMenuContext } from '../MenuContext';
+import { MenuContentPanel } from './MenuContentPanel';
 
 export const MenuContent = ({
 	children,

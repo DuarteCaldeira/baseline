@@ -4,8 +4,8 @@ import { createPortal } from 'react-dom';
 
 import { X } from 'lucide-react';
 
-import { Overlay } from '@/components/patterns/overlay';
 import { Stack } from '@/components/layout/stack';
+import { Overlay } from '@/components/patterns/overlay';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
 import { useMounted } from '@/hooks/useMounted';

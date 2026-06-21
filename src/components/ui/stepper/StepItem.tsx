@@ -1,8 +1,8 @@
 import { cn } from '@/utils/cn';
 
 import { StepIndicator } from './StepIndicator';
-import type { Step, StepStatus } from './Stepper.types';
 import styles from './Stepper.module.scss';
+import type { Step, StepStatus } from './Stepper.types';
 
 type StepItemProps = {
 	step: Step;

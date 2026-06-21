@@ -157,7 +157,14 @@ export const useFloatingPosition = ({
 			const frame = window.requestAnimationFrame(updatePosition);
 			return () => window.cancelAnimationFrame(frame);
 		}
-	}, [isOpen, preferredPlacement, align, matchTriggerWidth, updatePosition, variant]);
+	}, [
+		isOpen,
+		preferredPlacement,
+		align,
+		matchTriggerWidth,
+		updatePosition,
+		variant,
+	]);
 
 	useEffect(() => {
 		if (!isOpen) return;

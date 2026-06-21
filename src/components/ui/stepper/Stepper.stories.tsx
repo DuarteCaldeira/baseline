@@ -16,7 +16,9 @@ const STEPS = [
 		content: (
 			<Stack gap="sm" className={storyStyles.item}>
 				<strong>Create your account</strong>
-				<p>Enter your email address and choose a secure password to get started.</p>
+				<p>
+					Enter your email address and choose a secure password to get started.
+				</p>
 			</Stack>
 		),
 	},
@@ -26,7 +28,10 @@ const STEPS = [
 		content: (
 			<Stack gap="sm" className={storyStyles.item}>
 				<strong>Add your details</strong>
-				<p>Tell us your name and upload a profile photo so others can recognise you.</p>
+				<p>
+					Tell us your name and upload a profile photo so others can recognise
+					you.
+				</p>
 			</Stack>
 		),
 	},
@@ -36,7 +41,10 @@ const STEPS = [
 		content: (
 			<Stack gap="sm" className={storyStyles.item}>
 				<strong>Confirm everything</strong>
-				<p>Review your information before submitting. You can go back to make changes.</p>
+				<p>
+					Review your information before submitting. You can go back to make
+					changes.
+				</p>
 			</Stack>
 		),
 	},

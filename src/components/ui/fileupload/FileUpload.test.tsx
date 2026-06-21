@@ -72,10 +72,7 @@ describe('FileUpload', () => {
 
 	it('uses a custom remove file label', async () => {
 		render(
-			<FileUpload
-				id="file"
-				getRemoveFileLabel={(name) => `Delete ${name}`}
-			/>
+			<FileUpload id="file" getRemoveFileLabel={(name) => `Delete ${name}`} />
 		);
 
 		const input = screen.getByLabelText(/drag files here/i);

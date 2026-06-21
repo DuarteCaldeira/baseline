@@ -1,5 +1,9 @@
 export { ThemeContext, ThemeProvider, useTheme } from './ThemeProvider';
-export { createTheme, extendTheme, themeToCSSVars } from './ThemeProvider.utils';
+export {
+	createTheme,
+	extendTheme,
+	themeToCSSVars,
+} from './ThemeProvider.utils';
 export type {
 	ColorTokens,
 	ResolvedMode,

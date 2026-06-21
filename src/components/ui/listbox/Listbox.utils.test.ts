@@ -1,6 +1,10 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import { getListboxId, getOptionId, scrollOptionIntoView } from './Listbox.utils';
+import {
+	getListboxId,
+	getOptionId,
+	scrollOptionIntoView,
+} from './Listbox.utils';
 
 describe('Listbox.utils', () => {
 	describe('getListboxId', () => {
@@ -41,7 +45,9 @@ describe('Listbox.utils', () => {
 
 			scrollOptionIntoView('fruit-option-apple');
 
-			expect(document.getElementById).toHaveBeenCalledWith('fruit-option-apple');
+			expect(document.getElementById).toHaveBeenCalledWith(
+				'fruit-option-apple'
+			);
 			expect(scrollIntoView).toHaveBeenCalledWith({ block: 'nearest' });
 		});
 

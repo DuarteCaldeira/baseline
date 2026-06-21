@@ -1,4 +1,9 @@
-import type { ComponentProps, KeyboardEvent, ReactNode, RefObject } from 'react';
+import type {
+	ComponentProps,
+	KeyboardEvent,
+	ReactNode,
+	RefObject,
+} from 'react';
 
 import type { LucideIcon } from 'lucide-react';
 

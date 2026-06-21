@@ -39,7 +39,9 @@ describe('Avatar', () => {
 		const image = screen.getByRole('img', { name: 'Bob Chen' });
 		fireEvent.error(image);
 
-		expect(screen.getByRole('img', { name: 'Bob Chen' })).toHaveTextContent('BC');
+		expect(screen.getByRole('img', { name: 'Bob Chen' })).toHaveTextContent(
+			'BC'
+		);
 		expect(document.querySelector('img')).not.toBeInTheDocument();
 	});
 
@@ -53,7 +55,7 @@ describe('Avatar', () => {
 		expect(container.querySelector('svg')).toBeInTheDocument();
 	});
 
-	it.each(['sm', 'md', 'lg'] as const)('applies the %s size class', (size) => {
+	it.each(['xs', 'sm', 'md', 'lg'] as const)('applies the %s size class', (size) => {
 		const { container } = render(<Avatar name="Alice Martin" size={size} />);
 		expect(container.querySelector(`.avatar--${size}`)).toBeInTheDocument();
 	});

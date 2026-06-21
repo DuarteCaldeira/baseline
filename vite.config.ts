@@ -34,7 +34,14 @@ export default defineConfig({
 			fileName: (format) => (format === 'es' ? 'index.mjs' : 'index.js'),
 		},
 		rollupOptions: {
-			external: ['react', 'react-dom', 'react/jsx-runtime', 'next', 'next/link', 'lucide-react'],
+			external: [
+				'react',
+				'react-dom',
+				'react/jsx-runtime',
+				'next',
+				'next/link',
+				'lucide-react',
+			],
 
 			onwarn(warning, warn) {
 				if (warning.code === 'UNRESOLVED_IMPORT') return;

@@ -1,10 +1,10 @@
 import type { ReactNode } from 'react';
 
+import type { ToggleButtonGroupType } from './ToggleButton.types';
 import {
 	ToggleButtonGroupContext,
 	useToggleButtonGroupState,
 } from './hooks/useToggleButtonGroup';
-import type { ToggleButtonGroupType } from './ToggleButton.types';
 
 type ToggleButtonGroupProviderProps = {
 	type: ToggleButtonGroupType;

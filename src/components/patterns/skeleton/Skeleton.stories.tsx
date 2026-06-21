@@ -57,7 +57,12 @@ export const Sizes: Story = {
 		<Stack gap="md" style={{ width: '20rem' }}>
 			{(['sm', 'md', 'lg'] as const).map((size) => (
 				<Stack key={size} gap="xs">
-					<span style={{ font: 'var(--font-caption)', color: 'var(--color-text-subtle)' }}>
+					<span
+						style={{
+							font: 'var(--font-caption)',
+							color: 'var(--color-text-subtle)',
+						}}
+					>
 						{size}
 					</span>
 					<Skeleton variant="text" size={size} />

@@ -10,8 +10,8 @@ import styles from '../Menu.module.scss';
 import type { MenuSubTriggerProps } from '../Menu.types';
 import { buildTriggerProps } from '../Menu.utils';
 import { useMenuContext } from '../MenuContext';
-import { MenuItemContent } from '../menu-item/MenuItemContent';
 import { useMenuItemHighlight } from '../hooks/useMenuItemHighlight';
+import { MenuItemContent } from '../menu-item/MenuItemContent';
 
 export const MenuSubTrigger = ({
 	children,

@@ -1,11 +1,13 @@
-import { User } from 'lucide-react';
 import { useState } from 'react';
+
+import { User } from 'lucide-react';
 
 import { Icon } from '@/components/ui/icon';
 import type { Size } from '@/types/common';
 import { cn } from '@/utils/cn';
 
 import styles from './Avatar.module.scss';
+import type { AvatarSize } from './Avatar.types';
 import { getInitials } from './Avatar.utils';
 
 type AvatarProps = {
@@ -14,11 +16,12 @@ type AvatarProps = {
 	src?: string;
 	/** Image alt text. Defaults to `name` when omitted. */
 	alt?: string;
-	size?: Size;
+	size?: AvatarSize;
 	className?: string;
 };
 
-const ICON_SIZE: Record<Size, Size> = {
+const ICON_SIZE: Record<AvatarSize, Size> = {
+	xs: 'sm',
 	sm: 'sm',
 	md: 'sm',
 	lg: 'md',

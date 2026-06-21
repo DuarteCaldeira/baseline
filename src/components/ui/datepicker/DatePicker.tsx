@@ -1,14 +1,14 @@
 import { Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 
+import { Stack } from '@/components/layout/stack';
 import { FloatingPortal } from '@/components/patterns/floating-portal';
 import { FormField } from '@/components/patterns/form-field';
-import { Stack } from '@/components/layout/stack';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
-import { resolveFieldIds } from '@/utils/fieldIds';
 import { useFloatingPosition } from '@/hooks/useFloatingPosition';
 import { useMounted } from '@/hooks/useMounted';
 import { cn } from '@/utils/cn';
+import { resolveFieldIds } from '@/utils/fieldIds';
 
 import styles from './DatePicker.module.scss';
 import type { DatePickerProps } from './DatePicker.types';
@@ -93,42 +93,41 @@ export const DatePicker = ({
 				helperText={helperText}
 				error={error}
 			>
-
-			<button
-				ref={triggerRef}
-				id={id}
-				type="button"
-				aria-haspopup="dialog"
-				aria-expanded={isOpen}
-				aria-describedby={describedBy}
-				disabled={disabled}
-				className={cn(
-					styles['datepicker__trigger'],
-					error && styles['datepicker__trigger--error'],
-					isOpen && styles['datepicker__trigger--open']
-				)}
-				onClick={handleToggleOpen}
-				onKeyDown={handleTriggerKeyDown}
-			>
-				<span
+				<button
+					ref={triggerRef}
+					id={id}
+					type="button"
+					aria-haspopup="dialog"
+					aria-expanded={isOpen}
+					aria-describedby={describedBy}
+					disabled={disabled}
 					className={cn(
-						styles['datepicker__trigger-text'],
-						!selectedDate && styles['datepicker__trigger-text--placeholder']
+						styles['datepicker__trigger'],
+						error && styles['datepicker__trigger--error'],
+						isOpen && styles['datepicker__trigger--open']
 					)}
+					onClick={handleToggleOpen}
+					onKeyDown={handleTriggerKeyDown}
 				>
-					{selectedDate
-						? formatDisplay(selectedDate, format)
-						: resolvedPlaceholder}
-				</span>
-				<Icon
-					icon={Calendar}
-					size="sm"
-					variant="subtle"
-					className={styles['datepicker__trigger-icon']}
-				/>
-			</button>
+					<span
+						className={cn(
+							styles['datepicker__trigger-text'],
+							!selectedDate && styles['datepicker__trigger-text--placeholder']
+						)}
+					>
+						{selectedDate
+							? formatDisplay(selectedDate, format)
+							: resolvedPlaceholder}
+					</span>
+					<Icon
+						icon={Calendar}
+						size="sm"
+						variant="subtle"
+						className={styles['datepicker__trigger-icon']}
+					/>
+				</button>
 
-			<FloatingPortal mounted={mounted} isOpen={isOpen}>
+				<FloatingPortal mounted={mounted} isOpen={isOpen}>
 					<div
 						ref={calendarRef}
 						role="dialog"
@@ -247,7 +246,7 @@ export const DatePicker = ({
 							))}
 						</div>
 					</div>
-			</FloatingPortal>
+				</FloatingPortal>
 			</FormField>
 		</div>
 	);

@@ -22,8 +22,7 @@ export const resolveFieldIds = (
 	fieldId: string | undefined,
 	{ helperText, error }: FieldIdsOptions = {}
 ): FieldIds => {
-	const helperId =
-		fieldId && helperText ? getHelperId(fieldId) : undefined;
+	const helperId = fieldId && helperText ? getHelperId(fieldId) : undefined;
 	const errorId = fieldId && error ? getErrorId(fieldId) : undefined;
 	const describedBy = getDescribedBy([helperId, errorId]);
 

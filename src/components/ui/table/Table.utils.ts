@@ -1,6 +1,9 @@
 import type { ReactNode } from 'react';
 
-import type { SkeletonVariant, SkeletonWidth } from '@/components/patterns/skeleton';
+import type {
+	SkeletonVariant,
+	SkeletonWidth,
+} from '@/components/patterns/skeleton';
 
 import type {
 	SortState,

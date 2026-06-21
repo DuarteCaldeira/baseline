@@ -12,9 +12,7 @@ describe('Container', () => {
 	it.each(['sm', 'md', 'lg', 'xl', 'full'] as const)(
 		'applies the %s size class',
 		(size) => {
-			const { container } = render(
-				<Container size={size}>Content</Container>
-			);
+			const { container } = render(<Container size={size}>Content</Container>);
 			expect(
 				container.querySelector(`.container--${size}`)
 			).toBeInTheDocument();

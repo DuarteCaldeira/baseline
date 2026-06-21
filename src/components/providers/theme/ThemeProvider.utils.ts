@@ -85,7 +85,7 @@ const zIndexVarMap: Record<keyof ZIndexTokens, string> = {
 const applyGroup = <T extends object>(
 	group: T | undefined,
 	varMap: Record<keyof T, string>,
-	out: Record<string, string>,
+	out: Record<string, string>
 ) => {
 	if (!group) return;
 	for (const key in group) {
