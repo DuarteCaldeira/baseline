@@ -1,0 +1,8 @@
+@use '../tokens/z-index' as *;
+
+// Layering custom properties — mode-agnostic; not tied to light/dark palettes.
+:root {
+	--z-index-overlay: #{$z-index-overlay};
+	--z-index-floating: #{$z-index-floating};
+	--z-index-toast: #{$z-index-toast};
+}

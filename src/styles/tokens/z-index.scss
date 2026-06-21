@@ -1,0 +1,4 @@
+// Stacking order — overlay → floating panels → toast
+$z-index-overlay: 9000;
+$z-index-floating: 9100;
+$z-index-toast: 9500;
