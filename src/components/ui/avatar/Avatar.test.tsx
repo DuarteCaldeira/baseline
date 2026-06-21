@@ -55,10 +55,13 @@ describe('Avatar', () => {
 		expect(container.querySelector('svg')).toBeInTheDocument();
 	});
 
-	it.each(['xs', 'sm', 'md', 'lg'] as const)('applies the %s size class', (size) => {
-		const { container } = render(<Avatar name="Alice Martin" size={size} />);
-		expect(container.querySelector(`.avatar--${size}`)).toBeInTheDocument();
-	});
+	it.each(['xs', 'sm', 'md', 'lg'] as const)(
+		'applies the %s size class',
+		(size) => {
+			const { container } = render(<Avatar name="Alice Martin" size={size} />);
+			expect(container.querySelector(`.avatar--${size}`)).toBeInTheDocument();
+		}
+	);
 
 	it('defaults to the md size class', () => {
 		const { container } = render(<Avatar name="Alice Martin" />);
