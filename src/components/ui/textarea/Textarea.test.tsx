@@ -16,7 +16,7 @@ describe('Textarea', () => {
 	});
 
 	it('associates label with textarea via htmlFor and id', () => {
-		render(<Textarea id="message" label="Message" />);
+		render(<Textarea id="message" label="Message" required />);
 		expect(screen.getByLabelText('Message')).toBeInTheDocument();
 	});
 

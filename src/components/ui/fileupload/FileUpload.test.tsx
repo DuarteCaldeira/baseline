@@ -19,7 +19,7 @@ describe('FileUpload', () => {
 	});
 
 	it('associates label with input via htmlFor and id', () => {
-		render(<FileUpload id="file" label="Attachment" />);
+		render(<FileUpload id="file" label="Attachment" required />);
 		expect(screen.getByLabelText('Attachment')).toBeInTheDocument();
 	});
 

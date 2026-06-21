@@ -130,7 +130,7 @@ describe('Table — rendering', () => {
 			render(<Table data={DATA} columns={COLUMNS} pageSize={10} />);
 
 			expect(
-				screen.getByRole('combobox', { name: 'Sort by' })
+				screen.getByRole('combobox', { name: /^Sort by/ })
 			).toBeInTheDocument();
 		} finally {
 			setTableDesktopViewport();
@@ -417,7 +417,7 @@ describe('Table — search filter (debounced)', () => {
 		);
 
 		act(() => {
-			fireEvent.change(screen.getByRole('searchbox', { name: 'Search' }), {
+			fireEvent.change(screen.getByRole('searchbox', { name: /^Search/ }), {
 				target: { value: 'Ali' },
 			});
 		});
@@ -439,7 +439,7 @@ describe('Table — search filter (debounced)', () => {
 			/>
 		);
 
-		const search = screen.getByRole('searchbox', { name: 'Search' });
+		const search = screen.getByRole('searchbox', { name: /^Search/ });
 		act(() => {
 			fireEvent.change(search, { target: { value: 'Ali' } });
 		});
@@ -472,7 +472,7 @@ describe('Table — search filter (debounced)', () => {
 		});
 
 		act(() => {
-			fireEvent.change(screen.getByRole('searchbox', { name: 'Search' }), {
+			fireEvent.change(screen.getByRole('searchbox', { name: /^Search/ }), {
 				target: { value: 'Ali' },
 			});
 		});
@@ -500,7 +500,7 @@ describe('Table — select filter (immediate)', () => {
 			/>
 		);
 
-		await user.click(screen.getByRole('combobox', { name: 'Role' }));
+		await user.click(screen.getByRole('combobox', { name: /^Role/ }));
 		await user.click(screen.getByRole('option', { name: 'Viewer' }));
 
 		expect(withinTable().getByText('Charlie')).toBeInTheDocument();
@@ -644,7 +644,7 @@ describe('Table — accessibility', () => {
 			/>
 		);
 
-		await user.click(screen.getByRole('combobox', { name: 'Role' }));
+		await user.click(screen.getByRole('combobox', { name: /^Role/ }));
 		await user.click(screen.getByRole('option', { name: 'Admin' }));
 
 		// 2 Admin rows + 1 header = 3

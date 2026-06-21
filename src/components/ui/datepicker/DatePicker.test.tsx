@@ -85,7 +85,7 @@ describe('DatePicker', () => {
 
 	describe('label / helper / error', () => {
 		it('renders a label when provided', () => {
-			render(<DatePicker id="dob" label="Data de nascimento" />);
+			render(<DatePicker id="dob" label="Data de nascimento" required />);
 			expect(screen.getByLabelText('Data de nascimento')).toBeInTheDocument();
 		});
 
