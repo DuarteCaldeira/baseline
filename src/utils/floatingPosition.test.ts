@@ -81,6 +81,19 @@ describe('computeFloatingPosition', () => {
 
 		expect(result.maxHeight).toBeLessThanOrEqual(120);
 	});
+
+	it('positions below the trigger when content height exceeds maxHeightLimit', () => {
+		const result = computeFloatingPosition({
+			triggerRect: trigger,
+			floatingRect: { top: 0, left: 0, width: 240, height: 1200 },
+			viewport,
+			maxHeightLimit: 240,
+		});
+
+		expect(result.placement).toBe('bottom');
+		expect(result.top).toBe(trigger.top + trigger.height + 4);
+		expect(result.maxHeight).toBe(240);
+	});
 });
 
 describe('computeTooltipPosition', () => {

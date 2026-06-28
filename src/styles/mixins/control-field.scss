@@ -77,6 +77,11 @@
 }
 
 // Button-like combobox triggers (Select, MultiSelect)
+@mixin control-field-anchor {
+	position: relative;
+	width: 100%;
+}
+
 @mixin control-field-trigger-base($open-class) {
 	border: 1px solid var(--color-border);
 	border-radius: $radius-md;

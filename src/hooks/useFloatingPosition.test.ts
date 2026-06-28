@@ -68,6 +68,8 @@ describe('useFloatingPosition', () => {
 			position: 'fixed',
 			top: 0,
 			left: 0,
+			visibility: 'hidden',
+			pointerEvents: 'none',
 		});
 	});
 
@@ -119,6 +121,35 @@ describe('useFloatingPosition', () => {
 		expect(result.current.style.position).toBe('fixed');
 		expect(result.current.style).toHaveProperty('--tooltip-arrow-offset');
 		expect(result.current.arrowOffset).toBeTypeOf('number');
+	});
+
+	it('uses visible height for scrollable panels instead of full scrollHeight', () => {
+		const trigger = document.createElement('div');
+		const floating = document.createElement('div');
+
+		setElementRect(trigger, { top: 200, left: 100, width: 200, height: 40 });
+		setElementRect(floating, { top: 0, left: 0, width: 200, height: 240 });
+		Object.defineProperty(floating, 'scrollHeight', {
+			value: 1200,
+			configurable: true,
+		});
+
+		const triggerRef = { current: trigger };
+		const floatingRef = { current: floating };
+
+		const { result } = renderHook(() =>
+			useFloatingPosition({
+				isOpen: true,
+				triggerRef,
+				floatingRef,
+				matchTriggerWidth: true,
+				maxHeightLimit: 240,
+			})
+		);
+
+		expect(result.current.placement).toBe('bottom');
+		expect(result.current.position?.top).toBe(244);
+		expect(result.current.style.maxHeight).toBe(240);
 	});
 
 	it('waits for tooltip measurements before returning a position', () => {

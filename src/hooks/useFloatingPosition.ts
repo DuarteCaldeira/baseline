@@ -50,6 +50,30 @@ const getMeasuredRect = (element: HTMLElement) => {
 	};
 };
 
+const getFloatingPanelHeight = (element: HTMLElement, rect: ReturnType<typeof getMeasuredRect>) => {
+	const visibleHeight = rect.height || element.offsetHeight;
+
+	if (visibleHeight > 0) {
+		return visibleHeight;
+	}
+
+	return element.scrollHeight || 1;
+};
+
+const getPlacementPanelHeight = (
+	element: HTMLElement,
+	rect: ReturnType<typeof getMeasuredRect>,
+	maxHeightLimit?: number
+) => {
+	const measuredHeight = getFloatingPanelHeight(element, rect);
+
+	if (maxHeightLimit === undefined) {
+		return measuredHeight;
+	}
+
+	return Math.min(measuredHeight, maxHeightLimit);
+};
+
 export const useFloatingPosition = ({
 	isOpen,
 	triggerRef,
@@ -119,12 +143,7 @@ export const useFloatingPosition = ({
 						floating.scrollWidth,
 						1
 					),
-					height: Math.max(
-						floatingRect.height,
-						floating.offsetHeight,
-						floating.scrollHeight,
-						1
-					),
+					height: getPlacementPanelHeight(floating, floatingRect, maxHeightLimit),
 				},
 				preferredPlacement,
 				align,
@@ -154,11 +173,15 @@ export const useFloatingPosition = ({
 		updatePosition();
 
 		if (variant === 'panel') {
-			const frame = window.requestAnimationFrame(updatePosition);
-			return () => window.cancelAnimationFrame(frame);
+			const firstFrame = window.requestAnimationFrame(() => {
+				updatePosition();
+				window.requestAnimationFrame(updatePosition);
+			});
+			return () => window.cancelAnimationFrame(firstFrame);
 		}
 	}, [
 		isOpen,
+		maxHeightLimit,
 		preferredPlacement,
 		align,
 		matchTriggerWidth,
@@ -172,11 +195,14 @@ export const useFloatingPosition = ({
 		window.addEventListener('resize', updatePosition);
 		window.addEventListener('scroll', updatePosition, true);
 
+		const trigger = triggerRef.current;
 		const floating = floatingRef.current;
 		const observer =
-			floating && typeof ResizeObserver !== 'undefined'
-				? new ResizeObserver(updatePosition)
-				: null;
+			typeof ResizeObserver !== 'undefined' ? new ResizeObserver(updatePosition) : null;
+
+		if (trigger && observer) {
+			observer.observe(trigger);
+		}
 
 		if (floating && observer) {
 			observer.observe(floating);
@@ -187,7 +213,7 @@ export const useFloatingPosition = ({
 			window.removeEventListener('scroll', updatePosition, true);
 			observer?.disconnect();
 		};
-	}, [floatingRef, isOpen, updatePosition]);
+	}, [floatingRef, isOpen, triggerRef, updatePosition]);
 
 	const placement = position?.placement ?? preferredPlacement;
 
@@ -221,6 +247,9 @@ export const useFloatingPosition = ({
 				position: 'fixed',
 				top: 0,
 				left: 0,
+				visibility: 'hidden',
+				pointerEvents: 'none',
+				...(maxHeightLimit !== undefined ? { maxHeight: maxHeightLimit } : {}),
 			};
 
 	return { position: panelPosition, style, placement };

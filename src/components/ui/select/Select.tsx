@@ -97,7 +97,7 @@ export const Select = ({
 	const { describedBy } = resolveFieldIds(id, { helperText, error });
 
 	return (
-		<div ref={containerRef} className={styles['select__wrapper']}>
+		<div ref={containerRef}>
 			<FormField
 				fieldId={id}
 				label={label}
@@ -105,79 +105,81 @@ export const Select = ({
 				helperText={helperText}
 				error={error}
 			>
-				<button
-					ref={triggerRef}
-					id={id}
-					type="button"
-					role="combobox"
-					aria-haspopup="listbox"
-					aria-expanded={isOpen}
-					aria-controls={listboxId}
-					aria-labelledby={label ? labelId : undefined}
-					aria-activedescendant={
-						isOpen
-							? getOptionId(id, options[activeIndex]?.value ?? '')
-							: undefined
-					}
-					aria-invalid={error ? true : undefined}
-					aria-describedby={describedBy}
-					disabled={disabled}
-					className={cn(
-						styles['select__trigger'],
-						error && styles['select__trigger--error'],
-						isOpen && styles['select__trigger--open']
-					)}
-					onClick={handleToggleOpen}
-					onKeyDown={handleTriggerKeyDown}
-				>
-					<span className={styles['select__trigger-value']}>
-						{selectedOption ? (
-							<>
-								{selectedOption.icon && (
-									<span
-										className={styles['select__trigger-icon']}
-										aria-hidden="true"
-									>
-										<Icon
-											icon={selectedOption.icon}
-											size="sm"
-											variant={selectedOption.iconVariant}
-										/>
-									</span>
-								)}
-								<span>{selectedOption.label}</span>
-							</>
-						) : (
-							<span className={styles['select__placeholder']}>
-								{placeholder}
-							</span>
-						)}
-					</span>
-
-					<Icon
-						icon={ChevronDown}
-						size="sm"
+				<div className={styles['select__control']}>
+					<button
+						ref={triggerRef}
+						id={id}
+						type="button"
+						role="combobox"
+						aria-haspopup="listbox"
+						aria-expanded={isOpen}
+						aria-controls={listboxId}
+						aria-labelledby={label ? labelId : undefined}
+						aria-activedescendant={
+							isOpen
+								? getOptionId(id, options[activeIndex]?.value ?? '')
+								: undefined
+						}
+						aria-invalid={error ? true : undefined}
+						aria-describedby={describedBy}
+						disabled={disabled}
 						className={cn(
-							styles['select__chevron'],
-							isOpen && styles['select__chevron--open']
+							styles['select__trigger'],
+							error && styles['select__trigger--error'],
+							isOpen && styles['select__trigger--open']
 						)}
-					/>
-				</button>
+						onClick={handleToggleOpen}
+						onKeyDown={handleTriggerKeyDown}
+					>
+						<span className={styles['select__trigger-value']}>
+							{selectedOption ? (
+								<>
+									{selectedOption.icon && (
+										<span
+											className={styles['select__trigger-icon']}
+											aria-hidden="true"
+										>
+											<Icon
+												icon={selectedOption.icon}
+												size="sm"
+												variant={selectedOption.iconVariant}
+											/>
+										</span>
+									)}
+									<span>{selectedOption.label}</span>
+								</>
+							) : (
+								<span className={styles['select__placeholder']}>
+									{placeholder}
+								</span>
+							)}
+						</span>
 
-				<Listbox
-					id={id}
-					labelId={label ? labelId : undefined}
-					options={options}
-					activeIndex={activeIndex}
-					listboxRef={listboxRef}
-					style={style}
-					placement={placement}
-					isSelected={(optionValue) => optionValue === value}
-					onSelect={handleSelect}
-					onHighlight={setActiveIndex}
-					mounted={mounted}
-					isOpen={isOpen}
-				/>
+						<Icon
+							icon={ChevronDown}
+							size="sm"
+							className={cn(
+								styles['select__chevron'],
+								isOpen && styles['select__chevron--open']
+							)}
+						/>
+					</button>
+
+					<Listbox
+						id={id}
+						labelId={label ? labelId : undefined}
+						options={options}
+						activeIndex={activeIndex}
+						listboxRef={listboxRef}
+						style={style}
+						placement={placement}
+						isSelected={(optionValue) => optionValue === value}
+						onSelect={handleSelect}
+						onHighlight={setActiveIndex}
+						mounted={mounted}
+						isOpen={isOpen}
+					/>
+				</div>
 			</FormField>
 		</div>
 	);

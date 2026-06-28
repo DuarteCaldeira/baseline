@@ -190,6 +190,14 @@ const getLeft = (
 	);
 };
 
+const getPlacementHeight = (
+	floatingRect: FloatingRect,
+	maxHeightLimit?: number
+): number =>
+	maxHeightLimit !== undefined
+		? Math.min(floatingRect.height, maxHeightLimit)
+		: floatingRect.height;
+
 export const computeFloatingPosition = ({
 	triggerRect,
 	floatingRect,
@@ -226,16 +234,22 @@ export const computeFloatingPosition = ({
 		? Math.min(triggerRect.width, viewport.width - padding * 2)
 		: Math.min(floatingRect.width, viewport.width - padding * 2);
 
+	const placementHeight = getPlacementHeight(floatingRect, maxHeightLimit);
+	const placementFloatingRect = {
+		...floatingRect,
+		height: placementHeight,
+	};
+
 	const { placement, maxHeight: availableHeight } = pickPlacement(
 		preferredPlacement,
 		triggerRect,
-		floatingRect,
+		placementFloatingRect,
 		viewport,
 		gap,
 		padding
 	);
 
-	const top = getTop(placement, triggerRect, floatingRect, gap);
+	const top = getTop(placement, triggerRect, placementFloatingRect, gap);
 	const left = getLeft(align, triggerRect, width, viewport, padding);
 
 	let maxHeight = availableHeight;
@@ -246,7 +260,7 @@ export const computeFloatingPosition = ({
 	const clampedTop = clamp(
 		top,
 		padding,
-		Math.max(padding, viewport.height - floatingRect.height - padding)
+		Math.max(padding, viewport.height - placementHeight - padding)
 	);
 
 	return {

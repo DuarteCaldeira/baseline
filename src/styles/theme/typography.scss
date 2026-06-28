@@ -28,9 +28,11 @@
 		#{$font-family-sans};
 	--font-control-lg: #{$font-weight-medium}
 		#{$font-size-base}/#{$line-height-tight} #{$font-family-sans};
+	--font-section-title: #{$font-weight-medium}
+		#{$font-size-base}/#{$line-height-snug} #{$font-family-sans};
 	--font-strong-sm: #{$font-weight-semibold}
 		#{$font-size-sm}/#{$line-height-tight} #{$font-family-sans};
-	--font-title: #{$font-weight-semibold} #{$font-size-lg}/#{$line-height-tight}
+	--font-title: #{$font-weight-medium} #{$font-size-lg}/#{$line-height-tight}
 		#{$font-family-sans};
 
 	// Individual overrides — used when only weight changes (not size or line-height)

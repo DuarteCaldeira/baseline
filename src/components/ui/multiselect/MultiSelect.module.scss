@@ -3,8 +3,8 @@
 @use '@/styles/tokens/motion' as *;
 
 .multiselect {
-	&__wrapper {
-		position: relative;
+	&__control {
+		@include control-field-anchor;
 	}
 
 	&__trigger {

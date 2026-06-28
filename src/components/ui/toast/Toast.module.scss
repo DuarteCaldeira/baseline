@@ -1,12 +1,13 @@
 @use '@/styles/tokens/spacing' as *;
 @use '@/styles/tokens/radius' as *;
 @use '@/styles/tokens/shadows' as *;
+@use '@/styles/tokens/z-index' as *;
 
 .toast-container {
 	position: fixed;
 	top: $spacing-4;
 	right: $spacing-4;
-	z-index: var(--z-index-toast);
+	z-index: var(--z-index-toast, #{$z-index-toast});
 	width: 20rem;
 	max-width: calc(100vw - #{$spacing-8});
 	pointer-events: none;

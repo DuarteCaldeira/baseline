@@ -40,6 +40,7 @@ export const ToastProvider = ({ children }: ToastProviderProps) => {
 		<Stack
 			gap="md"
 			className={styles['toast-container']}
+			style={{ zIndex: 'var(--z-index-toast, 9500)' }}
 			aria-label="Notifications"
 			aria-live="polite"
 			aria-atomic="false"
