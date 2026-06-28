@@ -50,7 +50,10 @@ const getMeasuredRect = (element: HTMLElement) => {
 	};
 };
 
-const getFloatingPanelHeight = (element: HTMLElement, rect: ReturnType<typeof getMeasuredRect>) => {
+const getFloatingPanelHeight = (
+	element: HTMLElement,
+	rect: ReturnType<typeof getMeasuredRect>
+) => {
 	const visibleHeight = rect.height || element.offsetHeight;
 
 	if (visibleHeight > 0) {
@@ -143,7 +146,11 @@ export const useFloatingPosition = ({
 						floating.scrollWidth,
 						1
 					),
-					height: getPlacementPanelHeight(floating, floatingRect, maxHeightLimit),
+					height: getPlacementPanelHeight(
+						floating,
+						floatingRect,
+						maxHeightLimit
+					),
 				},
 				preferredPlacement,
 				align,
@@ -198,7 +205,9 @@ export const useFloatingPosition = ({
 		const trigger = triggerRef.current;
 		const floating = floatingRef.current;
 		const observer =
-			typeof ResizeObserver !== 'undefined' ? new ResizeObserver(updatePosition) : null;
+			typeof ResizeObserver !== 'undefined'
+				? new ResizeObserver(updatePosition)
+				: null;
 
 		if (trigger && observer) {
 			observer.observe(trigger);

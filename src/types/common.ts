@@ -11,9 +11,4 @@ export type WithClassName = {
 export type Size = 'sm' | 'md' | 'lg';
 
 export type ColorVariant =
-	| 'primary'
-	| 'secondary'
-	| 'success'
-	| 'warning'
-	| 'error'
-	| 'ghost';
+	'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'ghost';

@@ -24,12 +24,7 @@ export type StackAs =
 	| 'fieldset';
 
 export type StackHeight =
-	| 'full'
-	| 'screen'
-	| 'auto'
-	| 'fit-content'
-	| 'min-content'
-	| 'max-content';
+	'full' | 'screen' | 'auto' | 'fit-content' | 'min-content' | 'max-content';
 
 export type StackWidth =
 	| 'full'
