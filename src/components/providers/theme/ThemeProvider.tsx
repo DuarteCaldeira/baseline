@@ -53,7 +53,7 @@ type ThemeProviderProps = {
 	 *
 	 * @example
 	 * ```tsx
-	 * import { createTheme } from '@dlcaldeira/design-system';
+	 * import { createTheme } from '@dcaldeira/design-system';
 	 * const brand = createTheme({ colors: { primary: '#e11d48' } });
 	 * <ThemeProvider theme={brand}>…</ThemeProvider>
 	 * ```
