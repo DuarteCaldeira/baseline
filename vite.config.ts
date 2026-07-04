@@ -2,7 +2,7 @@ import react from '@vitejs/plugin-react';
 import { promises as fs } from 'fs';
 import { dirname, resolve } from 'path';
 import type { OutputAsset, OutputBundle, OutputOptions } from 'rollup';
-import { defineConfig, type Plugin } from 'vite';
+import { type Plugin, defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
 const DESIGN_SYSTEM_CSS_LAYER = 'design-system';
