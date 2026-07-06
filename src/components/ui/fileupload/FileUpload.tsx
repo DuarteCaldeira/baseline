@@ -14,7 +14,7 @@ import { FormField } from '@/components/patterns/form-field';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
 import { cn } from '@/utils/cn';
-import { resolveFieldIds } from '@/utils/fieldIds';
+import { getFieldControlProps } from '@/utils/fieldIds';
 
 import styles from './FileUpload.module.scss';
 import type { FileUploadProps } from './FileUpload.types';
@@ -48,8 +48,10 @@ export const FileUpload = ({
 	const inputRef = useRef<HTMLInputElement>(null);
 	const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 	const [isDragOver, setIsDragOver] = useState(false);
-
-	const { describedBy } = resolveFieldIds(inputId, { helperText, error });
+	const fieldControlProps = getFieldControlProps(inputId, {
+		helperText,
+		error,
+	});
 
 	const updateFiles = useCallback(
 		(files: File[], options?: { syncInput?: boolean }) => {
@@ -132,8 +134,7 @@ export const FileUpload = ({
 						accept={accept}
 						required={required}
 						aria-label={label ? undefined : placeholder}
-						aria-invalid={error ? true : undefined}
-						aria-describedby={describedBy}
+						{...fieldControlProps}
 						onChange={handleInputChange}
 						{...rest}
 					/>

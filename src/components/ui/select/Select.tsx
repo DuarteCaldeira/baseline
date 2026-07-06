@@ -1,23 +1,11 @@
-import { useRef } from 'react';
-
 import { ChevronDown } from 'lucide-react';
 
-import { FormField } from '@/components/patterns/form-field';
 import { Icon } from '@/components/ui/icon';
-import {
-	Listbox,
-	getListboxId,
-	getOptionId,
-	scrollOptionIntoView,
-} from '@/components/ui/listbox';
-import { useFloatingPosition } from '@/hooks/useFloatingPosition';
-import { useMounted } from '@/hooks/useMounted';
+import { ListboxField, useListboxField } from '@/components/ui/listbox';
 import { cn } from '@/utils/cn';
-import { getLabelId, resolveFieldIds } from '@/utils/fieldIds';
 
 import styles from './Select.module.scss';
 import type { SelectOption } from './Select.types';
-import { useSelect } from './useSelect';
 
 type SelectProps = {
 	id: string;
@@ -44,8 +32,6 @@ export const Select = ({
 	disabled,
 	required,
 }: SelectProps) => {
-	const listboxRef = useRef<HTMLUListElement>(null);
-	const mounted = useMounted();
 	const selectedIndex = options.findIndex((o) => o.value === value);
 	const selectedOption = selectedIndex >= 0 ? options[selectedIndex] : null;
 
@@ -54,25 +40,20 @@ export const Select = ({
 		activeIndex,
 		containerRef,
 		triggerRef,
-		open,
 		close,
+		listboxRef,
+		mounted,
+		placement,
 		setActiveIndex,
+		style,
 		handleTriggerKeyDown,
-	} = useSelect<HTMLButtonElement>({
-		optionsCount: options.length,
-		isDisabled: disabled,
+		handleToggleOpen,
+		activeDescendant,
+	} = useListboxField<HTMLButtonElement>({
+		id,
+		options,
+		disabled,
 		initialActiveIndex: selectedIndex >= 0 ? selectedIndex : 0,
-		overlayRef: listboxRef,
-		onScrollIntoView: (index) =>
-			scrollOptionIntoView(getOptionId(id, options[index].value)),
-	});
-
-	const { style, placement } = useFloatingPosition({
-		isOpen,
-		triggerRef,
-		floatingRef: listboxRef,
-		matchTriggerWidth: true,
-		maxHeightLimit: 240,
 	});
 
 	const handleSelect = (option: SelectOption) => {
@@ -81,106 +62,82 @@ export const Select = ({
 		close();
 	};
 
-	const handleToggleOpen = () => {
-		if (disabled) return;
-
-		if (isOpen) {
-			close();
-			return;
-		}
-
-		open(selectedIndex >= 0 ? selectedIndex : 0);
-	};
-
-	const labelId = getLabelId(id);
-	const listboxId = getListboxId(id);
-	const { describedBy } = resolveFieldIds(id, { helperText, error });
-
 	return (
-		<div ref={containerRef}>
-			<FormField
-				fieldId={id}
-				label={label}
-				required={required}
-				helperText={helperText}
-				error={error}
-			>
-				<div className={styles['select__control']}>
-					<button
-						ref={triggerRef}
-						id={id}
-						type="button"
-						role="combobox"
-						aria-haspopup="listbox"
-						aria-expanded={isOpen}
-						aria-controls={listboxId}
-						aria-labelledby={label ? labelId : undefined}
-						aria-activedescendant={
-							isOpen
-								? getOptionId(id, options[activeIndex]?.value ?? '')
-								: undefined
-						}
-						aria-invalid={error ? true : undefined}
-						aria-describedby={describedBy}
-						disabled={disabled}
-						className={cn(
-							styles['select__trigger'],
-							error && styles['select__trigger--error'],
-							isOpen && styles['select__trigger--open']
+		<ListboxField
+			id={id}
+			label={label}
+			required={required}
+			helperText={helperText}
+			error={error}
+			containerRef={containerRef}
+			controlClassName={styles['select__control']}
+			renderTrigger={({ labelId, listboxId, fieldControlProps }) => (
+				<button
+					ref={triggerRef}
+					id={id}
+					type="button"
+					role="combobox"
+					aria-haspopup="listbox"
+					aria-expanded={isOpen}
+					aria-controls={listboxId}
+					aria-labelledby={labelId}
+					aria-activedescendant={activeDescendant}
+					{...fieldControlProps}
+					disabled={disabled}
+					className={cn(
+						styles['select__trigger'],
+						error && styles['select__trigger--error'],
+						isOpen && styles['select__trigger--open']
+					)}
+					onClick={handleToggleOpen}
+					onKeyDown={handleTriggerKeyDown}
+				>
+					<span className={styles['select__trigger-value']}>
+						{selectedOption ? (
+							<>
+								{selectedOption.icon && (
+									<span
+										className={styles['select__trigger-icon']}
+										aria-hidden="true"
+									>
+										<Icon
+											icon={selectedOption.icon}
+											size="sm"
+											variant={selectedOption.iconVariant}
+										/>
+									</span>
+								)}
+								<span>{selectedOption.label}</span>
+							</>
+						) : (
+							<span className={styles['select__placeholder']}>
+								{placeholder}
+							</span>
 						)}
-						onClick={handleToggleOpen}
-						onKeyDown={handleTriggerKeyDown}
-					>
-						<span className={styles['select__trigger-value']}>
-							{selectedOption ? (
-								<>
-									{selectedOption.icon && (
-										<span
-											className={styles['select__trigger-icon']}
-											aria-hidden="true"
-										>
-											<Icon
-												icon={selectedOption.icon}
-												size="sm"
-												variant={selectedOption.iconVariant}
-											/>
-										</span>
-									)}
-									<span>{selectedOption.label}</span>
-								</>
-							) : (
-								<span className={styles['select__placeholder']}>
-									{placeholder}
-								</span>
-							)}
-						</span>
+					</span>
 
-						<Icon
-							icon={ChevronDown}
-							size="sm"
-							className={cn(
-								styles['select__chevron'],
-								isOpen && styles['select__chevron--open']
-							)}
-						/>
-					</button>
-
-					<Listbox
-						id={id}
-						labelId={label ? labelId : undefined}
-						options={options}
-						activeIndex={activeIndex}
-						listboxRef={listboxRef}
-						style={style}
-						placement={placement}
-						isSelected={(optionValue) => optionValue === value}
-						onSelect={handleSelect}
-						onHighlight={setActiveIndex}
-						mounted={mounted}
-						isOpen={isOpen}
+					<Icon
+						icon={ChevronDown}
+						size="sm"
+						className={cn(
+							styles['select__chevron'],
+							isOpen && styles['select__chevron--open']
+						)}
 					/>
-				</div>
-			</FormField>
-		</div>
+				</button>
+			)}
+			listboxProps={{
+				options,
+				activeIndex,
+				listboxRef,
+				style,
+				placement,
+				isSelected: (optionValue) => optionValue === value,
+				onSelect: handleSelect,
+				onHighlight: setActiveIndex,
+				mounted,
+				isOpen,
+			}}
+		/>
 	);
 };

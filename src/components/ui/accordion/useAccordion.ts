@@ -1,4 +1,6 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
+
+import { useControllableState } from '@/hooks/useControllableState';
 
 import type { AccordionType } from './Accordion.types';
 
@@ -34,11 +36,15 @@ export const useAccordion = ({
 	defaultValue,
 	onChange,
 }: UseAccordionOptions): UseAccordionReturn => {
-	const [internalOpenIds, setInternalOpenIds] = useState<Set<string>>(() =>
-		toOpenIds(defaultValue)
-	);
+	const { value: openValue, setValue } = useControllableState<
+		string | string[]
+	>({
+		value,
+		defaultValue: defaultValue ?? (type === 'single' ? '' : []),
+		onChange,
+	});
 
-	const openIds = value !== undefined ? toOpenIds(value) : internalOpenIds;
+	const openIds = toOpenIds(openValue);
 
 	const toggle = useCallback(
 		(id: string) => {
@@ -51,13 +57,9 @@ export const useAccordion = ({
 				next.add(id);
 			}
 
-			if (value === undefined) {
-				setInternalOpenIds(next);
-			}
-
-			onChange?.(fromOpenIds(next, type));
+			setValue(fromOpenIds(next, type));
 		},
-		[openIds, type, value, onChange]
+		[openIds, setValue, type]
 	);
 
 	const isOpen = useCallback((id: string) => openIds.has(id), [openIds]);

@@ -4,12 +4,11 @@ import { describe, expect, it, vi } from 'vitest';
 import { setupFakeTimers } from '@/test-utils/setupFakeTimers';
 
 import { Toast } from './Toast';
+import { TOAST_DISMISS_DELAY, TOAST_EXIT_DURATION } from './Toast.constants';
 import { ToastProvider } from './ToastProvider';
 import { useToast } from './useToast';
 
 setupFakeTimers();
-
-// ─── Toast visual component ───────────────────────────────────────────────────
 
 describe('Toast', () => {
 	it('renders the message', () => {
@@ -78,62 +77,23 @@ describe('Toast', () => {
 			screen.getByRole('button', { name: /dismiss notification/i })
 		);
 
-		act(() => vi.advanceTimersByTime(300));
 		expect(onDismiss).toHaveBeenCalledWith('1');
 	});
 
-	it('auto-dismisses after 6 seconds', () => {
-		const onDismiss = vi.fn();
-		render(
-			<Toast
-				id="1"
-				variant="info"
-				message="Auto-dismiss."
-				onDismiss={onDismiss}
-			/>
-		);
-
-		act(() => vi.advanceTimersByTime(6000));
-		expect(onDismiss).toHaveBeenCalledWith('1');
-	});
-
-	it('does not call onDismiss before 6 seconds', () => {
-		const onDismiss = vi.fn();
-		render(
-			<Toast
-				id="1"
-				variant="info"
-				message="Still here."
-				onDismiss={onDismiss}
-			/>
-		);
-
-		act(() => vi.advanceTimersByTime(5000));
-		expect(onDismiss).not.toHaveBeenCalled();
-	});
-
-	it('adds dismissing class at 5700ms', () => {
+	it('adds dismissing class when requested by the provider', () => {
 		const { container } = render(
-			<Toast id="1" variant="info" message="Fading." onDismiss={vi.fn()} />
+			<Toast
+				id="1"
+				variant="info"
+				message="Fading."
+				dismissing
+				onDismiss={vi.fn()}
+			/>
 		);
 
-		act(() => vi.advanceTimersByTime(5700));
 		expect(container.querySelector('.toast--dismissing')).toBeInTheDocument();
 	});
-
-	it('clears timers when unmounted', () => {
-		const onDismiss = vi.fn();
-		const { unmount } = render(
-			<Toast id="1" variant="success" message="Gone." onDismiss={onDismiss} />
-		);
-
-		unmount();
-		act(() => vi.advanceTimersByTime(6000));
-		expect(onDismiss).not.toHaveBeenCalled();
-	});
 });
-
-// ─── ToastProvider + useToast integration ────────────────────────────────────
 
 const TestConsumer = () => {
 	const { show, dismiss } = useToast();
@@ -191,6 +151,23 @@ describe('ToastProvider', () => {
 		expect(screen.getByText('Something went wrong.')).toBeInTheDocument();
 	});
 
+	it('starts the dismissing state before auto-removal', () => {
+		render(
+			<ToastProvider>
+				<TestConsumer />
+			</ToastProvider>
+		);
+
+		fireEvent.click(screen.getByRole('button', { name: /show success/i }));
+		act(() =>
+			vi.advanceTimersByTime(TOAST_DISMISS_DELAY - TOAST_EXIT_DURATION)
+		);
+
+		expect(
+			document.body.querySelector('.toast--dismissing')
+		).toBeInTheDocument();
+	});
+
 	it('removes a toast after 6 seconds', () => {
 		render(
 			<ToastProvider>
@@ -201,7 +178,23 @@ describe('ToastProvider', () => {
 		fireEvent.click(screen.getByRole('button', { name: /show success/i }));
 		expect(screen.getByText('Saved!')).toBeInTheDocument();
 
-		act(() => vi.advanceTimersByTime(6000));
+		act(() => vi.advanceTimersByTime(TOAST_DISMISS_DELAY));
+		expect(screen.queryByText('Saved!')).not.toBeInTheDocument();
+	});
+
+	it('removes a toast shortly after dismiss() is called', () => {
+		render(
+			<ToastProvider>
+				<TestConsumer />
+			</ToastProvider>
+		);
+
+		fireEvent.click(screen.getByRole('button', { name: /show success/i }));
+		expect(screen.getByText('Saved!')).toBeInTheDocument();
+
+		fireEvent.click(screen.getByRole('button', { name: /^dismiss$/i }));
+		act(() => vi.advanceTimersByTime(TOAST_EXIT_DURATION));
+
 		expect(screen.queryByText('Saved!')).not.toBeInTheDocument();
 	});
 

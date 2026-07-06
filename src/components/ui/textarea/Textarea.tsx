@@ -2,7 +2,7 @@ import type { TextareaHTMLAttributes } from 'react';
 
 import { FormField } from '@/components/patterns/form-field';
 import { cn } from '@/utils/cn';
-import { resolveFieldIds } from '@/utils/fieldIds';
+import { getFieldControlProps } from '@/utils/fieldIds';
 
 import styles from './Textarea.module.scss';
 
@@ -23,7 +23,7 @@ export const Textarea = ({
 	required,
 	...rest
 }: TextareaProps) => {
-	const { describedBy } = resolveFieldIds(id, { helperText, error });
+	const fieldControlProps = getFieldControlProps(id, { helperText, error });
 
 	return (
 		<FormField
@@ -41,8 +41,7 @@ export const Textarea = ({
 					error && styles['textarea--error'],
 					className
 				)}
-				aria-invalid={error ? true : undefined}
-				aria-describedby={describedBy}
+				{...fieldControlProps}
 				required={required}
 				{...rest}
 			/>

@@ -3,7 +3,7 @@ import type { InputHTMLAttributes } from 'react';
 import { VISUALLY_HIDDEN_CLASS } from '@/components/a11y/visually-hidden';
 import { FormField } from '@/components/patterns/form-field';
 import { cn } from '@/utils/cn';
-import { resolveFieldIds } from '@/utils/fieldIds';
+import { getFieldControlProps } from '@/utils/fieldIds';
 
 import styles from './ToggleSwitch.module.scss';
 
@@ -25,7 +25,7 @@ export const ToggleSwitch = ({
 	className,
 	...rest
 }: ToggleSwitchProps) => {
-	const { describedBy } = resolveFieldIds(id, { helperText, error });
+	const fieldControlProps = getFieldControlProps(id, { helperText, error });
 
 	return (
 		<div
@@ -47,8 +47,7 @@ export const ToggleSwitch = ({
 							styles['toggle-switch__input']
 						)}
 						disabled={disabled}
-						aria-invalid={error ? true : undefined}
-						aria-describedby={describedBy}
+						{...fieldControlProps}
 						{...rest}
 					/>
 					<span className={styles['toggle-switch__track']} aria-hidden="true">

@@ -110,6 +110,13 @@ describe('DatePicker', () => {
 				'dob-error'
 			);
 		});
+		it('sets aria-invalid when error is provided', () => {
+			render(<DatePicker error="ObrigatÃ³rio" />);
+			expect(screen.getByRole('button')).toHaveAttribute(
+				'aria-invalid',
+				'true'
+			);
+		});
 	});
 
 	describe('calendar open / close', () => {

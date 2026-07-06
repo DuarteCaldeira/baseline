@@ -8,7 +8,7 @@ import { Icon } from '@/components/ui/icon';
 import { useFloatingPosition } from '@/hooks/useFloatingPosition';
 import { useMounted } from '@/hooks/useMounted';
 import { cn } from '@/utils/cn';
-import { resolveFieldIds } from '@/utils/fieldIds';
+import { getFieldControlProps } from '@/utils/fieldIds';
 
 import styles from './DatePicker.module.scss';
 import type { DatePickerProps } from './DatePicker.types';
@@ -43,7 +43,7 @@ export const DatePicker = ({
 	const mounted = useMounted();
 	const resolvedPlaceholder = placeholder ?? formatPlaceholder(format);
 	const weekdays = getWeekdays();
-	const { describedBy } = resolveFieldIds(id, { helperText, error });
+	const fieldControlProps = getFieldControlProps(id, { helperText, error });
 
 	const {
 		isOpen,
@@ -99,7 +99,7 @@ export const DatePicker = ({
 					type="button"
 					aria-haspopup="dialog"
 					aria-expanded={isOpen}
-					aria-describedby={describedBy}
+					{...fieldControlProps}
 					disabled={disabled}
 					className={cn(
 						styles['datepicker__trigger'],

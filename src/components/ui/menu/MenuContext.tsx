@@ -1,18 +1,100 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useMemo } from 'react';
+import type { ReactNode } from 'react';
 
-import type { MenuContextValue } from './Menu.types';
+import type {
+	MenuContentStateContextValue,
+	MenuContextValue,
+	MenuControllerContextValue,
+} from './Menu.types';
 
-const MenuContext = createContext<MenuContextValue | null>(null);
+const MenuControllerContext = createContext<MenuControllerContextValue | null>(
+	null
+);
+const MenuContentStateContext =
+	createContext<MenuContentStateContextValue | null>(null);
 
-export const MenuProvider = MenuContext.Provider;
+type MenuProviderProps = {
+	value: MenuContextValue;
+	children: ReactNode;
+};
 
-export const useMenuContext = (): MenuContextValue => {
-	const context = useContext(MenuContext);
+const splitMenuContext = (
+	value: MenuContextValue
+): {
+	controller: MenuControllerContextValue;
+	contentState: MenuContentStateContextValue;
+} => {
+	const {
+		activeSubmenu,
+		setActiveSubmenu,
+		highlightedId,
+		setHighlightedId,
+		hasPeerSubmenus,
+		registerSubmenuClose,
+		unregisterSubmenuClose,
+		closePeerSubmenus,
+		...controller
+	} = value;
+
+	return {
+		controller,
+		contentState: {
+			activeSubmenu,
+			setActiveSubmenu,
+			highlightedId,
+			setHighlightedId,
+			hasPeerSubmenus,
+			registerSubmenuClose,
+			unregisterSubmenuClose,
+			closePeerSubmenus,
+		},
+	};
+};
+
+export const MenuProvider = ({ value, children }: MenuProviderProps) => {
+	const { controller, contentState } = useMemo(
+		() => splitMenuContext(value),
+		[value]
+	);
+
+	return (
+		<MenuControllerContext.Provider value={controller}>
+			<MenuContentStateContext.Provider value={contentState}>
+				{children}
+			</MenuContentStateContext.Provider>
+		</MenuControllerContext.Provider>
+	);
+};
+
+export const useMenuControllerContext = (): MenuControllerContextValue => {
+	const context = useContext(MenuControllerContext);
 	if (!context) {
 		throw new Error('Menu components must be used within a Menu.');
 	}
 	return context;
 };
 
-export const useOptionalMenuContext = (): MenuContextValue | null =>
-	useContext(MenuContext);
+export const useMenuContentStateContext = (): MenuContentStateContextValue => {
+	const context = useContext(MenuContentStateContext);
+	if (!context) {
+		throw new Error('Menu components must be used within a Menu.');
+	}
+	return context;
+};
+
+export const useMenuContext = (): MenuContextValue => ({
+	...useMenuControllerContext(),
+	...useMenuContentStateContext(),
+});
+
+export const useOptionalMenuContext = (): MenuContextValue | null => {
+	const controller = useContext(MenuControllerContext);
+	const contentState = useContext(MenuContentStateContext);
+
+	if (!controller || !contentState) return null;
+
+	return {
+		...controller,
+		...contentState,
+	};
+};

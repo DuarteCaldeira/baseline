@@ -1,11 +1,6 @@
-import {
-	type HTMLAttributes,
-	useCallback,
-	useEffect,
-	useId,
-	useRef,
-	useState,
-} from 'react';
+import { type HTMLAttributes, useCallback, useEffect, useId } from 'react';
+
+import { useDelayedVisibility } from '@/hooks/useDelayedVisibility';
 
 const OPEN_DELAY = 200;
 const CLOSE_DELAY = 0;
@@ -23,54 +18,28 @@ type UseTooltipReturn = {
 
 export const useTooltip = (): UseTooltipReturn => {
 	const tooltipId = useId();
-	const [isOpen, setIsOpen] = useState(false);
-	const openTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(
-		undefined
-	);
-	const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(
-		undefined
-	);
-
-	const clearTimers = useCallback(() => {
-		if (openTimeoutRef.current) {
-			clearTimeout(openTimeoutRef.current);
-			openTimeoutRef.current = undefined;
-		}
-		if (closeTimeoutRef.current) {
-			clearTimeout(closeTimeoutRef.current);
-			closeTimeoutRef.current = undefined;
-		}
-	}, []);
-
-	const show = useCallback(() => {
-		clearTimers();
-		openTimeoutRef.current = setTimeout(() => {
-			setIsOpen(true);
-		}, OPEN_DELAY);
-	}, [clearTimers]);
-
-	const hide = useCallback(() => {
-		clearTimers();
-		closeTimeoutRef.current = setTimeout(() => {
-			setIsOpen(false);
-		}, CLOSE_DELAY);
-	}, [clearTimers]);
+	const {
+		isVisible: isOpen,
+		show,
+		hide,
+		hideNow,
+	} = useDelayedVisibility({
+		openDelay: OPEN_DELAY,
+		closeDelay: CLOSE_DELAY,
+	});
 
 	useEffect(() => {
 		if (!isOpen) return;
 
 		const handleKeyDown = (event: KeyboardEvent) => {
 			if (event.key === 'Escape') {
-				clearTimers();
-				setIsOpen(false);
+				hideNow();
 			}
 		};
 
 		document.addEventListener('keydown', handleKeyDown);
 		return () => document.removeEventListener('keydown', handleKeyDown);
-	}, [clearTimers, isOpen]);
-
-	useEffect(() => clearTimers, [clearTimers]);
+	}, [hideNow, isOpen]);
 
 	const getTriggerProps = useCallback(
 		(existing: HTMLAttributes<HTMLElement> = {}): TriggerProps => ({

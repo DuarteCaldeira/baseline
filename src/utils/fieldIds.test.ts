@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import {
 	getDescribedBy,
 	getErrorId,
+	getFieldControlProps,
 	getHelperId,
 	getLabelId,
 	resolveFieldIds,
@@ -54,6 +55,18 @@ describe('fieldIds', () => {
 			helperId: undefined,
 			errorId: 'email-error',
 			describedBy: 'email-error',
+		});
+	});
+
+	it('builds shared field control aria props', () => {
+		expect(
+			getFieldControlProps('email', {
+				helperText: 'Help',
+				error: 'Required',
+			})
+		).toEqual({
+			'aria-describedby': 'email-helper email-error',
+			'aria-invalid': true,
 		});
 	});
 });

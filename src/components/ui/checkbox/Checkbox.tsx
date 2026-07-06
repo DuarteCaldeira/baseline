@@ -2,7 +2,7 @@ import type { InputHTMLAttributes } from 'react';
 
 import { FormField } from '@/components/patterns/form-field';
 import { cn } from '@/utils/cn';
-import { resolveFieldIds } from '@/utils/fieldIds';
+import { getFieldControlProps } from '@/utils/fieldIds';
 
 import styles from './Checkbox.module.scss';
 
@@ -21,7 +21,7 @@ export const Checkbox = ({
 	className,
 	...rest
 }: CheckboxProps) => {
-	const { describedBy } = resolveFieldIds(id, { helperText, error });
+	const fieldControlProps = getFieldControlProps(id, { helperText, error });
 
 	return (
 		<div
@@ -39,8 +39,7 @@ export const Checkbox = ({
 						id={id}
 						className={styles['checkbox__input']}
 						disabled={disabled}
-						aria-invalid={error ? true : undefined}
-						aria-describedby={describedBy}
+						{...fieldControlProps}
 						{...rest}
 					/>
 					{label && <span className={styles['checkbox__text']}>{label}</span>}

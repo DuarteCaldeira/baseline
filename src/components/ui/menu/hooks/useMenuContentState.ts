@@ -1,11 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import type { ActiveSubmenu, MenuContextValue } from '../Menu.types';
+import type {
+	ActiveSubmenu,
+	MenuContentStateContextValue,
+} from '../Menu.types';
 
 type UseMenuContentStateOptions = {
 	isDropdown: boolean;
 	isOpen: boolean;
-	parentContext: MenuContextValue;
+	parentContext: MenuContentStateContextValue;
 };
 
 export const useMenuContentState = ({

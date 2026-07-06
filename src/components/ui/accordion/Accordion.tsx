@@ -1,5 +1,6 @@
 import { useRef } from 'react';
-import type { KeyboardEvent } from 'react';
+
+import { useRovingFocus } from '@/hooks/useRovingFocus';
 
 import styles from './Accordion.module.scss';
 import type { AccordionProps } from './Accordion.types';
@@ -21,37 +22,16 @@ export const Accordion = ({
 		onChange,
 	});
 
-	const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
-		const triggers = Array.from(
-			containerRef.current?.querySelectorAll<HTMLButtonElement>(
-				'[data-accordion-trigger]:not([disabled])'
-			) ?? []
-		);
-
-		const current = triggers.indexOf(e.currentTarget);
-		let next: number | null = null;
-
-		switch (e.key) {
-			case 'ArrowDown':
-				e.preventDefault();
-				next = (current + 1) % triggers.length;
-				break;
-			case 'ArrowUp':
-				e.preventDefault();
-				next = (current - 1 + triggers.length) % triggers.length;
-				break;
-			case 'Home':
-				e.preventDefault();
-				next = 0;
-				break;
-			case 'End':
-				e.preventDefault();
-				next = triggers.length - 1;
-				break;
-		}
-
-		if (next !== null) triggers[next].focus();
-	};
+	const handleKeyDown = useRovingFocus<HTMLButtonElement>({
+		containerRef,
+		itemSelector: '[data-accordion-trigger]:not([disabled])',
+		keyMap: {
+			next: 'ArrowDown',
+			prev: 'ArrowUp',
+			first: 'Home',
+			last: 'End',
+		},
+	});
 
 	return (
 		<div ref={containerRef} className={styles.accordion}>

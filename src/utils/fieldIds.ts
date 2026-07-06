@@ -18,6 +18,11 @@ export type FieldIds = {
 	describedBy: string | undefined;
 };
 
+export type FieldControlProps = {
+	'aria-describedby': string | undefined;
+	'aria-invalid': true | undefined;
+};
+
 export const resolveFieldIds = (
 	fieldId: string | undefined,
 	{ helperText, error }: FieldIdsOptions = {}
@@ -27,4 +32,16 @@ export const resolveFieldIds = (
 	const describedBy = getDescribedBy([helperId, errorId]);
 
 	return { helperId, errorId, describedBy };
+};
+
+export const getFieldControlProps = (
+	fieldId: string | undefined,
+	options: FieldIdsOptions = {}
+): FieldControlProps => {
+	const { describedBy } = resolveFieldIds(fieldId, options);
+
+	return {
+		'aria-describedby': describedBy,
+		'aria-invalid': options.error ? true : undefined,
+	};
 };

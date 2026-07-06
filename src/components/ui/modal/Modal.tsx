@@ -2,12 +2,9 @@ import { useId } from 'react';
 import type { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 
-import { X } from 'lucide-react';
-
 import { Stack } from '@/components/layout/stack';
 import { Overlay } from '@/components/patterns/overlay';
-import { Button } from '@/components/ui/button';
-import { Icon } from '@/components/ui/icon';
+import { OverlayPanelFrame } from '@/components/ui/overlay-panel/OverlayPanelFrame';
 import { useMounted } from '@/hooks/useMounted';
 import type { Size } from '@/types/common';
 import { cn } from '@/utils/cn';
@@ -59,44 +56,22 @@ export const Modal = ({
 				onClick={handleDialogClick}
 				onKeyDown={handleDialogKeyDown}
 			>
-				<Stack
-					as="header"
-					direction="row"
-					justify={title ? 'between' : 'end'}
-					align="center"
-					className={cn(
-						styles['modal__header'],
-						!title && styles['modal__header--no-title']
-					)}
+				<OverlayPanelFrame
+					title={title}
+					titleId={titleId}
+					footer={footer}
+					onClose={onClose}
+					closeLabel="Close modal"
+					classNames={{
+						header: styles['modal__header'],
+						headerNoTitle: styles['modal__header--no-title'],
+						title: styles['modal__title'],
+						body: styles['modal__body'],
+						footer: styles['modal__footer'],
+					}}
 				>
-					{title && (
-						<h2 id={titleId} className={styles['modal__title']}>
-							{title}
-						</h2>
-					)}
-					<Button
-						type="button"
-						variant="ghost"
-						size="sm"
-						iconOnly
-						onClick={onClose}
-						aria-label="Close modal"
-					>
-						<Icon icon={X} size="sm" />
-					</Button>
-				</Stack>
-				<div className={styles['modal__body']}>{children}</div>
-				{footer && (
-					<Stack
-						as="footer"
-						direction="row"
-						justify="end"
-						gap="sm"
-						className={styles['modal__footer']}
-					>
-						{footer}
-					</Stack>
-				)}
+					{children}
+				</OverlayPanelFrame>
 			</Stack>
 		</Overlay>,
 		document.body

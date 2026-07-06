@@ -6,6 +6,8 @@ import {
 	useState,
 } from 'react';
 
+import { useDismissibleLayer } from '@/hooks/useDismissibleLayer';
+
 import {
 	focusMenuItem,
 	focusMenubarItem,
@@ -41,6 +43,21 @@ export const useMenu = ({
 		clearTimeout(closeTimerRef.current);
 		closeTimerRef.current = undefined;
 	}, []);
+
+	useDismissibleLayer({
+		isOpen: isOpen && variant !== 'menubar',
+		onDismiss: () => {
+			cancelSubmenuClose();
+			if (variant === 'submenu' && activeSubmenu?.menuId === menuId) {
+				setActiveSubmenu(null);
+			}
+			setIsOpen(false);
+			triggerRef.current?.focus();
+		},
+		refs: [containerRef, contentRef],
+		triggerRef,
+		dismissOnEscape: false,
+	});
 
 	const close = useCallback(() => {
 		cancelSubmenuClose();
@@ -80,20 +97,6 @@ export const useMenu = ({
 			setIsOpen(false);
 		}
 	}, [activeSubmenu, isOpen, menuId, parentMenuId, variant]);
-
-	useEffect(() => {
-		if (!isOpen || variant === 'menubar') return;
-
-		const handlePointerDown = (event: PointerEvent) => {
-			const target = event.target as Node;
-			if (containerRef.current?.contains(target)) return;
-			if (contentRef.current?.contains(target)) return;
-			close();
-		};
-
-		document.addEventListener('pointerdown', handlePointerDown);
-		return () => document.removeEventListener('pointerdown', handlePointerDown);
-	}, [close, isOpen, variant]);
 
 	useEffect(() => {
 		if (!isOpen || variant === 'menubar') return;

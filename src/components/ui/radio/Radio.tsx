@@ -2,7 +2,7 @@ import type { InputHTMLAttributes } from 'react';
 
 import { FormField } from '@/components/patterns/form-field';
 import { cn } from '@/utils/cn';
-import { resolveFieldIds } from '@/utils/fieldIds';
+import { getFieldControlProps } from '@/utils/fieldIds';
 
 import styles from './Radio.module.scss';
 
@@ -21,7 +21,7 @@ export const Radio = ({
 	className,
 	...rest
 }: RadioProps) => {
-	const { describedBy } = resolveFieldIds(id, { helperText, error });
+	const fieldControlProps = getFieldControlProps(id, { helperText, error });
 
 	return (
 		<div
@@ -39,7 +39,7 @@ export const Radio = ({
 						id={id}
 						className={styles['radio__input']}
 						disabled={disabled}
-						aria-describedby={describedBy}
+						{...fieldControlProps}
 						{...rest}
 					/>
 					{label && <span className={styles['radio__text']}>{label}</span>}

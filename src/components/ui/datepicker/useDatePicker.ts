@@ -8,6 +8,8 @@ import {
 	useState,
 } from 'react';
 
+import { useDismissibleLayer } from '@/hooks/useDismissibleLayer';
+
 import {
 	WEEK_STARTS_ON,
 	addDays,
@@ -73,6 +75,16 @@ export const useDatePicker = ({
 	const triggerRef = useRef<HTMLButtonElement>(null);
 	const calendarRef = useRef<HTMLDivElement>(null);
 
+	const { restoreFocus } = useDismissibleLayer({
+		isOpen,
+		onDismiss: () => {
+			setIsOpen(false);
+			setFocusedDate(null);
+		},
+		refs: [containerRef, calendarRef],
+		triggerRef,
+	});
+
 	const selectedDate = (() => {
 		if (!isControlled) return internalDate;
 		if (!value) return undefined;
@@ -94,19 +106,6 @@ export const useDatePicker = ({
 		);
 		btn?.focus();
 	}, [focusedDate, isOpen]);
-
-	// Close on pointer-down outside the component
-	useEffect(() => {
-		if (!isOpen) return;
-		const handlePointerDown = (e: PointerEvent) => {
-			const target = e.target as Node;
-			if (containerRef.current?.contains(target)) return;
-			if (calendarRef.current?.contains(target)) return;
-			close();
-		};
-		document.addEventListener('pointerdown', handlePointerDown);
-		return () => document.removeEventListener('pointerdown', handlePointerDown);
-	}, [isOpen]);
 
 	const isDisabled = useCallback(
 		(date: Date): boolean => {
@@ -133,8 +132,8 @@ export const useDatePicker = ({
 	const close = useCallback(() => {
 		setIsOpen(false);
 		setFocusedDate(null);
-		triggerRef.current?.focus();
-	}, []);
+		restoreFocus();
+	}, [restoreFocus]);
 
 	const open = useCallback(() => {
 		if (disabled) return;
@@ -151,9 +150,9 @@ export const useDatePicker = ({
 			onChange?.(d);
 			setIsOpen(false);
 			setFocusedDate(null);
-			triggerRef.current?.focus();
+			restoreFocus();
 		},
-		[isControlled, onChange]
+		[isControlled, onChange, restoreFocus]
 	);
 
 	const navigateMonth = useCallback((delta: number) => {

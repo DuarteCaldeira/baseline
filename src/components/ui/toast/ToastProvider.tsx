@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useState } from 'react';
+import { createContext, useContext } from 'react';
 import type { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 
@@ -7,7 +7,8 @@ import { useMounted } from '@/hooks/useMounted';
 
 import { Toast } from './Toast';
 import styles from './Toast.module.scss';
-import type { ToastContextValue, ToastItem } from './Toast.types';
+import type { ToastContextValue } from './Toast.types';
+import { useToastQueue } from './useToastQueue';
 
 export const ToastContext = createContext<ToastContextValue | null>(null);
 
@@ -17,24 +18,13 @@ export const useToastContext = (): ToastContextValue => {
 	return ctx;
 };
 
-let toastCount = 0;
-
 type ToastProviderProps = {
 	children: ReactNode;
 };
 
 export const ToastProvider = ({ children }: ToastProviderProps) => {
-	const [toasts, setToasts] = useState<ToastItem[]>([]);
+	const { toasts, show, dismiss } = useToastQueue();
 	const mounted = useMounted();
-
-	const show = useCallback((toast: Omit<ToastItem, 'id'>) => {
-		const id = String(++toastCount);
-		setToasts((prev) => [...prev, { ...toast, id }]);
-	}, []);
-
-	const dismiss = useCallback((id: string) => {
-		setToasts((prev) => prev.filter((t) => t.id !== id));
-	}, []);
 
 	const toastContainer = (
 		<Stack

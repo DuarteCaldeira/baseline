@@ -89,6 +89,11 @@ describe('Radio', () => {
 		);
 	});
 
+	it('sets aria-invalid when error is provided', () => {
+		render(<Radio error="Required" />);
+		expect(screen.getByRole('radio')).toHaveAttribute('aria-invalid', 'true');
+	});
+
 	it('sets aria-describedby linking to error element', () => {
 		render(<Radio id="option-a" error="Required" />);
 		const input = screen.getByRole('radio');

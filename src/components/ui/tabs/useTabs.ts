@@ -1,4 +1,6 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
+
+import { useControllableState } from '@/hooks/useControllableState';
 
 import type { TabItem } from './Tabs.types';
 
@@ -23,23 +25,21 @@ export const useTabs = ({
 	defaultValue,
 	onChange,
 }: UseTabsOptions): UseTabsReturn => {
-	const [internalId, setInternalId] = useState(
-		() => defaultValue ?? getFirstEnabledId(items)
-	);
-
-	const activeId = value ?? internalId;
+	const { value: activeId = getFirstEnabledId(items), setValue } =
+		useControllableState({
+			value,
+			defaultValue: defaultValue ?? getFirstEnabledId(items),
+			onChange,
+		});
 
 	const select = useCallback(
 		(id: string) => {
 			const item = items.find((tab) => tab.id === id);
 			if (!item || item.disabled) return;
 
-			if (value === undefined) {
-				setInternalId(id);
-			}
-			onChange?.(id);
+			setValue(id);
 		},
-		[items, value, onChange]
+		[items, setValue]
 	);
 
 	return { activeId, select };

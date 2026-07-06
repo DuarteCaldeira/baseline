@@ -53,7 +53,7 @@ export type ActiveSubmenu = {
 	parentMenuId: string;
 };
 
-export type MenuContextValue = {
+export type MenuControllerContextValue = {
 	menuId: string;
 	parentMenuId: string | null;
 	variant: MenuVariant;
@@ -64,8 +64,6 @@ export type MenuContextValue = {
 	close: () => void;
 	closeAll: () => void;
 	toggle: () => void;
-	activeSubmenu: ActiveSubmenu | null;
-	setActiveSubmenu: (submenu: ActiveSubmenu | null) => void;
 	scheduleSubmenuClose: () => void;
 	cancelSubmenuClose: () => void;
 	containerRef: RefObject<HTMLDivElement | null>;
@@ -75,6 +73,11 @@ export type MenuContextValue = {
 	handleTriggerKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
 	handleContentKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
 	handleMenubarKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
+};
+
+export type MenuContentStateContextValue = {
+	activeSubmenu: ActiveSubmenu | null;
+	setActiveSubmenu: (submenu: ActiveSubmenu | null) => void;
 	highlightedId: string | null;
 	setHighlightedId: (id: string | null) => void;
 	hasPeerSubmenus: () => boolean;
@@ -83,8 +86,11 @@ export type MenuContextValue = {
 	closePeerSubmenus: (keepMenuId?: string | null) => void;
 };
 
+export type MenuContextValue = MenuControllerContextValue &
+	MenuContentStateContextValue;
+
 export type UseMenuOptions = Pick<
-	MenuContextValue,
+	MenuContentStateContextValue,
 	'activeSubmenu' | 'setActiveSubmenu'
 > & {
 	variant: MenuVariant;
@@ -93,7 +99,7 @@ export type UseMenuOptions = Pick<
 };
 
 export type UseMenuReturn = Pick<
-	MenuContextValue,
+	MenuControllerContextValue,
 	| 'isOpen'
 	| 'open'
 	| 'close'

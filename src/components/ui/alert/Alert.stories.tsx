@@ -88,10 +88,10 @@ export const AllVariants: Story = {
 			<Alert variant="error" title="Upload failed">
 				The file exceeds the 10 MB limit. Choose a smaller file and try again.
 			</Alert>
-			<Alert variant="warning" title="Action required">
+			<Alert variant="warning" title="Action required" onDismiss={() => {}}>
 				Verify your email address to keep full access to your account.
 			</Alert>
-			<Alert variant="info">
+			<Alert variant="info" onDismiss={() => {}}>
 				Maintenance is scheduled for Sunday at 02:00 UTC. Expect brief downtime.
 			</Alert>
 		</Stack>

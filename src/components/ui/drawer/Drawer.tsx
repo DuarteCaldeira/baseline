@@ -1,12 +1,8 @@
 import { useId } from 'react';
 import { createPortal } from 'react-dom';
 
-import { X } from 'lucide-react';
-
-import { Stack } from '@/components/layout/stack';
 import { Overlay } from '@/components/patterns/overlay';
-import { Button } from '@/components/ui/button';
-import { Icon } from '@/components/ui/icon';
+import { OverlayPanelFrame } from '@/components/ui/overlay-panel/OverlayPanelFrame';
 import { useMounted } from '@/hooks/useMounted';
 import { cn } from '@/utils/cn';
 
@@ -59,44 +55,22 @@ export const Drawer = ({
 				onKeyDown={handleDialogKeyDown}
 				onAnimationEnd={handlePanelAnimationEnd}
 			>
-				<Stack
-					as="header"
-					direction="row"
-					justify={title ? 'between' : 'end'}
-					align="center"
-					className={cn(
-						styles['drawer__header'],
-						!title && styles['drawer__header--no-title']
-					)}
+				<OverlayPanelFrame
+					title={title}
+					titleId={titleId}
+					footer={footer}
+					onClose={onClose}
+					closeLabel="Close drawer"
+					classNames={{
+						header: styles['drawer__header'],
+						headerNoTitle: styles['drawer__header--no-title'],
+						title: styles['drawer__title'],
+						body: styles['drawer__body'],
+						footer: styles['drawer__footer'],
+					}}
 				>
-					{title && (
-						<h2 id={titleId} className={styles['drawer__title']}>
-							{title}
-						</h2>
-					)}
-					<Button
-						type="button"
-						variant="ghost"
-						size="sm"
-						iconOnly
-						onClick={onClose}
-						aria-label="Close drawer"
-					>
-						<Icon icon={X} size="sm" />
-					</Button>
-				</Stack>
-				<div className={styles['drawer__body']}>{children}</div>
-				{footer && (
-					<Stack
-						as="footer"
-						direction="row"
-						justify="end"
-						gap="sm"
-						className={styles['drawer__footer']}
-					>
-						{footer}
-					</Stack>
-				)}
+					{children}
+				</OverlayPanelFrame>
 			</div>
 		</Overlay>,
 		document.body

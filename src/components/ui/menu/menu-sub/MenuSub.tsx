@@ -3,33 +3,39 @@ import { useEffect, useId } from 'react';
 import styles from '../Menu.module.scss';
 import type { MenuContextValue, MenuSubProps } from '../Menu.types';
 import { pickInheritedContentState } from '../Menu.utils';
-import { MenuProvider, useMenuContext } from '../MenuContext';
+import {
+	MenuProvider,
+	useMenuContentStateContext,
+	useMenuControllerContext,
+} from '../MenuContext';
 import { useMenu } from '../hooks/useMenu';
 
 export const MenuSub = ({ children }: MenuSubProps) => {
-	const parent = useMenuContext();
+	const parentController = useMenuControllerContext();
+	const parentContentState = useMenuContentStateContext();
+	const parent = { ...parentController, ...parentContentState };
 	const menuId = useId();
 
 	const menu = useMenu({
 		variant: 'submenu',
 		menuId,
-		parentMenuId: parent.menuId,
-		activeSubmenu: parent.activeSubmenu,
-		setActiveSubmenu: parent.setActiveSubmenu,
+		parentMenuId: parentController.menuId,
+		activeSubmenu: parentContentState.activeSubmenu,
+		setActiveSubmenu: parentContentState.setActiveSubmenu,
 	});
 
 	useEffect(() => {
-		if (!parent.inContent) return;
-		parent.registerSubmenuClose(menuId, menu.close);
-		return () => parent.unregisterSubmenuClose(menuId);
-	}, [menu.close, menuId, parent]);
+		if (!parentController.inContent) return;
+		parentContentState.registerSubmenuClose(menuId, menu.close);
+		return () => parentContentState.unregisterSubmenuClose(menuId);
+	}, [menu.close, menuId, parentController.inContent, parentContentState]);
 
 	const context: MenuContextValue = {
 		menuId,
-		parentMenuId: parent.menuId,
+		parentMenuId: parentController.menuId,
 		variant: 'submenu',
 		inMenubar: false,
-		inContent: parent.inContent,
+		inContent: parentController.inContent,
 		...pickInheritedContentState(parent),
 		...menu,
 	};

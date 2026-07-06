@@ -1,7 +1,7 @@
-import type { MenuContextValue } from './Menu.types';
+import type { MenuContentStateContextValue } from './Menu.types';
 
 export const MENU_CONTENT_DEFAULTS: Pick<
-	MenuContextValue,
+	MenuContentStateContextValue,
 	| 'highlightedId'
 	| 'setHighlightedId'
 	| 'hasPeerSubmenus'

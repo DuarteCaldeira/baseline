@@ -3,7 +3,7 @@ import type { InputHTMLAttributes, ReactNode } from 'react';
 import { Stack } from '@/components/layout/stack';
 import { FormField } from '@/components/patterns/form-field';
 import { cn } from '@/utils/cn';
-import { resolveFieldIds } from '@/utils/fieldIds';
+import { getFieldControlProps } from '@/utils/fieldIds';
 
 import styles from './Input.module.scss';
 
@@ -47,7 +47,7 @@ export const Input = ({
 	required,
 	...rest
 }: InputProps) => {
-	const { describedBy } = resolveFieldIds(id, { helperText, error });
+	const fieldControlProps = getFieldControlProps(id, { helperText, error });
 	const hasAffixes = leftAffix != null || rightAffix != null;
 
 	const inputElement = (
@@ -59,8 +59,7 @@ export const Input = ({
 				error && !hasAffixes && styles['input--error'],
 				className
 			)}
-			aria-invalid={error ? true : undefined}
-			aria-describedby={describedBy}
+			{...fieldControlProps}
 			required={required}
 			{...rest}
 		/>

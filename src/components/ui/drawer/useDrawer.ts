@@ -8,7 +8,7 @@ import {
 	useState,
 } from 'react';
 
-import { useModal } from '@/components/ui/modal/useModal';
+import { useOverlayBehavior } from '@/hooks/useOverlayBehavior';
 
 type DrawerPhase = 'hidden' | 'visible' | 'exiting';
 
@@ -23,9 +23,9 @@ type UseDrawerReturn = {
 	present: boolean;
 	closing: boolean;
 	handleOverlayClick: () => void;
-	handleDialogClick: (e: MouseEvent) => void;
-	handleDialogKeyDown: (e: KeyboardEvent) => void;
-	handlePanelAnimationEnd: (e: AnimationEvent<HTMLDivElement>) => void;
+	handleDialogClick: (event: MouseEvent) => void;
+	handleDialogKeyDown: (event: KeyboardEvent) => void;
+	handlePanelAnimationEnd: (event: AnimationEvent<HTMLDivElement>) => void;
 };
 
 const resolvePhase = (isOpen: boolean, phase: DrawerPhase): DrawerPhase => {
@@ -51,15 +51,15 @@ export const useDrawer = ({
 		handleOverlayClick,
 		handleDialogClick,
 		handleDialogKeyDown,
-	} = useModal({ isOpen: present, onClose, closeOnBackdropClick });
+	} = useOverlayBehavior({ isOpen: present, onClose, closeOnBackdropClick });
 
 	useEffect(() => {
 		setPhase((current) => resolvePhase(isOpen, current));
 	}, [isOpen]);
 
 	const handlePanelAnimationEnd = useCallback(
-		(e: AnimationEvent<HTMLDivElement>) => {
-			if (e.target !== e.currentTarget) return;
+		(event: AnimationEvent<HTMLDivElement>) => {
+			if (event.target !== event.currentTarget) return;
 
 			setPhase((current) => (current === 'exiting' ? 'hidden' : current));
 		},

@@ -2,6 +2,7 @@ import { useCallback, useRef } from 'react';
 import type { KeyboardEvent } from 'react';
 
 import { Stack } from '@/components/layout/stack';
+import { useRovingFocus } from '@/hooks/useRovingFocus';
 import { cn } from '@/utils/cn';
 
 import styles from './Tabs.module.scss';
@@ -17,6 +18,7 @@ type TabsProps = {
 };
 
 export const Tabs = ({ items, value, defaultValue, onChange }: TabsProps) => {
+	const navigationKeys = new Set(['ArrowRight', 'ArrowLeft', 'Home', 'End']);
 	const listRef = useRef<HTMLElement>(null);
 	const tabRefs = useRef(new Map<string, HTMLButtonElement>());
 
@@ -40,36 +42,29 @@ export const Tabs = ({ items, value, defaultValue, onChange }: TabsProps) => {
 		[]
 	);
 
+	const handleRovingFocus = useRovingFocus<HTMLButtonElement>({
+		containerRef: listRef,
+		itemSelector: '[role="tab"]:not([disabled])',
+		keyMap: {
+			next: 'ArrowRight',
+			prev: 'ArrowLeft',
+			first: 'Home',
+			last: 'End',
+		},
+	});
+
 	const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
-		const enabledTabs = items.filter((item) => !item.disabled);
-		const currentIndex = enabledTabs.findIndex((item) => item.id === activeId);
-		let nextIndex: number | null = null;
+		handleRovingFocus(event);
 
-		switch (event.key) {
-			case 'ArrowRight':
-				event.preventDefault();
-				nextIndex = (currentIndex + 1) % enabledTabs.length;
-				break;
-			case 'ArrowLeft':
-				event.preventDefault();
-				nextIndex =
-					(currentIndex - 1 + enabledTabs.length) % enabledTabs.length;
-				break;
-			case 'Home':
-				event.preventDefault();
-				nextIndex = 0;
-				break;
-			case 'End':
-				event.preventDefault();
-				nextIndex = enabledTabs.length - 1;
-				break;
+		if (!navigationKeys.has(event.key)) return;
+
+		const nextTab = Array.from(tabRefs.current.entries()).find(
+			([, element]) => element === document.activeElement
+		);
+
+		if (nextTab) {
+			select(nextTab[0]);
 		}
-
-		if (nextIndex === null) return;
-
-		const nextTab = enabledTabs[nextIndex];
-		select(nextTab.id);
-		tabRefs.current.get(nextTab.id)?.focus();
 	};
 
 	return (

@@ -2,7 +2,10 @@ import type { MouseEvent, MutableRefObject, Ref } from 'react';
 
 import type { ComputedFloatingPosition } from '@/utils/floatingPosition';
 
-import type { MenuContextValue } from './Menu.types';
+import type {
+	MenuContentStateContextValue,
+	MenuContextValue,
+} from './Menu.types';
 
 export const hasOpenChildSubmenu = (content: HTMLDivElement | null) =>
 	content?.querySelector('[data-menu-submenu-trigger][aria-expanded="true"]') !=
@@ -56,9 +59,9 @@ export const getMenuItemDataAttrs = ({
 });
 
 export const pickInheritedContentState = (
-	parent: MenuContextValue
+	parent: MenuContentStateContextValue & Pick<MenuContextValue, 'closeAll'>
 ): Pick<
-	MenuContextValue,
+	MenuContentStateContextValue & Pick<MenuContextValue, 'closeAll'>,
 	| 'closeAll'
 	| 'activeSubmenu'
 	| 'setActiveSubmenu'

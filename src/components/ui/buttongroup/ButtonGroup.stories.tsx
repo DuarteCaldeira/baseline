@@ -114,7 +114,7 @@ export const FullWidth: Story = {
 	),
 };
 
-export const MixedVariants: Story = {
+export const AllVariants: Story = {
 	render: () => (
 		<Stack direction="column" gap="lg">
 			<ButtonGroup aria-label="Secondary group">

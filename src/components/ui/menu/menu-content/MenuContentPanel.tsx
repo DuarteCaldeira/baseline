@@ -9,7 +9,11 @@ import { cn } from '@/utils/cn';
 import styles from '../Menu.module.scss';
 import type { MenuAlign, MenuContextValue } from '../Menu.types';
 import { hasOpenChildSubmenu, setFloatingPositionVars } from '../Menu.utils';
-import { MenuProvider, useMenuContext } from '../MenuContext';
+import {
+	MenuProvider,
+	useMenuContentStateContext,
+	useMenuControllerContext,
+} from '../MenuContext';
 import { useMenuContentState } from '../hooks/useMenuContentState';
 
 type MenuContentPanelProps = {
@@ -24,9 +28,11 @@ export const MenuContentPanel = ({
 	variant,
 }: MenuContentPanelProps) => {
 	const mounted = useMounted();
-	const parentContext = useMenuContext();
+	const controller = useMenuControllerContext();
+	const inheritedContentState = useMenuContentStateContext();
+	const parentContext = { ...controller, ...inheritedContentState };
 	const { menuId, isOpen, triggerRef, contentRef, handleContentKeyDown } =
-		parentContext;
+		controller;
 
 	const isDropdown = variant === 'dropdown';
 	const isSubmenu = variant === 'submenu';
@@ -56,9 +62,9 @@ export const MenuContentPanel = ({
 	if (isPortaled && !isOpen) return null;
 
 	const contentContext: MenuContextValue = {
-		...parentContext,
-		inContent: true,
+		...controller,
 		...contentState,
+		inContent: true,
 	};
 
 	const panel = (
@@ -74,12 +80,12 @@ export const MenuContentPanel = ({
 					isPortaled && styles[`menu__content--placement-${placement}`]
 				)}
 				onKeyDown={handleContentKeyDown}
-				onMouseEnter={isSubmenu ? parentContext.cancelSubmenuClose : undefined}
+				onMouseEnter={isSubmenu ? controller.cancelSubmenuClose : undefined}
 				onMouseLeave={
 					isSubmenu
 						? () => {
 								if (hasOpenChildSubmenu(contentRef.current)) return;
-								parentContext.scheduleSubmenuClose();
+								controller.scheduleSubmenuClose();
 							}
 						: undefined
 				}

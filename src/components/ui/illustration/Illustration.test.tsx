@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import { Illustration } from './Illustration';
+import styles from './Illustration.module.scss';
 
 const TestSvg = () => (
 	<svg data-testid="test-svg" viewBox="0 0 24 24">
@@ -27,7 +28,7 @@ describe('Illustration', () => {
 			</Illustration>
 		);
 
-		expect(container.firstChild).toHaveAttribute('aria-hidden', 'true');
+		expect(container.firstElementChild).toHaveAttribute('aria-hidden', 'true');
 	});
 
 	it('applies size modifier class', () => {
@@ -37,7 +38,7 @@ describe('Illustration', () => {
 			</Illustration>
 		);
 
-		expect(container.querySelector('.illustration--lg')).toBeInTheDocument();
+		expect(container.firstElementChild).toHaveClass(styles['illustration--lg']);
 	});
 
 	it('marks the root element for EmptyState icon slot styling', () => {
@@ -47,6 +48,6 @@ describe('Illustration', () => {
 			</Illustration>
 		);
 
-		expect(container.firstChild).toHaveAttribute('data-illustration');
+		expect(container.firstElementChild).toHaveAttribute('data-illustration');
 	});
 });

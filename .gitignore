@@ -8,6 +8,8 @@ out/
 dist/
 build/
 storybook-static/
+tsconfig.tsbuildinfo
+tsconfig.storybook.tsbuildinfo
 
 # Testing
 coverage/
@@ -23,6 +25,9 @@ coverage/
 *.swo
 *~
 .DS_Store
+
+# Local AI task memory
+.ai/memory/current-task.md
 
 # Logs
 npm-debug.log*

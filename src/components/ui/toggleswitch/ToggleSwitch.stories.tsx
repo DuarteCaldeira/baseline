@@ -64,6 +64,30 @@ export const WithError: Story = {
 	},
 };
 
+export const SettingsList: Story = {
+	render: () => (
+		<Stack direction="column" gap="lg" style={{ width: '22rem' }}>
+			<ToggleSwitch
+				id="email-notifications"
+				label="Email notifications"
+				defaultChecked
+				helperText="Get updates about your account."
+			/>
+			<ToggleSwitch
+				id="marketing"
+				label="Marketing emails"
+				helperText="Product news and feature announcements."
+			/>
+			<ToggleSwitch
+				id="security-alerts"
+				label="Security alerts"
+				defaultChecked
+				helperText="Important alerts about your account security."
+			/>
+		</Stack>
+	),
+};
+
 export const AllStates: Story = {
 	render: () => (
 		<Stack direction="column" gap="lg">
@@ -85,30 +109,6 @@ export const AllStates: Story = {
 				id="all-error"
 				label="With error"
 				error="This field is required."
-			/>
-		</Stack>
-	),
-};
-
-export const SettingsList: Story = {
-	render: () => (
-		<Stack direction="column" gap="lg" style={{ width: '22rem' }}>
-			<ToggleSwitch
-				id="email-notifications"
-				label="Email notifications"
-				defaultChecked
-				helperText="Get updates about your account."
-			/>
-			<ToggleSwitch
-				id="marketing"
-				label="Marketing emails"
-				helperText="Product news and feature announcements."
-			/>
-			<ToggleSwitch
-				id="security-alerts"
-				label="Security alerts"
-				defaultChecked
-				helperText="Important alerts about your account security."
 			/>
 		</Stack>
 	),

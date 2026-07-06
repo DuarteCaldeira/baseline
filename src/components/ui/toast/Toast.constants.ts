@@ -1,0 +1,2 @@
+export const TOAST_DISMISS_DELAY = 6000;
+export const TOAST_EXIT_DURATION = 300;

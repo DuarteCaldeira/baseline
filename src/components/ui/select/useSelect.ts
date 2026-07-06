@@ -2,10 +2,11 @@ import {
 	type KeyboardEvent,
 	type RefObject,
 	useCallback,
-	useEffect,
 	useRef,
 	useState,
 } from 'react';
+
+import { useDismissibleLayer } from '@/hooks/useDismissibleLayer';
 
 type UseSelectOptions = {
 	optionsCount: number;
@@ -42,10 +43,19 @@ export const useSelect = <T extends HTMLElement = HTMLElement>({
 	const containerRef = useRef<HTMLDivElement>(null);
 	const triggerRef = useRef<T>(null);
 
+	const { restoreFocus } = useDismissibleLayer({
+		isOpen,
+		onDismiss: () => setIsOpen(false),
+		refs: [containerRef, overlayRef].filter(Boolean) as Array<
+			RefObject<HTMLElement | null>
+		>,
+		triggerRef: triggerRef as RefObject<HTMLElement | null>,
+	});
+
 	const close = useCallback(() => {
 		setIsOpen(false);
-		triggerRef.current?.focus();
-	}, []);
+		restoreFocus();
+	}, [restoreFocus]);
 
 	const open = useCallback(
 		(startIndex = initialActiveIndex) => {
@@ -55,20 +65,6 @@ export const useSelect = <T extends HTMLElement = HTMLElement>({
 		},
 		[isDisabled, initialActiveIndex]
 	);
-
-	useEffect(() => {
-		if (!isOpen) return;
-
-		const handlePointerDown = (e: PointerEvent) => {
-			const target = e.target as Node;
-			if (containerRef.current?.contains(target)) return;
-			if (overlayRef?.current?.contains(target)) return;
-			close();
-		};
-
-		document.addEventListener('pointerdown', handlePointerDown);
-		return () => document.removeEventListener('pointerdown', handlePointerDown);
-	}, [isOpen, close, overlayRef]);
 
 	const moveTo = useCallback(
 		(index: number) => {
