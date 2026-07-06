@@ -1,0 +1,21 @@
+@use '@/styles/tokens/radius' as *;
+@use '@/styles/tokens/shadows' as *;
+
+.card {
+	min-width: 0;
+	background-color: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: $radius-xl;
+	box-shadow: $shadow-sm;
+	overflow: auto;
+
+	&--fill {
+		flex: 1;
+		min-height: 0;
+		height: 100%;
+	}
+
+	&--overflow-hidden {
+		overflow: hidden;
+	}
+}

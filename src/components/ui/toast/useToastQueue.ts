@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import type { ToastItem, ToastQueueItem } from './Toast.types';
 import { TOAST_DISMISS_DELAY, TOAST_EXIT_DURATION } from './Toast.constants';
+import type { ToastItem, ToastQueueItem } from './Toast.types';
 
 type ToastTimerHandles = {
 	startExit: ReturnType<typeof setTimeout>;

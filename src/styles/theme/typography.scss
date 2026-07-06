@@ -22,6 +22,14 @@
 		#{$font-family-sans};
 	--font-lg-relaxed: #{$font-weight-regular}
 		#{$font-size-lg}/#{$line-height-relaxed} #{$font-family-sans};
+	--font-heading-sm: #{$font-weight-semibold}
+		#{$font-size-base}/#{$line-height-snug} #{$font-family-sans};
+	--font-heading-md: #{$font-weight-semibold}
+		#{$font-size-xl}/#{$line-height-tight} #{$font-family-sans};
+	--font-heading-lg: #{$font-weight-semibold}
+		#{$font-size-2xl}/#{$line-height-snug} #{$font-family-sans};
+	--font-heading-xl: #{$font-weight-bold}
+		#{$font-size-4xl}/#{$line-height-tight} #{$font-family-sans};
 	--font-label: #{$font-weight-medium} #{$font-size-sm}/#{$line-height-normal}
 		#{$font-family-sans};
 	--font-control: #{$font-weight-medium} #{$font-size-sm}/#{$line-height-tight}
