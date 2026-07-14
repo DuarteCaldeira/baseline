@@ -47,7 +47,9 @@ export const AllVariants: Story = {
 				<Text variant="lead">
 					Lead text gives important supporting copy a bit more presence.
 				</Text>
-				<Text variant="label">Label text helps identify fields and values.</Text>
+				<Text variant="label">
+					Label text helps identify fields and values.
+				</Text>
 				<Text variant="caption" tone="muted">
 					Caption text is useful for timestamps, helper text, and notes.
 				</Text>

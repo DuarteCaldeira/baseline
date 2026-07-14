@@ -4,12 +4,19 @@ import {
 	AlignLeft,
 	AlignRight,
 	Bold,
+	ChevronDown,
 	Italic,
 	Underline,
 } from 'lucide-react';
 
 import { Stack } from '@/components/layout/stack';
 import { Button } from '@/components/ui/button';
+import {
+	Menu,
+	MenuContent,
+	MenuItem,
+	MenuTrigger,
+} from '@/components/ui/menu';
 import { withSurfaceInline } from '@/storybook/decorators';
 
 import { ButtonGroup } from './ButtonGroup';
@@ -62,6 +69,29 @@ export const Primary: Story = {
 		<ButtonGroup {...args} aria-label="Save options">
 			<Button variant="primary">Save</Button>
 			<Button variant="primary">Save &amp; close</Button>
+		</ButtonGroup>
+	),
+};
+
+export const SplitPrimaryWithMenu: Story = {
+	name: 'Split primary with menu',
+	render: (args) => (
+		<ButtonGroup {...args} aria-label="Publish options">
+			<Button variant="primary">Publish</Button>
+			<Menu>
+				<MenuTrigger>
+					<Button
+						variant="primary"
+						icon={ChevronDown}
+						aria-label="More options"
+					/>
+				</MenuTrigger>
+				<MenuContent align="end">
+					<MenuItem>Publish draft</MenuItem>
+					<MenuItem>Schedule publish</MenuItem>
+					<MenuItem>Save as template</MenuItem>
+				</MenuContent>
+			</Menu>
 		</ButtonGroup>
 	),
 };

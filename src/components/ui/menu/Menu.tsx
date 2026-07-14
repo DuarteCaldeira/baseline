@@ -14,6 +14,7 @@ export const Menu = ({
 	variant = 'dropdown',
 	children,
 	'aria-label': ariaLabel = 'Menu',
+	...rest
 }: MenuProps) => {
 	const parent = useOptionalMenuContext();
 	const menuId = useId();
@@ -43,6 +44,7 @@ export const Menu = ({
 		return (
 			<MenuProvider value={context}>
 				<nav
+					{...rest}
 					ref={context.menubarRef}
 					role="menubar"
 					aria-label={ariaLabel}
@@ -58,6 +60,7 @@ export const Menu = ({
 	return (
 		<MenuProvider value={context}>
 			<div
+				{...rest}
 				ref={context.containerRef}
 				className={cn(styles.menu, styles['menu--dropdown'])}
 			>

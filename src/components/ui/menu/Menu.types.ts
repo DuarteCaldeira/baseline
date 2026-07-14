@@ -1,5 +1,6 @@
 import type {
 	ComponentProps,
+	HTMLAttributes,
 	KeyboardEvent,
 	ReactNode,
 	RefObject,
@@ -17,7 +18,8 @@ export type MenuChildrenProps = {
 	children: ReactNode;
 };
 
-export type MenuProps = MenuChildrenProps & {
+export type MenuProps = MenuChildrenProps &
+	Omit<HTMLAttributes<HTMLElement>, 'className' | 'children'> & {
 	variant?: MenuVariant;
 	'aria-label'?: string;
 };

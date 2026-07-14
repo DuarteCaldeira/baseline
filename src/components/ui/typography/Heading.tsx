@@ -9,7 +9,10 @@ export type HeadingAs = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 export type HeadingSize = 'sm' | 'md' | 'lg' | 'xl';
 export type HeadingTone = 'default' | 'muted' | 'inherit';
 
-export type HeadingProps = Omit<HTMLAttributes<HTMLHeadingElement>, 'children'> & {
+export type HeadingProps = Omit<
+	HTMLAttributes<HTMLHeadingElement>,
+	'children'
+> & {
 	as?: HeadingAs;
 	children: ReactNode;
 	size?: HeadingSize;

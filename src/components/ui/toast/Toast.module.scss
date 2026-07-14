@@ -8,7 +8,7 @@
 	top: $spacing-4;
 	right: $spacing-4;
 	z-index: var(--z-index-toast, #{$z-index-toast});
-	width: 20rem;
+	width: 25rem;
 	max-width: calc(100vw - #{$spacing-8});
 	pointer-events: none;
 }

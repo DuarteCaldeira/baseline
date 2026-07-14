@@ -25,6 +25,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
+	min-height: 2rem;
 	padding: $spacing-2 $spacing-3;
 	border: none;
 	border-radius: $radius-md;
@@ -98,7 +99,7 @@
 	&--menubar {
 		display: inline-flex;
 		align-items: center;
-		gap: 0;
+		gap: $spacing-1;
 		padding: $spacing-1;
 		@include menu-panel-surface;
 	}
@@ -107,11 +108,19 @@
 		position: relative;
 		display: flex;
 		flex-direction: column;
-		gap: 0;
+		gap: $spacing-1;
 		min-width: 12rem;
-		padding: $spacing-1;
+		padding: $spacing-2;
+		transform-origin: top left;
 		@include floating-panel-surface;
-		@include floating-panel-enter-bottom;
+		animation: menu-content-enter-bottom $duration-moderate
+			cubic-bezier(0.18, 1.28, 0.32, 1);
+
+		&[data-state='closing'] {
+			pointer-events: none;
+			animation: menu-content-exit-bottom $duration-moderate
+				cubic-bezier(0.4, 0, 0.2, 1) forwards;
+		}
 
 		&--floating {
 			position: fixed;
@@ -123,14 +132,33 @@
 
 		&--placement-right {
 			z-index: calc(var(--z-index-floating) + 1);
-			@include floating-panel-enter-right;
+			transform-origin: left top;
+			animation-name: menu-content-enter-right;
 			@include menu-side-bridge(left);
+
+			&[data-state='closing'] {
+				animation-name: menu-content-exit-right;
+			}
 		}
 
 		&--placement-left {
 			z-index: calc(var(--z-index-floating) + 1);
-			@include floating-panel-enter-left;
+			transform-origin: right top;
+			animation-name: menu-content-enter-left;
 			@include menu-side-bridge(right);
+
+			&[data-state='closing'] {
+				animation-name: menu-content-exit-left;
+			}
+		}
+
+		&--placement-top[data-state='closing'] {
+			animation-name: menu-content-exit-top;
+		}
+
+		&--placement-top {
+			transform-origin: bottom left;
+			animation-name: menu-content-enter-top;
 		}
 
 		[data-menu-item='true'],
@@ -138,7 +166,6 @@
 			@include menu-interactive-item;
 			width: 100%;
 			height: auto;
-			min-height: unset;
 		}
 	}
 
@@ -166,17 +193,137 @@
 	}
 
 	&__label {
-		margin: 0;
+		margin: 0 0 $spacing-1;
 		padding: $spacing-2 $spacing-3 $spacing-1;
 		font: var(--font-caption);
 		font-weight: var(--font-weight-medium);
 		color: var(--color-text-subtle);
+
+		&:not(:first-child) {
+			margin-top: $spacing-1;
+		}
 	}
 
 	&__separator {
 		height: 1px;
-		margin: 0;
+		margin: $spacing-1 0;
 		border: none;
 		background-color: var(--color-border);
+	}
+}
+
+@keyframes menu-content-enter-bottom {
+	from {
+		opacity: 0;
+		transform: translateY(-0.625rem) scale(0.9);
+	}
+
+	65% {
+		opacity: 1;
+		transform: translateY(0.0625rem) scale(1.025);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+@keyframes menu-content-enter-top {
+	from {
+		opacity: 0;
+		transform: translateY(0.625rem) scale(0.9);
+	}
+
+	65% {
+		opacity: 1;
+		transform: translateY(-0.0625rem) scale(1.025);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+@keyframes menu-content-enter-right {
+	from {
+		opacity: 0;
+		transform: translateX(-0.625rem) scale(0.9);
+	}
+
+	65% {
+		opacity: 1;
+		transform: translateX(0.0625rem) scale(1.025);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateX(0) scale(1);
+	}
+}
+
+@keyframes menu-content-enter-left {
+	from {
+		opacity: 0;
+		transform: translateX(0.625rem) scale(0.9);
+	}
+
+	65% {
+		opacity: 1;
+		transform: translateX(-0.0625rem) scale(1.025);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateX(0) scale(1);
+	}
+}
+
+@keyframes menu-content-exit-bottom {
+	from {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+
+	to {
+		opacity: 0;
+		transform: translateY(-0.5rem) scale(0.92);
+	}
+}
+
+@keyframes menu-content-exit-top {
+	from {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+
+	to {
+		opacity: 0;
+		transform: translateY(0.5rem) scale(0.92);
+	}
+}
+
+@keyframes menu-content-exit-right {
+	from {
+		opacity: 1;
+		transform: translateX(0) scale(1);
+	}
+
+	to {
+		opacity: 0;
+		transform: translateX(-0.5rem) scale(0.92);
+	}
+}
+
+@keyframes menu-content-exit-left {
+	from {
+		opacity: 1;
+		transform: translateX(0) scale(1);
+	}
+
+	to {
+		opacity: 0;
+		transform: translateX(0.5rem) scale(0.92);
 	}
 }

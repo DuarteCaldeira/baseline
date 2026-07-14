@@ -1,8 +1,15 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { ChevronDown } from 'lucide-react';
 import { describe, expect, it, vi } from 'vitest';
 
 import { Button } from '@/components/ui/button';
+import {
+	Menu,
+	MenuContent,
+	MenuItem,
+	MenuTrigger,
+} from '@/components/ui/menu';
 
 import { ButtonGroup } from './ButtonGroup';
 
@@ -108,5 +115,33 @@ describe('ButtonGroup', () => {
 		expect(
 			container.querySelector('.button-group--full-width')
 		).toBeInTheDocument();
+	});
+
+	it('marks menu-backed split buttons as group items', () => {
+		const { container } = render(
+			<ButtonGroup aria-label="Publish options">
+				<Button variant="primary">Publish</Button>
+				<Menu>
+					<MenuTrigger>
+						<Button
+							variant="primary"
+							icon={ChevronDown}
+							aria-label="More options"
+						/>
+					</MenuTrigger>
+					<MenuContent align="end">
+						<MenuItem>Schedule publish</MenuItem>
+					</MenuContent>
+				</Menu>
+			</ButtonGroup>
+		);
+
+		expect(
+			container.querySelector('[data-button-group-item="horizontal"] .button')
+		).toBeInTheDocument();
+		expect(screen.getByRole('button', { name: 'More options' })).toHaveAttribute(
+			'data-variant',
+			'primary'
+		);
 	});
 });

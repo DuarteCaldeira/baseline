@@ -4,6 +4,13 @@
 @use '@/styles/tokens/shadows' as *;
 @use '@/styles/tokens/motion' as *;
 
+$toggle-switch-track-width: 2.75rem;
+$toggle-switch-track-height: 1.5rem;
+$toggle-switch-track-border-width: 1.5px;
+$toggle-switch-thumb-size: 1.125rem;
+$toggle-switch-thumb-offset: 0.125rem;
+$toggle-switch-thumb-checked-offset: 1.25rem;
+
 .toggle-switch {
 	&--disabled {
 		@include control-field-wrapper-disabled;
@@ -16,32 +23,37 @@
 			cursor: not-allowed;
 		}
 
-		&:has(.toggle-switch__input:focus-visible) .toggle-switch__track {
-			@include control-field-toggle-track-focus;
+		&:has(.toggle-switch__input) {
+			&:has(:focus-visible) .toggle-switch__track {
+				@include control-field-toggle-track-focus;
+			}
+
+			&:has(:checked) {
+				.toggle-switch__track {
+					background-color: var(--color-primary);
+					border-color: var(--color-primary);
+				}
+
+				.toggle-switch__thumb {
+					transform: translateX($toggle-switch-thumb-checked-offset)
+						translateY(-50%);
+				}
+			}
 		}
 
-		&:has(.toggle-switch__input:checked) .toggle-switch__track {
-			background-color: var(--color-primary);
-			border-color: var(--color-primary);
-		}
-
-		&:has(.toggle-switch__input:checked) .toggle-switch__thumb {
-			transform: translateX(1.25rem) translateY(-50%);
-		}
-
-		.toggle-switch--error
-			&:has(.toggle-switch__input:focus-visible)
+		.toggle-switch--error &:has(.toggle-switch__input:focus-visible) {
 			.toggle-switch__track {
-			@include control-field-toggle-track-error-focus;
+				@include control-field-toggle-track-error-focus;
+			}
 		}
 	}
 
 	&__track {
 		position: relative;
 		flex-shrink: 0;
-		width: 2.75rem;
-		height: 1.5rem;
-		border: 1.5px solid var(--color-border-strong);
+		width: $toggle-switch-track-width;
+		height: $toggle-switch-track-height;
+		border: $toggle-switch-track-border-width solid var(--color-border-strong);
 		border-radius: $radius-full;
 		background-color: var(--color-bg-muted);
 		cursor: pointer;
@@ -61,9 +73,9 @@
 	&__thumb {
 		position: absolute;
 		top: 50%;
-		left: 0.125rem;
-		width: 1.125rem;
-		height: 1.125rem;
+		left: $toggle-switch-thumb-offset;
+		width: $toggle-switch-thumb-size;
+		height: $toggle-switch-thumb-size;
 		border-radius: $radius-full;
 		background-color: var(--color-surface);
 		box-shadow: $shadow-sm;

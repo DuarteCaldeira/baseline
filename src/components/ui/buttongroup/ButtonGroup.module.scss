@@ -1,4 +1,5 @@
 @use '@/styles/tokens/spacing' as *;
+@use './ButtonGroup.partial' as button-group;
 
 .button-group {
 	display: inline-flex;
@@ -21,4 +22,6 @@
 			flex: 1;
 		}
 	}
+
+	@include button-group.group-item-styles;
 }

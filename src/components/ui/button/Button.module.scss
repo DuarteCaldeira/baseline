@@ -3,7 +3,6 @@
 @use '@/styles/tokens/radius' as *;
 @use '@/styles/tokens/shadows' as *;
 @use '@/styles/tokens/motion' as *;
-@use '../buttongroup/ButtonGroup.partial' as button-group;
 @use '../togglebutton/ToggleButton.partial' as toggle-button;
 
 $button-transition:
@@ -18,7 +17,7 @@ $button-transition:
 	align-items: center;
 	justify-content: center;
 	gap: $spacing-2;
-	border-radius: $radius-md;
+	border-radius: $radius-xl;
 	white-space: nowrap;
 	user-select: none;
 	transition: $button-transition;
@@ -146,6 +145,5 @@ $button-transition:
 		}
 	}
 
-	@include button-group.group-item-styles;
 	@include toggle-button.styles;
 }

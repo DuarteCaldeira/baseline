@@ -1,4 +1,4 @@
-import { useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 
 import { FloatingPortal } from '@/components/patterns/floating-portal';
@@ -22,6 +22,8 @@ type MenuContentPanelProps = {
 	variant: 'dropdown' | 'submenu';
 };
 
+const MENU_EXIT_ANIMATION_MS = 200;
+
 export const MenuContentPanel = ({
 	children,
 	align,
@@ -37,6 +39,9 @@ export const MenuContentPanel = ({
 	const isDropdown = variant === 'dropdown';
 	const isSubmenu = variant === 'submenu';
 	const isPortaled = isDropdown || isSubmenu;
+	const wasOpenRef = useRef(isOpen);
+	const [isClosing, setIsClosing] = useState(false);
+	const shouldRender = isOpen || isClosing || wasOpenRef.current;
 
 	const { position, placement } = useFloatingPosition({
 		isOpen: isPortaled && isOpen,
@@ -53,13 +58,31 @@ export const MenuContentPanel = ({
 		parentContext,
 	});
 
+	useEffect(() => {
+		if (isOpen) {
+			wasOpenRef.current = true;
+			setIsClosing(false);
+			return;
+		}
+
+		if (!wasOpenRef.current) return;
+
+		setIsClosing(true);
+		const timeout = window.setTimeout(() => {
+			wasOpenRef.current = false;
+			setIsClosing(false);
+		}, MENU_EXIT_ANIMATION_MS);
+
+		return () => window.clearTimeout(timeout);
+	}, [isOpen]);
+
 	useLayoutEffect(() => {
 		const element = contentRef.current;
 		if (!element || !isPortaled || !position || !('width' in position)) return;
 		setFloatingPositionVars(element, position);
 	}, [contentRef, isPortaled, position]);
 
-	if (isPortaled && !isOpen) return null;
+	if (isPortaled && !shouldRender) return null;
 
 	const contentContext: MenuContextValue = {
 		...controller,
@@ -74,6 +97,8 @@ export const MenuContentPanel = ({
 				role="menu"
 				id={`${menuId}-content`}
 				aria-labelledby={`${menuId}-trigger`}
+				aria-hidden={!isOpen}
+				data-state={isOpen ? 'open' : 'closing'}
 				className={cn(
 					styles['menu__content'],
 					isPortaled && styles['menu__content--floating'],
@@ -98,7 +123,7 @@ export const MenuContentPanel = ({
 
 	if (isPortaled && mounted) {
 		return (
-			<FloatingPortal mounted={mounted} isOpen={isOpen}>
+			<FloatingPortal mounted={mounted} isOpen={shouldRender}>
 				{panel}
 			</FloatingPortal>
 		);
