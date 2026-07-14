@@ -20,9 +20,9 @@ export type MenuChildrenProps = {
 
 export type MenuProps = MenuChildrenProps &
 	Omit<HTMLAttributes<HTMLElement>, 'className' | 'children'> & {
-	variant?: MenuVariant;
-	'aria-label'?: string;
-};
+		variant?: MenuVariant;
+		'aria-label'?: string;
+	};
 
 export type MenuTriggerProps = MenuChildrenProps;
 

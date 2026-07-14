@@ -4,12 +4,7 @@ import { ChevronDown } from 'lucide-react';
 import { describe, expect, it, vi } from 'vitest';
 
 import { Button } from '@/components/ui/button';
-import {
-	Menu,
-	MenuContent,
-	MenuItem,
-	MenuTrigger,
-} from '@/components/ui/menu';
+import { Menu, MenuContent, MenuItem, MenuTrigger } from '@/components/ui/menu';
 
 import { ButtonGroup } from './ButtonGroup';
 
@@ -139,9 +134,8 @@ describe('ButtonGroup', () => {
 		expect(
 			container.querySelector('[data-button-group-item="horizontal"] .button')
 		).toBeInTheDocument();
-		expect(screen.getByRole('button', { name: 'More options' })).toHaveAttribute(
-			'data-variant',
-			'primary'
-		);
+		expect(
+			screen.getByRole('button', { name: 'More options' })
+		).toHaveAttribute('data-variant', 'primary');
 	});
 });

@@ -11,12 +11,7 @@ import {
 
 import { Stack } from '@/components/layout/stack';
 import { Button } from '@/components/ui/button';
-import {
-	Menu,
-	MenuContent,
-	MenuItem,
-	MenuTrigger,
-} from '@/components/ui/menu';
+import { Menu, MenuContent, MenuItem, MenuTrigger } from '@/components/ui/menu';
 import { withSurfaceInline } from '@/storybook/decorators';
 
 import { ButtonGroup } from './ButtonGroup';

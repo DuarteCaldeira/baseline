@@ -118,7 +118,8 @@
 	}
 
 	> [data-button-group-item='horizontal']:not(:only-child):first-child,
-	> [data-button-group-item='horizontal']:not(:only-child):first-child > button {
+	> [data-button-group-item='horizontal']:not(:only-child):first-child
+		> button {
 		border-radius: $radius-lg 0 0 $radius-lg;
 	}
 
