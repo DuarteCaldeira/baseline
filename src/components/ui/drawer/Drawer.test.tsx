@@ -1,4 +1,10 @@
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import {
+	fireEvent,
+	render,
+	screen,
+	waitFor,
+	within,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -80,14 +86,17 @@ describe('Drawer', () => {
 		expect(screen.getByRole('dialog').className).toMatch(/drawer--closing/);
 	});
 
-	it('unmounts after exit animation completes', () => {
+	it('unmounts after exit animation completes', async () => {
 		const { rerender } = render(<Drawer {...defaultProps} />);
 		rerender(<Drawer {...defaultProps} isOpen={false} />);
 
 		const panel = screen.getByRole('dialog');
-		fireEvent.animationEnd(panel);
+		// React falls back to the prefixed event in jsdom because AnimationEvent is missing.
+		fireEvent(panel, new Event('webkitAnimationEnd', { bubbles: true }));
 
-		expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+		await waitFor(() => {
+			expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+		});
 	});
 
 	it('locks body scroll when open', () => {

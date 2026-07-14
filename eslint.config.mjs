@@ -1,16 +1,16 @@
-import js from "@eslint/js";
-import { defineConfig } from "eslint/config";
-import globals from "globals";
-import tseslint from "typescript-eslint";
+import js from '@eslint/js';
+import { defineConfig } from 'eslint/config';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
 export default defineConfig(
 	{
 		ignores: [
-			"node_modules/**",
-			".next/**",
-			"out/**",
-			"dist/**",
-			"storybook-static/**",
+			'node_modules/**',
+			'.next/**',
+			'out/**',
+			'dist/**',
+			'storybook-static/**',
 		],
 	},
 
@@ -18,11 +18,11 @@ export default defineConfig(
 	...tseslint.configs.recommended,
 
 	{
-		files: ["**/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx}"],
+		files: ['**/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx}'],
 
 		languageOptions: {
-			ecmaVersion: "latest",
-			sourceType: "module",
+			ecmaVersion: 'latest',
+			sourceType: 'module',
 
 			globals: {
 				...globals.browser,
@@ -38,35 +38,35 @@ export default defineConfig(
 		},
 
 		rules: {
-			"no-nested-ternary": "error",
-			"no-console": [
-				"warn",
+			'no-nested-ternary': 'error',
+			'no-console': [
+				'warn',
 				{
-					allow: ["warn", "error"],
+					allow: ['warn', 'error'],
 				},
 			],
 		},
 	},
 
 	{
-		files: ["**/*.{ts,mts,cts,tsx}"],
+		files: ['**/*.{ts,mts,cts,tsx}'],
 
 		rules: {
-			"@typescript-eslint/no-unused-vars": [
-				"warn",
+			'@typescript-eslint/no-unused-vars': [
+				'warn',
 				{
-					argsIgnorePattern: "^_",
+					argsIgnorePattern: '^_',
 				},
 			],
 
-			"@typescript-eslint/no-explicit-any": "warn",
+			'@typescript-eslint/no-explicit-any': 'warn',
 
-			"@typescript-eslint/consistent-type-imports": [
-				"error",
+			'@typescript-eslint/consistent-type-imports': [
+				'error',
 				{
-					prefer: "type-imports",
+					prefer: 'type-imports',
 				},
 			],
 		},
-	},
+	}
 );
