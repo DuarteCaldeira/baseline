@@ -42,9 +42,7 @@ export const Progress = ({
 			aria-valuemin={0}
 			aria-valuemax={safeMax}
 			aria-valuenow={indeterminate ? undefined : safeValue}
-			aria-valuetext={
-				indeterminate ? 'Loading' : `${Math.round(percentage)}%`
-			}
+			aria-valuetext={indeterminate ? 'Loading' : `${Math.round(percentage)}%`}
 			className={cn(
 				styles.progress,
 				styles[`progress--${size}`],

@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import type { Meta, StoryObj } from '@storybook/react';
 import { Hash, Tag as TagIcon } from 'lucide-react';
 

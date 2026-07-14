@@ -39,7 +39,11 @@ describe('Heading', () => {
 			name: 'Section title',
 		});
 
-		expect(heading).toHaveClass('heading', 'heading--lg', 'heading--tone-default');
+		expect(heading).toHaveClass(
+			'heading',
+			'heading--lg',
+			'heading--tone-default'
+		);
 	});
 
 	it('uses the default size mapped from the heading level', () => {

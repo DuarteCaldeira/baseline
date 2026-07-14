@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import type { KeyboardEvent, RefObject } from 'react';
 
-type UseRovingFocusOptions<T extends HTMLElement> = {
+type UseRovingFocusOptions = {
 	containerRef: RefObject<HTMLElement | null>;
 	itemSelector: string;
 	keyMap: {
@@ -16,7 +16,7 @@ export const useRovingFocus = <T extends HTMLElement>({
 	containerRef,
 	itemSelector,
 	keyMap,
-}: UseRovingFocusOptions<T>) =>
+}: UseRovingFocusOptions) =>
 	useCallback(
 		(event: KeyboardEvent<T>) => {
 			const items = Array.from(

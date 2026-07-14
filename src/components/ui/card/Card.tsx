@@ -2,7 +2,10 @@ import type { HTMLAttributes, ReactNode } from 'react';
 
 import { Stack } from '@/components/layout/stack';
 import type { StackAs } from '@/components/layout/stack';
-import type { StackSpacing, StackSpacingValue } from '@/components/layout/stack';
+import type {
+	StackSpacing,
+	StackSpacingValue,
+} from '@/components/layout/stack';
 import { cn } from '@/utils/cn';
 
 import styles from './Card.module.scss';

@@ -68,7 +68,9 @@ export const AllVariants: Story = {
 					<Text tone="muted">
 						Useful for dashboard panels and scrollable layout regions.
 					</Text>
-					<div style={{ minHeight: '12rem', background: 'var(--color-bg-subtle)' }} />
+					<div
+						style={{ minHeight: '12rem', background: 'var(--color-bg-subtle)' }}
+					/>
 				</Card>
 			</div>
 		</Stack>
