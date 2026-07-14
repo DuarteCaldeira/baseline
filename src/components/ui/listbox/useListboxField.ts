@@ -9,7 +9,7 @@ import type { SelectOption } from '../select';
 import { useSelect } from '../select/useSelect';
 import { getOptionId, scrollOptionIntoView } from './Listbox.utils';
 
-type UseListboxFieldOptions<T extends HTMLElement> = {
+type UseListboxFieldOptions = {
 	id: string;
 	options: SelectOption[];
 	initialActiveIndex: number;
@@ -36,7 +36,7 @@ export const useListboxField = <T extends HTMLElement>({
 	disabled,
 	closeOnSelect = true,
 	onOptionConfirm,
-}: UseListboxFieldOptions<T>): UseListboxFieldReturn<T> => {
+}: UseListboxFieldOptions): UseListboxFieldReturn<T> => {
 	const listboxRef = useRef<HTMLUListElement>(null);
 	const mounted = useMounted();
 

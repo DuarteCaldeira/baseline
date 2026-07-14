@@ -65,7 +65,6 @@ export const MultiSelect = ({
 		activeIndex,
 		containerRef,
 		triggerRef,
-		close,
 		listboxRef,
 		mounted,
 		placement,
