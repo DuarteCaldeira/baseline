@@ -92,6 +92,22 @@ describe('Button', () => {
 				container.querySelector('.button--icon-only')
 			).not.toBeInTheDocument();
 		});
+
+		it('renders the icon before the label by default', () => {
+			const { container } = render(<Button icon={Star}>Favourite</Button>);
+			const button = screen.getByRole('button', { name: /favourite/i });
+			expect(button.firstElementChild).toBe(container.querySelector('.icon'));
+		});
+
+		it('renders the icon after the label when iconPosition is right', () => {
+			const { container } = render(
+				<Button icon={Star} iconPosition="right">
+					Favourite
+				</Button>
+			);
+			const button = screen.getByRole('button', { name: /favourite/i });
+			expect(button.lastElementChild).toBe(container.querySelector('.icon'));
+		});
 	});
 
 	describe('icon-only', () => {

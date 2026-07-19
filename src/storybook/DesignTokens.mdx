@@ -21,15 +21,15 @@ Use in **`.module.scss` files** for layout, spacing, radii, shadows, and compile
 }
 ```
 
-| Token file         | Examples                                | When to use                                                              |
-| ------------------ | --------------------------------------- | ------------------------------------------------------------------------ |
-| `spacing.scss`     | `$spacing-2`, `$spacing-4`              | Padding, gap, margin in component SCSS                                   |
-| `radius.scss`      | `$radius-sm`, `$radius-md`              | Border radius on surfaces and controls                                   |
-| `shadows.scss`     | `$shadow-sm`, `$shadow-md`              | Elevation in SCSS (prefer theme vars when color must follow theme)       |
-| `breakpoints.scss` | `$breakpoint-sm`                        | Media queries in SCSS                                                    |
-| `motion.scss`      | `$duration-fast`, `$ease-out`           | Transitions and animations in SCSS                                       |
-| `z-index.scss`     | `$z-index-overlay`, `$z-index-floating` | Source values for layering custom properties                             |
-| `colors.scss`      | `$color-primary-600`                    | **Only** when defining theme custom properties — not in component styles |
+| Token file         | Examples                                  | When to use                                                              |
+| ------------------ | ----------------------------------------- | ------------------------------------------------------------------------ |
+| `spacing.scss`     | `$spacing-2`, `$spacing-4`                | Padding, gap, margin in component SCSS                                   |
+| `radius.scss`      | `$radius-md`, `$radius-xl`, `$radius-3xl` | Border radius on surfaces and controls                                   |
+| `shadows.scss`     | `$shadow-sm`, `$shadow-md`                | Elevation in SCSS (prefer theme vars when color must follow theme)       |
+| `breakpoints.scss` | `$breakpoint-sm`                          | Media queries in SCSS                                                    |
+| `motion.scss`      | `$duration-fast`, `$ease-out`             | Transitions and animations in SCSS                                       |
+| `z-index.scss`     | `$z-index-overlay`, `$z-index-floating`   | Source values for layering custom properties                             |
+| `colors.scss`      | `$color-primary-600`                      | **Only** when defining theme custom properties — not in component styles |
 
 **Rule of thumb:** if it is structural (size, space, motion) and lives in a module stylesheet, use `$spacing-*`, `$radius-*`, etc.
 

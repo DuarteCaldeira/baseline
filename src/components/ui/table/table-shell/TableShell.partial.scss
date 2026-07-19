@@ -5,7 +5,7 @@
 
 @mixin styles {
 	border: 1px solid var(--color-border);
-	border-radius: $radius-xl;
+	border-radius: $radius-3xl;
 	background: var(--color-surface);
 	overflow: hidden;
 	box-shadow: $shadow-sm;

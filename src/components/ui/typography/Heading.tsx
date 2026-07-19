@@ -17,6 +17,7 @@ export type HeadingProps = Omit<
 	children: ReactNode;
 	size?: HeadingSize;
 	tone?: HeadingTone;
+	truncate?: boolean;
 };
 
 const DEFAULT_SIZE_BY_LEVEL: Record<HeadingAs, HeadingSize> = {
@@ -33,6 +34,7 @@ export const Heading = ({
 	children,
 	size,
 	tone = 'default',
+	truncate = false,
 	className,
 	...rest
 }: HeadingProps) =>
@@ -43,6 +45,7 @@ export const Heading = ({
 				styles.heading,
 				styles[`heading--${size ?? DEFAULT_SIZE_BY_LEVEL[Component]}`],
 				styles[`heading--tone-${tone}`],
+				truncate && styles.truncate,
 				className
 			),
 			...rest,

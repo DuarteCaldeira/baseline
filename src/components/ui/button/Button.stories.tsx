@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Plus, Star, Trash2, X } from 'lucide-react';
+import { ArrowRight, Plus, Star, Trash2, X } from 'lucide-react';
 
 import { Stack } from '@/components/layout/stack';
 
@@ -17,6 +17,10 @@ const meta: Meta<typeof Button> = {
 		size: {
 			control: 'select',
 			options: ['sm', 'md', 'lg'],
+		},
+		iconPosition: {
+			control: 'inline-radio',
+			options: ['left', 'right'],
 		},
 		disabled: { control: 'boolean' },
 		isLoading: { control: 'boolean' },
@@ -56,6 +60,11 @@ export const Loading: Story = {
 
 export const WithIcon: Story = {
 	args: { icon: Star, children: 'Favourite' },
+};
+
+export const WithIconRight: Story = {
+	name: 'With Icon (right)',
+	args: { icon: ArrowRight, iconPosition: 'right', children: 'Next' },
 };
 
 export const IconOnly: Story = {

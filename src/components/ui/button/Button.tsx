@@ -26,6 +26,8 @@ type BaseProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> & {
 	variant?: 'primary' | 'secondary' | 'ghost';
 	size?: 'sm' | 'md' | 'lg';
 	iconOnly?: boolean;
+	/** Which side of the label the icon sits on. Defaults to `left`. */
+	iconPosition?: 'left' | 'right';
 	isLoading?: boolean;
 };
 
@@ -49,6 +51,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 			variant = 'primary',
 			size = 'md',
 			iconOnly,
+			iconPosition = 'left',
 			isLoading = false,
 			disabled,
 			children,
@@ -60,6 +63,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 		const isDisabled = disabled || isLoading;
 		const buttonProps = { ...rest } as ButtonHTMLAttributes<HTMLButtonElement>;
 		delete buttonProps.className;
+
+		const adornment = isLoading ? (
+			<Spinner size={SPINNER_SIZE[size ?? 'md']} />
+		) : (
+			IconComponent && (
+				<Icon icon={IconComponent} size={ICON_SIZE[size ?? 'md']} />
+			)
+		);
 
 		return (
 			<button
@@ -78,14 +89,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 				aria-busy={isLoading || undefined}
 				{...buttonProps}
 			>
-				{isLoading ? (
-					<Spinner size={SPINNER_SIZE[size ?? 'md']} />
-				) : (
-					IconComponent && (
-						<Icon icon={IconComponent} size={ICON_SIZE[size ?? 'md']} />
-					)
-				)}
+				{iconPosition === 'left' ? adornment : null}
 				{children}
+				{iconPosition === 'right' ? adornment : null}
 			</button>
 		);
 	}

@@ -1,11 +1,5 @@
 @use '../tokens/typography' as *;
 
-// Typography custom properties.
-// Font shorthands use the CSS `font` shorthand syntax:
-//   font-weight  font-size / line-height  font-family
-// Components consume these via `font: var(--font-*)`.
-// Letter-spacing and font-weight overrides remain as individual properties
-// because they are not reset by the `font` shorthand.
 :root {
 	// Families
 	--font-family-sans: #{$font-family-sans};

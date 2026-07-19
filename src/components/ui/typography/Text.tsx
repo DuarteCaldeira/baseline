@@ -12,6 +12,7 @@ export type TextTone = 'default' | 'muted' | 'subtle' | 'inherit';
 export type TextProps = Omit<HTMLAttributes<HTMLElement>, 'children'> & {
 	as?: TextAs;
 	children: ReactNode;
+	truncate?: boolean;
 	variant?: TextVariant;
 	tone?: TextTone;
 };
@@ -19,6 +20,7 @@ export type TextProps = Omit<HTMLAttributes<HTMLElement>, 'children'> & {
 export const Text = ({
 	as: Component = 'p',
 	children,
+	truncate = false,
 	variant = 'body',
 	tone = 'default',
 	className,
@@ -31,6 +33,7 @@ export const Text = ({
 				styles.text,
 				styles[`text--${variant}`],
 				styles[`text--tone-${tone}`],
+				truncate && styles.truncate,
 				className
 			),
 			...rest,

@@ -8,7 +8,7 @@
 	width: 100%;
 	max-height: calc(100vh - #{$spacing-8});
 	background-color: var(--color-surface);
-	border-radius: $radius-xl;
+	border-radius: $radius-3xl;
 	box-shadow: $shadow-xl;
 	animation: dialog-enter $duration-moderate $ease-default forwards;
 

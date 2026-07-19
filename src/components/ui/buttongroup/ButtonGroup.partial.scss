@@ -27,7 +27,7 @@
 		}
 
 		&:only-child {
-			border-radius: $radius-lg;
+			border-radius: $radius-xl;
 		}
 
 		&:not(:first-child):not(:last-child) {
@@ -37,7 +37,7 @@
 
 	> [data-button-group-item]:only-child,
 	> [data-button-group-item]:only-child > button {
-		border-radius: $radius-lg;
+		border-radius: $radius-xl;
 	}
 
 	> [data-button-group-item]:not(:first-child):not(:last-child),
@@ -120,21 +120,21 @@
 	> [data-button-group-item='horizontal']:not(:only-child):first-child,
 	> [data-button-group-item='horizontal']:not(:only-child):first-child
 		> button {
-		border-radius: $radius-lg 0 0 $radius-lg;
+		border-radius: $radius-xl 0 0 $radius-xl;
 	}
 
 	> [data-button-group-item='horizontal']:not(:only-child):last-child,
 	> [data-button-group-item='horizontal']:not(:only-child):last-child > button {
-		border-radius: 0 $radius-lg $radius-lg 0;
+		border-radius: 0 $radius-xl $radius-xl 0;
 	}
 
 	> [data-button-group-item='vertical']:not(:only-child):first-child,
 	> [data-button-group-item='vertical']:not(:only-child):first-child > button {
-		border-radius: $radius-lg $radius-lg 0 0;
+		border-radius: $radius-xl $radius-xl 0 0;
 	}
 
 	> [data-button-group-item='vertical']:not(:only-child):last-child,
 	> [data-button-group-item='vertical']:not(:only-child):last-child > button {
-		border-radius: 0 0 $radius-lg $radius-lg;
+		border-radius: 0 0 $radius-xl $radius-xl;
 	}
 }

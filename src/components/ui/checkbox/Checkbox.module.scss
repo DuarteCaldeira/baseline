@@ -18,7 +18,7 @@
 
 	&__input {
 		@include control-field-choice-input;
-		border-radius: $radius-base;
+		border-radius: $radius-md;
 
 		&:checked {
 			background-color: var(--color-primary);

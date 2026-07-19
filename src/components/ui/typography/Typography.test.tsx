@@ -29,6 +29,11 @@ describe('Text', () => {
 		render(<Text className="custom">Body copy</Text>);
 		expect(screen.getByText('Body copy')).toHaveClass('custom');
 	});
+
+	it('applies truncation styling when requested', () => {
+		render(<Text truncate>Long body copy</Text>);
+		expect(screen.getByText('Long body copy')).toHaveClass('truncate');
+	});
 });
 
 describe('Heading', () => {
@@ -67,5 +72,10 @@ describe('Heading', () => {
 	it('merges a custom className', () => {
 		render(<Heading className="custom">Section title</Heading>);
 		expect(screen.getByText('Section title')).toHaveClass('custom');
+	});
+
+	it('applies truncation styling when requested', () => {
+		render(<Heading truncate>Very long section title</Heading>);
+		expect(screen.getByText('Very long section title')).toHaveClass('truncate');
 	});
 });

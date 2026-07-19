@@ -27,7 +27,7 @@ coverage/
 .DS_Store
 
 # Local AI task memory
-.ai/memory/current-task.md
+.ai/
 
 # Logs
 npm-debug.log*
